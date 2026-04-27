@@ -3,18 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandesh Clone</title>
+    <title>Facebook - Sandesh Pro</title>
     <style>
-        body { font-family: Arial; background: #18191a; color: white; text-align: center; margin-top: 100px; }
-        .box { background: #242526; padding: 40px; border-radius: 15px; display: inline-block; border: 1px solid #3e4042; }
-        h1 { color: #2d88ff; }
+        body { font-family: Segoe UI, Helvetica, Arial, sans-serif; background-color: #f0f2f5; margin: 0; }
+        .navbar { background: #1877f2; color: white; padding: 10px 20px; font-size: 22px; font-weight: bold; position: sticky; top: 0; z-index: 1000; }
+        .container { max-width: 500px; margin: 20px auto; padding: 10px; }
+
+        /* Profile Card */
+        .profile-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 1px 2px rgba(0,0,0,0.2); text-align: center; padding-bottom: 20px; }
+        .cover { background: #0072ff; height: 100px; }
+        .profile-pic { width: 110px; height: 110px; border-radius: 50%; border: 4px solid white; margin-top: -55px; background: #ddd; }
+        
+        /* Blue Tick Style */
+        .name-container { display: flex; align-items: center; justify-content: center; margin-top: 10px; }
+        .profile-name { font-size: 24px; font-weight: bold; margin-right: 5px; }
+        .blue-tick { width: 20px; height: 20px; background-color: #1877f2; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; border: 1px solid white; }
+
+        /* Follow Button */
+        .follow-btn { background-color: #1877f2; color: white; border: none; padding: 8px 25px; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        .follow-btn.following { background-color: #e4e6eb; color: black; }
+
+        .video-feed { margin-top: 20px; }
+        .post { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        iframe { width: 100%; height: 300px; border-radius: 8px; border: none; }
     </style>
 </head>
 <body>
-    <div class="box">
-        <h1>Sandesh Clone</h1>
-        <p>Welcome to Sandesh's Official Social Media!</p>
-        <p>Status: Live Now 🚀</p>
+
+    <div class="navbar">facebook</div>
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="cover"></div>
+            <img src="https://via.placeholder.com/110" class="profile-pic" alt="Sandesh">
+            
+            <div class="name-container">
+                <div class="profile-name">Sandesh Master</div>
+                <div class="blue-tick" title="Verified Account">✓</div>
+            </div>
+            
+            <p style="color: gray; margin: 5px 0;">Ethical Hacker | Python Developer</p>
+            
+            <button class="follow-btn" id="followBtn" onclick="toggleFollow()">Follow</button>
+        </div>
+
+        <div class="video-feed">
+            <div class="post">
+                <p><b>Master Sandesh's New Reel</b></p>
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+            </div>
+        </div>
     </div>
+
+    <script>
+        function toggleFollow() {
+            let btn = document.getElementById('followBtn');
+            if (btn.innerHTML === "Follow") {
+                btn.innerHTML = "Following";
+                btn.classList.add('following');
+            } else {
+                btn.innerHTML = "Follow";
+                btn.classList.remove('following');
+            }
+        }
+    </script>
+
 </body>
 </html>
