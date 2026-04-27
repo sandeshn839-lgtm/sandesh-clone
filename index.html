@@ -1,137 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S-Connect | Sandesh Neupane</title>
-    <style>
-        :root {
-            --fb-blue: #0866ff;
-            --fb-bg: #f0f2f5;
-            --fb-white: #ffffff;
-            --fb-text: #1c1e21;
-            --fb-subtext: #65676b;
-        }
-        body { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; background-color: var(--fb-bg); margin: 0; color: var(--fb-text); }
-        
-        /* Navigation */
-        .navbar { background: var(--fb-white); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 1px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-        .logo { color: var(--fb-blue); font-size: 28px; font-weight: bold; letter-spacing: -1px; }
-        .nav-right { display: flex; gap: 15px; font-size: 20px; }
-
-        .main-content { max-width: 500px; margin: auto; padding: 10px; }
-
-        /* Stories Section */
-        .stories { display: flex; gap: 8px; overflow-x: auto; padding: 10px 0; scrollbar-width: none; }
-        .stories::-webkit-scrollbar { display: none; }
-        .story-card { min-width: 105px; height: 180px; border-radius: 12px; position: relative; overflow: hidden; background-color: #ddd; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .story-card img { width: 100%; height: 100%; object-fit: cover; }
-        .story-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.4)); }
-        .story-user { position: absolute; top: 8px; left: 8px; width: 32px; height: 32px; border: 3px solid var(--fb-blue); border-radius: 50%; overflow: hidden; }
-        .story-name { position: absolute; bottom: 8px; left: 8px; color: white; font-size: 11px; font-weight: bold; }
-
-        /* Post Box */
-        .post-box { background: var(--fb-white); border-radius: 8px; padding: 12px; margin-bottom: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .post-input-row { display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #e4e6eb; padding-bottom: 12px; }
-        .avatar { width: 40px; height: 40px; border-radius: 50%; background: #ddd; object-fit: cover; }
-        .fake-input { background: #f0f2f5; flex: 1; padding: 10px 15px; border-radius: 20px; color: var(--fb-subtext); font-size: 15px; }
-
-        /* Feed Post */
-        .post { background: var(--fb-white); border-radius: 8px; padding: 12px; margin-bottom: 15px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .post-user-info { flex: 1; }
-        .user-name { font-weight: bold; font-size: 15px; display: flex; align-items: center; gap: 4px; }
-        .blue-tick { width: 15px; height: 15px; background: var(--fb-blue); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; }
-        .post-time { font-size: 12px; color: var(--fb-subtext); }
-        .post-text { font-size: 15px; margin: 10px 0; line-height: 1.4; }
-        .post-image { width: calc(100% + 24px); margin-left: -12px; margin-right: -12px; max-height: 400px; object-fit: cover; }
-
-        /* Blue Tick Buy Modal */
-        #paymentModal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.2); z-index: 2000; width: 85%; max-width: 320px; text-align: center; }
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1500; }
-        .btn-pay { background: var(--fb-blue); color: white; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; margin-top: 10px; }
-    </style>
-</head>
-<body>
-
-<div class="navbar">
-    <div class="logo">S-Connect</div>
-    <div class="nav-right">
-        <span>➕</span> <span>🔍</span> <span>💬</span>
-    </div>
-</div>
-
-<div class="main-content">
-    <div class="stories">
-        <div class="story-card">
-            <img src="https://picsum.photos/seed/sandesh/200/300" alt="story">
-            <div class="story-overlay"></div>
-            <div class="story-user" style="background: var(--fb-blue); display:flex; align-items:center; justify-content:center; color:white;">+</div>
-            <div class="story-name">Create Story</div>
+<div id="reels-section" onscroll="handleReelScroll()">
+    <div id="reel-container">
+        <div class="reel-video">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=0" frameborder="0"></iframe>
+            <div class="reel-info"><b>Funny Reel #1</b><br>@sandesh_vlogs</div>
         </div>
-        <div class="story-card">
-            <img src="https://picsum.photos/seed/jyoti/200/300" alt="story">
-            <div class="story-overlay"></div>
-            <div class="story-user"><img src="https://picsum.photos/seed/u1/50/50"></div>
-            <div class="story-name">Jyoti Bhusal</div>
-        </div>
-        <div class="story-card">
-            <img src="https://picsum.photos/seed/muna/200/300" alt="story">
-            <div class="story-overlay"></div>
-            <div class="story-user"><img src="https://picsum.photos/seed/u2/50/50"></div>
-            <div class="story-name">Muna Parajuli</div>
+        <div class="reel-video">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=0&controls=0" frameborder="0"></iframe>
+            <div class="reel-info"><b>Funny Reel #2</b><br>@funny_nepal</div>
         </div>
     </div>
-
-    <div class="post-box">
-        <div class="post-input-row">
-            <img src="https://picsum.photos/seed/sandesh/50/50" class="avatar">
-            <div class="fake-input">What's on your mind, Sandesh?</div>
-        </div>
-        <div style="display: flex; justify-content: space-around; padding-top: 10px; font-size: 13px; color: var(--fb-subtext); font-weight: 600;">
-            <span>📹 Live</span> <span>🖼️ Photo</span> <span>🚩 Life Event</span>
-        </div>
-    </div>
-
-    <div class="post">
-        <div class="post-header">
-            <img src="https://picsum.photos/seed/sandesh/50/50" class="avatar">
-            <div class="post-user-info">
-                <div class="user-name">Sandesh Neupane <span class="blue-tick">✓</span></div>
-                <div class="post-time">Just now • 🌎</div>
-            </div>
-            <span style="color: var(--fb-subtext);">•••</span>
-        </div>
-        <div class="post-text">
-            S-Connect मा नयाँ अपडेट! अब Stories र Photos सबै लोड हुनेछन्। मन परेमा एउटा Like छोड्नुहोला! 😊🚀
-        </div>
-        <img src="https://picsum.photos/seed/project/600/400" class="post-image">
-    </div>
-
-    <div class="post" style="text-align: center;">
-        <p style="font-weight: bold;">तपाईं पनि Verified हुन चाहनुहुन्छ?</p>
-        <button onclick="openModal()" style="background: #e7f3ff; color: var(--fb-blue); border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer;">Buy Blue Tick</button>
-    </div>
-</div>
-
-<div class="modal-overlay" id="overlay" onclick="closeModal()"></div>
-<div id="paymentModal">
-    <h3 style="margin-top: 0;">Verified Badge</h3>
-    <p>Blue Tick प्राप्त गर्न Rs. 500 शुल्क लाग्नेछ।</p>
-    <p style="font-size: 14px; color: #65676b;">भुक्तानीको लागि एडमिन (Sandesh) लाई सम्पर्क गर्नुहोस्।</p>
-    <button class="btn-pay" onclick="closeModal()">बुझेँ</button>
+    <div id="loading-reels" style="color:white; text-align:center; padding:20px; display:none;">Loading more...</div>
 </div>
 
 <script>
-    function openModal() {
-        document.getElementById('paymentModal').style.display = 'block';
-        document.getElementById('overlay').style.display = 'block';
+    // भिडियोहरूको लिङ्क सूची (तिमीले यहाँ अरू थप्न सक्छौ)
+    const videoList = [
+        "https://www.youtube.com/embed/9bZkp7q19f0",
+        "https://www.youtube.com/embed/2Vv-BfVoq4g",
+        "https://www.youtube.com/embed/L_jWHffIx5E",
+        "https://www.youtube.com/embed/7wtfhZwyrcc"
+    ];
+
+    function handleReelScroll() {
+        const section = document.getElementById('reels-section');
+        const container = document.getElementById('reel-container');
+        
+        // यदि प्रयोगकर्ता अन्तिम तिर पुग्यो भने नयाँ भिडियो थप्ने
+        if (section.scrollTop + section.clientHeight >= section.scrollHeight - 5) {
+            addNewReel();
+        }
     }
-    function closeModal() {
-        document.getElementById('paymentModal').style.display = 'none';
-        document.getElementById('overlay').style.display = 'none';
+
+    function addNewReel() {
+        const container = document.getElementById('reel-container');
+        const loader = document.getElementById('loading-reels');
+        
+        loader.style.display = "block";
+
+        // रेन्डम भिडियो छान्ने
+        const randomVid = videoList[Math.floor(Math.random() * videoList.length)];
+        const reelCount = container.children.length + 1;
+
+        // नयाँ भिडियो कार्ड बनाउने
+        const newReel = document.createElement('div');
+        newReel.className = 'reel-video';
+        newReel.innerHTML = `
+            <iframe width="100%" height="100%" src="${randomVid}?autoplay=0&controls=0" frameborder="0"></iframe>
+            <div class="reel-info"><b>Funny Reel #${reelCount}</b><br>@S-Connect_Viral</div>
+        `;
+
+        // १ सेकेन्डको लोड पछि थप्ने (वास्तविक देखिनको लागि)
+        setTimeout(() => {
+            container.appendChild(newReel);
+            loader.style.display = "none";
+        }, 800);
     }
 </script>
-
-</body>
-</html>
