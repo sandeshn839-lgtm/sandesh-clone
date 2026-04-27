@@ -3,50 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S-Connect</title>
+    <title>S-Connect | Full Version</title>
     <style>
-        :root { --blue: #0866ff; --bg: #f0f2f5; }
-        body { font-family: Segoe UI, sans-serif; background: var(--bg); margin: 0; }
+        :root { --blue: #0866ff; --bg: #f0f2f5; --text: #1c1e21; --sub: #65676b; }
+        body { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); margin: 0; }
         
-        /* Navbar & Tabs */
-        .navbar { background: white; padding: 10px 15px; display: flex; justify-content: space-between; box-shadow: 0 1px 4px rgba(0,0,0,0.1); sticky; top: 0; z-index: 100; }
-        .nav-tabs { display: flex; justify-content: space-around; background: white; border-bottom: 1px solid #ddd; padding: 10px 0; position: sticky; top: 50px; z-index: 99; }
-        .tab { cursor: pointer; font-size: 22px; padding: 5px 25px; color: #65676b; }
-        .tab.active { border-bottom: 3px solid var(--blue); color: var(--blue); }
+        /* Navbar & Icons */
+        .navbar { background: white; padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+        .logo { color: var(--blue); font-size: 26px; font-weight: bold; }
+        .nav-icons { display: flex; gap: 12px; }
+        .icon-btn { background: #e4e6eb; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; font-size: 18px; cursor: pointer; }
+        .badge { position: absolute; top: -5px; right: -5px; background: #e41e3f; color: white; font-size: 10px; padding: 2px 5px; border-radius: 10px; font-weight: bold; }
 
-        /* Sections */
-        .section { display: none; padding: 10px; max-width: 500px; margin: auto; }
-        #home-section { display: block; } /* Home Page default मा खुल्छ */
+        /* Tabs Style (Photo 1 reference) */
+        .nav-tabs { display: flex; justify-content: space-around; background: white; border-bottom: 1px solid #ddd; padding: 5px 0; }
+        .tab { font-size: 24px; color: var(--sub); padding: 8px 30px; cursor: pointer; transition: 0.3s; }
+        .tab.active { color: var(--blue); border-bottom: 3px solid var(--blue); }
 
-        /* Login Page */
-        #login-page { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: white; position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; }
-        
-        /* Post & Stories */
-        .post { background: white; margin-bottom: 12px; padding: 15px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .story-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
-        .story-card { min-width: 100px; height: 160px; background: #333; border-radius: 10px; position: relative; overflow: hidden; }
+        /* Feed Elements */
+        .section { display: none; max-width: 500px; margin: auto; padding: 10px; }
+        .post { background: white; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+        .avatar { width: 40px; height: 40px; border-radius: 50%; background: #ddd; object-fit: cover; }
+        .post-actions { display: flex; justify-content: space-around; border-top: 1px solid #e4e6eb; padding-top: 10px; margin-top: 10px; color: var(--sub); font-weight: 600; font-size: 14px; }
+        .action-btn { cursor: pointer; display: flex; align-items: center; gap: 5px; }
+        .action-btn:hover { color: var(--blue); }
+
+        /* Stories */
+        .story-box { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .story-card { min-width: 100px; height: 160px; border-radius: 10px; position: relative; background: #000; overflow: hidden; }
         .story-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
-        
-        /* Reels (Infinite) */
-        #reels-section { background: #000; height: calc(100vh - 110px); overflow-y: scroll; scroll-snap-type: y mandatory; }
-        .reel-video { height: 100%; width: 100%; scroll-snap-align: start; position: relative; }
+
+        /* Reels Styling */
+        #reels-section { height: 80vh; overflow-y: scroll; scroll-snap-type: y mandatory; background: black; }
+        .reel-vid { height: 100%; scroll-snap-align: start; position: relative; }
+
+        /* Login */
+        #login-page { position: fixed; inset: 0; background: white; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
     </style>
 </head>
 <body onload="checkLogin()">
 
     <div id="login-page">
-        <h1 style="color: var(--blue);">S-Connect</h1>
+        <h1 style="color: var(--blue); font-size: 40px; margin-bottom: 10px;">S-Connect</h1>
         <div style="width: 300px; text-align: center;">
-            <input type="text" id="uName" placeholder="Enter Full Name" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:6px;">
-            <button onclick="saveLogin()" style="width:100%; padding:12px; background:var(--blue); color:white; border:none; border-radius:6px; font-weight:bold;">Log In</button>
+            <input type="text" id="uName" placeholder="Mobile number or email" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:6px; background:#f5f6f7;">
+            <input type="password" placeholder="Password" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:6px; background:#f5f6f7;">
+            <button onclick="saveLogin()" style="width:100%; padding:10px; background:var(--blue); color:white; border:none; border-radius:6px; font-weight:bold; font-size:18px; cursor:pointer; margin-top:10px;">Log In</button>
+            <p style="color:var(--blue); font-size:14px; margin-top:15px;">Forgotten password?</p>
         </div>
     </div>
 
     <div id="main-ui" style="display:none;">
         <div class="navbar">
-            <span style="color: var(--blue); font-weight: bold; font-size: 24px;">S-Connect</span>
-            <div style="display:flex; gap:15px; align-items:center;">
-                <button onclick="logout()" style="border:none; background:none; color:red; cursor:pointer;">Logout</button>
+            <div class="logo">S-Connect</div>
+            <div class="nav-icons">
+                <div class="icon-btn">➕</div>
+                <div class="icon-btn">🔍</div>
+                <div class="icon-btn">💬<span class="badge">5</span></div>
             </div>
         </div>
 
@@ -54,100 +68,88 @@
             <div class="tab active" id="t-home" onclick="switchTab('home')">🏠</div>
             <div class="tab" id="t-reels" onclick="switchTab('reels')">🎬</div>
             <div class="tab" id="t-profile" onclick="switchTab('profile')">👤</div>
+            <div class="tab" onclick="alert('Notifications')">🔔<span style="font-size:10px; background:red; color:white; border-radius:50%; padding:2px 4px; position:absolute; margin-left:-5px;">9+</span></div>
         </div>
 
-        <div id="home-section" class="section">
-            <div class="story-container">
-                <div class="story-card">
-                    <img src="https://picsum.photos/seed/my/100/160">
-                    <span style="position:absolute; bottom:5px; left:5px; color:white; font-size:11px;">Create Story</span>
-                </div>
-                <div class="story-card">
-                    <img src="https://picsum.photos/seed/friend/100/160">
-                    <span style="position:absolute; bottom:5px; left:5px; color:white; font-size:11px;">Someone</span>
-                </div>
+        <div id="home-section" class="section" style="display:block;">
+            <div class="story-box">
+                <div class="story-card"><img src="https://picsum.photos/seed/s1/100/160"><span style="position:absolute; bottom:5px; left:5px; color:white; font-size:12px;">Create Story</span></div>
+                <div class="story-card"><img src="https://picsum.photos/seed/s2/100/160"><span style="position:absolute; bottom:5px; left:5px; color:white; font-size:12px;">S-Connect User</span></div>
             </div>
 
             <div class="post">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <div style="width:40px; height:40px; border-radius:50%; background:#ddd;"></div>
+                <div class="post-header">
+                    <img src="https://picsum.photos/seed/p1/50/50" class="avatar">
                     <div style="flex:1; background:#f0f2f5; padding:8px 15px; border-radius:20px; color:gray;">What's on your mind?</div>
+                    <span style="font-size:20px;">🖼️</span>
                 </div>
             </div>
 
             <div class="post">
-                <p><b>Sandesh Neupane ✓</b> <br> <small>Just now • 🌎</small></p>
-                <p>तिम्रो Home Page यहाँ छ! अब तिमीले अरूका पोष्टहरू पनि यहाँ देख्न सक्छौ।</p>
-                <img src="https://picsum.photos/seed/fb/500/300" style="width:100%; border-radius:8px;">
+                <div class="post-header">
+                    <img src="https://picsum.photos/seed/user/50/50" class="avatar">
+                    <div><b>Sandesh Neupane ✓</b><br><small>2h • 🌎</small></div>
+                </div>
+                <p>आजको कोडिङ प्रोजेक्ट एकदमै राम्रो भइरहेको छ! के तपाईंहरूलाई यो नयाँ फिचर मन पर्यो?</p>
+                <img src="https://picsum.photos/seed/code/500/300" style="width:100%; border-radius:5px;">
+                <div class="post-actions">
+                    <div class="action-btn" onclick="this.style.color='#0866ff'">👍 Like</div>
+                    <div class="action-btn">💬 Comment</div>
+                    <div class="action-btn">➡️ Share</div>
+                </div>
             </div>
         </div>
 
-        <div id="reels-section" class="section" onscroll="checkScroll()">
-            <div id="reel-container">
-                <div class="reel-video">
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" frameborder="0"></iframe>
+        <div id="reels-section" class="section" onscroll="checkReels()">
+            <div id="reel-wrap">
+                <div class="reel-vid">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>
                 </div>
             </div>
         </div>
 
         <div id="profile-section" class="section">
-            <div style="height:150px; background:#ccc; border-radius:8px;"></div>
-            <h2 id="profName" style="margin-top:10px;">User Profile</h2>
-            <p>Digital Creator • Nepal</p>
-            <button style="width:100%; padding:10px; background:#e4e6eb; border:none; border-radius:6px; font-weight:bold;">Edit Profile</button>
+            <div style="height:150px; background:linear-gradient(to bottom, #00c6ff, #0072ff); border-radius:8px;"></div>
+            <img src="https://picsum.photos/seed/sandesh/100/100" style="width:100px; height:100px; border-radius:50%; border:4px solid white; margin-top:-50px; margin-left:20px; background:white;">
+            <h2 id="dispName" style="margin: 10px 20px 0;">Sandesh</h2>
+            <p style="margin: 5px 20px; color:gray;">Digital Creator</p>
+            <div style="padding:15px; display:flex; gap:10px;">
+                <button style="flex:1; padding:10px; background:var(--blue); color:white; border:none; border-radius:6px; font-weight:bold;">Add to story</button>
+                <button style="flex:1; padding:10px; background:#e4e6eb; border:none; border-radius:6px; font-weight:bold;">Edit profile</button>
+            </div>
         </div>
     </div>
 
     <script>
         function checkLogin() {
-            let user = localStorage.getItem("scName");
-            if(user) launch(user);
+            let u = localStorage.getItem("scUser");
+            if(u) launch(u);
         }
-
         function saveLogin() {
-            let n = document.getElementById('uName').value;
-            if(n.trim() !== "") {
-                localStorage.setItem("scName", n);
-                launch(n);
-            }
+            let val = document.getElementById('uName').value;
+            if(val) { localStorage.setItem("scUser", val); launch(val); }
         }
-
-        function launch(name) {
-            document.getElementById('login-page').style.display = "none";
-            document.getElementById('main-ui').style.display = "block";
-            document.getElementById('profName').innerText = name;
-            if(name.toLowerCase().includes("sandesh neupane")) {
-                document.getElementById('profName').innerHTML += " <span style='color:var(--blue);'>✓</span>";
-            }
+        function launch(n) {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('main-ui').style.display = 'block';
+            document.getElementById('dispName').innerText = n;
         }
-
-        function switchTab(tab) {
+        function switchTab(t) {
             document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-            document.getElementById(tab + '-section').style.display = (tab === 'reels') ? 'block' : 'block';
-            
-            // Layout fix for reels
-            if(tab === 'reels') document.getElementById('reels-section').style.display = 'block';
-            else document.getElementById(tab + '-section').style.display = 'block';
-
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById('t-' + tab).classList.add('active');
+            document.getElementById(t + '-section').style.display = 'block';
+            document.querySelectorAll('.tab').forEach(tb => tb.classList.remove('active'));
+            document.getElementById('t-' + t).classList.add('active');
         }
-
-        function logout() {
-            localStorage.removeItem("scName");
-            location.reload();
-        }
-
-        // Infinite Reels Logic
-        function checkScroll() {
-            let s = document.getElementById('reels-section');
-            if(s.scrollTop + s.clientHeight >= s.scrollHeight - 20) {
-                let div = document.createElement('div');
-                div.className = 'reel-video';
-                div.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>`;
-                document.getElementById('reel-container').appendChild(div);
+        function checkReels() {
+            let r = document.getElementById('reels-section');
+            if(r.scrollTop + r.clientHeight >= r.scrollHeight - 50) {
+                let v = document.createElement('div');
+                v.className = 'reel-vid';
+                v.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>`;
+                document.getElementById('reel-wrap').appendChild(v);
             }
         }
+        function logout() { localStorage.removeItem("scUser"); location.reload(); }
     </script>
 </body>
 </html>
