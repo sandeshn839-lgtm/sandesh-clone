@@ -3,153 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>S-Connect | Full Version</title>
+    <title>S-Connect Lite</title>
     <style>
-        :root { --blue: #0866ff; --bg: #f0f2f5; --text: #1c1e21; --sub: #65676b; }
-        body { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; background: var(--bg); margin: 0; }
-        
-        /* Navbar & Icons */
-        .navbar { background: white; padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
-        .logo { color: var(--blue); font-size: 26px; font-weight: bold; }
-        .nav-icons { display: flex; gap: 12px; }
-        .icon-btn { background: #e4e6eb; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; font-size: 18px; cursor: pointer; }
-        .badge { position: absolute; top: -5px; right: -5px; background: #e41e3f; color: white; font-size: 10px; padding: 2px 5px; border-radius: 10px; font-weight: bold; }
+        :root { --fb-blue: #3b5998; --bg: #cfd8dc; --white: #ffffff; }
+        body { font-family: sans-serif; background: var(--bg); margin: 0; }
 
-        /* Tabs Style (Photo 1 reference) */
-        .nav-tabs { display: flex; justify-content: space-around; background: white; border-bottom: 1px solid #ddd; padding: 5px 0; }
-        .tab { font-size: 24px; color: var(--sub); padding: 8px 30px; cursor: pointer; transition: 0.3s; }
-        .tab.active { color: var(--blue); border-bottom: 3px solid var(--blue); }
+        /* Header & Icons */
+        .header { background: var(--white); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; }
+        .logo { color: var(--fb-blue); font-size: 22px; font-weight: bold; }
+        .msg-icon { font-size: 24px; cursor: pointer; position: relative; }
+        .badge { background: red; color: white; border-radius: 50%; padding: 2px 5px; font-size: 10px; position: absolute; top: -5px; right: -10px; }
 
-        /* Feed Elements */
-        .section { display: none; max-width: 500px; margin: auto; padding: 10px; }
-        .post { background: white; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
-        .post-header { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-        .avatar { width: 40px; height: 40px; border-radius: 50%; background: #ddd; object-fit: cover; }
-        .post-actions { display: flex; justify-content: space-around; border-top: 1px solid #e4e6eb; padding-top: 10px; margin-top: 10px; color: var(--sub); font-weight: 600; font-size: 14px; }
-        .action-btn { cursor: pointer; display: flex; align-items: center; gap: 5px; }
-        .action-btn:hover { color: var(--blue); }
+        /* Tabs */
+        .tabs { display: flex; background: var(--white); border-bottom: 1px solid #ddd; position: sticky; top: 0; z-index: 100; }
+        .tab { flex: 1; text-align: center; padding: 12px 0; font-size: 20px; color: #606770; cursor: pointer; }
+        .tab.active { color: var(--fb-blue); border-bottom: 3px solid var(--fb-blue); }
 
-        /* Stories */
-        .story-box { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
-        .story-card { min-width: 100px; height: 160px; border-radius: 10px; position: relative; background: #000; overflow: hidden; }
-        .story-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        /* Sections */
+        .section { display: none; max-width: 500px; margin: auto; }
+        #home-page { display: block; }
 
-        /* Reels Styling */
-        #reels-section { height: 80vh; overflow-y: scroll; scroll-snap-type: y mandatory; background: black; }
-        .reel-vid { height: 100%; scroll-snap-align: start; position: relative; }
+        /* Messenger Style */
+        .messenger-container { background: white; height: 100vh; display: flex; flex-direction: column; }
+        .chat-item { display: flex; align-items: center; padding: 15px; border-bottom: 1px solid #eee; cursor: pointer; }
+        .chat-item:hover { background: #f5f5f5; }
+        .avatar { width: 50px; height: 50px; border-radius: 50%; background: #ddd; margin-right: 15px; }
 
-        /* Login */
-        #login-page { position: fixed; inset: 0; background: white; z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        /* Post & Scroll */
+        .post { background: white; margin-top: 8px; padding: 12px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .photo-scroll { display: flex; overflow-x: auto; gap: 5px; scroll-snap-type: x mandatory; margin-top: 10px; }
+        .photo-scroll img { width: 100%; flex-shrink: 0; scroll-snap-align: start; border-radius: 4px; }
     </style>
 </head>
-<body onload="checkLogin()">
+<body>
 
-    <div id="login-page">
-        <h1 style="color: var(--blue); font-size: 40px; margin-bottom: 10px;">S-Connect</h1>
-        <div style="width: 300px; text-align: center;">
-            <input type="text" id="uName" placeholder="Mobile number or email" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:6px; background:#f5f6f7;">
-            <input type="password" placeholder="Password" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:6px; background:#f5f6f7;">
-            <button onclick="saveLogin()" style="width:100%; padding:10px; background:var(--blue); color:white; border:none; border-radius:6px; font-weight:bold; font-size:18px; cursor:pointer; margin-top:10px;">Log In</button>
-            <p style="color:var(--blue); font-size:14px; margin-top:15px;">Forgotten password?</p>
+    <div id="app-ui">
+        <div class="header">
+            <div class="logo">S-Connect</div>
+            <div class="msg-icon" onclick="goToMessenger()">💬<span class="badge">5</span></div>
+        </div>
+
+        <div class="tabs">
+            <div class="tab active" id="t-home" onclick="showPage('home')">🏠</div>
+            <div class="tab" onclick="alert('Friends')">👥</div>
+            <div class="tab" id="t-reels" onclick="showPage('reels')">🎬</div>
+            <div class="tab" id="t-profile" onclick="showPage('profile')">👤</div>
+        </div>
+
+        <div id="home-page" class="section">
+            <div class="post">
+                <b>Sandesh Neupane ✓</b>
+                <p>फेसबुक लाइट जस्तै फोटो स्क्रोलिङ यहाँ छ!</p>
+                <div class="photo-scroll">
+                    <img src="https://picsum.photos/seed/1/400/300">
+                    <img src="https://picsum.photos/seed/2/400/300">
+                </div>
+            </div>
+        </div>
+
+        <div id="reels-page" class="section">
+            <div style="height: 80vh; background: black; display: flex; align-items: center; justify-content: center; color: white;">
+                🎬 Infinite Reels Loading...
+            </div>
+        </div>
+
+        <div id="profile-page" class="section" style="background: white; text-align: center; padding-bottom: 20px;">
+            <div style="height: 150px; background: var(--fb-blue);"></div>
+            <h2 style="margin-top: 20px;">Sandesh Neupane</h2>
+            <p style="color: gray;">Digital Creator</p>
+            <button style="padding: 10px 20px; background: #e4e6eb; border: none; border-radius: 5px; font-weight: bold;">Edit Profile</button>
         </div>
     </div>
 
-    <div id="main-ui" style="display:none;">
-        <div class="navbar">
-            <div class="logo">S-Connect</div>
-            <div class="nav-icons">
-                <div class="icon-btn">➕</div>
-                <div class="icon-btn">🔍</div>
-                <div class="icon-btn">💬<span class="badge">5</span></div>
+    <div id="messenger-page" class="section" style="display: none; background: white; height: 100vh;">
+        <div class="header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <span onclick="goBack()" style="font-size: 20px; cursor: pointer;">⬅️</span>
+                <b style="font-size: 20px;">Chats</b>
             </div>
+            <span style="font-size: 20px;">📝</span>
         </div>
-
-        <div class="nav-tabs">
-            <div class="tab active" id="t-home" onclick="switchTab('home')">🏠</div>
-            <div class="tab" id="t-reels" onclick="switchTab('reels')">🎬</div>
-            <div class="tab" id="t-profile" onclick="switchTab('profile')">👤</div>
-            <div class="tab" onclick="alert('Notifications')">🔔<span style="font-size:10px; background:red; color:white; border-radius:50%; padding:2px 4px; position:absolute; margin-left:-5px;">9+</span></div>
-        </div>
-
-        <div id="home-section" class="section" style="display:block;">
-            <div class="story-box">
-                <div class="story-card"><img src="https://picsum.photos/seed/s1/100/160"><span style="position:absolute; bottom:5px; left:5px; color:white; font-size:12px;">Create Story</span></div>
-                <div class="story-card"><img src="https://picsum.photos/seed/s2/100/160"><span style="position:absolute; bottom:5px; left:5px; color:white; font-size:12px;">S-Connect User</span></div>
+        <div class="messenger-container">
+            <div class="chat-item" onclick="alert('Chat with Durga Neupane')">
+                <div class="avatar"></div>
+                <div><b>Durga Neupane</b><br><small style="color: gray;">Active 5m ago</small></div>
             </div>
-
-            <div class="post">
-                <div class="post-header">
-                    <img src="https://picsum.photos/seed/p1/50/50" class="avatar">
-                    <div style="flex:1; background:#f0f2f5; padding:8px 15px; border-radius:20px; color:gray;">What's on your mind?</div>
-                    <span style="font-size:20px;">🖼️</span>
-                </div>
-            </div>
-
-            <div class="post">
-                <div class="post-header">
-                    <img src="https://picsum.photos/seed/user/50/50" class="avatar">
-                    <div><b>Sandesh Neupane ✓</b><br><small>2h • 🌎</small></div>
-                </div>
-                <p>आजको कोडिङ प्रोजेक्ट एकदमै राम्रो भइरहेको छ! के तपाईंहरूलाई यो नयाँ फिचर मन पर्यो?</p>
-                <img src="https://picsum.photos/seed/code/500/300" style="width:100%; border-radius:5px;">
-                <div class="post-actions">
-                    <div class="action-btn" onclick="this.style.color='#0866ff'">👍 Like</div>
-                    <div class="action-btn">💬 Comment</div>
-                    <div class="action-btn">➡️ Share</div>
-                </div>
-            </div>
-        </div>
-
-        <div id="reels-section" class="section" onscroll="checkReels()">
-            <div id="reel-wrap">
-                <div class="reel-vid">
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>
-                </div>
-            </div>
-        </div>
-
-        <div id="profile-section" class="section">
-            <div style="height:150px; background:linear-gradient(to bottom, #00c6ff, #0072ff); border-radius:8px;"></div>
-            <img src="https://picsum.photos/seed/sandesh/100/100" style="width:100px; height:100px; border-radius:50%; border:4px solid white; margin-top:-50px; margin-left:20px; background:white;">
-            <h2 id="dispName" style="margin: 10px 20px 0;">Sandesh</h2>
-            <p style="margin: 5px 20px; color:gray;">Digital Creator</p>
-            <div style="padding:15px; display:flex; gap:10px;">
-                <button style="flex:1; padding:10px; background:var(--blue); color:white; border:none; border-radius:6px; font-weight:bold;">Add to story</button>
-                <button style="flex:1; padding:10px; background:#e4e6eb; border:none; border-radius:6px; font-weight:bold;">Edit profile</button>
+            <div class="chat-item">
+                <div class="avatar"></div>
+                <div><b>S-Connect User</b><br><small style="color: gray;">You: Hello!</small></div>
             </div>
         </div>
     </div>
 
     <script>
-        function checkLogin() {
-            let u = localStorage.getItem("scUser");
-            if(u) launch(u);
-        }
-        function saveLogin() {
-            let val = document.getElementById('uName').value;
-            if(val) { localStorage.setItem("scUser", val); launch(val); }
-        }
-        function launch(n) {
-            document.getElementById('login-page').style.display = 'none';
-            document.getElementById('main-ui').style.display = 'block';
-            document.getElementById('dispName').innerText = n;
-        }
-        function switchTab(t) {
+        function showPage(page) {
             document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
-            document.getElementById(t + '-section').style.display = 'block';
-            document.querySelectorAll('.tab').forEach(tb => tb.classList.remove('active'));
-            document.getElementById('t-' + t).classList.add('active');
+            document.getElementById(page + '-page').style.display = 'block';
+            document.getElementById('app-ui').style.display = 'block';
+            document.getElementById('messenger-page').style.display = 'none';
+
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            if(document.getElementById('t-' + page)) document.getElementById('t-' + page).classList.add('active');
         }
-        function checkReels() {
-            let r = document.getElementById('reels-section');
-            if(r.scrollTop + r.clientHeight >= r.scrollHeight - 50) {
-                let v = document.createElement('div');
-                v.className = 'reel-vid';
-                v.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>`;
-                document.getElementById('reel-wrap').appendChild(v);
-            }
+
+        function goToMessenger() {
+            document.getElementById('app-ui').style.display = 'none';
+            document.getElementById('messenger-page').style.display = 'block';
         }
-        function logout() { localStorage.removeItem("scUser"); location.reload(); }
+
+        function goBack() {
+            showPage('home');
+        }
     </script>
 </body>
 </html>
