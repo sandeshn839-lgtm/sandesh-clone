@@ -1,58 +1,153 @@
-<div id="reels-section" onscroll="handleReelScroll()">
-    <div id="reel-container">
-        <div class="reel-video">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&controls=0" frameborder="0"></iframe>
-            <div class="reel-info"><b>Funny Reel #1</b><br>@sandesh_vlogs</div>
-        </div>
-        <div class="reel-video">
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/3JZ_D3ELwOQ?autoplay=0&controls=0" frameborder="0"></iframe>
-            <div class="reel-info"><b>Funny Reel #2</b><br>@funny_nepal</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>S-Connect</title>
+    <style>
+        :root { --blue: #0866ff; --bg: #f0f2f5; }
+        body { font-family: Segoe UI, sans-serif; background: var(--bg); margin: 0; }
+        
+        /* Navbar & Tabs */
+        .navbar { background: white; padding: 10px 15px; display: flex; justify-content: space-between; box-shadow: 0 1px 4px rgba(0,0,0,0.1); sticky; top: 0; z-index: 100; }
+        .nav-tabs { display: flex; justify-content: space-around; background: white; border-bottom: 1px solid #ddd; padding: 10px 0; position: sticky; top: 50px; z-index: 99; }
+        .tab { cursor: pointer; font-size: 22px; padding: 5px 25px; color: #65676b; }
+        .tab.active { border-bottom: 3px solid var(--blue); color: var(--blue); }
+
+        /* Sections */
+        .section { display: none; padding: 10px; max-width: 500px; margin: auto; }
+        #home-section { display: block; } /* Home Page default मा खुल्छ */
+
+        /* Login Page */
+        #login-page { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: white; position: fixed; width: 100%; top: 0; left: 0; z-index: 1000; }
+        
+        /* Post & Stories */
+        .post { background: white; margin-bottom: 12px; padding: 15px; border-radius: 8px; box-shadow: 0 1px 2px rgba(0,0,0,0.1); }
+        .story-container { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .story-card { min-width: 100px; height: 160px; background: #333; border-radius: 10px; position: relative; overflow: hidden; }
+        .story-card img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
+        
+        /* Reels (Infinite) */
+        #reels-section { background: #000; height: calc(100vh - 110px); overflow-y: scroll; scroll-snap-type: y mandatory; }
+        .reel-video { height: 100%; width: 100%; scroll-snap-align: start; position: relative; }
+    </style>
+</head>
+<body onload="checkLogin()">
+
+    <div id="login-page">
+        <h1 style="color: var(--blue);">S-Connect</h1>
+        <div style="width: 300px; text-align: center;">
+            <input type="text" id="uName" placeholder="Enter Full Name" style="width:100%; padding:12px; margin:8px 0; border:1px solid #ddd; border-radius:6px;">
+            <button onclick="saveLogin()" style="width:100%; padding:12px; background:var(--blue); color:white; border:none; border-radius:6px; font-weight:bold;">Log In</button>
         </div>
     </div>
-    <div id="loading-reels" style="color:white; text-align:center; padding:20px; display:none;">Loading more...</div>
-</div>
 
-<script>
-    // भिडियोहरूको लिङ्क सूची (तिमीले यहाँ अरू थप्न सक्छौ)
-    const videoList = [
-        "https://www.youtube.com/embed/9bZkp7q19f0",
-        "https://www.youtube.com/embed/2Vv-BfVoq4g",
-        "https://www.youtube.com/embed/L_jWHffIx5E",
-        "https://www.youtube.com/embed/7wtfhZwyrcc"
-    ];
+    <div id="main-ui" style="display:none;">
+        <div class="navbar">
+            <span style="color: var(--blue); font-weight: bold; font-size: 24px;">S-Connect</span>
+            <div style="display:flex; gap:15px; align-items:center;">
+                <button onclick="logout()" style="border:none; background:none; color:red; cursor:pointer;">Logout</button>
+            </div>
+        </div>
 
-    function handleReelScroll() {
-        const section = document.getElementById('reels-section');
-        const container = document.getElementById('reel-container');
-        
-        // यदि प्रयोगकर्ता अन्तिम तिर पुग्यो भने नयाँ भिडियो थप्ने
-        if (section.scrollTop + section.clientHeight >= section.scrollHeight - 5) {
-            addNewReel();
+        <div class="nav-tabs">
+            <div class="tab active" id="t-home" onclick="switchTab('home')">🏠</div>
+            <div class="tab" id="t-reels" onclick="switchTab('reels')">🎬</div>
+            <div class="tab" id="t-profile" onclick="switchTab('profile')">👤</div>
+        </div>
+
+        <div id="home-section" class="section">
+            <div class="story-container">
+                <div class="story-card">
+                    <img src="https://picsum.photos/seed/my/100/160">
+                    <span style="position:absolute; bottom:5px; left:5px; color:white; font-size:11px;">Create Story</span>
+                </div>
+                <div class="story-card">
+                    <img src="https://picsum.photos/seed/friend/100/160">
+                    <span style="position:absolute; bottom:5px; left:5px; color:white; font-size:11px;">Someone</span>
+                </div>
+            </div>
+
+            <div class="post">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="width:40px; height:40px; border-radius:50%; background:#ddd;"></div>
+                    <div style="flex:1; background:#f0f2f5; padding:8px 15px; border-radius:20px; color:gray;">What's on your mind?</div>
+                </div>
+            </div>
+
+            <div class="post">
+                <p><b>Sandesh Neupane ✓</b> <br> <small>Just now • 🌎</small></p>
+                <p>तिम्रो Home Page यहाँ छ! अब तिमीले अरूका पोष्टहरू पनि यहाँ देख्न सक्छौ।</p>
+                <img src="https://picsum.photos/seed/fb/500/300" style="width:100%; border-radius:8px;">
+            </div>
+        </div>
+
+        <div id="reels-section" class="section" onscroll="checkScroll()">
+            <div id="reel-container">
+                <div class="reel-video">
+                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile-section" class="section">
+            <div style="height:150px; background:#ccc; border-radius:8px;"></div>
+            <h2 id="profName" style="margin-top:10px;">User Profile</h2>
+            <p>Digital Creator • Nepal</p>
+            <button style="width:100%; padding:10px; background:#e4e6eb; border:none; border-radius:6px; font-weight:bold;">Edit Profile</button>
+        </div>
+    </div>
+
+    <script>
+        function checkLogin() {
+            let user = localStorage.getItem("scName");
+            if(user) launch(user);
         }
-    }
 
-    function addNewReel() {
-        const container = document.getElementById('reel-container');
-        const loader = document.getElementById('loading-reels');
-        
-        loader.style.display = "block";
+        function saveLogin() {
+            let n = document.getElementById('uName').value;
+            if(n.trim() !== "") {
+                localStorage.setItem("scName", n);
+                launch(n);
+            }
+        }
 
-        // रेन्डम भिडियो छान्ने
-        const randomVid = videoList[Math.floor(Math.random() * videoList.length)];
-        const reelCount = container.children.length + 1;
+        function launch(name) {
+            document.getElementById('login-page').style.display = "none";
+            document.getElementById('main-ui').style.display = "block";
+            document.getElementById('profName').innerText = name;
+            if(name.toLowerCase().includes("sandesh neupane")) {
+                document.getElementById('profName').innerHTML += " <span style='color:var(--blue);'>✓</span>";
+            }
+        }
 
-        // नयाँ भिडियो कार्ड बनाउने
-        const newReel = document.createElement('div');
-        newReel.className = 'reel-video';
-        newReel.innerHTML = `
-            <iframe width="100%" height="100%" src="${randomVid}?autoplay=0&controls=0" frameborder="0"></iframe>
-            <div class="reel-info"><b>Funny Reel #${reelCount}</b><br>@S-Connect_Viral</div>
-        `;
+        function switchTab(tab) {
+            document.querySelectorAll('.section').forEach(s => s.style.display = 'none');
+            document.getElementById(tab + '-section').style.display = (tab === 'reels') ? 'block' : 'block';
+            
+            // Layout fix for reels
+            if(tab === 'reels') document.getElementById('reels-section').style.display = 'block';
+            else document.getElementById(tab + '-section').style.display = 'block';
 
-        // १ सेकेन्डको लोड पछि थप्ने (वास्तविक देखिनको लागि)
-        setTimeout(() => {
-            container.appendChild(newReel);
-            loader.style.display = "none";
-        }, 800);
-    }
-</script>
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('t-' + tab).classList.add('active');
+        }
+
+        function logout() {
+            localStorage.removeItem("scName");
+            location.reload();
+        }
+
+        // Infinite Reels Logic
+        function checkScroll() {
+            let s = document.getElementById('reels-section');
+            if(s.scrollTop + s.clientHeight >= s.scrollHeight - 20) {
+                let div = document.createElement('div');
+                div.className = 'reel-video';
+                div.innerHTML = `<iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"></iframe>`;
+                document.getElementById('reel-container').appendChild(div);
+            }
+        }
+    </script>
+</body>
+</html>
