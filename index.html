@@ -1,29 +1,22 @@
-<div class="video-container" style="width: 100%; aspect-ratio: 16/9; background: #000; position: relative;">
-    <iframe 
-        id="video-player"
-        src="https://www.youtube.com/embed/live_stream?channel=UC4_XUuY6A1926-0eN3fU1hQ" 
-        style="width: 100%; height: 100%; border: none;"
-        allow="autoplay; encrypted-media; fullscreen" 
-        allowfullscreen>
-    </iframe>
-</div>
-
-<div class="server-options" style="padding: 15px; background: #16181f; display: flex; gap: 10px; overflow-x: auto;">
-    <button onclick="playVideo('LINK_1')" style="background: #e50914; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">
-        📺 Server 1 (Main Video)
-    </button>
-    <button onclick="playVideo('LINK_2')" style="background: #252833; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">
-        📡 Server 2 (Backup)
-    </button>
-    <button onclick="playVideo('LINK_3')" style="background: #252833; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-weight: bold; cursor: pointer;">
-        🌍 Server 3 (English)
-    </button>
+<div id="countdown" style="background: #1e293b; color: #ffc300; padding: 15px; text-align: center; font-weight: bold; border-radius: 8px; margin: 10px;">
+    Loading Match Time...
 </div>
 
 <script>
-    function playVideo(link) {
-        // म्याच सुरु भएपछि यहाँ वास्तविक भिडियो लिङ्क हाल्न सकिन्छ
-        console.log("Playing: " + link);
-        // document.getElementById('video-player').src = link;
+    function updateTimer() {
+        const matchTime = new Date("April 28, 2026 19:15:00").getTime();
+        const now = new Date().getTime();
+        const diff = matchTime - now;
+
+        if (diff > 0) {
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = "Match Starts In: " + hours + "h " + minutes + "m " + seconds + "s";
+        } else {
+            document.getElementById("countdown").innerHTML = "● MATCH IS LIVE NOW!";
+            document.getElementById("countdown").style.color = "red";
+        }
     }
+    setInterval(updateTimer, 1000);
 </script>
