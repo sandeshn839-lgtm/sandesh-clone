@@ -1,128 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraLive - Cricket | Football | Live Streaming</title>
-    <meta name="description" content="Watch live cricket matches, fixtures, and scores on AuraLive. Your ultimate destination for T20, ODI, and Test cricket.">
-    <meta name="keywords" content="AuraLive, live cricket, football live, cricket score, live streaming nepal">
-    <meta name="author" content="AuraLive">
-
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Live Cricket Matches | AuraLive">
-    <meta property="og:description" content="Follow live sports and real-time updates on AuraLive.">
-    <meta property="og:site_name" content="AuraLive">
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
-
-    <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; color: #1f2937; }
-        .dark body { background-color: #111827; color: #f3f4f6; }
-
-        .league-title {
-            font-size: 1rem; font-weight: 700; margin: 20px auto 15px;
-            background: #1d4ed8; color: white;
-            border-radius: 8px; text-align: center; padding: 12px;
-            width: calc(100% - 1rem); max-width: 960px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+// १. स्ट्रिम प्ले गर्ने फसन
+    function playStream(url) {
+        if (Hls.isSupported()) {
+            var hls = new Hls();
+            hls.loadSource(url);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+                // प्लेयर भएको ठाउँमा अटोमेटिक स्क्रोल गर्ने (मोबाइलमा सजिलो हुन्छ)
+                document.querySelector('.player-container').scrollIntoView({ behavior: 'smooth' });
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = url;
+            video.play();
         }
-
-        .match-card {
-            display: block; border-radius: 12px; background: #ffffff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #e5e7eb;
-            padding: 14px; margin: 16px auto; width: calc(100% - 1rem); max-width: 960px;
-            transition: all 0.25s; text-decoration: none; color: inherit;
-        }
-        .dark .match-card { background: #374151; border-color: #4b5563; }
-
-        .match-row-teams { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
-        .match-team { flex: 1; display: flex; align-items: center; gap: 8px; }
-        .match-team.home { justify-content: flex-end; text-align: right; }
-        .match-team.away { justify-content: flex-start; text-align: left; }
-        .match-team img { width: 40px; height: 40px; }
-        .match-team-name { font-weight: 700; font-size: 1rem; }
-
-        .match-center { min-width: 90px; text-align: center; }
-        .match-status { font-size: 0.75rem; font-weight: 700; padding: 4px 8px; border-radius: 999px; background: #10b981; color: white; }
-        .match-status-live { background: #ef4444; animation: pulse 1.2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-
-        header { position: fixed; top: 0; width: 100%; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.1); z-index: 100; }
-        .dark header { background: #1f2937; }
-        .header-container { max-width: 1000px; margin: 0 auto; height: 70px; display: flex; justify-content: space-between; align-items: center; padding: 0 1rem; }
-
-        /* LIVE PLAYER BOX */
-        .player-container { max-width: 1000px; margin: 85px auto 20px; background: #000; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; }
-        video { width: 100%; height: 100%; }
-
-        .toggle { position: relative; display: inline-block; width: 46px; height: 24px; }
-        .toggle input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; border-radius: 30px; transition: .4s; }
-        .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 2px; bottom: 2px; background: white; border-radius: 50%; transition: .4s; }
-        input:checked + .slider { background: #3b82f6; }
-        input:checked + .slider:before { transform: translateX(22px); }
-
-        /* Telegram Popup */
-        .tg-popup { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center; }
-        .tg-box { background: #0088cc; color: white; padding: 30px; border-radius: 20px; text-align: center; max-width: 400px; width: 90%; }
-        .tg-btn { display: inline-block; background: white; color: #0088cc; padding: 12px 30px; border-radius: 50px; font-weight: bold; text-decoration: none; margin-top: 20px; }
-    </style>
-</head>
-<body class="bg-gray-100">
-
-<header>
-    <div class="header-container">
-        <a href="#" style="font-size: 24px; font-weight: 900; color: #1d4ed8;">AURALIVE</a>
-        <label class="toggle">
-            <input type="checkbox" id="darkModeToggle">
-            <span class="slider"></span>
-        </label>
-    </div>
-</header>
-
-<main>
-    <div class="player-container">
-        <video id="video" controls autoplay muted></video>
-    </div>
-
-    <div class="max-w-[1000px] margin-0-auto px-4 text-center">
-        <a href="#" class="text-blue-600 font-bold">Watch Football Matches: Click Here</a>
-        <h2 class="league-title">Upcoming Cricket Matches</h2>
-        <div id="cricket-list">
-            <p class="py-10 text-gray-500">Loading AuraLive Schedule...</p>
-        </div>
-    </div>
-</main>
-
-<div class="tg-popup" id="tgPopup">
-    <div class="tg-box">
-        <h2 class="text-2xl font-bold">Join AuraLive Telegram</h2>
-        <p class="mt-2">Get instant match updates & links!</p>
-        <a href="https://t.me/yosintvlive" class="tg-btn">Join Now</a>
-        <button onclick="closeTg()" class="block mt-4 text-xs opacity-70 mx-auto">Close</button>
-    </div>
-</div>
-
-<script>
-    // 1. M3U8 PLAYER SETUP
-    var video = document.getElementById('video');
-    var videoSrc = 'https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8'; 
-
-    if (Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(videoSrc);
-        hls.attachMedia(video);
     }
 
-    // 2. DARK MODE
-    const toggle = document.getElementById('darkModeToggle');
-    toggle.addEventListener('change', () => {
-        document.documentElement.classList.toggle('dark');
-    });
-
-    // 3. API DATA FETCH
+    // २. म्याच लिस्ट लोड गर्ने र बटनलाई क्लिकेबल बनाउने फसन
     async function loadAuraMatches() {
         const list = document.getElementById('cricket-list');
         try {
@@ -130,7 +23,11 @@
             const data = await res.json();
             const matches = data.matches || data;
             list.innerHTML = '';
+            
             matches.forEach(m => {
+                // यहाँ stream_url छैन भने डिफल्ट युआरएल प्रयोग गरिएको छ
+                const streamUrl = m.stream_url || 'https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8';
+                
                 const card = `
                     <div class="match-card">
                         <div class="match-row-teams">
@@ -140,7 +37,7 @@
                             </div>
                             <div class="match-center">
                                 <div class="text-xs font-bold text-gray-400">VS</div>
-                                <span class="match-status match-status-live">LIVE</span>
+                                <button onclick="playStream('${streamUrl}')" class="match-status match-status-live cursor-pointer border-none">LIVE</button>
                             </div>
                             <div class="match-team away">
                                 <img src="${m.team2_logo || 'https://placehold.co/40'}" alt="logo">
@@ -155,17 +52,3 @@
             list.innerHTML = 'Error loading matches.';
         }
     }
-
-    function closeTg() { document.getElementById('tgPopup').style.display = 'none'; }
-    window.onload = () => {
-        loadAuraMatches();
-        setTimeout(() => { document.getElementById('tgPopup').style.display = 'flex'; }, 3000);
-    };
-</script>
-
-<footer class="text-center py-10 text-xs opacity-50">
-    &copy; 2026 AuraLive | Ethical Streaming Education
-</footer>
-
-</body>
-</html>
