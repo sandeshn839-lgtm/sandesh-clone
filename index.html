@@ -3,42 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraLive | Live Match Fixed</title>
+    <title>AuraLive | IPL Fixed</title>
     <style>
-        body { background: #020617; color: white; font-family: sans-serif; text-align: center; margin: 0; }
+        body { background: #020617; color: white; font-family: sans-serif; margin: 0; text-align: center; }
         .container { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .header { font-size: 30px; font-weight: 900; color: #00ffcc; margin-bottom: 20px; }
+        .brand { font-size: 32px; font-weight: 900; color: #00ffcc; margin-bottom: 10px; }
         
-        /* म्याच चल्ने बटन */
-        .live-link {
+        /* Premium Watch Button */
+        .master-btn {
             background: linear-gradient(45deg, #00ffcc, #3b82f6);
             color: black;
-            padding: 20px 40px;
-            font-size: 22px;
-            font-weight: bold;
+            padding: 25px 60px;
+            font-size: 26px;
+            font-weight: 900;
             text-decoration: none;
-            border-radius: 50px;
-            box-shadow: 0 0 20px rgba(0, 255, 204, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(0, 255, 204, 0.5);
             transition: 0.3s;
+            text-transform: uppercase;
         }
-        .live-link:hover { transform: scale(1.1); box-shadow: 0 0 40px rgba(0, 255, 204, 0.9); }
+        .master-btn:hover { transform: scale(1.1); box-shadow: 0 0 70px rgba(0, 255, 204, 0.8); }
         
-        .note { margin-top: 30px; color: #94a3b8; font-size: 14px; max-width: 80%; }
+        .status { margin-top: 30px; color: #94a3b8; font-size: 14px; line-height: 1.6; max-width: 400px; }
+        .live-dot { color: #ff3b30; animation: blink 1s infinite; }
+        @keyframes blink { 0% {opacity:1;} 50% {opacity:0.2;} 100% {opacity:1;} }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">AURALIVE.</div>
-    
-    <p style="color: #ff3b30; font-weight: bold;">● LIVE NOW: PBKS VS RR</p>
+    <div class="brand">AURALIVE.</div>
+    <p><span class="live-dot">●</span> LIVE: PBKS VS RR</p>
 
-    <a href="https://yoshintv.com/live/ipl-live-stream-1/" target="_blank" class="live-link">
-        CLICK TO WATCH LIVE 4K
+    <a href="https://yoshintv.com/live/ipl-live-stream-1/" target="_blank" class="master-btn">
+        WATCH LIVE NOW
     </a>
 
-    <div class="note">
-        <b>किन प्लेयर राखिएन?</b> युट्युबले आफ्नो भिडियो अरुको वेबसाइटमा देखाउन ब्लक गरेको छ। त्यसैले माथिको बटन थिचेर सिधै म्याच हेर्नुहोस्, जहाँ कुनै Error आउने छैन।
+    <div class="status">
+        <b>नोट:</b> युट्युबले भिडियो ब्लक गरिरहेकोले यो "Direct Link" प्रयोग गरिएको हो। यो बटन थिच्ने बित्तिकै म्याच चल्नेछ। कुनै "Unavailable" म्यासेज आउने छैन।
     </div>
 </div>
 
