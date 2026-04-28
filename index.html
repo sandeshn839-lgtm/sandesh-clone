@@ -3,89 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPL Live - No Ads</title>
+    <title>JioHotstar - IPL Live Video</title>
     <style>
-        :root { --main-blue: #001d3d; --accent-gold: #ffc300; --pure-black: #050a14; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--pure-black); color: white; margin: 0; overflow-x: hidden; }
+        :root { --jio-dark: #0f1014; --jio-blue: #1f80e0; --text: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background: var(--jio-dark); color: var(--text); margin: 0; padding: 0; }
         
-        /* Clean Header */
-        header { background: var(--main-blue); padding: 15px; text-align: center; border-bottom: 3px solid var(--accent-gold); box-shadow: 0 4px 10px rgba(0,0,0,0.5); }
-        .live-label { background: red; color: white; padding: 3px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; margin-left: 10px; animation: blink 1.2s infinite; }
-        @keyframes blink { 50% { opacity: 0.2; } }
+        /* JioHotstar Style Header */
+        header { background: rgba(15, 16, 20, 0.95); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #252833; }
+        .logo { font-size: 18px; font-weight: bold; color: var(--jio-blue); }
+        .live-btn { background: #e50914; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: bold; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 
-        /* Video Player Area (No Ads) */
-        .player-wrapper { width: 100%; max-width: 900px; margin: auto; background: black; aspect-ratio: 16/9; position: relative; border-bottom: 2px solid #333; }
+        /* Full Width Player */
+        .video-wrapper { width: 100%; aspect-ratio: 16/9; background: #000; position: relative; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        .content { max-width: 500px; margin: auto; padding: 20px; }
+        .container { padding: 15px; max-width: 800px; margin: auto; }
+        .match-desc { margin-top: 15px; border-bottom: 1px solid #252833; padding-bottom: 15px; }
+        .match-desc h2 { font-size: 20px; margin: 0; }
 
-        /* Smooth Match Cards */
-        .match-card { background: rgba(255, 255, 255, 0.05); border-radius: 15px; padding: 18px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.3s; }
-        .match-card:hover { background: rgba(255, 255, 255, 0.1); transform: translateY(-2px); }
-        
-        .team-info { display: flex; flex-direction: column; align-items: center; width: 80px; }
-        .logo { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; margin-bottom: 5px; box-shadow: 0 4px 8px rgba(0,0,0,0.4); }
-        .vs { color: var(--accent-gold); font-weight: bold; font-size: 22px; font-style: italic; }
-        
-        .watch-btn { background: #ffc300; color: black; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; text-decoration: none; font-size: 13px; }
-        .status { font-size: 12px; color: #aaa; background: #1b263b; padding: 5px 12px; border-radius: 20px; }
+        /* Day by Day Schedule */
+        .schedule-title { font-size: 14px; color: #8f98b2; margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .match-row { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; scrollbar-width: none; }
+        .match-card { min-width: 160px; background: #16181f; border-radius: 8px; padding: 12px; border: 1px solid #252833; }
+        .team { font-weight: bold; font-size: 14px; margin: 5px 0; }
+        .time { font-size: 12px; color: var(--jio-blue); }
     </style>
 </head>
 <body>
 
 <header>
-    <h1 style="margin:0; font-size: 22px; display: flex; align-items: center; justify-content: center;">
-        🏏 IPL AD-FREE LIVE <span class="live-label">LIVE</span>
-    </h1>
+    <div class="logo">JioHotstar <span style="color:white; font-weight:normal;">IPL</span></div>
+    <div class="live-btn">LIVE</div>
 </header>
 
-<div class="player-wrapper">
-    <iframe src="https://www.youtube.com/embed/live_stream?channel=IPL_STREAM_ID" allowfullscreen></iframe>
+<div class="video-wrapper">
+    <iframe src="https://www.youtube.com/embed/live_stream?channel=UC4_XUuY6A1926-0eN3fU1hQ" allowfullscreen></iframe>
 </div>
 
-<div class="content">
-    <h3 style="color: var(--accent-gold); border-bottom: 1px solid #333; padding-bottom: 10px;">Day by Day Schedule</h3>
-
-    <div style="font-size: 12px; color: #ffc300; margin-bottom: 8px; font-weight: bold;">TODAY'S BATTLE</div>
-    <div class="match-card">
-        <div class="team-info">
-            <div class="logo" style="background: #ed1b24;">PBKS</div>
-            <span>Kings</span>
-        </div>
-        <div class="vs">VS</div>
-        <div class="team-info">
-            <div class="logo" style="background: #254aa5;">RR</div>
-            <span>Royals</span>
-        </div>
-        <button class="watch-btn" onclick="window.scrollTo(0,0)">WATCH</button>
+<div class="container">
+    <div class="match-desc">
+        <h2>Kings vs Royals</h2>
+        <p style="color: #8f98b2; font-size: 14px;">IPL 2026 • Live from Wankhede Stadium</p>
     </div>
 
-    <div style="font-size: 12px; color: #aaa; margin-bottom: 8px;">TOMORROW (APR 29)</div>
-    <div class="match-card" style="opacity: 0.8;">
-        <div class="team-info">
-            <div class="logo" style="background: #004ba0;">MI</div>
-            <span>Mumbai</span>
+    <div class="schedule-title">Day by Day Matches</div>
+    <div class="match-row">
+        <div class="match-card">
+            <div class="time">Today, 7:30 PM</div>
+            <div class="team">PBKS</div>
+            <div style="font-size: 10px; color: gray;">vs</div>
+            <div class="team">RR</div>
         </div>
-        <div class="vs">VS</div>
-        <div class="team-info">
-            <div class="logo" style="background: #ff822a;">SRH</div>
-            <span>Hyderabad</span>
+        <div class="match-card" style="opacity: 0.7;">
+            <div class="time">Tomorrow</div>
+            <div class="team">MI</div>
+            <div style="font-size: 10px; color: gray;">vs</div>
+            <div class="team">SRH</div>
         </div>
-        <span class="status">7:30 PM</span>
-    </div>
-
-    <div style="font-size: 12px; color: #aaa; margin-bottom: 8px;">THURSDAY (APR 30)</div>
-    <div class="match-card" style="opacity: 0.6;">
-        <div class="team-info">
-            <div class="logo" style="background: #cf1020;">RCB</div>
-            <span>Bangalore</span>
+        <div class="match-card" style="opacity: 0.7;">
+            <div class="time">Wednesday</div>
+            <div class="team">RCB</div>
+            <div style="font-size: 10px; color: gray;">vs</div>
+            <div class="team">DC</div>
         </div>
-        <div class="vs">VS</div>
-        <div class="team-info">
-            <div class="logo" style="background: #00008b;">DC</div>
-            <span>Delhi</span>
-        </div>
-        <span class="status">7:30 PM</span>
     </div>
 </div>
 
