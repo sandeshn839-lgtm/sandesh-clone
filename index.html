@@ -3,33 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraLive | Live IPL Fixed</title>
+    <title>AuraLive | IPL Live 4K</title>
     <style>
         body { background: #020617; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
-        header { padding: 20px; border-bottom: 2px solid #00ffcc; background: #0f172a; }
-        .brand { font-size: 28px; font-weight: 900; color: #00ffcc; letter-spacing: 2px; }
+        header { padding: 15px; border-bottom: 2px solid #00ffcc; background: #0f172a; }
+        .brand { font-size: 26px; font-weight: 900; color: #00ffcc; letter-spacing: 2px; }
         
-        .main-container { height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-        
-        /* Public Stream Button - No Blocking Possible */
-        .public-link-btn {
-            background: linear-gradient(45deg, #ff0055, #ffcc00);
+        .main-container { padding: 20px; max-width: 1000px; margin: auto; height: 80vh; display: flex; flex-direction: column; justify-content: center; }
+
+        /* Premium Watch Button */
+        .watch-btn {
+            background: linear-gradient(45deg, #00ffcc, #3b82f6);
             color: #000;
-            padding: 22px 50px;
-            border-radius: 15px;
-            font-size: 24px;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 22px;
             font-weight: 900;
             text-decoration: none;
-            box-shadow: 0 0 40px rgba(255, 0, 85, 0.4);
-            transition: 0.3s ease;
-            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
             display: inline-block;
+            margin-bottom: 20px;
+            text-transform: uppercase;
         }
-        .public-link-btn:hover { transform: scale(1.1); box-shadow: 0 0 60px rgba(255, 0, 85, 0.7); }
+        .watch-btn:hover { transform: scale(1.05); box-shadow: 0 0 50px rgba(0, 255, 204, 0.7); }
 
-        .info { margin-top: 40px; background: #1e293b; padding: 20px; border-radius: 12px; border: 1px solid #334155; max-width: 450px; }
+        .status-box { background: #1e293b; padding: 20px; border-radius: 15px; border: 1px solid #334155; }
         .live-dot { color: #ff3b30; animation: blink 1s infinite; font-size: 20px; }
         @keyframes blink { 0% {opacity:1;} 50% {opacity:0.2;} 100% {opacity:1;} }
+        
+        .server-text { color: #94a3b8; font-size: 14px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -37,24 +39,29 @@
 <header><div class="brand">AURALIVE.</div></header>
 
 <div class="main-container">
-    <div style="margin-bottom: 30px;">
-        <span class="live-dot">●</span> <b style="font-size: 22px;">IPL LIVE: PBKS VS RR</b>
+    <div style="margin-bottom: 20px;">
+        <span class="live-dot">●</span> <b style="font-size: 20px;">LIVE: PBKS VS RR</b>
     </div>
 
-    <a href="https://www.jiocinema.com/sports/cricket/ipl" target="_blank">
-        WATCH LIVE IPL (OFFICIAL)
+    <a href="https://yoshintv.com/live/ipl-live-stream-1/" target="_blank" class="watch-btn">
+        📺 CLICK TO WATCH LIVE (Server 1)
     </a>
 
-    <div class="info">
-        <p style="margin: 0; color: #ffcc00; font-weight: bold;">DIRECT PUBLIC SERVER ✅</p>
-        <p style="font-size: 14px; color: #94a3b8; margin-top: 15px;">
-            YouTube is blocking the embedded player. <b>Click the button above</b> to open the public stream directly. It is 100% unblocked and fast.
+    <a href="https://v3.sportshub.stream/" target="_blank" class="watch-btn" style="background: linear-gradient(45deg, #ffcc00, #ff0055); box-shadow: 0 0 30px rgba(255, 0, 85, 0.4);">
+        🔥 BACKUP STREAM (Server 2)
+    </a>
+
+    <div class="status-box">
+        <p style="margin: 0; color: #00ffcc; font-weight: bold;">DIRECT APP LINK ACTIVE ✅</p>
+        <p class="server-text">
+            युट्युबको लिङ्क ब्लक भएकाले हामीले सिधै **Live Streaming Server** जोडेका छौँ। <br>
+            माथिको बटन थिच्ने बित्तिकै म्याच चल्नेछ। कुनै "Unavailable" म्यासेज आउने छैन।
         </p>
     </div>
 </div>
 
-<footer style="margin-top: 20px; font-size: 11px; color: #475569;">
-    AuraLive v7.0 | Anti-Block Public Engine
+<footer style="padding: 20px; font-size: 11px; color: #475569;">
+    AuraLive v8.0 | Powered by Yoshin & Sportshub
 </footer>
 
 </body>
