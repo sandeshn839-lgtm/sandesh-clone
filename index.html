@@ -3,34 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraLive | Real-Time Live Score</title>
+    <title>AuraLive | 4K IPL Live</title>
     <style>
         body { background: #020617; color: white; font-family: sans-serif; margin: 0; text-align: center; }
-        header { padding: 15px; background: #0f172a; border-bottom: 2px solid #00ffcc; }
-        .logo { font-size: 24px; font-weight: 900; color: #00ffcc; letter-spacing: 2px; }
-
-        /* Real Video Player */
-        .player-container { width: 100%; max-width: 900px; margin: 10px auto; aspect-ratio: 16/9; background: #000; }
+        header { padding: 15px; background: #0f172a; border-bottom: 2px solid #00ffcc; color: #00ffcc; font-weight: bold; font-size: 24px; }
+        
+        /* Video Container */
+        .match-box { width: 100%; max-width: 900px; margin: 10px auto; aspect-ratio: 16/9; background: #000; border: 1px solid #1e293b; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* Real-Time Score Widget Container */
-        .score-widget { width: 100%; max-width: 900px; margin: 20px auto; min-height: 200px; }
+        /* Scoreboard Styling */
+        .score-box { width: 95%; max-width: 900px; margin: 20px auto; background: #1e293b; border-radius: 15px; overflow: hidden; }
+        .btn-live { display: inline-block; background: #ff3b30; color: white; padding: 5px 15px; border-radius: 5px; font-weight: bold; margin: 10px; animation: blink 1s infinite; }
+        
+        @keyframes blink { 0% {opacity:1;} 50% {opacity:0.4;} 100% {opacity:1;} }
     </style>
 </head>
 <body>
 
-<header><div class="logo">AURALIVE.</div></header>
+<header>AURALIVE PRO</header>
 
-<div class="player-container">
+<div class="btn-live">LIVE NOW</div>
+
+<div class="match-box">
     <iframe src="https://yoshintv.com/live/ipl-live-stream-1/" allowfullscreen></iframe>
 </div>
 
-<div class="score-widget">
-    <h3 style="color: #00ffcc;">LIVE SCOREBOARD</h3>
-    <iframe src="https://www.cricket.com.au/matches" style="width:100%; height:500px; border:none; border-radius:12px; background:white;"></iframe>
+<div class="score-box">
+    <h3 style="color: #00ffcc; padding-top: 10px;">MATCH SCORECARD</h3>
+    <iframe src="https://www.cricket.com.au/matches" style="width: 100%; height: 400px; background: white;"></iframe>
 </div>
 
-<p style="font-size: 12px; color: #475569;">Data syncs every 30 seconds</p>
+<p style="font-size: 14px; color: #94a3b8;">*If video shows error, refresh the page.*</p>
 
 </body>
 </html>
