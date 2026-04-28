@@ -3,42 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraLive | Live Score & Stream</title>
+    <title>AuraLive | Real-Time Live Score</title>
     <style>
-        :root { --neon: #00ffcc; --bg: #020617; }
-        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; }
-        
-        header { padding: 15px; background: #0f172a; border-bottom: 2px solid var(--neon); text-align: center; }
-        .logo { font-size: 24px; font-weight: 900; color: var(--neon); letter-spacing: 2px; }
+        body { background: #020617; color: white; font-family: sans-serif; margin: 0; text-align: center; }
+        header { padding: 15px; background: #0f172a; border-bottom: 2px solid #00ffcc; }
+        .logo { font-size: 24px; font-weight: 900; color: #00ffcc; letter-spacing: 2px; }
 
-        /* Video Player Section */
-        .player-container { width: 100%; max-width: 900px; margin: 10px auto; aspect-ratio: 16/9; background: #000; position: relative; }
+        /* Real Video Player */
+        .player-container { width: 100%; max-width: 900px; margin: 10px auto; aspect-ratio: 16/9; background: #000; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* Scorecard Section */
-        .scorecard { 
-            max-width: 900px; margin: 15px auto; background: #1e293b; 
-            border-radius: 12px; padding: 15px; border-left: 5px solid var(--neon);
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .team { display: flex; align-items: center; gap: 10px; }
-        .team-name { font-size: 18px; font-weight: bold; }
-        .score { font-size: 22px; font-weight: 900; color: var(--neon); }
-        .status { font-size: 12px; color: #94a3b8; text-align: center; margin-top: 5px; }
-
-        /* Live Label */
-        .live-label { 
-            background: #ff3b30; color: white; padding: 4px 10px; 
-            border-radius: 4px; font-size: 12px; font-weight: bold;
-            animation: blink 1s infinite;
-        }
-        @keyframes blink { 0% {opacity:1;} 50% {opacity:0.5;} 100% {opacity:1;} }
-
-        .btn-direct {
-            display: block; width: fit-content; margin: 20px auto;
-            background: var(--neon); color: black; padding: 12px 25px;
-            text-decoration: none; border-radius: 8px; font-weight: bold;
-        }
+        /* Real-Time Score Widget Container */
+        .score-widget { width: 100%; max-width: 900px; margin: 20px auto; min-height: 200px; }
     </style>
 </head>
 <body>
@@ -49,30 +25,12 @@
     <iframe src="https://yoshintv.com/live/ipl-live-stream-1/" allowfullscreen></iframe>
 </div>
 
-<div class="scorecard">
-    <div class="team">
-        <span class="team-name">PBKS</span>
-        <span class="score">147/8</span>
-    </div>
-    
-    <div style="text-align: center;">
-        <span class="live-label">LIVE</span>
-        <div class="status">20.0 Overs</div>
-    </div>
-
-    <div class="team" style="flex-direction: row-reverse;">
-        <span class="team-name">RR</span>
-        <span class="score">152/7</span>
-    </div>
+<div class="score-widget">
+    <h3 style="color: #00ffcc;">LIVE SCOREBOARD</h3>
+    <iframe src="https://www.cricket.com.au/matches" style="width:100%; height:500px; border:none; border-radius:12px; background:white;"></iframe>
 </div>
 
-<div style="text-align: center; padding: 10px;">
-    <p style="color: #94a3b8; font-size: 14px;">Rajasthan Royals won by 3 wickets</p>
-</div>
-
-<a href="https://yoshintv.com/live/ipl-live-stream-1/" target="_blank" class="btn-direct">
-    OPEN FULL SCREEN
-</a>
+<p style="font-size: 12px; color: #475569;">Data syncs every 30 seconds</p>
 
 </body>
 </html>
