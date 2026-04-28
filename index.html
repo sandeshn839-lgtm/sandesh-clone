@@ -3,60 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraLive | 4K IPL Pro</title>
+    <title>AuraLive | 4K Yoshin Engine</title>
     <style>
-        body { background: #020617; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
-        header { padding: 20px; border-bottom: 2px solid #00ffcc; background: #0f172a; }
-        .brand { font-size: 28px; font-weight: 900; color: #00ffcc; letter-spacing: 2px; }
-        
-        .main-container { height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-        
-        /* Premium Watch Button - यो कहिल्यै फेल हुँदैन */
-        .watch-now-btn {
-            background: linear-gradient(45deg, #00ffcc, #3b82f6);
-            color: #000;
-            padding: 22px 55px;
-            border-radius: 15px;
-            font-size: 26px;
-            font-weight: 900;
-            text-decoration: none;
-            box-shadow: 0 0 35px rgba(0, 255, 204, 0.6);
-            transition: 0.3s ease;
-            border: none;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-        .watch-now-btn:hover { transform: scale(1.1); box-shadow: 0 0 60px rgba(0, 255, 204, 0.9); }
+        :root { --accent: #00ffcc; --dark: #020617; }
+        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
+        header { padding: 15px; border-bottom: 2px solid var(--accent); background: #0f172a; }
+        .brand { font-size: 24px; font-weight: 900; color: var(--accent); text-transform: uppercase; }
 
-        .info-card { margin-top: 40px; background: #1e293b; padding: 25px; border-radius: 15px; border: 1px solid #334155; max-width: 450px; }
-        .live-dot { color: #ff3b30; animation: blink 1s infinite; font-size: 22px; }
+        /* Full Screen Pro Player */
+        .video-container { 
+            width: 100%; 
+            max-width: 1100px; 
+            margin: 20px auto; 
+            aspect-ratio: 16/9; 
+            background: #000; 
+            position: relative;
+            box-shadow: 0 0 40px rgba(0, 255, 204, 0.2);
+        }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* Quality & Full Screen Controls (Right Down Side) */
+        .player-controls { position: absolute; bottom: 15px; right: 15px; display: flex; gap: 8px; z-index: 10; }
+        .pill { 
+            background: rgba(0,0,0,0.8); 
+            color: white; 
+            border: 1px solid var(--accent); 
+            padding: 6px 15px; 
+            border-radius: 50px; 
+            font-size: 11px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        .pill:hover { background: var(--accent); color: #000; }
+
+        .live-status { padding: 10px; color: #94a3b8; font-weight: bold; font-size: 14px; }
+        .dot { color: #ff3b30; animation: blink 1s infinite; }
         @keyframes blink { 0% {opacity:1;} 50% {opacity:0.2;} 100% {opacity:1;} }
     </style>
 </head>
 <body>
 
-<header><div class="brand">AURALIVE.</div></header>
+<header>
+    <div class="brand">AURALIVE.</div>
+</header>
 
-<div class="main-container">
-    <div style="margin-bottom: 30px;">
-        <span class="live-dot">●</span> <b style="font-size: 24px;">LIVE: PBKS VS RR</b>
-    </div>
+<div class="video-container">
+    <iframe 
+        id="yoshin-stream" 
+        src="https://yoshintv.com/live/ipl-live-stream-1/" 
+        allow="autoplay; encrypted-media; fullscreen; picture-in-picture" 
+        allowfullscreen>
+    </iframe>
 
-    <a href="https://v3.sportshub.stream/" target="_blank" class="watch-now-btn">
-        CLICK TO START 4K STREAM
-    </a>
-
-    <div class="info-card">
-        <p style="margin: 0; color: #00ffcc; font-weight: bold; font-size: 18px;">SERVER STATUS: SECURE ✅</p>
-        <p style="font-size: 14px; color: #94a3b8; margin-top: 15px; line-height: 1.5;">
-            युट्युबले लिङ्क ब्लक गरिरहेको छ। माथिको नीलो बटन थिच र हाम्रो **Private 4K Server** मा म्याच हेर जहाँ "Unavailable" भन्ने समस्या आउँदैन।
-        </p>
+    <div class="player-controls">
+        <div class="pill" onclick="location.reload()">1080p HD</div>
+        <div class="pill" onclick="location.reload()" style="border-color:#ffc300; color:#ffc300;">4K ULTRA</div>
     </div>
 </div>
 
-<footer style="margin-top: 10px; font-size: 11px; color: #475569;">
-    AuraLive Engine v5.0 | High Speed Encrypted Stream
-</footer>
+<div class="live-status">
+    <span class="dot">●</span> LIVE: PBKS VS RR | Powered by Yoshin Engine
+</div>
+
+<div style="margin-top: 10px;">
+    <p style="font-size: 12px; color: #475569;">If player doesn't load, <a href="https://yoshintv.com/" target="_blank" style="color: var(--accent);">click here</a> to open Yoshin TV directly.</p>
+</div>
 
 </body>
 </html>
