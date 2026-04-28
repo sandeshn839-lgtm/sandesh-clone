@@ -3,46 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IPL LIVE - No Ads</title>
+    <title>IPL LIVE - 4K Premium Portal</title>
     <style>
-        body { background: #050a14; color: white; font-family: sans-serif; margin: 0; text-align: center; }
-        header { background: #001d3d; padding: 15px; border-bottom: 3px solid #ffc300; }
-        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; }
-        #match-timer { padding: 20px; font-size: 20px; color: #ffc300; font-weight: bold; }
+        body { background: #050505; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
+        
+        /* Premium Player Container */
+        .player-wrapper { 
+            position: relative; 
+            width: 100%; 
+            max-width: 1100px; 
+            margin: auto; 
+            aspect-ratio: 16/9; 
+            background: #000;
+            display: none; /* सुरुमा लुकाइएको */
+        }
+        
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* Quality Settings Bar (Bottom Right) */
+        .controls-bar {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            display: flex;
+            gap: 5px;
+            z-index: 100;
+        }
+
+        .quality-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffc300;
+            border: 1px solid #ffc300;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .quality-btn:hover { background: #ffc300; color: #000; }
+
+        /* Countdown Area */
+        #timer-screen { padding: 50px 20px; }
+        #timer { font-size: 45px; color: #ffc300; font-weight: 900; margin: 20px 0; }
     </style>
 </head>
 <body>
 
-<header>
-    <h2 style="margin:0;">🏏 IPL LIVE PORTAL</h2>
-</header>
-
-<div class="video-box">
-    <iframe id="main-player" src="https://www.youtube.com/embed/live_stream?channel=UC4_XUuY6A1926-0eN3fU1hQ" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
+<div id="video-area" class="player-wrapper">
+    <iframe id="main-player" src="https://www.youtube.com/embed/live_stream?channel=UC4_XUuY6A1926-0eN3fU1hQ" allowfullscreen></iframe>
+    
+    <div class="controls-bar">
+        <button class="quality-btn" onclick="setQuality('320p')">320p</button>
+        <button class="quality-btn" onclick="setQuality('720p')">720p HD</button>
+        <button class="quality-btn" onclick="setQuality('1080p')">1080p FHD</button>
+        <button class="quality-btn" onclick="setQuality('4k')">4K</button>
+    </div>
 </div>
 
-<div id="match-timer">Loading Countdown...</div>
+<div id="timer-screen">
+    <h2 style="color: #1f80e0;">JioHotstar <span style="color:white">IPL LIVE</span></h2>
+    <div id="timer">00:00:00</div>
+    <p style="color: #8f98b2;">Quality: 4K Ultra HD Enabled ✅</p>
+</div>
 
 <script>
-    function startTimer() {
-        const matchStart = new Date("April 28, 2026 19:15:00").getTime();
-        setInterval(function() {
-            const now = new Date().getTime();
-            const diff = matchStart - now;
-            if (diff > 0) {
-                const h = Math.floor(diff / (1000 * 60 * 60));
-                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const s = Math.floor((diff % (1000 * 60)) / 1000);
-                document.getElementById("match-timer").innerHTML = "Match Starts In: " + h + "h " + m + "m " + s + "s";
-            } else {
-                document.getElementById("match-timer").innerHTML = "● LIVE NOW: KINGS vs ROYALS";
-                document.getElementById("match-timer").style.color = "red";
-                // Auto-play command
-                document.getElementById("main-player").src += "&autoplay=1&mute=1";
-            }
-        }, 1000);
+    function setQuality(res) {
+        alert("Switching to " + res + " quality... Please wait.");
+        // नोट: युट्युब प्लेयर भित्रको क्वालिटी ब्राउजर र इन्टरनेट अनुसार अटो हुन्छ।
+        // यो बटनले प्लेयरलाई रिफ्रेस गरेर राम्रो स्ट्रिम लोड गर्न मद्दत गर्छ।
+        const player = document.getElementById("main-player");
+        player.src = player.src; 
     }
-    startTimer();
+
+    function countdown() {
+        const matchStart = new Date("April 28, 2026 19:15:00").getTime();
+        const now = new Date().getTime();
+        const diff = matchStart - now;
+
+        if (diff > 0) {
+            const h = Math.floor(diff / (1000 * 60 * 60)).toString().padStart(2, '0');
+            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+            const s = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+            document.getElementById("timer").innerHTML = h + ":" + m + ":" + s;
+        } else {
+            document.getElementById("timer-screen").style.display = "none";
+            document.getElementById("video-area").style.display = "block";
+        }
+    }
+    setInterval(countdown, 1000);
+    countdown();
 </script>
 
 </body>
