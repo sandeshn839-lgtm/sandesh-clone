@@ -3,83 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraLive | 4K IPL Stream</title>
+    <title>AuraLive | 4K IPL Evolution</title>
     <style>
-        :root { --accent: #00ffcc; --bg: #030712; }
-        body { background: var(--bg); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
+        :root { --accent: #00ffcc; --dark: #030712; }
+        body { background: var(--dark); color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
         
-        header { padding: 15px; border-bottom: 1px solid #1f2937; }
-        .brand { font-size: 24px; font-weight: 900; background: linear-gradient(to right, #00ffcc, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* New Branding */
+        header { padding: 20px; border-bottom: 1px solid #1f2937; background: #0b0f1a; }
+        .brand { font-size: 28px; font-weight: 900; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
 
         /* Video Section */
         #video-wrap { width: 100%; max-width: 1100px; margin: auto; aspect-ratio: 16/9; display: none; position: relative; }
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* Quality Options */
-        .controls { position: absolute; bottom: 15px; right: 15px; display: flex; gap: 6px; }
-        .btn { background: rgba(0,0,0,0.6); color: white; border: 1px solid var(--accent); padding: 5px 10px; border-radius: 4px; font-size: 10px; cursor: pointer; }
+        /* Quality Buttons on Bottom Right */
+        .quality-controls { position: absolute; bottom: 15px; right: 15px; display: flex; gap: 8px; }
+        .q-btn { background: rgba(0,0,0,0.8); color: white; border: 1px solid var(--accent); padding: 6px 12px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; }
+        .q-btn:hover { background: var(--accent); color: black; }
 
-        /* Timer Section */
-        .hero { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        #timer { font-size: 50px; font-weight: 900; color: var(--accent); margin: 15px 0; }
-        .status-bar { background: #1f2937; padding: 8px 20px; border-radius: 50px; font-size: 13px; font-weight: bold; color: #ffc300; }
+        /* New Timer UI */
+        .hero { height: 75vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        #timer { font-size: 55px; font-weight: 900; color: #ffffff; margin: 20px 0; text-shadow: 0 0 15px var(--accent); }
+        .toss-tag { background: #1f2937; padding: 10px 25px; border-radius: 50px; font-size: 14px; font-weight: bold; color: #38bdf8; border: 1px solid #334155; }
     </style>
 </head>
 <body>
 
-<header><div class="brand">AuraLive.</div></header>
+<header>
+    <div class="brand">AuraLive.</div>
+</header>
 
 <div id="video-wrap">
     <iframe id="main-stream" src="https://www.youtube.com/embed/live_stream?channel=UC4_XUuY6A1926-0eN3fU1hQ" allowfullscreen></iframe>
-    <div class="controls">
-        <button class="btn" onclick="location.reload()">720p</button>
-        <button class="btn" onclick="location.reload()">1080p</button>
-        <button class="btn" onclick="location.reload()" style="color:red">4K HD</button>
+    <div class="quality-controls">
+        <button class="q-btn" onclick="location.reload()">1080p</button>
+        <button class="q-btn" onclick="location.reload()" style="border-color:gold; color:gold;">4K ULTRA</button>
     </div>
 </div>
 
 <div id="timer-screen" class="hero">
-    <div id="toss-status" class="status-bar">WAITING FOR TOSS...</div>
+    <div id="toss-status" class="toss-tag">CONNECTING TO STREAM...</div>
     <div id="timer">00:00:00</div>
-    <div style="font-size: 14px; color: #8f98b2;">PBKS vs RR | Wankhede Stadium</div>
+    <div style="font-size: 14px; color: #8f98b2; margin-top: 10px;">Aura Engine v1.0 | No Latency</div>
 </div>
 
 <script>
-    function updateAura() {
-        const tossTime = new Date("April 28, 2026 18:45:00").getTime(); // टस बेलुका ६:४५ मा
-        const matchTime = new Date("April 28, 2026 19:15:00").getTime(); // म्याच बेलुका ७:१५ मा
+    function runAura() {
+        const tossTime = new Date("April 28, 2026 18:45:00").getTime();
+        const matchTime = new Date("April 28, 2026 19:15:00").getTime();
         const now = new Date().getTime();
 
-        // १. टस अगाडिको समय
         if (now < tossTime) {
             const diff = tossTime - now;
-            document.getElementById("toss-status").innerHTML = "🕒 TOSS STARTS IN:";
-            formatTimer(diff);
+            document.getElementById("toss-status").innerHTML = "🕒 TOSS COUNTDOWN";
+            showTime(diff);
         } 
-        // २. टस भइसकेपछि र म्याच अगाडिको समय
-        else if (now >= tossTime && now < matchTime) {
+        else if (now < matchTime) {
             const diff = matchTime - now;
-            document.getElementById("toss-status").innerHTML = "🏏 TOSS DONE! MATCH STARTS IN:";
+            document.getElementById("toss-status").innerHTML = "🏏 TOSS COMPLETED | MATCH IN:";
             document.getElementById("toss-status").style.color = "#00ffcc";
-            formatTimer(diff);
+            showTime(diff);
         } 
-        // ३. म्याच सुरु भएपछि
         else {
             document.getElementById("timer-screen").style.display = "none";
             document.getElementById("video-wrap").style.display = "block";
-            const player = document.getElementById("main-stream");
-            if (!player.src.includes("autoplay")) { player.src += "&autoplay=1&mute=1"; }
         }
     }
 
-    function formatTimer(d) {
+    function showTime(d) {
         const h = Math.floor(d / 3600000).toString().padStart(2, '0');
         const m = Math.floor((d % 3600000) / 60000).toString().padStart(2, '0');
         const s = Math.floor((d % 60000) / 1000).toString().padStart(2, '0');
         document.getElementById("timer").innerHTML = h + ":" + m + ":" + s;
     }
 
-    setInterval(updateAura, 1000);
+    setInterval(runAura, 1000);
+    runAura();
 </script>
 
 </body>
