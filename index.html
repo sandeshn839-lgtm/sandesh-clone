@@ -3,56 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AuraLive | IPL 4K Live</title>
+    <title>AuraLive | 4K Unblocked</title>
     <style>
-        body { background: #030712; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
-        header { padding: 20px; border-bottom: 2px solid #00ffcc; background: #0b0f1a; }
-        .brand { font-size: 26px; font-weight: 900; color: #00ffcc; letter-spacing: 2px; }
-        .main-box { padding: 50px 20px; height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+        body { background: #020617; color: white; font-family: 'Segoe UI', sans-serif; margin: 0; text-align: center; }
+        header { padding: 15px; border-bottom: 2px solid #00ffcc; background: #0f172a; }
+        .brand { font-size: 26px; font-weight: 900; color: #00ffcc; letter-spacing: 1px; }
         
-        /* Premium Watch Button */
-        .watch-btn {
-            background: linear-gradient(45deg, #00ffcc, #3b82f6);
-            color: black;
-            padding: 18px 40px;
-            border-radius: 50px;
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.4);
-            transition: 0.3s;
-            border: none;
-            cursor: pointer;
+        .player-container { width: 100%; max-width: 1000px; margin: 15px auto; aspect-ratio: 16/9; background: #000; border: 1px solid #1e293b; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* Server Switching Buttons */
+        .server-wrap { margin: 20px; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+        .s-btn { 
+            background: #1e293b; color: #00ffcc; border: 1px solid #00ffcc; 
+            padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s;
         }
-        .watch-btn:hover { transform: scale(1.1); box-shadow: 0 0 50px rgba(0, 255, 204, 0.6); }
+        .s-btn:hover { background: #00ffcc; color: black; }
         
-        .status { margin-top: 30px; font-size: 14px; color: #8f98b2; }
-        .live-dot { color: #ff3b30; animation: blink 1s infinite; font-size: 18px; }
-        @keyframes blink { 0% {opacity:1;} 50% {opacity:0.2;} 100% {opacity:1;} }
+        .live-info { color: #94a3b8; font-size: 14px; margin-top: 10px; }
+        .red-dot { color: #ef4444; animation: blink 1s infinite; }
+        @keyframes blink { 0% {opacity:1;} 50% {opacity:0.3;} 100% {opacity:1;} }
     </style>
 </head>
 <body>
 
 <header><div class="brand">AURALIVE.</div></header>
 
-<div class="main-box">
-    <div style="margin-bottom: 20px;">
-        <span class="live-dot">●</span> <b>LIVE NOW: PBKS VS RR</b>
-    </div>
-    
-    <a href="https://v3.sportshub.stream/" target="_blank" class="watch-btn">
-        WATCH IN 4K ULTRA HD
-    </a>
-
-    <div class="status">
-        Server Status: Online ✅ | Quality: 1080p/4K <br>
-        <small>(Click the button to open the secure player)</small>
-    </div>
+<div class="player-container">
+    <iframe id="aura-player" src="https://www.youtube.com/embed/live_stream?channel=UC4_XUuY6A1926-0eN3fU1hQ&autoplay=1&mute=1" allowfullscreen></iframe>
 </div>
 
-<footer style="padding: 20px; font-size: 12px; color: #334155;">
-    Aura Engine v2.0 - Encrypted Stream
-</footer>
+<div class="server-wrap">
+    <button class="s-btn" onclick="switchS('UC4_XUuY6A1926-0eN3fU1hQ')">Server 1 (HD)</button>
+    <button class="s-btn" onclick="switchS('UC_7N7-1VlqL3T18x1_R9U_g')">Server 2 (4K)</button>
+    <button class="s-btn" onclick="window.open('https://v3.sportshub.stream/', '_blank')">Server 3 (Direct Link)</button>
+</div>
+
+<div class="live-info">
+    <span class="red-dot">●</span> <b>LIVE: PBKS vs RR</b> | Aura Engine Fixed ✅
+</div>
+
+<script>
+    function switchS(id) {
+        // भिडियो रिफ्रेस गर्ने र नयाँ च्यानल लोड गर्ने
+        document.getElementById('aura-player').src = "https://www.youtube.com/embed/live_stream?channel=" + id + "&autoplay=1";
+        alert("Aura Engine: Switching Server... Please wait 5 seconds.");
+    }
+</script>
 
 </body>
 </html>
