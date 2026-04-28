@@ -1,22 +1,31 @@
-<div id="countdown" style="background: #1e293b; color: #ffc300; padding: 15px; text-align: center; font-weight: bold; border-radius: 8px; margin: 10px;">
-    Loading Match Time...
-</div>
-
 <script>
-    function updateTimer() {
-        const matchTime = new Date("April 28, 2026 19:15:00").getTime();
-        const now = new Date().getTime();
-        const diff = matchTime - now;
-
-        if (diff > 0) {
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            document.getElementById("countdown").innerHTML = "Match Starts In: " + hours + "h " + minutes + "m " + seconds + "s";
-        } else {
-            document.getElementById("countdown").innerHTML = "● MATCH IS LIVE NOW!";
-            document.getElementById("countdown").style.color = "red";
-        }
+    function startTimer() {
+        // आज बेलुका ७:१५ (19:15) को समय सेट गरिएको छ
+        const matchStart = new Date("April 28, 2026 19:15:00").getTime();
+        
+        const timerInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const diff = matchStart - now;
+            
+            if (diff > 0) {
+                const h = Math.floor(diff / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+                document.getElementById("match-timer").innerHTML = "Match Starts In: " + h + "h " + m + "m " + s + "s";
+            } else {
+                // ७:१५ पुग्ने बित्तिकै यो भाग चल्छ
+                document.getElementById("match-timer").innerHTML = "● LIVE NOW: KINGS vs ROYALS";
+                document.getElementById("match-timer").style.color = "red";
+                
+                // भिडियो आफैँ चल्न सुरु गरोस् भनेर प्लेयरलाई अपडेट गर्ने
+                const player = document.getElementById("main-player");
+                if (player.src.indexOf("autoplay=1") === -1) {
+                    player.src += "&autoplay=1&mute=1"; // ब्राउजरले आफैँ चल्नको लागि म्युट (Mute) मा सुरु गर्नुपर्ने हुन सक्छ
+                }
+                
+                clearInterval(timerInterval); // समय पुगेपछि घडी बन्द गर्ने
+            }
+        }, 1000);
     }
-    setInterval(updateTimer, 1000);
+    startTimer();
 </script>
