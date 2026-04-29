@@ -3,208 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA LIVE - Cricket | Football | Playing XI | Match Preview</title>
-    <meta name="description" content="Watch live cricket matches, upcoming fixtures, playing XI, team lineups, match previews & real-time scores. AURA LIVE covers T20, ODI, Test & major cricket tournaments worldwide.">
-    <meta name="keywords" content="AURA LIVE, live cricket, cricket matches, cricket schedule, cricket fixtures, playing XI, cricket match preview, live cricket streaming, live score, cricket news, T20, ODI, Test">
-    <meta name="author" content="AURA LIVE">
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="language" content="English">
-    <meta name="revisit-after" content="1 days">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.auralive.link/">
-    <meta property="og:title" content="Live Cricket Matches, Schedule & Playing XI | AURA LIVE">
-    <meta property="og:description" content="Watch live cricket matches with real-time updates, fixtures, team lineups, playing XI and match previews. Follow T20, ODI & Test cricket live on AURA LIVE.">
+    <title>AURA LIVE - Professional Sports Streaming</title>
+    
+    <meta name="description" content="AURA LIVE provides premium access to live sports. Watch Cricket, Football and more.">
+    <meta property="og:title" content="AURA LIVE Official">
     <meta property="og:image" content="https://web.cricfoot.net/favico.png">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:site_name" content="AURA LIVE">
-    <meta property="og:locale" content="en_US">
-
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Live Cricket Matches, Schedule & Playing XI | AURA LIVE">
-    <meta name="twitter:description" content="Watch live cricket matches with real-time scores, fixtures, playing XI and match previews. Stay updated with global cricket tournaments.">
-    <meta name="twitter:image" content="https://web.cricfoot.net/favico.png">
-    <meta name="twitter:creator" content="@AuraLive">
-    <meta name="twitter:site" content="@AuraLive">
-
-    <meta name="theme-color" content="#1d4ed8">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="AURA LIVE">
-    <meta name="msapplication-TileColor" content="#1d4ed8">
-
-    <link rel="canonical" href="https://www.auralive.link/">
-
-    <link href="https://web.cricfoot.net/favico.png" rel="icon" type="image/x-icon">
-    <link href="https://web.cricfoot.net/favico.png" rel="apple-touch-icon" type="image/png">
-
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
     <style>
-        /* --- FULL CUSTOM CSS (800+ LINE LOGIC STRUCTURE) --- */
-        body { font-family: 'Poppins', sans-serif; background-color: #f3f4f6; color: #1f2937; transition: background 0.3s ease; }
-        .dark body { background-color: #111827; color: #f3f4f6; }
-
-        header { position: fixed; top: 0; width: 100%; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 100; height: 70px; display: flex; align-items: center; }
+        /* FULL CSS STRUCTURE - 300+ LINES REDUCED FOR PERFORMANCE */
+        :root { --aura-blue: #1d4ed8; --aura-dark: #111827; }
+        body { font-family: 'Poppins', sans-serif; background: #f3f4f6; transition: 0.3s; }
+        .dark body { background: var(--aura-dark); color: white; }
+        
+        header { 
+            position: fixed; top: 0; width: 100%; height: 70px; 
+            background: white; z-index: 1000; display: flex; 
+            align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+        }
         .dark header { background: #1f2937; }
-        .header-container { max-width: 1000px; margin: 0 auto; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 1rem; }
 
-        .player-section { max-width: 1000px; margin: 85px auto 20px; background: #000; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; border: 2px solid #1d4ed8; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        video { width: 100%; height: 100%; }
+        .player-box { 
+            max-width: 1000px; margin: 85px auto 20px; 
+            background: #000; aspect-ratio: 16/9; 
+            border-radius: 12px; border: 4px solid var(--aura-blue); 
+            overflow: hidden; 
+        }
+        video { width: 100%; height: 100%; object-fit: contain; }
 
-        .match-schedule-container { max-width: 1000px; margin: 0 auto; padding-bottom: 50px; }
-        .league-title { font-size: 1.1rem; font-weight: 700; margin: 20px auto; background: #1d4ed8; color: white; border-radius: 8px; text-align: center; padding: 14px; width: calc(100% - 1rem); max-width: 960px; }
+        .match-card { 
+            background: white; border-radius: 15px; padding: 20px; 
+            margin: 15px auto; max-width: 960px; 
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .dark .match-card { background: #1f2937; border: 1px solid #374151; }
 
-        .match-card { display: block; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); border: 1px solid #e5e7eb; padding: 16px; margin: 16px auto; background: #ffffff; width: calc(100% - 1rem); max-width: 960px; transition: 0.3s; text-decoration: none; color: inherit; }
-        .dark .match-card { background: #374151; border-color: #4b5563; }
-        .match-card:hover { transform: translateY(-3px); border-color: #3b82f6; }
+        .live-tag { 
+            background: #ef4444; color: white; padding: 5px 15px; 
+            border-radius: 20px; font-size: 10px; font-weight: 900;
+            animation: pulse 1.5s infinite; cursor: pointer; border: none;
+        }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.6; } 100% { opacity: 1; } }
 
-        .match-row-teams { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .match-team { flex: 1; display: flex; align-items: center; gap: 12px; }
-        .match-team.home { justify-content: flex-end; text-align: right; }
-        .match-team.away { justify-content: flex-start; text-align: left; }
-        .match-team img { width: 48px; height: 48px; object-fit: contain; }
-        .match-team-name { font-size: 1.1rem; font-weight: 700; }
-
-        .match-center { min-width: 100px; text-align: center; display: flex; flex-direction: column; gap: 4px; }
-        .match-status { font-size: 0.75rem; font-weight: 800; padding: 5px 12px; border-radius: 50px; border: none; cursor: pointer; text-transform: uppercase; }
-        .match-status-live { background: #ef4444; color: white; animation: blinker 1.2s linear infinite; }
-        .match-status-countdown { background: #10b981; color: white; }
-        @keyframes blinker { 50% { opacity: 0.5; } }
-
-        .toggle { position: relative; display: inline-block; width: 50px; height: 26px; }
-        .toggle input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background: #ccc; border-radius: 34px; transition: .4s; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px; background: white; border-radius: 50%; transition: .4s; }
-        input:checked + .slider { background: #1d4ed8; }
-        input:checked + .slider:before { transform: translateX(24px); }
-
-        /* Telegram Popup Styles */
-        .tgx-popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(8px); }
-        .tgx-popup-box { background: linear-gradient(135deg, #0088cc, #006ba6); color: white; padding: 40px; border-radius: 25px; text-align: center; max-width: 420px; width: 92%; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
-        .tgx-join-btn { display: inline-block; background: white; color: #0088cc; font-weight: 700; padding: 15px 40px; border-radius: 50px; text-decoration: none; margin-top: 25px; transition: 0.3s; }
+        /* AD SLOTS */
+        .ad-space { background: #e5e7eb; height: 90px; margin: 20px 0; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 10px; opacity: 0.5; }
+        .dark .ad-space { background: #374151; }
     </style>
 </head>
 <body>
 
-<header>
-    <div class="header-container">
-        <a href="#" style="font-size: 28px; font-weight: 900; color: #1d4ed8; text-decoration: none;">AURA LIVE</a>
-        <label class="toggle">
-            <input type="checkbox" id="darkModeToggle">
-            <span class="slider"></span>
-        </label>
-    </div>
-</header>
-
-<main>
-    <div class="player-section">
-        <video id="videoPlayer" controls autoplay muted poster="https://web.cricfoot.net/favico.png"></video>
-    </div>
-
-    <div class="match-schedule-container">
-        <center class="mb-4">
-            <a href="#" class="text-blue-600 font-bold border-2 border-blue-600 p-2 rounded-lg">● Watch Football Matches: Click Here</a>
-        </center>
-        
-        <h2 class="league-title">Upcoming Cricket Matches</h2>
-        <div id="cricket-list">
-            <p class="text-center py-10 opacity-50">Loading AURA LIVE Schedule...</p>
+    <header>
+        <div class="max-w-[1000px] w-full mx-auto px-5 flex justify-between items-center">
+            <div class="text-2xl font-black text-blue-600">AURA LIVE</div>
+            <button onclick="document.documentElement.classList.toggle('dark')" class="text-xl">🌓</button>
         </div>
-    </div>
+    </header>
 
-    <section class="max-w-[1000px] mx-auto p-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg text-center mb-10">
-        <h2 class="text-2xl font-bold mb-4">AURA LIVE - DMCA Notice</h2>
-        <p class="text-sm leading-relaxed opacity-70">AURA LIVE does not host any media content. We are an educational platform for Class 10 students to learn web development and ethical hacking concepts. All streams are embedded from public sources.</p>
-    </section>
-</main>
+    <main class="px-4">
+        <div class="player-box">
+            <video id="player" controls poster="https://web.cricfoot.net/favico.png"></video>
+        </div>
 
-<div class="tgx-popup-overlay" id="tgxPopup">
-    <div class="tgx-popup-box">
-        <h2 class="text-3xl font-black mb-4">AURA LIVE TELEGRAM</h2>
-        <p class="text-lg">Get real-time match links & updates!</p>
-        <a href="https://t.me/yosintvlive" target="_blank" class="tgx-join-btn">JOIN NOW</a>
-        <button onclick="closePop()" class="mt-6 block mx-auto text-white underline opacity-50 text-xs">Close Window</button>
-    </div>
-</div>
+        <div class="max-w-[1000px] mx-auto text-center mb-5">
+            <a href="#" class="inline-block border-2 border-blue-600 text-blue-600 font-bold px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition">
+                ● Watch Football Matches: Click Here
+            </a>
+        </div>
 
-<script>
-    const video = document.getElementById('videoPlayer');
-    const defaultStream = 'https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8';
-
-    // १. स्ट्रिम प्लेयर लोजिक
-    function playMatch(url) {
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(url);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = url;
-            video.play();
-        }
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // २. डार्क मोड लोजिक
-    const darkToggle = document.getElementById('darkModeToggle');
-    darkToggle.addEventListener('change', () => {
-        document.documentElement.classList.toggle('dark');
-    });
-
-    // ३. म्याच लिस्टिङ लोजिक (YoSinTV ८००+ लाइनको कोर स्ट्रक्चर)
-    async function loadMatches() {
-        const list = document.getElementById('cricket-list');
-        try {
-            const res = await fetch('https://yosintv-api.pages.dev/api/cricket.json');
-            const data = await res.json();
-            const matches = data.matches || data;
+        <div class="max-w-[1000px] mx-auto">
+            <div class="bg-blue-600 text-white p-3 rounded-lg text-center font-bold mb-5 shadow-lg">
+                Upcoming Cricket Matches
+            </div>
             
-            list.innerHTML = '';
-            matches.forEach(m => {
-                const sUrl = m.stream_url || defaultStream;
-                const card = `
-                    <div class="match-card">
-                        <div class="match-row-teams">
-                            <div class="match-team home">
-                                <span class="match-team-name">${m.team1}</span>
-                                <img src="${m.team1_logo || 'https://placehold.co/48'}" alt="logo">
+            <div id="matches">
+                </div>
+        </div>
+
+        <div class="ad-space">ADVERTISEMENT SLOT</div>
+    </main>
+
+    <script>
+        const video = document.getElementById('player');
+        const defaultSrc = 'https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8';
+
+        function stream(url) {
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.play();
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        async function getMatches() {
+            const list = document.getElementById('matches');
+            try {
+                const res = await fetch('https://yosintv-api.pages.dev/api/cricket.json');
+                const data = await res.json();
+                const matches = data.matches || data;
+                list.innerHTML = '';
+
+                matches.forEach(m => {
+                    const sUrl = m.stream_url || defaultSrc;
+                    list.innerHTML += `
+                        <div class="match-card">
+                            <div class="flex flex-col items-center flex-1 text-right pr-4">
+                                <span class="font-bold text-lg">${m.team1}</span>
+                                <img src="${m.team1_logo || 'https://placehold.co/50'}" class="w-12 h-12 mt-2">
                             </div>
-                            <div class="match-center">
-                                <span class="text-[10px] font-bold text-gray-400">CRICKET</span>
-                                <button onclick="playMatch('${sUrl}')" class="match-status match-status-live">LIVE</button>
+                            <div class="flex flex-col items-center">
+                                <span class="text-[10px] opacity-40 font-bold">CRICKET</span>
+                                <button onclick="stream('${sUrl}')" class="live-tag">LIVE</button>
                             </div>
-                            <div class="match-team away">
-                                <img src="${m.team2_logo || 'https://placehold.co/48'}" alt="logo">
-                                <span class="match-team-name">${m.team2}</span>
+                            <div class="flex flex-col items-center flex-1 text-left pl-4">
+                                <span class="font-bold text-lg">${m.team2}</span>
+                                <img src="${m.team2_logo || 'https://placehold.co/50'}" class="w-12 h-12 mt-2">
                             </div>
                         </div>
-                    </div>
-                `;
-                list.innerHTML += card;
-            });
-        } catch (e) {
-            list.innerHTML = '<p class="text-red-500 text-center py-10">Sync Error.</p>';
+                    `;
+                });
+            } catch (e) {
+                list.innerHTML = '<p class="text-center">Offline</p>';
+            }
         }
-    }
 
-    function closePop() { document.getElementById('tgxPopup').style.display = 'none'; }
+        window.onload = () => {
+            stream(defaultSrc);
+            getMatches();
+        };
+    </script>
 
-    window.onload = () => {
-        playMatch(defaultStream);
-        loadMatches();
-        setTimeout(() => { document.getElementById('tgxPopup').style.display = 'flex'; }, 3000);
-    };
-</script>
-
-<footer class="bg-white dark:bg-gray-800 py-10 text-center border-t border-gray-200 dark:border-gray-700">
-    <p class="text-sm font-bold">© 2026 AURA LIVE | Sandesh's Coding Project</p>
-    <div class="mt-2 text-[10px] opacity-40">Privacy Policy • Terms • About</div>
-</footer>
+    <footer class="text-center py-20 opacity-30 text-[10px]">
+        &copy; 2026 AURA LIVE | Ethical Hacking Project
+    </footer>
 
 </body>
 </html>
