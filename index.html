@@ -3,207 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA LIVE - Watch Live Cricket & IPL HD</title>
+    <title>AURA LIVE - IPL & Cricket HD</title>
     
-    <meta name="description" content="AURA LIVE provides high-definition access to live cricket, IPL, and international sports. Built for educational streaming research in Nepal.">
-    <meta name="keywords" content="AURA LIVE, IPL LIVE, Cricket Streaming, Nepal Sports, Ethical Hacking Student Project">
-    <meta property="og:title" content="AURA LIVE - Professional Sports Hub">
-    <meta property="og:image" content="https://web.cricfoot.net/favico.png">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto+Mono&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
-        /* --- CORE CSS ARCHITECTURE (EXPANDED FOR 880+ LINE FEEL) --- */
-        :root {
-            --aura-blue: #1d4ed8;
-            --aura-dark-blue: #1e3a8a;
-            --aura-accent: #3b82f6;
-            --aura-live: #ef4444;
-            --aura-bg-light: #f8fafc;
-            --aura-bg-dark: #0f172a;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Poppins', sans-serif; background: var(--aura-bg-light); color: #1e293b; transition: background 0.4s ease; }
-        .dark body { background: var(--aura-bg-dark); color: #f1f5f9; }
-
-        /* Navigation Header */
-        header {
-            position: fixed; top: 0; width: 100%; height: 75px;
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
-            z-index: 9999; display: flex; align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-        .dark header { background: rgba(30, 41, 59, 0.95); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-
-        .nav-container { max-width: 1100px; width: 100%; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .aura-brand { font-size: 30px; font-weight: 900; color: var(--aura-blue); letter-spacing: -1.5px; text-transform: uppercase; }
-
-        /* Video Player Frame - FIXED POSTER LOGO */
-        .aura-player-frame {
-            max-width: 1000px; margin: 95px auto 30px;
-            background: #000; aspect-ratio: 16/9;
-            border-radius: 20px; overflow: hidden;
-            border: 5px solid var(--aura-blue);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            position: relative;
-        }
-        #mainVideo { width: 100%; height: 100%; object-fit: contain; }
-
-        /* Match Card Logistics */
-        .match-list-section { max-width: 1000px; margin: 0 auto; padding: 0 15px 120px; }
+        body { font-family: 'Poppins', sans-serif; background-color: #f1f5f9; }
+        .dark body { background-color: #0f172a; color: white; }
         
-        .league-banner {
-            background: linear-gradient(90deg, var(--aura-blue), var(--aura-dark-blue));
-            color: white; padding: 18px; border-radius: 12px;
-            text-align: center; font-weight: 800; font-size: 18px;
-            margin-bottom: 25px; box-shadow: 0 8px 15px rgba(29, 78, 216, 0.2);
+        /* प्लेयर फ्रेम फिक्स - को समस्या हटाउन */
+        .aura-video-container {
+            max-width: 1000px; margin: 90px auto 20px;
+            background: #000; aspect-ratio: 16/9;
+            border-radius: 15px; overflow: hidden;
+            border: 4px solid #1d4ed8;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
+        video { width: 100%; height: 100%; }
 
-        .match-row {
-            background: white; border-radius: 18px; padding: 22px;
-            margin-bottom: 20px; display: flex; align-items: center;
-            justify-content: space-between; border: 1px solid #e2e8f0;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .match-card {
+            background: white; border-radius: 12px; padding: 15px;
+            margin: 10px auto; max-width: 960px;
+            display: flex; align-items: center; justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
-        .dark .match-row { background: #1e293b; border-color: #334155; }
-        .match-row:hover { transform: translateY(-5px); border-color: var(--aura-blue); box-shadow: 0 12px 25px rgba(0,0,0,0.1); }
+        .dark .match-card { background: #1e293b; border: 1px solid #334155; }
 
-        .team-info { display: flex; align-items: center; gap: 15px; flex: 1; }
-        .team-info.home { justify-content: flex-end; text-align: right; }
-        .team-info.away { justify-content: flex-start; text-align: left; }
-        .team-logo { width: 55px; height: 55px; object-fit: contain; }
-        .team-name { font-size: 1.2rem; font-weight: 800; letter-spacing: -0.5px; }
-
-        .match-meta { display: flex; flex-direction: column; align-items: center; min-width: 130px; }
-        .live-action-btn {
-            background: var(--aura-live); color: white; padding: 8px 24px;
-            border-radius: 50px; font-weight: 900; font-size: 12px;
-            border: none; cursor: pointer; text-transform: uppercase;
-            animation: aura-glow 2s infinite;
+        .watch-btn {
+            background: #ef4444; color: white; padding: 8px 20px;
+            border-radius: 50px; font-weight: 800; font-size: 12px;
+            animation: pulse 2s infinite;
         }
-
-        @keyframes aura-glow {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
-            70% { transform: scale(1.05); box-shadow: 0 0 0 12px rgba(239, 68, 68, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
-        }
-
-        /* Ad Slots (Replicating YoSinTV Code Length) */
-        .ad-container { width: 100%; height: 100px; background: #edf2f7; margin: 30px 0; border-radius: 12px; display: flex; align-items: center; justify-content: center; border: 2px dashed #cbd5e1; }
-        .dark .ad-container { background: #334155; border-color: #475569; }
-
-        /* Bottom Footer */
-        footer { padding: 80px 0; background: white; border-top: 1px solid #e2e8f0; text-align: center; }
-        .dark footer { background: #0f172a; border-top-color: #1e293b; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
     </style>
 </head>
-<body>
+<body class="transition-colors duration-300">
 
-    <header>
-        <div class="nav-container">
-            <div class="aura-brand">AURA LIVE</div>
-            <button onclick="document.documentElement.classList.toggle('dark')" class="bg-gray-100 dark:bg-gray-800 p-3 rounded-xl shadow-inner">DARK MODE</button>
-        </div>
+    <header class="fixed top-0 w-full bg-white dark:bg-slate-900 shadow-md z-50 h-16 flex items-center px-6 justify-between">
+        <div class="text-2xl font-black text-blue-600">AURA LIVE</div>
+        <button onclick="document.documentElement.classList.toggle('dark')" class="bg-slate-200 dark:bg-slate-700 p-2 rounded-lg">🌓</button>
     </header>
 
-    <main>
-        <div class="aura-player-frame">
-            <video id="mainVideo" controls poster="https://web.cricfoot.net/favico.png"></video>
+    <main class="pt-4 px-4">
+        <div class="aura-video-container">
+            <video id="auraPlayer" controls autoplay muted></video>
         </div>
 
-        <div class="match-list-section">
-            <div class="ad-container"><span class="opacity-30 italic font-mono text-xs">ADVERTISEMENT SLOT #1</span></div>
-
-            <div class="league-banner">ICC & IPL LIVE STREAMING</div>
-            
-            <div id="dynamic-matches">
-                <p class="text-center py-20 font-black opacity-20">ESTABLISHING ENCRYPTED CONNECTION...</p>
+        <div class="max-w-[1000px] mx-auto">
+            <div class="bg-slate-200 dark:bg-slate-800 p-4 rounded-xl text-center mb-6 border-2 border-dashed border-slate-300">
+                <span class="text-xs opacity-50 uppercase font-bold tracking-widest">Advertisement Slot #1</span>
             </div>
 
-            <div class="ad-container"><span class="opacity-30 italic font-mono text-xs">ADVERTISEMENT SLOT #2</span></div>
+            <h2 class="bg-blue-600 text-white p-3 rounded-lg text-center font-extrabold text-lg shadow-lg mb-6">
+                ICC & IPL LIVE STREAMING
+            </h2>
+
+            <div id="match-list">
+                <p class="text-center opacity-30 italic py-10">Searching for Live Streams...</p>
+            </div>
         </div>
     </main>
 
     <script>
-        /* --- CORE JAVASCRIPT ENGINE --- */
-        const videoElement = document.getElementById('mainVideo');
-        // डिफल्ट IPL लिङ्क
-        const iplBackup = 'https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8';
+        const video = document.getElementById('auraPlayer');
+        // म्याच नभएको बेला चल्ने ब्याकअप स्ट्रिम
+        const backupStream = 'https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8';
 
-        function playAuraStream(streamUrl) {
+        function loadStream(url) {
             if (Hls.isSupported()) {
-                const hlsInstance = new Hls();
-                hlsInstance.loadSource(streamUrl);
-                hlsInstance.attachMedia(videoElement);
-                hlsInstance.on(Hls.Events.MANIFEST_PARSED, () => {
-                    videoElement.play();
-                });
-            } else if (videoElement.canPlayType('application/vnd.apple.mpegurl')) {
-                videoElement.src = streamUrl;
-                videoElement.play();
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.play();
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        async function syncAuraDatabase() {
-            const container = document.getElementById('dynamic-matches');
+        async function fetchMatches() {
+            const list = document.getElementById('match-list');
             try {
-                // YoSinTV को API प्रयोग गरेर डाटा तान्ने
-                const response = await fetch('https://yosintv-api.pages.dev/api/cricket.json');
-                const apiData = await response.json();
-                const matches = apiData.matches || apiData;
+                const res = await fetch('https://yosintv-api.pages.dev/api/cricket.json');
+                const data = await res.json();
+                const matches = data.matches || data;
+                list.innerHTML = '';
 
-                container.innerHTML = ''; 
-
-                matches.forEach((item) => {
-                    const finalUrl = item.stream_url || iplBackup;
-                    const cardTemplate = `
-                        <div class="match-row">
-                            <div class="team-info home">
-                                <span class="team-name">${item.team1}</span>
-                                <img src="${item.team1_logo || 'https://placehold.co/60'}" class="team-logo">
+                matches.forEach(m => {
+                    const streamUrl = m.stream_url || backupStream;
+                    list.innerHTML += `
+                        <div class="match-card">
+                            <div class="flex flex-col items-center flex-1 text-right">
+                                <span class="font-bold text-sm md:text-base">${m.team1}</span>
+                                <img src="${m.team1_logo || 'https://placehold.co/50'}" class="w-10 h-10 mt-1">
                             </div>
-                            <div class="match-meta">
-                                <span class="text-[10px] font-black text-blue-500 mb-2">LIVE MATCH</span>
-                                <button onclick="playAuraStream('${finalUrl}')" class="live-action-btn">WATCH HD</button>
+                            <div class="flex flex-col items-center px-4">
+                                <span class="text-[9px] font-black text-blue-500 mb-1">IPL LIVE</span>
+                                <button onclick="loadStream('${streamUrl}')" class="watch-btn">WATCH HD</button>
                             </div>
-                            <div class="team-info away">
-                                <img src="${item.team2_logo || 'https://placehold.co/60'}" class="team-logo">
-                                <span class="team-name">${item.team2}</span>
+                            <div class="flex flex-col items-center flex-1 text-left">
+                                <span class="font-bold text-sm md:text-base">${m.team2}</span>
+                                <img src="${m.team2_logo || 'https://placehold.co/50'}" class="w-10 h-10 mt-1">
                             </div>
                         </div>
                     `;
-                    container.innerHTML += cardTemplate;
                 });
-            } catch (err) {
-                container.innerHTML = '<div class="text-center font-bold text-red-500">DATABASE SYNC ERROR. REFRESHING...</div>';
+            } catch (e) {
+                list.innerHTML = '<p class="text-center text-red-500">Connection Failed.</p>';
             }
         }
 
-        // Initialize Application
-        window.addEventListener('DOMContentLoaded', () => {
-            playAuraStream(iplBackup);
-            syncAuraDatabase();
-            // Refresh database every 60 seconds
-            setInterval(syncAuraDatabase, 60000);
-        });
+        window.onload = () => {
+            loadStream(backupStream);
+            fetchMatches();
+        };
     </script>
 
-    <footer>
-        <div class="max-w-3xl mx-auto px-6">
-            <h2 class="text-3xl font-black text-blue-600 mb-4">AURA LIVE</h2>
-            <p class="text-sm opacity-60 leading-relaxed mb-8">
-                AURA LIVE is an independent educational portal for sports analytics and streaming protocols. 
-                All data is aggregated from open-source APIs. Built with passion in Nepal.
-            </p>
-            <div class="flex justify-center gap-10 text-[11px] font-bold opacity-40">
-                <span>DMCA</span><span>TERMS</span><span>PRIVACY</span><span>ABOUT US</span>
-            </div>
-            <p class="mt-10 text-[10px] opacity-20">PROJECT VERSION 4.1.0 (PRO) | © 2026</p>
-        </div>
+    <footer class="text-center py-10 opacity-30 text-[10px] mt-10">
+        &copy; 2026 AURA LIVE | ETHICAL STREAMING EDUCATION
     </footer>
+
 </body>
 </html>
