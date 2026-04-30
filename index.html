@@ -3,75 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA LIVE - IPL & Cricket HD</title>
+    <title>AURA LIVE - RCB vs GT IPL Special</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #f1f5f9; }
-        .dark body { background-color: #0f172a; color: white; }
+        body { font-family: 'Poppins', sans-serif; background-color: #0f172a; color: white; margin: 0; }
         
-        /* प्लेयर फ्रेम फिक्स - को समस्या हटाउन */
-        .aura-video-container {
-            max-width: 1000px; margin: 90px auto 20px;
+        /* भिडियो प्लेयर फ्रेम - को डिजाइन अनुसार */
+        .aura-player-container {
+            max-width: 1000px; margin: 80px auto 20px;
             background: #000; aspect-ratio: 16/9;
-            border-radius: 15px; overflow: hidden;
-            border: 4px solid #1d4ed8;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 15px; border: 2px solid #2563eb;
+            overflow: hidden; box-shadow: 0 0 25px rgba(37, 99, 235, 0.3);
         }
-        video { width: 100%; height: 100%; }
+        video { width: 100%; height: 100%; object-fit: contain; }
 
+        /* म्याच कार्ड र बटनहरु */
         .match-card {
-            background: white; border-radius: 12px; padding: 15px;
-            margin: 10px auto; max-width: 960px;
+            background: #1e293b; border-radius: 16px; padding: 18px;
+            margin: 12px auto; max-width: 900px;
             display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border: 1px solid #334155;
         }
-        .dark .match-card { background: #1e293b; border: 1px solid #334155; }
 
-        .watch-btn {
-            background: #ef4444; color: white; padding: 8px 20px;
-            border-radius: 50px; font-weight: 800; font-size: 12px;
-            animation: pulse 2s infinite;
+        .watch-hd-btn {
+            background: #f87171; color: white; padding: 10px 25px;
+            border-radius: 50px; font-weight: 900; font-size: 13px;
+            text-transform: uppercase; border: none; cursor: pointer;
+            transition: 0.3s; box-shadow: 0 4px 10px rgba(248, 113, 113, 0.3);
         }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .watch-hd-btn:hover { background: #ef4444; transform: scale(1.05); }
+
+        .ad-slot {
+            max-width: 900px; height: 70px; margin: 20px auto;
+            border: 1px dashed #475569; border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; color: #94a3b8; letter-spacing: 1px;
+        }
     </style>
 </head>
-<body class="transition-colors duration-300">
+<body>
 
-    <header class="fixed top-0 w-full bg-white dark:bg-slate-900 shadow-md z-50 h-16 flex items-center px-6 justify-between">
-        <div class="text-2xl font-black text-blue-600">AURA LIVE</div>
-        <button onclick="document.documentElement.classList.toggle('dark')" class="bg-slate-200 dark:bg-slate-700 p-2 rounded-lg">🌓</button>
+    <header class="fixed top-0 w-full bg-[#0f172a] border-b border-slate-800 z-50 h-16 flex items-center px-6 justify-between">
+        <div class="text-2xl font-black text-blue-500 tracking-tighter">AURA LIVE</div>
+        <div class="w-10 h-6 bg-blue-600 rounded-full relative"><div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div></div>
     </header>
 
-    <main class="pt-4 px-4">
-        <div class="aura-video-container">
-            <video id="auraPlayer" controls autoplay muted></video>
+    <main class="px-4">
+        <div class="aura-player-container">
+            <video id="player" controls autoplay muted poster="https://web.cricfoot.net/favico.png"></video>
         </div>
 
-        <div class="max-w-[1000px] mx-auto">
-            <div class="bg-slate-200 dark:bg-slate-800 p-4 rounded-xl text-center mb-6 border-2 border-dashed border-slate-300">
-                <span class="text-xs opacity-50 uppercase font-bold tracking-widest">Advertisement Slot #1</span>
-            </div>
+        <div class="ad-slot">ADVERTISEMENT SLOT #1</div>
 
-            <h2 class="bg-blue-600 text-white p-3 rounded-lg text-center font-extrabold text-lg shadow-lg mb-6">
+        <div class="max-w-[900px] mx-auto">
+            <button class="w-full bg-blue-600 py-4 rounded-xl font-black text-lg mb-6 shadow-lg uppercase tracking-wider">
                 ICC & IPL LIVE STREAMING
-            </h2>
+            </button>
 
             <div id="match-list">
-                <p class="text-center opacity-30 italic py-10">Searching for Live Streams...</p>
+                <div class="match-card">
+                    <div class="flex flex-col items-center flex-1">
+                        <span class="font-bold text-lg">Royal Challengers</span>
+                        <img src="https://placehold.co/60/red/white?text=RCB" class="w-14 h-14 mt-2">
+                    </div>
+                    <div class="flex flex-col items-center px-4">
+                        <span class="text-[9px] font-black text-blue-400 mb-2 uppercase">IPL LIVE</span>
+                        <button onclick="playIPL('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8')" class="watch-hd-btn">WATCH HD</button>
+                    </div>
+                    <div class="flex flex-col items-center flex-1">
+                        <span class="font-bold text-lg">Gujarat Titans</span>
+                        <img src="https://placehold.co/60/blue/white?text=GT" class="w-14 h-14 mt-2">
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
     <script>
-        const video = document.getElementById('auraPlayer');
-        // म्याच नभएको बेला चल्ने ब्याकअप स्ट्रिम
-        const backupStream = 'https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8';
+        const video = document.getElementById('player');
 
-        function loadStream(url) {
+        function playIPL(url) {
             if (Hls.isSupported()) {
                 const hls = new Hls();
                 hls.loadSource(url);
@@ -84,46 +99,14 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        async function fetchMatches() {
-            const list = document.getElementById('match-list');
-            try {
-                const res = await fetch('https://yosintv-api.pages.dev/api/cricket.json');
-                const data = await res.json();
-                const matches = data.matches || data;
-                list.innerHTML = '';
-
-                matches.forEach(m => {
-                    const streamUrl = m.stream_url || backupStream;
-                    list.innerHTML += `
-                        <div class="match-card">
-                            <div class="flex flex-col items-center flex-1 text-right">
-                                <span class="font-bold text-sm md:text-base">${m.team1}</span>
-                                <img src="${m.team1_logo || 'https://placehold.co/50'}" class="w-10 h-10 mt-1">
-                            </div>
-                            <div class="flex flex-col items-center px-4">
-                                <span class="text-[9px] font-black text-blue-500 mb-1">IPL LIVE</span>
-                                <button onclick="loadStream('${streamUrl}')" class="watch-btn">WATCH HD</button>
-                            </div>
-                            <div class="flex flex-col items-center flex-1 text-left">
-                                <span class="font-bold text-sm md:text-base">${m.team2}</span>
-                                <img src="${m.team2_logo || 'https://placehold.co/50'}" class="w-10 h-10 mt-1">
-                            </div>
-                        </div>
-                    `;
-                });
-            } catch (e) {
-                list.innerHTML = '<p class="text-center text-red-500">Connection Failed.</p>';
-            }
-        }
-
+        // म्याच सुरु हुनु अघि ब्याकअप स्ट्रिम लोड गर्ने
         window.onload = () => {
-            loadStream(backupStream);
-            fetchMatches();
+            playIPL('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8');
         };
     </script>
 
-    <footer class="text-center py-10 opacity-30 text-[10px] mt-10">
-        &copy; 2026 AURA LIVE | ETHICAL STREAMING EDUCATION
+    <footer class="text-center py-16 opacity-30 text-[10px]">
+        © 2026 AURALIVE | ETHICAL STREAMING EDUCATION
     </footer>
 
 </body>
