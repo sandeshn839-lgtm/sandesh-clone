@@ -3,94 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA LIVE - Nepal vs UAE Live</title>
+    <title>AURA LIVE - Nepal vs UAE Special</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
-        body { background-color: #0f172a; color: white; font-family: sans-serif; }
-        .aura-player-frame { 
-            max-width: 900px; margin: 80px auto 20px; 
-            background: #000; aspect-ratio: 16/9; 
-            border: 3px solid #2563eb; border-radius: 15px; 
-            overflow: hidden; box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+        body { background-color: #0f172a; color: white; font-family: 'Poppins', sans-serif; }
+        .player-frame { 
+            max-width: 900px; margin: 80px auto 20px; background: #000; 
+            aspect-ratio: 16/9; border: 3px solid #2563eb; border-radius: 15px; 
+            overflow: hidden; position: relative;
         }
         video { width: 100%; height: 100%; }
         .match-card { 
             background: #1e293b; padding: 20px; margin: 15px auto; 
-            max-width: 850px; border-radius: 12px; 
+            max-width: 850px; border-radius: 12px; border: 1px solid #334155;
             display: flex; justify-content: space-between; align-items: center; 
-            border: 1px solid #334155; 
         }
-        .btn-watch { 
-            background: #ef4444; color: white; padding: 12px 25px; 
-            border-radius: 50px; font-weight: 900; font-size: 14px; 
-            animation: pulse 2s infinite; 
+        .live-btn { 
+            background: #ef4444; color: white; padding: 10px 20px; 
+            border-radius: 50px; font-weight: 900; animation: pulse 2s infinite; 
         }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
     </style>
 </head>
 <body>
 
-    <header class="fixed top-0 w-full bg-slate-900 p-4 border-b border-slate-800 z-50">
-        <h1 class="text-2xl font-black text-blue-500 tracking-tighter">AURA LIVE</h1>
+    <header class="fixed top-0 w-full bg-slate-900 p-4 border-b border-slate-800 z-50 flex justify-between">
+        <h1 class="text-2xl font-black text-blue-500">AURA LIVE</h1>
     </header>
 
-    <div class="aura-player-frame">
-        <!-- YoSinTV को लोगो यहाँ हटाइएको छ -->
-        <video id="aura_player" controls poster="https://web.cricfoot.net/favico.png"></video>
+    <div class="player-frame">
+        <!-- पोस्टर फिक्स गरियो -->
+        <video id="auraPlayer" controls poster="https://web.cricfoot.net/favico.png"></video>
     </div>
 
     <div class="px-4">
-        <div class="bg-gradient-to-r from-red-600 to-blue-700 text-center py-4 rounded-xl font-black text-xl mb-6 shadow-lg">
-            NEPAL vs UAE: LIVE STREAMING
-        </div>
-
-        <div id="nepal_match">
-            <div class="match-card">
-                <div class="text-center flex-1">
-                    <p class="font-black text-lg">NEPAL</p>
-                    <img src="https://flagcdn.com/w160/np.png" class="w-16 h-auto mx-auto mt-2 shadow-md">
-                </div>
-                
-                <div class="flex flex-col items-center px-4">
-                    <span class="text-[10px] font-bold text-blue-400 mb-2">LIVE NOW</span>
-                    <!-- यो बटन थिचेपछि म्याच सुरु हुन्छ -->
-                    <button onclick="playNepal('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8')" class="btn-watch">WATCH HD</button>
-                </div>
-
-                <div class="text-center flex-1">
-                    <p class="font-black text-lg">UAE</p>
-                    <img src="https://flagcdn.com/w160/ae.png" class="w-16 h-auto mx-auto mt-2 shadow-md">
-                </div>
-            </div>
+        <div class="bg-blue-600 text-center py-3 rounded-lg font-black mb-6">NEPAL vs UAE - LIVE</div>
+        <div id="matchContainer">
+            <p class="text-center opacity-40 py-10">Fetching secure stream links...</p>
         </div>
     </div>
 
     <script>
-        const video = document.getElementById('aura_player');
-        
-        function playNepal(url) {
+        const video = document.getElementById('auraPlayer');
+        let hls = new Hls();
+
+        function startStream(url) {
+            if (!url) return;
             if (Hls.isSupported()) {
-                const hls = new Hls();
+                hls.destroy();
+                hls = new Hls();
                 hls.loadSource(url);
                 hls.attachMedia(video);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => video.play());
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            } else {
                 video.src = url;
                 video.play();
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        async function loadMatches() {
+            const container = document.getElementById('matchContainer');
+            try {
+                // ताजा लिङ्कका लागि API कल
+                const res = await fetch('https://yosintv-api.pages.dev/api/cricket.json');
+                const data = await res.json();
+                const matches = data.matches || data;
+                container.innerHTML = '';
+
+                matches.forEach(m => {
+                    container.innerHTML += `
+                        <div class="match-card">
+                            <div class="text-center flex-1">
+                                <p class="font-bold">${m.team1}</p>
+                                <img src="${m.team1_logo}" class="w-12 h-12 mx-auto mt-2">
+                            </div>
+                            <button onclick="startStream('${m.stream_url}')" class="live-btn">WATCH LIVE</button>
+                            <div class="text-center flex-1">
+                                <p class="font-bold">${m.team2}</p>
+                                <img src="${m.team2_logo}" class="w-12 h-12 mx-auto mt-2">
+                            </div>
+                        </div>
+                    `;
+                });
+            } catch (e) {
+                container.innerHTML = "<p class='text-center text-red-500'>Connection error. Please refresh.</p>";
+            }
+        }
+
         window.onload = () => {
-            // म्याचको डिफल्ट लिङ्क लोड गर्ने
-            playNepal('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8');
+            loadMatches();
+            // सुरुमा यो लिङ्क ट्राइ गर
+            startStream('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8');
         };
     </script>
-
-    <footer class="text-center py-10 opacity-20 text-[10px]">
-        © 2026 AURA LIVE | NEPAL CRICKET SPECIAL
-    </footer>
-
 </body>
 </html>
