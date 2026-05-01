@@ -3,27 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA LIVE - Nepal vs UAE</title>
+    <title>AURA LIVE - NEPAL vs UAE</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         body { background-color: #0f172a; color: white; font-family: sans-serif; }
-        .player-window { 
+        .aura-player-frame { 
             max-width: 900px; margin: 80px auto 20px; background: #000; 
-            aspect-ratio: 16/9; border: 2px solid #2563eb; border-radius: 12px; 
-            overflow: hidden; box-shadow: 0 0 20px rgba(37,99,235,0.5);
+            aspect-ratio: 16/9; border: 2px solid #2563eb; border-radius: 15px; 
+            overflow: hidden; position: relative;
         }
         video { width: 100%; height: 100%; }
         .match-row { 
-            background: #1e293b; padding: 20px; margin: 10px auto; 
-            max-width: 850px; border-radius: 10px; display: flex; 
-            justify-content: space-between; align-items: center; border: 1px solid #334155;
+            background: #1e293b; padding: 20px; margin: 15px auto; 
+            max-width: 850px; border-radius: 12px; border: 1px solid #334155;
+            display: flex; justify-content: space-between; align-items: center; 
         }
         .btn-live { 
-            background: #ef4444; color: white; padding: 12px 24px; 
-            border-radius: 50px; font-weight: 900; animation: pulse 1.5s infinite;
+            background: #ef4444; color: white; padding: 12px 25px; 
+            border-radius: 50px; font-weight: 900; animation: pulse 1.5s infinite; 
         }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
     </style>
 </head>
 <body>
@@ -32,39 +32,49 @@
         <h1 class="text-xl font-black text-blue-500">AURA LIVE</h1>
     </header>
 
-    <div class="player-window">
-        <video id="main_player" controls autoplay playsinline></video>
+    <div class="aura-player-frame">
+        <video id="player" controls autoplay playsinline poster="https://web.cricfoot.net/favico.png"></video>
     </div>
 
     <div class="px-4">
-        <div class="bg-blue-600 text-center py-3 rounded-lg font-bold mb-6">NEPAL vs UAE - LIVE NOW</div>
+        <div class="bg-blue-600 text-center py-3 rounded-lg font-black mb-6 uppercase">Nepal vs UAE - LIVE NOW</div>
         
         <div class="match-row">
             <div class="text-center flex-1">
-                <p class="font-bold">Nepal</p>
-                <img src="https://flagcdn.com/w80/np.png" class="mx-auto mt-2 w-12">
+                <p class="font-bold">NEPAL</p>
+                <img src="https://flagcdn.com/w160/np.png" class="mx-auto mt-2 w-14">
             </div>
-            <button onclick="forcePlay('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8')" class="btn-live">WATCH LIVE</button>
+            
+            <div class="flex flex-col items-center">
+                <span class="text-[10px] text-blue-400 font-bold mb-2">SERVER ACTIVE</span>
+                <button onclick="streamNow('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8')" class="btn-live">WATCH LIVE</button>
+            </div>
+
             <div class="text-center flex-1">
                 <p class="font-bold">UAE</p>
-                <img src="https://flagcdn.com/w80/ae.png" class="mx-auto mt-2 w-12">
+                <img src="https://flagcdn.com/w160/ae.png" class="mx-auto mt-2 w-14">
             </div>
         </div>
     </div>
 
     <script>
-        const video = document.getElementById('main_player');
+        const video = document.getElementById('player');
         let hls = new Hls();
 
-        function forcePlay(url) {
-            console.log("Attempting to play:", url);
+        function streamNow(url) {
             if (Hls.isSupported()) {
                 hls.destroy();
-                hls = new Hls();
+                hls = new Hls({
+                    manifestLoadingMaxRetry: 10,
+                    levelLoadingMaxRetry: 10,
+                    enableWorker: true
+                });
                 hls.loadSource(url);
                 hls.attachMedia(video);
                 hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    video.play().catch(() => alert("Please click the play button on the video player!"));
+                    video.play().catch(() => {
+                        console.log("Play failed, waiting for user click.");
+                    });
                 });
             } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
                 video.src = url;
@@ -72,9 +82,9 @@
             }
         }
 
-        // डिफल्ट लोड
+        // म्याच सुरु हुनु अगाडि यो लिङ्क ट्राइ गर
         window.onload = () => {
-            forcePlay('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8');
+            streamNow('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8');
         };
     </script>
 </body>
