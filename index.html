@@ -1,89 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ne">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethical Hacking Learning Tool v2.0</title>
+    <title>Aura Ethical Hacking Panel - Thala FX</title>
     <style>
-        body { background-color: #000; color: #0f0; font-family: 'Courier New', monospace; text-align: center; margin: 0; padding-bottom: 50px; }
-        .btn-container { margin: 20px auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 600px; padding: 10px; }
-        button { padding: 12px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 13px; }
-        .btn-green { background-color: #00ff00; box-shadow: 0 0 10px #00ff00; color: #000; }
-        .btn-purple { background-color: #bf00ff; box-shadow: 0 0 10px #bf00ff; color: white; }
+        :root { --main-green: #00ff00; --main-purple: #bf00ff; --cyan: #00d4ff; }
+        body { background-color: #000; color: var(--main-green); font-family: 'Courier New', monospace; text-align: center; margin: 0; padding-bottom: 50px; overflow-x: hidden; }
         
+        /* Header & Navigation */
+        .header { padding: 20px; background: rgba(0, 255, 0, 0.1); border-bottom: 2px solid var(--main-green); }
+        .btn-container { margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; max-width: 900px; padding: 15px; }
+        
+        button { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 13px; text-transform: uppercase; }
+        .btn-green { background-color: var(--main-green); color: #000; box-shadow: 0 0 10px var(--main-green); }
+        .btn-purple { background-color: var(--main-purple); color: white; box-shadow: 0 0 10px var(--main-purple); }
+        button:hover { transform: scale(1.05); filter: brightness(1.2); }
+
+        /* Sections */
         .content-section { 
-            border: 2px solid #00ff00; border-radius: 15px; padding: 20px; 
-            width: 85%; margin: 20px auto; display: none; background: rgba(0, 255, 0, 0.05); text-align: left;
+            border: 2px solid var(--main-green); border-radius: 15px; padding: 25px; 
+            width: 85%; max-width: 900px; margin: 20px auto; display: none; 
+            background: rgba(0, 255, 0, 0.05); text-align: left; animation: fadeIn 0.4s;
         }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        h2 { color: #ff00ff; text-align: center; text-transform: uppercase; }
-        li { margin: 15px 0; cursor: pointer; font-size: 16px; list-style: none; }
-        li:hover { color: #fff; text-shadow: 0 0 8px #0f0; }
+        h2 { color: var(--main-purple); text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        li { margin: 15px 0; cursor: pointer; font-size: 16px; list-style: "⚡ "; transition: 0.2s; }
+        li:hover { color: #fff; text-shadow: 0 0 8px var(--main-green); }
 
         /* Terminal Style */
-        #terminal-output { height: 150px; overflow-y: auto; background: #111; padding: 10px; color: #0f0; border-radius: 5px; }
-        #cmd-input { background: transparent; border: none; color: #0f0; outline: none; width: 80%; font-family: inherit; }
+        #terminal-output { height: 180px; overflow-y: auto; background: #000; padding: 15px; color: var(--main-green); border: 1px solid #333; border-radius: 5px; }
+        .cmd-line { display: flex; align-items: center; background: #111; padding: 10px; border-radius: 5px; margin-top: 5px; }
+        #cmd-input { background: transparent; border: none; color: var(--main-green); outline: none; flex: 1; font-family: inherit; font-size: 16px; }
 
         /* AI Chat Style */
-        #ai-display { height: 180px; overflow-y: auto; background: #000; padding: 10px; border: 1px solid #333; margin-bottom: 10px; }
+        #ai-display { height: 280px; overflow-y: auto; background: #050505; padding: 15px; border: 1px solid #222; margin-bottom: 10px; border-radius: 10px; }
+        .ai-msg { color: var(--cyan); background: rgba(0, 212, 255, 0.1); padding: 10px; border-radius: 8px; margin: 8px 0; border-left: 4px solid var(--cyan); }
+        .user-msg { color: #fff; background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; margin: 8px 0; text-align: right; border-right: 4px solid #fff; }
     </style>
 </head>
 <body>
 
-    <h1>50+ Kali Linux Tools | Mobile Ready</h1>
-    <div style="background: red; color: white; padding: 10px; width: 80%; margin: 10px auto; border-radius: 5px; font-weight: bold;">
-        ⚠️ LEGAL: Educational only. Get written permission.
+    <div class="header">
+        <h1>⚡ AURA LIVE ETHICAL HACKING TOOL ⚡</h1>
+        <p style="color: red; font-weight: bold;">[ CREATED BY: SANDESH NEUPANE ]</p>
     </div>
 
-    <!-- Navigation Buttons -->
     <div class="btn-container">
         <button class="btn-green" onclick="showSection('recon')">🔍 Recon</button>
         <button class="btn-green" onclick="showSection('scan')">🔬 Scan</button>
         <button class="btn-green" onclick="showSection('pass')">🔑 Pass</button>
-        <button class="btn-green" onclick="showSection('wifi')">📶 WiFi</button>
         <button class="btn-purple" onclick="showSection('cmd')">📟 CMD</button>
-        <button class="btn-purple" onclick="showSection('ai')">🤖 AI Chat</button>
+        <button class="btn-purple" onclick="showSection('ai')">🤖 Smart AI</button>
         <button class="btn-purple" onclick="showSection('book')">📖 Book</button>
         <button class="btn-purple" onclick="window.open('https://vscode.dev', '_blank')">💙 VS-Code</button>
     </div>
 
-    <!-- Recon Section -->
     <div id="recon" class="content-section" style="display: block;">
-        <h2>Recon Tools</h2>
-        <li onclick="alert('Nmap: Network scanner for discovery and security auditing.')">✔️ Nmap - Network scanner</li>
-        <li onclick="alert('Maltego: Link analysis tool for information gathering.')">✔️ Maltego - Link analysis</li>
+        <h2>Information Gathering</h2>
+        <li onclick="alert('Nmap: Network scanner for port discovery.')">Nmap - Port Scanner</li>
+        <li onclick="alert('Whois: Check domain ownership details.')">Whois Lookup</li>
     </div>
 
-    <!-- Pass Section -->
     <div id="pass" class="content-section">
-        <h2>Password Tools</h2>
-        <li onclick="alert('John the Ripper: Fast password cracker.')">✔️ John the Ripper</li>
-        <li onclick="alert('Hashcat: Advanced password recovery tool.')">✔️ Hashcat</li>
+        <h2>Password Cracking</h2>
+        <li onclick="alert('John the Ripper: Fast password cracker.')">John the Ripper</li>
+        <li onclick="alert('Hashcat: Advanced GPU cracker.')">Hashcat</li>
     </div>
 
-    <!-- CMD Section -->
-    <div id="cmd" class="content-section" style="background: #000;">
-        <h2>Terminal</h2>
-        <div id="terminal-output"><div>Welcome. Type 'help' for commands.</div></div>
-        <div style="margin-top:5px;"><span>C:\Sandesh></span><input type="text" id="cmd-input"></div>
-    </div>
-
-    <!-- AI Chat Section -->
-    <div id="ai" class="content-section">
-        <h2>Cyber AI Assistant</h2>
-        <div id="ai-display"><div>AI: How can I help you? Ask about money, tools, or hacking.</div></div>
-        <div style="display:flex;">
-            <input type="text" id="ai-input" style="flex:1; padding:5px;" placeholder="Ask here...">
-            <button onclick="askAI()" style="background:#00d4ff; margin-left:5px;">Ask</button>
+    <div id="cmd" class="content-section">
+        <h2>System Terminal</h2>
+        <div id="terminal-output"><div>Aura OS v2.0... Type 'help' for commands.</div></div>
+        <div class="cmd-line">
+            <span>C:\Sandesh\ThalaFX></span>
+            <input type="text" id="cmd-input" autofocus>
         </div>
     </div>
 
-    <!-- Book Section -->
-    <div id="book" class="content-section" style="border-color: #ff00ff;">
-        <h2>📖 Ethical Hacking Book</h2>
-        <p><b>१. कमाई कसरी गर्ने?</b> <br> बग बाउन्टी, सरकारी वा निजी कम्पनीमा जागिर, र फ्रीलान्सिङबाट राम्रो पैसा कमाउन सकिन्छ।</p>
-        <p><b>२. मुख्य काम के हो?</b> <br> सिस्टमको कमजोरी पत्ता लगाएर सुरक्षा बलियो बनाउनु।</p>
-        <p><b>३. लोकेसन ट्र्याकिङ:</b> <br> IP-based र Social Engineering लिङ्कहरू मार्फत गरिन्छ।</p>
+    <div id="ai" class="content-section">
+        <h2>🤖 AI Assistant (Thala Brain)</h2>
+        <div id="ai-display"><div>AI: Hello! I am your AI Assistant. How can I help you today?</div></div>
+        <div style="display:flex; gap: 10px;">
+            <input type="text" id="ai-input" style="flex:1; padding:12px; border-radius:5px; border:1px solid var(--main-green); background:#000; color:#fff;" placeholder="Ask me anything...">
+            <button onclick="askAI()" style="background: var(--cyan); color: #000;">ASK AI</button>
+        </div>
+    </div>
+
+    <div id="book" class="content-section">
+        <h2>📖 Hacking Guide</h2>
+        <p><b>1. How to earn money?</b> <br> Through Bug Bounty (HackerOne), Security Jobs, and Freelancing.</p>
+        <p><b>2. Function of Hacking:</b> <br> Identifying weaknesses to secure systems.</p>
     </div>
 
     <script>
@@ -93,38 +100,61 @@
         }
 
         // CMD Logic
-        document.getElementById('cmd-input').addEventListener('keypress', function(e) {
+        const cmdIn = document.getElementById('cmd-input');
+        const cmdOut = document.getElementById('terminal-output');
+        cmdIn.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
-                const cmd = this.value.toLowerCase();
-                const out = document.getElementById('terminal-output');
-                out.innerHTML += `<div>> ${cmd}</div>`;
-                if(cmd === 'help') out.innerHTML += "<div>Commands: help, ls, clear, whoami</div>";
-                else if(cmd === 'ls') out.innerHTML += "<div>index.html  pass_tools/  recon/</div>";
-                else if(cmd === 'clear') out.innerHTML = "";
-                else out.innerHTML += "<div>Unknown command.</div>";
-                this.value = '';
-                out.scrollTop = out.scrollHeight;
+                const val = cmdIn.value.toLowerCase().trim();
+                cmdOut.innerHTML += `<div>> ${val}</div>`;
+                if(val === 'help') cmdOut.innerHTML += "<div>Commands: help, ls, clear, whoami</div>";
+                else if(val === 'ls') cmdOut.innerHTML += "<div>ai_logs.txt  tools_config/  root.exe</div>";
+                else if(val === 'whoami') cmdOut.innerHTML += "<div>admin_sandesh_neupane</div>";
+                else if(val === 'clear') cmdOut.innerHTML = "";
+                else cmdOut.innerHTML += `<div style="color:red;">Error: Command not found.</div>`;
+                cmdIn.value = '';
+                cmdOut.scrollTop = cmdOut.scrollHeight;
             }
         });
 
-        // AI Logic
+        // AI Logic with your specific questions
         function askAI() {
             const inp = document.getElementById('ai-input');
             const disp = document.getElementById('ai-display');
-            const text = inp.value.toLowerCase();
-            disp.innerHTML += `<div>👤 You: ${inp.value}</div>`;
-            
-            let res = "AI: I specialize in hacking info. Try 'earn money' or 'nmap'.";
-            if(text.includes('money') || text.includes('earn')) res = "AI: Earn via Bug Bounty (HackerOne), Pentesting jobs, or Freelancing.";
-            else if(text.includes('nmap')) res = "AI: Nmap is used for network scanning and port discovery.";
-            else if(text.includes('password')) res = "AI: Cracking uses Brute Force. Tools: John & Hashcat.";
+            const text = inp.value.toLowerCase().trim();
+            if(!text) return;
+
+            disp.innerHTML += `<div class="user-msg">You: ${inp.value}</div>`;
+            let res = "AI: I don't have that information yet. Ask about 'hacking', 'who made you', or 'os'.";
+
+            if(text.includes('what is hacking')) res = "Hacking is the act of identifying and exploiting weaknesses in a computer system or network.";
+            else if(text.includes('happened')) res = "From hacking, data theft, financial loss, privacy breach, and system damage can happen.";
+            else if(text.includes('os') || text.includes('operating system')) res = "There are many OS like: Kali Linux, Parrot Security OS, Windows, etc.";
+            else if(text.includes('kali') && text.includes('tools')) res = "Kali Linux has 600+ tools for scanning (Nmap), password attacks (Hashcat), and more.";
+            else if(text.includes('who made you')) res = "I have been made by <b>Sandesh Neupane</b>.";
+            else if(text.includes('your name')) res = "My name is <b>AI Assistant</b>.";
+            else if(text.includes('hello') || text.includes('hi')) res = "Hi, I am AI! What can I help you with?";
+            else if(text.includes('end') || text.includes('bye')) res = "Thank you! Follow to <b>Thala FX</b>.";
+            else if(text.includes('when') && text.includes('made')) res = "I was made on <b>2026/05/10 (2083/01/28 BS)</b>.";
+            else if(text.includes('money') || text.includes('earn')) res = "You can earn through Bug Bounty, Pentesting jobs, and Freelancing.";
 
             setTimeout(() => {
-                disp.innerHTML += `<div style="color:#00d4ff;">🤖 ${res}</div>`;
+                disp.innerHTML += `<div class="ai-msg">🤖 AI: ${res}</div>`;
                 disp.scrollTop = disp.scrollHeight;
             }, 500);
             inp.value = '';
         }
+
+        // EXIT POP-UP LOGIC
+        let exitTriggered = false;
+        document.addEventListener("mouseleave", function(e) {
+            if (e.clientY < 0 && !exitTriggered) {
+                const follow = confirm("Thank you for visiting! Please follow Thala FX on Facebook before you go. Click OK to visit my profile.");
+                if (follow) {
+                    window.location.href = "https://www.facebook.com/SandeshNeupane11";
+                }
+                exitTriggered = true;
+            }
+        });
     </script>
 </body>
 </html>
