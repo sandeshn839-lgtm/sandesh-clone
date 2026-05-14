@@ -3,89 +3,746 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AURA LIVE - NEPAL vs UAE</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <title>Ethical Hacking Learning Platform - Complete Tools Suite</title>
     <style>
-        body { background-color: #0f172a; color: white; font-family: sans-serif; }
-        .aura-player-frame { 
-            max-width: 900px; margin: 80px auto 20px; background: #000; 
-            aspect-ratio: 16/9; border: 2px solid #2563eb; border-radius: 15px; 
-            overflow: hidden; position: relative;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        video { width: 100%; height: 100%; }
-        .match-row { 
-            background: #1e293b; padding: 20px; margin: 15px auto; 
-            max-width: 850px; border-radius: 12px; border: 1px solid #334155;
-            display: flex; justify-content: space-between; align-items: center; 
+
+        body {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #00ff00;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        .btn-live { 
-            background: #ef4444; color: white; padding: 12px 25px; 
-            border-radius: 50px; font-weight: 900; animation: pulse 1.5s infinite; 
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
         }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border-bottom: 3px solid #00ff00;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px #00ff00;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 20px #00ff00; }
+            to { text-shadow: 0 0 30px #00ff00, 0 0 40px #00ff00; }
+        }
+
+        .warning {
+            background: linear-gradient(90deg, #ff4444, #cc0000);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 8px solid #ff0000;
+            box-shadow: 0 10px 30px rgba(255,68,68,0.3);
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+            position: sticky;
+            top: 0;
+            background: rgba(0,0,0,0.9);
+            padding: 20px 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        nav button {
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,255,0,0.3);
+        }
+
+        nav button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,255,0,0.5);
+        }
+
+        nav button.active {
+            background: linear-gradient(45deg, #ff00ff, #cc00cc);
+            color: white;
+            box-shadow: 0 10px 25px rgba(255,0,255,0.5);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .tool-card {
+            background: rgba(0,255,0,0.05);
+            border: 2px solid #00ff00;
+            border-radius: 15px;
+            padding: 30px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0,255,0,0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .tool-card:hover::before {
+            left: 100%;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,255,0,0.3);
+            border-color: #ff00ff;
+        }
+
+        .tool-icon {
+            font-size: 3em;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #00ff00;
+        }
+
+        .tool-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #ff00ff;
+        }
+
+        .install-cmd {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: #00ff88;
+            margin: 15px 0;
+            border-left: 4px solid #00ff00;
+            word-break: break-all;
+        }
+
+        .usage-examples {
+            background: #0d1117;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 1px solid #30363d;
+        }
+
+        .cmd {
+            color: #58a6ff;
+            margin: 10px 0;
+        }
+
+        .terminal {
+            background: #000;
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            border: 1px solid #00ff00;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .category-header {
+            font-size: 2.2em;
+            margin: 40px 0 20px 0;
+            color: #ff00ff;
+            text-align: center;
+            position: relative;
+        }
+
+        .category-header::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, #00ff00, #ff00ff);
+            margin: 10px auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px;
+            margin-top: 60px;
+            border-top: 2px solid #00ff00;
+            color: #888;
+        }
+
+        @media (max-width: 768px) {
+            .tool-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 2em; }
+            nav { flex-direction: column; align-items: center; }
+        }
     </style>
 </head>
 <body>
-
-    <header class="fixed top-0 w-full bg-slate-900 p-4 border-b border-slate-800 z-50">
-        <h1 class="text-xl font-black text-blue-500">AURA LIVE</h1>
-    </header>
-
-    <div class="aura-player-frame">
-        <video id="player" controls autoplay playsinline poster="https://web.cricfoot.net/favico.png"></video>
-    </div>
-
-    <div class="px-4">
-        <div class="bg-blue-600 text-center py-3 rounded-lg font-black mb-6 uppercase">Nepal vs UAE - LIVE NOW</div>
-        
-        <div class="match-row">
-            <div class="text-center flex-1">
-                <p class="font-bold">NEPAL</p>
-                <img src="https://flagcdn.com/w160/np.png" class="mx-auto mt-2 w-14">
-            </div>
+    <div class="container">
+        <header>
+            <h1>🛡️ ETHICAL HACKING ACADEMY 🛡️</h1>
+            <p style="font-size: 1.2em; color: #00ff88;">Complete Learning Platform with 50+ Essential Tools</p>
             
-            <div class="flex flex-col items-center">
-                <span class="text-[10px] text-blue-400 font-bold mb-2">SERVER ACTIVE</span>
-                <button onclick="streamNow('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8')" class="btn-live">WATCH LIVE</button>
+            <div class="warning">
+                ⚠️ <strong>LEGAL DISCLAIMER:</strong> This platform is for <strong>EDUCATIONAL PURPOSES ONLY</strong>. 
+                Only use these tools on systems you own or have <strong>EXPLICIT WRITTEN PERMISSION</strong> to test.
+                Unauthorized hacking is a crime punishable by law.
             </div>
+        </header>
 
-            <div class="text-center flex-1">
-                <p class="font-bold">UAE</p>
-                <img src="https://flagcdn.com/w160/ae.png" class="mx-auto mt-2 w-14">
+        <nav>
+            <button onclick="showSection('recon')" class="active">🔍 Reconnaissance</button>
+            <button onclick="showSection('scanning')">📡 Scanning</button>
+            <button onclick="showSection('exploitation')">💥 Exploitation</button>
+            <button onclick="showSection('post-exploitation')">🔒 Post-Exploitation</button>
+            <button onclick="showSection('wireless')">📶 Wireless</button>
+            <button onclick="showSection('web')">🌐 Web</button>
+            <button onclick="showSection('password')">🔑 Password</button>
+            <button onclick="showSection('misc')">⚙️ Misc Tools</button>
+        </nav>
+
+        <!-- RECONNAISSANCE SECTION -->
+        <div id="recon" class="section active">
+            <h2 class="category-header">🔍 RECONNAISSANCE TOOLS</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">👤</div>
+                    <div class="tool-title">Nmap (Discovery)</div>
+                    <div class="install-cmd">sudo apt install nmap</div>
+                    <div class="usage-examples">
+                        <div class="cmd">nmap -sn 192.168.1.0/24</div>
+                        <div class="cmd">nmap -sP 10.0.0.0/24</div>
+                    </div>
+                    <div class="terminal">root@kali:~$ nmap -sn 192.168.1.0/24
+Nmap scan report for 192.168.1.1
+Host is up (0.0012s latency).
+MAC Address: AA:BB:CC:DD:EE:FF (Router Vendor)
+Nmap done: 256 IP addresses (5 hosts up) scanned in 2.34 seconds</div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🌐</div>
+                    <div class="tool-title">theHarvester</div>
+                    <div class="install-cmd">sudo apt install theharvester</div>
+                    <div class="usage-examples">
+                        <div class="cmd">theHarvester -d target.com -l 500 -b google</div>
+                        <div class="cmd">theHarvester -d company.com -b linkedin</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📧</div>
+                    <div class="tool-title">theHarvester (Email)</div>
+                    <div class="install-cmd">Already installed with Kali</div>
+                    <div class="usage-examples">
+                        <div class="cmd">theHarvester -d example.com -b bing -f output.html</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔎</div>
+                    <div class="tool-title">Maltego</div>
+                    <div class="install-cmd">GUI Tool - Pre-installed on Kali</div>
+                    <div class="usage-examples">
+                        <div class="cmd">maltego</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🕷️</div>
+                    <div class="tool-title">Shodan</div>
+                    <div class="install-cmd">pip3 install shodan</div>
+                    <div class="usage-examples">
+                        <div class="cmd">shodan init YOUR_API_KEY</div>
+                        <div class="cmd">shodan search apache port:80</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📊</div>
+                    <div class="tool-title">Recon-ng</div>
+                    <div class="install-cmd">sudo apt install recon-ng</div>
+                    <div class="usage-examples">
+                        <div class="cmd">recon-ng</div>
+                        <div class="cmd">[recon-ng][default] > workspaces create target</div>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- SCANNING SECTION -->
+        <div id="scanning" class="section">
+            <h2 class="category-header">📡 SCANNING & ENUMERATION</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🔌</div>
+                    <div class="tool-title">Nmap (Port Scan)</div>
+                    <div class="install-cmd">sudo apt install nmap</div>
+                    <div class="usage-examples">
+                        <div class="cmd">nmap -sS -sV -O 192.168.1.1</div>
+                        <div class="cmd">nmap -sU -sV --top-ports 100 192.168.1.1</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🎛️</div>
+                    <div class="tool-title">Masscan</div>
+                    <div class="install-cmd">sudo apt install masscan</div>
+                    <div class="usage-examples">
+                        <div class="cmd">masscan -p80,443 192.168.1.0/24 --rate=1000</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔍</div>
+                    <div class="tool-title">Nikto</div>
+                    <div class="install-cmd">sudo apt install nikto</div>
+                    <div class="usage-examples">
+                        <div class="cmd">nikto -h http://target.com</div>
+                        <div class="cmd">nikto -h https://target.com -Tuning x</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📋</div>
+                    <div class="tool-title">Dirb/Dirbuster</div>
+                    <div class="install-cmd">sudo apt install dirb dirbuster</div>
+                    <div class="usage-examples">
+                        <div class="cmd">dirb http://target.com /usr/share/dirb/wordlists/common.txt</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🐍</div>
+                    <div class="tool-title">Gobuster</div>
+                    <div class="install-cmd">sudo apt install gobuster</div>
+                    <div class="usage-examples">
+                        <div class="cmd">gobuster dir -u http://target.com -w /usr/share/wordlists/dirb/common.txt</div>
+                        <div class="cmd">gobuster dns -d target.com -w /usr/share/wordlists/dnsmap.txt</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔐</div>
+                    <div class="tool-title">Enum4linux</div>
+                    <div class="install-cmd">sudo apt install enum4linux</div>
+                    <div class="usage-examples">
+                        <div class="cmd">enum4linux -a 192.168.1.10</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">💻</div>
+                    <div class="tool-title">Nmap Scripts</div>
+                    <div class="install-cmd">sudo apt install nmap</div>
+                    <div class="usage-examples">
+                        <div class="cmd">nmap --script vuln 192.168.1.1</div>
+                        <div class="cmd">nmap --script smb* 192.168.1.10</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- EXPLOITATION SECTION -->
+        <div id="exploitation" class="section">
+            <h2 class="category-header">💥 EXPLOITATION FRAMEWORKS</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">⚡</div>
+                    <div class="tool-title">Metasploit Framework</div>
+                    <div class="install-cmd">sudo apt install metasploit-framework</div>
+                    <div class="usage-examples">
+                        <div class="cmd">msfconsole</div>
+                        <div class="cmd">use exploit/windows/smb/ms17_010_eternalblue</div>
+                    </div>
+                    <div class="terminal">msf6 > use exploit/multi/handler
+msf6 exploit(multi/handler) > set payload windows/meterpreter/reverse_tcp
+msf6 exploit(multi/handler) > set LHOST 192.168.1.100
+msf6 exploit(multi/handler) > exploit</div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🐍</div>
+                    <div class="tool-title">Searchsploit</div>
+                    <div class="install-cmd">sudo apt install exploitdb</div>
+                    <div class="usage-examples">
+                        <div class="cmd">searchsploit apache 2.4</div>
+                        <div class="cmd">searchsploit -w 12345</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">💣</div>
+                    <div class="tool-title">SQLMap</div>
+                    <div class="install-cmd">sudo apt install sqlmap</div>
+                    <div class="usage-examples">
+                        <div class="cmd">sqlmap -u "http://target.com/page.php?id=1" --dbs</div>
+                        <div class="cmd">sqlmap -u URL --dump-all</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🌩️</div>
+                    <div class="tool-title">BeEF (Browser Exploitation)</div>
+                    <div class="install-cmd">sudo apt install beef-xss</div>
+                    <div class="usage-examples">
+                        <div class="cmd">beef-xss</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- POST-EXPLOITATION SECTION -->
+        <div id="post-exploitation" class="section">
+            <h2 class="category-header">🔒 POST-EXPLOITATION</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🐚</div>
+                    <div class="tool-title">Meterpreter</div>
+                    <div class="install-cmd">Part of Metasploit</div>
+                    <div class="usage-examples">
+                        <div class="cmd">sysinfo</div>
+                        <div class="cmd">hashdump</div>
+                        <div class="cmd">screenshot</div>
+                        <div class="cmd">keyscan_start</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📱</div>
+                    <div class="tool-title">PowerShell Empire</div>
+                    <div class="install-cmd">git clone https://github.com/EmpireProject/Empire</div>
+                    <div class="usage-examples">
+                        <div class="cmd">./setup/install.sh</div>
+                        <div class="cmd">./empire</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔑</div>
+                    <div class="tool-title">Mimikatz</div>
+                    <div class="install-cmd">Windows tool - Download from GitHub</div>
+                    <div class="usage-examples">
+                        <div class="cmd">privilege::debug</div>
+                        <div class="cmd">sekurlsa::logonpasswords</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🌐</div>
+                    <div class="tool-title">Proxychains</div>
+                    <div class="install-cmd">sudo apt install proxychains</div>
+                    <div class="usage-examples">
+                        <div class="cmd">proxychains nmap -sT target.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WIRELESS SECTION -->
+        <div id="wireless" class="section">
+            <h2 class="category-header">📶 WIRELESS TOOLS</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">📡</div>
+                    <div class="tool-title">Aircrack-ng Suite</div>
+                    <div class="install-cmd">sudo apt install aircrack-ng</div>
+                    <div class="usage-examples">
+                        <div class="cmd">airodump-ng wlan0mon</div>
+                        <div class="cmd">aireplay-ng -0 10 -a BSSID wlan0mon</div>
+                        <div class="cmd">aircrack-ng capture.cap</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔐</div>
+                    <div class="tool-title">Reaver</div>
+                    <div class="install-cmd">sudo apt install reaver</div>
+                    <div class="usage-examples">
+                        <div class="cmd">reaver -i wlan0mon -b BSSID -vv</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🌈</div>
+                    <div class="tool-title">Hashcat (WPA)</div>
+                    <div class="install-cmd">sudo apt install hashcat</div>
+                    <div class="usage-examples">
+                        <div class="cmd">hashcat -m 2500 capture.hccapx wordlist.txt</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📶</div>
+                    <div class="tool-title">Kismet</div>
+                    <div class="install-cmd">sudo apt install kismet</div>
+                    <div class="usage-examples">
+                        <div class="cmd">kismet</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WEB SECTION -->
+        <div id="web" class="section">
+            <h2 class="category-header">🌐 WEB APPLICATION TOOLS</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🕷️</div>
+                    <div class="tool-title">Burp Suite</div>
+                    <div class="install-cmd">Pre-installed on Kali (Community Edition)</div>
+                    <div class="usage-examples">
+                        <div class="cmd">burpsuite</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">⚡</div>
+                    <div class="tool-title">OWASP ZAP</div>
+                    <div class="install-cmd">sudo apt install zaproxy</div>
+                    <div class="usage-examples">
+                        <div class="cmd">zap</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔍</div>
+                    <div class="tool-title">wpscan</div>
+                    <div class="install-cmd">sudo apt install wpscan</div>
+                    <div class="usage-examples">
+                        <div class="cmd">wpscan --url http://target.com --enumerate u,vp</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📡</div>
+                    <div class="tool-title">Commix</div>
+                    <div class="install-cmd">sudo apt install commix</div>
+                    <div class="usage-examples">
+                        <div class="cmd">commix --url="http://target.com/page.php?param=test"</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASSWORD SECTION -->
+        <div id="password" class="section">
+            <h2 class="category-header">🔑 PASSWORD CRACKING</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🔨</div>
+                    <div class="tool-title">John the Ripper</div>
+                    <div class="install-cmd">sudo apt install john</div>
+                    <div class="usage-examples">
+                        <div class="cmd">john --wordlist=rockyou.txt hashes.txt</div>
+                        <div class="cmd">john --format=sha512crypt hashes.txt</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🌈</div>
+                    <div class="tool-title">Hashcat</div>
+                    <div class="install-cmd">sudo apt install hashcat</div>
+                    <div class="usage-examples">
+                        <div class="cmd">hashcat -m 0 -a 0 hash.txt rockyou.txt</div>
+                        <div class="cmd">hashcat -m 1000 -a 3 hashes.txt ?a?a?a?a?a?a</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🌐</div>
+                    <div class="tool-title">Hydra</div>
+                    <div class="install-cmd">sudo apt install hydra</div>
+                    <div class="usage-examples">
+                        <div class="cmd">hydra -l admin -P rockyou.txt ssh://192.168.1.1</div>
+                        <div class="cmd">hydra -L users.txt -P pass.txt http-post-form "/login:username=^USER^&password=^PASS^:Invalid"</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">👁️</div>
+                    <div class="tool-title">CeWL</div>
+                    <div class="install-cmd">sudo apt install cewl</div>
+                    <div class="usage-examples">
+                        <div class="cmd">cewl -d 2 -m 5 http://target.com -w custom.txt</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MISC SECTION -->
+        <div id="misc" class="section">
+            <h2 class="category-header">⚙️ MISCELLANEOUS ESSENTIALS</h2>
+            <div class="tool-grid">
+                <div class="tool-card">
+                    <div class="tool-icon">🔗</div>
+                    <div class="tool-title">Netcat</div>
+                    <div class="install-cmd">sudo apt install netcat-traditional</div>
+                    <div class="usage-examples">
+                        <div class="cmd"># Listener: nc -lvnp 4444</div>
+                        <div class="cmd"># Connect: nc 192.168.1.100 4444</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🚪</div>
+                    <div class="tool-title">SSH/Socat</div>
+                    <div class="install-cmd">sudo apt install socat openssh-client</div>
+                    <div class="usage-examples">
+                        <div class="cmd">ssh -L 8080:target.com:80 user@proxy.com</div>
+                        <div class="cmd">socat TCP-LISTEN:8080,fork TCP:target.com:80</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📦</div>
+                    <div class="tool-title">Wireshark</div>
+                    <div class="install-cmd">sudo apt install wireshark</div>
+                    <div class="usage-examples">
+                        <div class="cmd">wireshark &</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">🔒</div>
+                    <div class="tool-title">OpenSSL</div>
+                    <div class="install-cmd">sudo apt install openssl</div>
+                    <div class="usage-examples">
+                        <div class="cmd">openssl s_client -connect target.com:443</div>
+                        <div class="cmd">openssl x509 -in cert.pem -text -noout</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">📱</div>
+                    <div class="tool-title">ADB (Android)</div>
+                    <div class="install-cmd">sudo apt install adb</div>
+                    <div class="usage-examples">
+                        <div class="cmd">adb devices</div>
+                        <div class="cmd">adb shell</div>
+                    </div>
+                </div>
+
+                <div class="tool-card">
+                    <div class="tool-icon">💾</div>
+                    <div class="tool-title">Binwalk</div>
+                    <div class="install-cmd">sudo apt install binwalk</div>
+                    <div class="usage-examples">
+                        <div class="cmd">binwalk firmware.bin</div>
+                        <div class="cmd">binwalk -e image.jpg</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>© 2024 Ethical Hacking Academy | <strong>Only for Authorized Penetration Testing</strong> | 
+            <a href="#" style="color: #00ff88;">Kali Linux Setup Guide</a> | 
+            <a href="#" style="color: #00ff88;">Certifications Path</a></p>
+            <p style="margin-top: 10px; font-size: 0.9em;">
+                Recommended Setup: Kali Linux 2024.x | 16GB RAM | 500GB SSD | NVIDIA GPU (for Hashcat)
+            </p>
+        </footer>
     </div>
 
     <script>
-        const video = document.getElementById('player');
-        let hls = new Hls();
-
-        function streamNow(url) {
-            if (Hls.isSupported()) {
-                hls.destroy();
-                hls = new Hls({
-                    manifestLoadingMaxRetry: 10,
-                    levelLoadingMaxRetry: 10,
-                    enableWorker: true
-                });
-                hls.loadSource(url);
-                hls.attachMedia(video);
-                hls.on(Hls.Events.MANIFEST_PARSED, () => {
-                    video.play().catch(() => {
-                        console.log("Play failed, waiting for user click.");
-                    });
-                });
-            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-                video.src = url;
-                video.play();
-            }
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('nav button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Smooth scroll to top
+            document.querySelector('.container').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
         }
 
-        // म्याच सुरु हुनु अगाडि यो लिङ्क ट्राइ गर
-        window.onload = () => {
-            streamNow('https://linearjitp-pa.akamaized.net/node/astrop_v0/636/index.m3u8');
-        };
+        // Add terminal effect to all terminals
+        document.querySelectorAll('.terminal').forEach(terminal => {
+            terminal.addEventListener('click', function() {
+                this.style.background = '#001100';
+                setTimeout(() => {
+                    this.style.background = '#000';
+                }, 200);
+            });
+        });
+
+        // Add copy to clipboard for install commands
+        document.querySelectorAll('.install-cmd').forEach(cmd => {
+            cmd.style.cursor = 'pointer';
+            cmd.title = 'Click to copy';
+            cmd.addEventListener('click', function() {
+                navigator.clipboard.writeText(this.textContent);
+                const original = this.textContent;
+                this.textContent = '✅ Copied!';
+                setTimeout(() => {
+                    this.textContent = original;
+                }, 2000);
+            });
+        });
     </script>
 </body>
-</html>
+                                                                         </html>
