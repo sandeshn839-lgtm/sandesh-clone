@@ -5,249 +5,116 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ethical Hacking Learning Tools</title>
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{font-family:'Courier New',monospace;background:#0a0a0a;color:#00ff00;line-height:1.6}
-        .container{max-width:100%;padding:10px}
-        .header{text-align:center;padding:20px;border-bottom:2px solid #00ff00;margin-bottom:20px}
-        h1{font-size:1.8em;margin-bottom:10px;color:#00ff00;text-shadow:0 0 10px #00ff00}
-        .warning{background:#ff4444;color:white;padding:15px;border-radius:10px;margin:20px 0;font-size:0.9em}
-        .nav{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px;padding:10px;background:rgba(0,0,0,0.9);border-radius:10px;justify-content:center}
-        .nav button{background:#00ff00;color:#000;border:none;padding:12px 16px;border-radius:20px;cursor:pointer;font-size:12px;font-weight:bold;min-width:70px;flex:1;max-width:120px;transition:all 0.3s touch-action:manipulation}
-        .nav button:active{background:#00cc00;transform:scale(0.95)}
-        .nav button.active{background:#ff00ff;color:white}
-        .section{display:none;padding:10px}
-        .section.active{display:block}
-        .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px;margin-top:15px}
-        @media (max-width:500px){.tool-grid{grid-template-columns:1fr}}
-        .tool-card{background:rgba(0,20,0,0.8);border:1px solid #00ff00;border-radius:10px;padding:20px;margin:5px 0;transition:all 0.2s}
-        .tool-card:active{transform:scale(0.98)}
-        .tool-icon{font-size:2em;text-align:center;margin-bottom:10px}
-        .tool-title{font-size:1.2em;margin-bottom:10px;color:#ff00ff}
-        .install-cmd{background:#001100;padding:10px;border-radius:5px;font-size:0.85em;border-left:3px solid #00ff00;cursor:pointer;margin:10px 0}
-        .install-cmd:active{background:#002200}
-        .cmd{color:#58a6ff;margin:5px 0;font-size:0.85em}
-        .terminal{background:#000;padding:12px;border-radius:5px;font-size:0.8em;overflow:auto;max-height:120px;border:1px solid #00ff00;margin:10px 0}
-        .category-header{font-size:1.6em;margin:25px 0 15px 0;color:#ff00ff;text-align:center}
-        .footer{text-align:center;padding:20px;border-top:1px solid #00ff00;margin-top:30px;font-size:0.8em;color:#888}
+        /* CSS Styling - 1766.jpg मा आधारित */
+        body {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 { color: #0f0; text-shadow: 0 0 10px #0f0; }
+        .warning {
+            background: #f44336; color: white; padding: 15px;
+            margin: 20px auto; max-width: 600px; border-radius: 5px;
+        }
+        .button-group {
+            margin: 20px auto; max-width: 650px;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
+        }
+        button {
+            background-color: #0f0; border: none; border-radius: 15px;
+            padding: 15px 25px; font-weight: bold; cursor: pointer;
+            min-width: 120px; box-shadow: 0 0 8px #0f0; transition: 0.3s;
+        }
+        button:hover { filter: brightness(120%); transform: scale(1.05); }
+        button.more { background-color: #cc00ff; color: white; }
+
+        #toolsSection {
+            margin: 40px auto; max-width: 800px; text-align: left;
+            border: 1px solid #0f0; border-radius: 10px; padding: 20px;
+            background-color: #111; display: none; /* सुरुमा लुकेको हुन्छ */
+        }
+        .tool-item { margin-bottom: 10px; list-style: none; color: #0f0; }
+        #bookIcon {
+            font-size: 2.5rem; cursor: pointer; display: inline-block;
+            margin-top: 40px; transition: 0.3s;
+        }
+        #bookIcon:hover { transform: scale(1.2); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🛡️ ETHICAL HACKING LEARNING TOOLS 🛡️</h1>
-            <p style="color:#00ff88;font-size:1em">50+ Kali Linux Tools | Mobile Ready</p>
-            <div class="warning">
-                ⚠️ <strong>LEGAL:</strong> Educational only. Get written permission.
-            </div>
-        </div>
 
-        <div class="nav">
-            <button onclick="showSection('recon')" class="active">🔍 Recon</button>
-            <button onclick="showSection('scanning')">📡 Scan</button>
-            <button onclick="showSection('exploitation')">💥 Exploits</button>
-            <button onclick="showSection('post')">🔒 Post</button>
-            <button onclick="showSection('wireless')">📶 WiFi</button>
-            <button onclick="showSection('web')">🌐 Web</button>
-            <button onclick="showSection('pass')">🔑 Pass</button>
-            <button onclick="showSection('misc')">⚙️ More</button>
-        </div>
+    <h1>🛡️ ETHICAL HACKING LEARNING TOOLS 🛡️</h1>
+    <p>50+ Kali Linux Tools | Mobile Ready</p>
 
-        <!-- RECON -->
-        <div id="recon" class="section active">
-            <h2 class="category-header">🔍 RECONNAISSANCE</h2>
-            <div class="tool-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">👤</div>
-                    <div class="tool-title">Nmap Discovery</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install nmap</div>
-                    <div class="cmd">nmap -sn 192.168.1.0/24</div>
-                    <div class="terminal">Nmap scan report for 192.168.1.1
-Host is up. MAC: AA:BB:CC:DD:EE:FF</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">🌐</div>
-                    <div class="tool-title">theHarvester</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install theharvester</div>
-                    <div class="cmd">theHarvester -d target.com -b google</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">🔎</div>
-                    <div class="tool-title">Recon-ng</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install recon-ng</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- SCANNING -->
-        <div id="scanning" class="section">
-            <h2 class="category-header">📡 SCANNING</h2>
-            <div class="tool-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">🔌</div>
-                    <div class="tool-title">Nmap Ports</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install nmap</div>
-                    <div class="cmd">nmap -sS -sV target</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">🔍</div>
-                    <div class="tool-title">Nikto</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install nikto</div>
-                    <div class="cmd">nikto -h http://target.com</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">🐍</div>
-                    <div class="tool-title">Gobuster</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install gobuster</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- EXPLOITATION -->
-        <div id="exploitation" class="section">
-            <h2 class="category-header">💥 EXPLOITATION</h2>
-            <div class="tool-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">⚡</div>
-                    <div class="tool-title">Metasploit</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install metasploit-framework</div>
-                    <div class="terminal">msfconsole
-use exploit/windows/smb/ms17_010
-set LHOST YOUR_IP
-exploit</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">💣</div>
-                    <div class="tool-title">SQLMap</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install sqlmap</div>
-                    <div class="cmd">sqlmap -u "http://target.com?id=1"</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- POST EXPLOITATION -->
-        <div id="post" class="section">
-            <h2 class="category-header">🔒 POST-EXPLOITATION</h2>
-            <div class="tool-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">🐚</div>
-                    <div class="tool-title">Meterpreter</div>
-                    <div class="cmd">sysinfo → hashdump → screenshot</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">🔑</div>
-                    <div class="tool-title">Mimikatz</div>
-                    <div class="cmd">sekurlsa::logonpasswords</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- WIRELESS -->
-        <div id="wireless" class="section">
-            <h2 class="category-header">📶 WIRELESS</h2>
-            <div class="tool-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">📡</div>
-                    <div class="tool-title">Aircrack-ng</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install aircrack-ng</div>
-                    <div class="cmd">airodump-ng wlan0</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">🌈</div>
-                    <div class="tool-title">Hashcat</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install hashcat</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- WEB -->
-        <div id="web" class="section">
-            <h2 class="category-header">🌐 WEB TOOLS</h2>
-            <div class="tool-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">🕷️</div>
-                    <div class="tool-title">Burp Suite</div>
-                    <div class="install-cmd" onclick="copyText(this)">burpsuite</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">⚡</div>
-                    <div class="tool-title">OWASP ZAP</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install zaproxy</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- PASSWORDS -->
-        <div id="pass" class="section">
-            <h2 class="category-header">🔑 PASSWORDS</h2>
-            <div class="tool-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">🔨</div>
-                    <div class="tool-title">John</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install john</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">🚪</div>
-                    <div class="tool-title">Hydra</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install hydra</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- MISC -->
-        <div id="misc" class="section">
-            <h2 class="category-header">⚙️ ESSENTIALS</h2>
-            <div class="tool-grid">
-                <div class="tool-card">
-                    <div class="tool-icon">🔗</div>
-                    <div class="tool-title">Netcat</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install netcat</div>
-                    <div class="cmd">nc -lvnp 4444</div>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon">📦</div>
-                    <div class="tool-title">Wireshark</div>
-                    <div class="install-cmd" onclick="copyText(this)">sudo apt install wireshark</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer">
-            © 2024 Ethical Hacking Learning Tools | 📱 Mobile Pentesting
-        </div>
+    <div class="warning">
+        ⚠️ <strong>LEGAL:</strong> Educational only. Get written permission.
     </div>
 
+    <!-- Buttons Section - 1767.jpg मा आधारित -->
+    <div class="button-group">
+        <button onclick="showTools('Recon')">🔍 Recon</button>
+        <button onclick="showTools('Scan')">📡 Scan</button>
+        <button onclick="showTools('Exploits')">💥 Exploits</button>
+        <button onclick="showTools('Post')">🔐 Post</button>
+        <button onclick="showTools('WiFi')">📶 WiFi</button>
+        <button onclick="showTools('Web')">🌐 Web</button>
+        <button onclick="showTools('Pass')">🔑 Pass</button>
+        <button class="more" onclick="showTools('More')">⚙️ More</button>
+    </div>
+
+    <!-- Results Section -->
+    <div id="toolsSection">
+        <h2 id="categoryTitle" style="color: #cc00ff; text-align: center;"></h2>
+        <div id="toolsContent"></div>
+    </div>
+
+    <!-- FAQ Icon -->
+    <div id="bookIcon" title="Ethical Hacking FAQ" onclick="openFAQ()">📖</div>
+
     <script>
-        function showSection(id) {
-            // Hide all sections
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            // Remove active from buttons
-            document.querySelectorAll('.nav button').forEach(b => b.classList.remove('active'));
-            // Show selected
-            document.getElementById(id).classList.add('active');
-            // Activate button
-            event.target.classList.add('active');
-            // Scroll to top
-            window.scrollTo({top: 0, behavior: 'smooth'});
-        }
+        // Data - 1768.jpg मा आधारित
+        const toolsData = {
+            'Recon': ['Nmap - Network scanner', 'Maltego - Link analysis tool', 'Recon-ng - Web reconnaissance framework'],
+            'Scan': ['OpenVAS - Vulnerability scanner', 'Nikto - Web server scanner', 'Nessus - Vulnerability assessment'],
+            'Exploits': ['Metasploit Framework', 'Sqlmap - SQL injection tool', 'BeEF - Browser exploitation'],
+            'Post': ['PowerSploit - Post exploitation', 'Empire - PowerShell agent', 'Responder - LLMNR poisoning'],
+            'WiFi': ['Aircrack-ng', 'Wifite - Automated attack tool', 'Reaver - WPS attack tool'],
+            'Web': ['Burp Suite', 'OWASP ZAP', 'W3af - Web audit framework'],
+            'Pass': ['John the Ripper', 'Hashcat', 'Hydra - Network logon cracker'],
+            'More': ['Netcat - Networking utility', 'Tcpdump - Packet analyzer', 'Wireshark - Protocol analyzer']
+        };
 
-        function copyText(el) {
-            navigator.clipboard.writeText(el.textContent).then(() => {
-                const original = el.textContent;
-                el.textContent = '✅ COPIED!';
-                el.style.background = '#004400';
-                setTimeout(() => {
-                    el.textContent = original;
-                    el.style.background = '#001100';
-                }, 1500);
+        // बटन थिच्दा डाटा देखाउने फंसन
+        function showTools(category) {
+            const section = document.getElementById('toolsSection');
+            const title = document.getElementById('categoryTitle');
+            const content = document.getElementById('toolsContent');
+
+            title.innerText = category + " Tools";
+            content.innerHTML = ""; // पुरानो डाटा हटाउने
+
+            const list = document.createElement('ul');
+            toolsData[category].forEach(tool => {
+                const li = document.createElement('li');
+                li.className = "tool-item";
+                li.innerText = "✔️ " + tool;
+                list.appendChild(li);
             });
+
+            content.appendChild(list);
+            section.style.display = "block"; // सेक्सन देखाउने
+            section.scrollIntoView({ behavior: 'smooth' }); // त्यहाँ गुडाउने
         }
 
-        // Touch-friendly button enhancement
-        document.querySelectorAll('button, .install-cmd').forEach(el => {
-            el.addEventListener('touchstart', function(e) {
-                e.preventDefault();
-            }, {passive: false});
-        });
+        // FAQ पेज खोल्ने फंसन
+        function openFAQ() {
+            // यो फाइल तपाईंको फोल्डरमा हुन जरुरी छ
+            window.open('ethical_hacking_faq.html', '_blank');
+        }
     </script>
+
 </body>
-    </html>
+</html>
