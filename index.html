@@ -3,118 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ethical Hacking Learning Tools</title>
+    <title>Ethical Hacking Learning Tool</title>
     <style>
-        /* CSS Styling - 1766.jpg मा आधारित */
-        body {
-            background-color: #000;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 { color: #0f0; text-shadow: 0 0 10px #0f0; }
-        .warning {
-            background: #f44336; color: white; padding: 15px;
-            margin: 20px auto; max-width: 600px; border-radius: 5px;
-        }
-        .button-group {
-            margin: 20px auto; max-width: 650px;
-            display: flex; flex-wrap: wrap; justify-content: center; gap: 15px;
-        }
-        button {
-            background-color: #0f0; border: none; border-radius: 15px;
-            padding: 15px 25px; font-weight: bold; cursor: pointer;
-            min-width: 120px; box-shadow: 0 0 8px #0f0; transition: 0.3s;
-        }
-        button:hover { filter: brightness(120%); transform: scale(1.05); }
-        button.more { background-color: #cc00ff; color: white; }
-
-        #toolsSection {
-            margin: 40px auto; max-width: 800px; text-align: left;
-            border: 1px solid #0f0; border-radius: 10px; padding: 20px;
-            background-color: #111; display: none; /* सुरुमा लुकेको हुन्छ */
-        }
-        .tool-item { margin-bottom: 10px; list-style: none; color: #0f0; }
-        #bookIcon {
-            font-size: 2.5rem; cursor: pointer; display: inline-block;
-            margin-top: 40px; transition: 0.3s;
-        }
-        #bookIcon:hover { transform: scale(1.2); }
+        body { background-color: #000; color: #0f0; font-family: 'Courier New', monospace; text-align: center; }
+        .btn-container { margin: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; max-width: 600px; margin-left: auto; margin-right: auto; }
+        button { padding: 10px; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .btn-green { background-color: #00ff00; box-shadow: 0 0 15px #00ff00; }
+        .btn-purple { background-color: #bf00ff; box-shadow: 0 0 15px #bf00ff; color: white; }
+        .tool-box { border: 2px solid #00ff00; border-radius: 15px; padding: 20px; width: 80%; margin: 20px auto; display: none; }
+        .book-section { border: 2px solid #ff00ff; border-radius: 15px; padding: 20px; width: 80%; margin: 20px auto; text-align: left; }
+        li { list-style: none; margin: 10px 0; cursor: pointer; }
+        li:hover { color: #fff; text-shadow: 0 0 5px #0f0; }
+        h2 { color: #ff00ff; }
+        .faq-item { margin-bottom: 25px; border-bottom: 1px solid #333; padding-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <h1>🛡️ ETHICAL HACKING LEARNING TOOLS 🛡️</h1>
-    <p>50+ Kali Linux Tools | Mobile Ready</p>
-
-    <div class="warning">
-        ⚠️ <strong>LEGAL:</strong> Educational only. Get written permission.
+    <h1>50+ Kali Linux Tools | Mobile Ready</h1>
+    <div style="background: red; color: white; padding: 10px; width: 60%; margin: auto; border-radius: 5px;">
+        ⚠️ LEGAL: Educational only. Get written permission.
     </div>
 
-    <!-- Buttons Section - 1767.jpg मा आधारित -->
-    <div class="button-group">
-        <button onclick="showTools('Recon')">🔍 Recon</button>
-        <button onclick="showTools('Scan')">📡 Scan</button>
-        <button onclick="showTools('Exploits')">💥 Exploits</button>
-        <button onclick="showTools('Post')">🔐 Post</button>
-        <button onclick="showTools('WiFi')">📶 WiFi</button>
-        <button onclick="showTools('Web')">🌐 Web</button>
-        <button onclick="showTools('Pass')">🔑 Pass</button>
-        <button class="more" onclick="showTools('More')">⚙️ More</button>
+    <!-- Main Navigation Buttons -->
+    <div class="btn-container">
+        <button class="btn-green" onclick="showSection('recon')">🔍 Recon</button>
+        <button class="btn-green" onclick="showSection('scan')">🔬 Scan</button>
+        <button class="btn-green" onclick="showSection('exploit')">💥 Exploits</button>
+        <button class="btn-green" onclick="showSection('post')">🔐 Post</button>
+        <button class="btn-green" onclick="showSection('wifi')">📶 WiFi</button>
+        <button class="btn-green" onclick="showSection('web')">🌐 Web</button>
+        <button class="btn-green" onclick="showSection('pass')">🔑 Pass</button>
+        <button class="btn-purple" onclick="showSection('more')">⚙️ More</button>
     </div>
 
-    <!-- Results Section -->
-    <div id="toolsSection">
-        <h2 id="categoryTitle" style="color: #cc00ff; text-align: center;"></h2>
-        <div id="toolsContent"></div>
+    <!-- Tool Sections (Screenshot 16-23) -->
+    <div id="recon" class="tool-box" style="display:block;">
+        <h2 style="color: #ff00ff;">Recon Tools</h2>
+        <li onclick="alert('Nmap: Network scanner used for discovery and security auditing.')">✔️ Nmap - Network scanner</li>
+        <li onclick="alert('Maltego: Interactive data mining tool that renders directed graphs for link analysis.')">✔️ Maltego - Link analysis tool</li>
     </div>
 
-    <!-- FAQ Icon -->
-    <div id="bookIcon" title="Ethical Hacking FAQ" onclick="openFAQ()">📖</div>
+    <div id="scan" class="tool-box">
+        <h2 style="color: #ff00ff;">Scan Tools</h2>
+        <li onclick="alert('Nikto: Web server scanner that tests for dangerous files and outdated software.')">✔️ Nikto - Web server scanner</li>
+    </div>
+
+    <!-- Book/FAQ Section (As requested) -->
+    <div class="book-section">
+        <center><h1>📖 Ethical Hacking FAQ (Book)</h1></center>
+        
+        <div class="faq-item">
+            <h3>1. By ethical hacking how much we can earn money?</h3>
+            <p>कमाई तपाईँको अनुभवमा भर पर्छ। नेपालमा सुरुवाती तलब रू ३०,००० देखि ६०,००० सम्म हुन सक्छ। विदेशमा बार्षिक $६०,००० देखि $१५०,००० सम्म कमाउन सकिन्छ।</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>2. What is the function of ethical hacking?</h3>
+            <p>यसको मुख्य काम कुनै पनि सिस्टम वा नेटवर्कमा भएका कमजोरी (Vulnerabilities) पत्ता लगाउनु र त्यसलाई सुधार गरेर साइबर अपराधीहरूबाट सुरक्षित राख्नु हो।</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>3. How to hack live location?</h3>
+            <p>लाइभ लोकेसन ट्र्याक गर्न IP-based tracking वा Social Engineering (Link Phishing) प्रयोग गरिन्छ। Seeker वा TrackUrl जस्ता टुलहरूले एउटा लिङ्क बनाउँछन्, जसमा क्लिक गरेपछि GPS अनुमति मागेर लोकेसन देखिन्छ।</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>4. How to crack the password?</h3>
+            <p>पासवर्ड क्र्याक गर्न Brute Force (सबै सम्भावना प्रयास गर्ने), Dictionary Attack (सामान्य पासवर्डको लिस्ट), वा Rainbow Tables प्रयोग गरिन्छ। यसका लागि John the Ripper र Hashcat सबैभन्दा शक्तिशाली टुलहरू हुन्।</p>
+        </div>
+    </div>
 
     <script>
-        // Data - 1768.jpg मा आधारित
-        const toolsData = {
-            'Recon': ['Nmap - Network scanner', 'Maltego - Link analysis tool', 'Recon-ng - Web reconnaissance framework'],
-            'Scan': ['OpenVAS - Vulnerability scanner', 'Nikto - Web server scanner', 'Nessus - Vulnerability assessment'],
-            'Exploits': ['Metasploit Framework', 'Sqlmap - SQL injection tool', 'BeEF - Browser exploitation'],
-            'Post': ['PowerSploit - Post exploitation', 'Empire - PowerShell agent', 'Responder - LLMNR poisoning'],
-            'WiFi': ['Aircrack-ng', 'Wifite - Automated attack tool', 'Reaver - WPS attack tool'],
-            'Web': ['Burp Suite', 'OWASP ZAP', 'W3af - Web audit framework'],
-            'Pass': ['John the Ripper', 'Hashcat', 'Hydra - Network logon cracker'],
-            'More': ['Netcat - Networking utility', 'Tcpdump - Packet analyzer', 'Wireshark - Protocol analyzer']
-        };
-
-        // बटन थिच्दा डाटा देखाउने फंसन
-        function showTools(category) {
-            const section = document.getElementById('toolsSection');
-            const title = document.getElementById('categoryTitle');
-            const content = document.getElementById('toolsContent');
-
-            title.innerText = category + " Tools";
-            content.innerHTML = ""; // पुरानो डाटा हटाउने
-
-            const list = document.createElement('ul');
-            toolsData[category].forEach(tool => {
-                const li = document.createElement('li');
-                li.className = "tool-item";
-                li.innerText = "✔️ " + tool;
-                list.appendChild(li);
-            });
-
-            content.appendChild(list);
-            section.style.display = "block"; // सेक्सन देखाउने
-            section.scrollIntoView({ behavior: 'smooth' }); // त्यहाँ गुडाउने
-        }
-
-        // FAQ पेज खोल्ने फंसन
-        function openFAQ() {
-            // यो फाइल तपाईंको फोल्डरमा हुन जरुरी छ
-            window.open('ethical_hacking_faq.html', '_blank');
+        function showSection(id) {
+            // सबै सेक्सन लुकाउने
+            const sections = document.querySelectorAll('.tool-box');
+            sections.forEach(s => s.style.display = 'none');
+            
+            // छानिएको सेक्सन देखाउने
+            document.getElementById(id).style.display = 'block';
         }
     </script>
-
 </body>
 </html>
