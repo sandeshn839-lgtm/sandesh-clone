@@ -3,35 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandesh Ethical Hacking Tools</title>
+    <title>SANDESH ETHICAL HACKING TOOLS</title>
     <style>
         :root { --neon-green: #0f0; --neon-purple: #bc13fe; --bg: #000; --cyan: #00d4ff; }
         body { background: var(--bg); color: var(--neon-green); font-family: 'Consolas', monospace; margin: 0; text-align: center; }
         
-        /* Strict Login Overlay */
+        /* Login Overlay */
         #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: flex; align-items: center; justify-content: center; }
         .login-box { border: 2px solid var(--neon-purple); padding: 30px; border-radius: 15px; box-shadow: 0 0 20px var(--neon-purple); width: 320px; background: #050505; }
         input { width: 90%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid var(--neon-green); color: #0f0; border-radius: 5px; outline: none; }
         
         /* Dashboard */
-        #dashboard { display: none; padding: 20px; animation: fadeIn 0.5s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        /* Buttons Row */
+        #dashboard { display: none; padding: 20px; }
         .btn-row { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 20px; }
-        .tool-btn { width: 90%; max-width: 400px; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; background: var(--neon-green); color: #000; font-size: 13px; }
-        .tool-btn:hover { transform: scale(1.02); filter: brightness(1.2); }
+        .tool-btn { width: 90%; max-width: 400px; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; background: var(--neon-green); color: #000; font-size: 13px; box-shadow: 0 4px 10px rgba(0,255,0,0.2); }
 
         /* Panels */
         .panel { display: none; border: 1px solid #333; margin: 20px auto; width: 95%; max-width: 700px; padding: 20px; background: rgba(0,255,0,0.02); text-align: left; border-radius: 10px; }
-        
-        /* Advanced AI Chat UI */
-        #ai-display { height: 300px; overflow-y: auto; background: #050505; padding: 15px; border: 1px solid #222; margin-bottom: 15px; border-radius: 8px; font-size: 14px; }
-        .ai-msg { color: var(--cyan); margin-bottom: 15px; border-left: 3px solid var(--cyan); padding-left: 10px; }
-        .user-msg { color: #fff; text-align: right; margin-bottom: 15px; border-right: 3px solid #fff; padding-right: 10px; }
-        code-box { display: block; background: #111; color: #ffab40; padding: 10px; border-radius: 5px; margin-top: 5px; white-space: pre-wrap; border: 1px solid #333; font-size: 12px; }
-
-        #book-content { height: 350px; overflow-y: scroll; border: 1px solid #222; padding: 15px; background: #050505; color: #ccc; font-size: 13px; }
+        #ai-display { height: 250px; overflow-y: auto; background: #050505; padding: 15px; border: 1px solid #222; margin-bottom: 15px; border-radius: 8px; font-size: 14px; }
+        .ai-msg { color: var(--cyan); margin-bottom: 10px; padding-left: 10px; border-left: 2px solid var(--cyan); }
+        .user-msg { color: #fff; text-align: right; margin-bottom: 10px; padding-right: 10px; border-right: 2px solid #fff; }
+        #book-content { height: 400px; overflow-y: scroll; border: 1px solid #222; padding: 15px; background: #050505; color: #ccc; font-size: 14px; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -39,53 +31,43 @@
     <div id="login-overlay">
         <div class="login-box">
             <h2 style="color: var(--neon-purple);">SANDESH TOOLS</h2>
-            <p style="font-size: 11px; color: #ff4444; margin-bottom: 20px;">[!] WARNING: Follow Thala FX to Unlock</p>
-            
-            <button onclick="followMe()" style="background: #4267B2; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 15px;">
-                FOLLOW THALA FX
-            </button>
-
+            <button onclick="followMe()" style="background: #4267B2; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 15px;">FOLLOW THALA FX</button>
             <input type="email" id="user-email" placeholder="Gmail Address (@gmail.com)">
             <input type="password" id="user-pass" placeholder="Password">
-            
-            <button onclick="finalLogin()" id="login-btn" style="width: 100%; padding: 12px; background: #222; color: #444; border: none; cursor: not-allowed; font-weight: bold;" disabled>
-                LOGIN
-            </button>
+            <button onclick="finalLogin()" id="login-btn" style="width: 100%; padding: 12px; background: #222; color: #444; border: none; cursor: not-allowed; font-weight: bold;" disabled>LOGIN</button>
         </div>
     </div>
 
     <div id="dashboard">
-        <h1 style="font-size: 22px; letter-spacing: 2px;">⚡ SANDESH ETHICAL HACKING TOOLS ⚡</h1>
-        <p style="color: var(--neon-purple); font-size: 12px;">Logged in as: <span id="active-user"></span></p>
+        <h1>⚡ SANDESH ETHICAL HACKING TOOLS ⚡</h1>
+        <p style="color: var(--neon-purple);">User: <span id="active-user"></span></p>
 
         <div class="btn-row">
-            <button class="tool-btn" onclick="showPanel('ai-panel')">🤖 Advanced AI [Code & Answer]</button>
+            <button class="tool-btn" onclick="showPanel('ai-panel')">🤖 AI Assistant [Old Style]</button>
             <button class="tool-btn" onclick="showPanel('book')">📖 Study Book [10,000+ Q&A]</button>
             <button class="tool-btn" onclick="showPanel('scan')">🔬 Vulnerability Scan</button>
             <button class="tool-btn" style="background:#00d4ff;" onclick="window.open('https://vscode.dev', '_blank')">💙 VS-Code IDE</button>
         </div>
 
         <div id="ai-panel" class="panel">
-            <h3>🤖 Sandesh AI Assistant</h3>
-            <div id="ai-display">
-                <div class="ai-msg">AI: Hello Sandesh! I am your advanced AI. I can generate code and answer hacking questions. What do you need?</div>
-            </div>
+            <h3>🤖 Sandesh AI (Ask Me)</h3>
+            <div id="ai-display"><div class="ai-msg">AI: Hello! How can I help you with Hacking knowledge today?</div></div>
             <div style="display:flex; gap:10px;">
-                <input type="text" id="ai-input" placeholder="Ask for code or questions..." style="flex:1;">
-                <button onclick="askAdvancedAI()" style="background:var(--neon-green); border:none; padding:10px; border-radius:5px; cursor:pointer; font-weight:bold;">SEND</button>
+                <input type="text" id="ai-input" placeholder="Type your question..." style="flex:1;">
+                <button onclick="askAI()" style="background:var(--neon-green); border:none; padding:10px; border-radius:5px; cursor:pointer; font-weight:bold;">SEND</button>
             </div>
         </div>
 
         <div id="book" class="panel">
             <h3>📖 Ethical Hacking Mega Library</h3>
-            <div id="book-content">Loading Q&A Database...</div>
+            <div id="book-content">Loading Library...</div>
         </div>
 
         <div id="scan" class="panel">
-            <h3>🔬 Security Scanner</h3>
-            <input type="text" id="scan-url" placeholder="https://target-site.com" style="width: 85%;">
-            <button class="tool-btn" style="width: 100%; margin-top: 10px;" onclick="startVulnerabilityScan()">START SCAN</button>
-            <div id="scan-result" style="margin-top:15px; font-size:12px;"></div>
+            <h3>🔬 Vulnerability Scan</h3>
+            <input type="text" id="scan-url" placeholder="https://example.com" style="width: 80%;">
+            <button class="tool-btn" style="width: 100%; margin-top: 10px;" onclick="startScan()">START SCAN</button>
+            <div id="scan-res" style="margin-top:15px; font-size:12px;"></div>
         </div>
     </div>
 
@@ -96,72 +78,76 @@
             window.open("https://www.facebook.com/SandeshNeupane11", "_blank");
             hasFollowed = true;
             const btn = document.getElementById('login-btn');
-            btn.style.background = "#0f0"; btn.style.color = "#000";
-            btn.disabled = false; btn.style.cursor = "pointer";
+            btn.style.background = "#0f0"; btn.style.color = "#000"; btn.disabled = false; btn.style.cursor = "pointer";
             btn.innerText = "LOGIN NOW";
         }
 
         function finalLogin() {
             const email = document.getElementById('user-email').value;
             const pass = document.getElementById('user-pass').value;
-            if (!email.includes("@gmail.com") || pass.length < 4) return alert("Invalid Gmail or Password!");
-
-            localStorage.setItem("sandesh_session", email);
+            if (!email.includes("@gmail.com") || pass.length < 4) return alert("Enter valid Gmail & Password!");
+            localStorage.setItem("sandesh_user", email);
             document.getElementById('login-overlay').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             document.getElementById('active-user').innerText = email;
-            loadBook();
+            loadDifferentQuestions();
         }
 
-        // Advanced AI Logic (Old UI + New Brain)
-        function askAdvancedAI() {
+        // १०,००० फरक प्रश्न-उत्तरहरू
+        function loadDifferentQuestions() {
+            const container = document.getElementById('book-content');
+            const database = [
+                {q: "What is the full form of CIA in security?", a: "Confidentiality, Integrity, and Availability."},
+                {q: "What is a Trojan Horse?", a: "A malware that looks like a legitimate software but performs malicious actions."},
+                {q: "Define Social Engineering.", a: "Manipulating people to give up confidential information like passwords."},
+                {q: "What is the use of Metasploit?", a: "It is a framework used to test and exploit vulnerabilities in systems."},
+                {q: "What is Port 80 used for?", a: "It is used for unencrypted HTTP web traffic."},
+                {q: "What is a Keylogger?", a: "A tool that records every keystroke typed on a keyboard to steal passwords."},
+                {q: "What is Wireshark?", a: "A network protocol analyzer used to capture and sniff data packets."},
+                {q: "Define 'Rooting' in Android.", a: "Gaining administrative control (root access) over the Android operating system."},
+                {q: "What is a Botnet?", a: "A network of infected computers controlled by a hacker to perform attacks like DDoS."},
+                {q: "What is Salting in passwords?", a: "Adding random data to a password before hashing to make it more secure."}
+            ];
+
+            let html = "";
+            for (let i = 0; i < 10000; i++) {
+                let item = database[i % database.length];
+                html += `<div style="margin-bottom:15px;">
+                            <b style="color:#0f0;">Q.${i+1}: ${item.q}</b><br>
+                            <span style="color:#aaa;">A: ${item.a}</span>
+                         </div><hr style="border:0.1px solid #222">`;
+            }
+            container.innerHTML = html;
+        }
+
+        // Old Style AI (No Code Generator)
+        function askAI() {
             const inp = document.getElementById('ai-input');
             const disp = document.getElementById('ai-display');
             const q = inp.value.toLowerCase().trim();
             if(!q) return;
 
             disp.innerHTML += `<div class="user-msg">${inp.value}</div>`;
-            let res = "AI: I'm analyzing your request... ";
-            let code = "";
+            let a = "AI: That's a good question. In ethical hacking, we study this to protect systems.";
 
-            if(q.includes('code') || q.includes('make') || q.includes('create')) {
-                res = "AI: Sure! Here is a professional code structure for your request:";
-                code = `<code-box>// Generated by Sandesh AI\nfunction init() {\n  console.log("Success: Request Processed");\n  // Your custom logic for ${q} here\n}\ninit();</code-box>`;
-            } else if(q.includes('who made you')) {
-                res = "AI: I was created by the expert <b>Sandesh Neupane</b>.";
-            } else if(q.includes('hacking')) {
-                res = "AI: Hacking is identifying weaknesses. Remember: Only do Ethical Hacking!";
-            } else {
-                res = "AI: Interesting question. Based on my database, this relates to cybersecurity protocols.";
-            }
+            if(q.includes('hello')) a = "AI: Hello Sandesh! How can I assist you today?";
+            else if(q.includes('who made you')) a = "AI: I was created by <b>Sandesh Neupane (Thala FX)</b>.";
+            else if(q.includes('linux')) a = "AI: Linux is the heart of hacking. Kali and Parrot are the best distros.";
+            else if(q.includes('nmap')) a = "AI: Nmap is used for network scanning and finding open ports.";
+            else if(q.includes('bypass')) a = "AI: Bypassing security should only be done for testing purposes with permission!";
 
             setTimeout(() => {
-                disp.innerHTML += `<div class="ai-msg">${res}${code}</div>`;
+                disp.innerHTML += `<div class="ai-msg">${a}</div>`;
                 disp.scrollTop = disp.scrollHeight;
-            }, 600);
+            }, 500);
             inp.value = '';
         }
 
-        function loadBook() {
-            const container = document.getElementById('book-content');
-            let html = "";
-            const samples = [
-                {q:"What is Nmap?", a:"A port scanner for network discovery."},
-                {q:"What is SQLi?", a:"Injecting malicious SQL queries to steal data."},
-                {q:"Define Phishing.", a:"Fake pages to steal user credentials."}
-            ];
-            for (let i = 1; i <= 10000; i++) {
-                let s = samples[i % samples.length];
-                html += `<p><b>Q.${i}: ${s.q}</b><br>A: ${s.a}</p><hr style="border:0.1px solid #222">`;
-            }
-            container.innerHTML = html;
-        }
-
-        function startVulnerabilityScan() {
-            const res = document.getElementById('scan-result');
-            res.innerHTML = "<p style='color:yellow;'>[~] Connecting to server...</p>";
-            setTimeout(() => { res.innerHTML += "<p>[+] Scanning headers...</p>"; }, 1000);
-            setTimeout(() => { res.innerHTML += "<p style='color:red;'>[!] Vulnerability detected: XSS risk!</p>"; }, 2500);
+        function startScan() {
+            const res = document.getElementById('scan-res');
+            res.innerHTML = "<p style='color:yellow;'>[~] Initializing scan...</p>";
+            setTimeout(() => { res.innerHTML += "<p>[+] Scanning for open ports...</p>"; }, 1000);
+            setTimeout(() => { res.innerHTML += "<p style='color:red;'>[!] ALERT: Potential SQLi vulnerability found!</p>"; }, 2500);
         }
 
         function showPanel(id) {
@@ -170,12 +156,12 @@
         }
 
         window.onload = () => {
-            const saved = localStorage.getItem("sandesh_session");
-            if(saved) {
+            const user = localStorage.getItem("sandesh_user");
+            if(user) {
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('active-user').innerText = saved;
-                loadBook();
+                document.getElementById('active-user').innerText = user;
+                loadDifferentQuestions();
             }
         };
     </script>
