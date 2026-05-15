@@ -5,156 +5,179 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aura Ethical Hacking Panel - Thala FX</title>
     <style>
-        :root { --main-green: #00ff00; --main-purple: #bf00ff; --cyan: #00d4ff; }
-        body { background-color: #000; color: var(--main-green); font-family: 'Courier New', monospace; text-align: center; margin: 0; padding-bottom: 50px; overflow-x: hidden; }
+        :root { --main-green: #00ff00; --main-purple: #bf00ff; --cyan: #00d4ff; --dark: #0a0a0a; }
+        body { background-color: #000; color: var(--main-green); font-family: 'Courier New', monospace; margin: 0; display: flex; align-items: center; justify-content: center; min-height: 100vh; flex-direction: column; overflow-x: hidden; }
         
-        /* Header & Navigation */
-        .header { padding: 20px; background: rgba(0, 255, 0, 0.1); border-bottom: 2px solid var(--main-green); }
-        .btn-container { margin: 20px auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; max-width: 900px; padding: 15px; }
+        /* Login Section */
+        .login-box { background: #111; padding: 40px; border-radius: 15px; border: 2px solid var(--main-green); box-shadow: 0 0 20px var(--main-green); width: 320px; text-align: center; z-index: 100; }
+        input { width: 90%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid var(--main-green); color: #fff; border-radius: 5px; outline: none; }
         
-        button { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; font-size: 13px; text-transform: uppercase; }
-        .btn-green { background-color: var(--main-green); color: #000; box-shadow: 0 0 10px var(--main-green); }
-        .btn-purple { background-color: var(--main-purple); color: white; box-shadow: 0 0 10px var(--main-purple); }
-        button:hover { transform: scale(1.05); filter: brightness(1.2); }
-
-        /* Sections */
-        .content-section { 
-            border: 2px solid var(--main-green); border-radius: 15px; padding: 25px; 
-            width: 85%; max-width: 900px; margin: 20px auto; display: none; 
-            background: rgba(0, 255, 0, 0.05); text-align: left; animation: fadeIn 0.4s;
-        }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Main Dashboard */
+        #main-site { display: none; width: 100%; text-align: center; padding-bottom: 50px; }
+        .header { padding: 20px; background: rgba(0, 255, 0, 0.1); border-bottom: 2px solid var(--main-green); width: 100%; }
         
-        h2 { color: var(--main-purple); text-align: center; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        li { margin: 15px 0; cursor: pointer; font-size: 16px; list-style: "⚡ "; transition: 0.2s; }
-        li:hover { color: #fff; text-shadow: 0 0 8px var(--main-green); }
+        /* Buttons */
+        .btn-action { padding: 12px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; transition: 0.3s; margin: 5px; font-size: 12px; }
+        .btn-green { background: var(--main-green); color: #000; box-shadow: 0 0 10px var(--main-green); }
+        .btn-purple { background: var(--main-purple); color: #fff; box-shadow: 0 0 10px var(--main-purple); }
+        .btn-full { width: 100%; margin-top: 10px; }
 
-        /* Terminal Style */
-        #terminal-output { height: 180px; overflow-y: auto; background: #000; padding: 15px; color: var(--main-green); border: 1px solid #333; border-radius: 5px; }
-        .cmd-line { display: flex; align-items: center; background: #111; padding: 10px; border-radius: 5px; margin-top: 5px; }
-        #cmd-input { background: transparent; border: none; color: var(--main-green); outline: none; flex: 1; font-family: inherit; font-size: 16px; }
+        /* Content Sections */
+        .content-section { border: 2px solid var(--main-green); border-radius: 15px; padding: 25px; width: 85%; max-width: 850px; margin: 20px auto; display: none; background: rgba(0, 255, 0, 0.05); text-align: left; animation: fadeIn 0.4s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* AI Chat Style */
-        #ai-display { height: 280px; overflow-y: auto; background: #050505; padding: 15px; border: 1px solid #222; margin-bottom: 10px; border-radius: 10px; }
-        .ai-msg { color: var(--cyan); background: rgba(0, 212, 255, 0.1); padding: 10px; border-radius: 8px; margin: 8px 0; border-left: 4px solid var(--cyan); }
-        .user-msg { color: #fff; background: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 8px; margin: 8px 0; text-align: right; border-right: 4px solid #fff; }
+        /* UI Elements */
+        #ai-display, #terminal-output { height: 250px; overflow-y: auto; background: #050505; padding: 15px; border: 1px solid #333; margin-bottom: 10px; border-radius: 10px; }
+        .ai-msg { color: var(--cyan); margin: 10px 0; border-left: 3px solid var(--cyan); padding-left: 10px; }
+        .user-msg { color: #fff; text-align: right; margin: 10px 0; border-right: 3px solid #fff; padding-right: 10px; }
+        .logout { position: absolute; top: 10px; right: 10px; background: red; color: white; padding: 8px; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>⚡ AURA LIVE ETHICAL HACKING TOOL ⚡</h1>
-        <p style="color: red; font-weight: bold;">[ CREATED BY: SANDESH NEUPANE ]</p>
+    <div id="login-page" class="login-box">
+        <h2 style="color: var(--main-purple);">AURA LOGIN</h2>
+        <input type="email" id="login-email" placeholder="Gmail Address">
+        <input type="password" id="login-pass" placeholder="Password">
+        <button class="btn-action btn-green btn-full" onclick="handleLogin('Manual')">LOGIN</button>
+        
+        <p style="font-size: 11px; color: #666; margin-top: 15px;">OR CONNECT WITH</p>
+        <button class="btn-action btn-purple btn-full" style="background: #4267B2;" onclick="handleLogin('Facebook')">Login with Facebook</button>
+        <button class="btn-action btn-purple btn-full" style="background: #db4437;" onclick="handleLogin('Google')">Login with Google</button>
     </div>
 
-    <div class="btn-container">
-        <button class="btn-green" onclick="showSection('recon')">🔍 Recon</button>
-        <button class="btn-green" onclick="showSection('scan')">🔬 Scan</button>
-        <button class="btn-green" onclick="showSection('pass')">🔑 Pass</button>
-        <button class="btn-purple" onclick="showSection('cmd')">📟 CMD</button>
-        <button class="btn-purple" onclick="showSection('ai')">🤖 Smart AI</button>
-        <button class="btn-purple" onclick="showSection('book')">📖 Book</button>
-        <button class="btn-purple" onclick="window.open('https://vscode.dev', '_blank')">💙 VS-Code</button>
-    </div>
-
-    <div id="recon" class="content-section" style="display: block;">
-        <h2>Information Gathering</h2>
-        <li onclick="alert('Nmap: Network scanner for port discovery.')">Nmap - Port Scanner</li>
-        <li onclick="alert('Whois: Check domain ownership details.')">Whois Lookup</li>
-    </div>
-
-    <div id="pass" class="content-section">
-        <h2>Password Cracking</h2>
-        <li onclick="alert('John the Ripper: Fast password cracker.')">John the Ripper</li>
-        <li onclick="alert('Hashcat: Advanced GPU cracker.')">Hashcat</li>
-    </div>
-
-    <div id="cmd" class="content-section">
-        <h2>System Terminal</h2>
-        <div id="terminal-output"><div>Aura OS v2.0... Type 'help' for commands.</div></div>
-        <div class="cmd-line">
-            <span>C:\Sandesh\ThalaFX></span>
-            <input type="text" id="cmd-input" autofocus>
+    <div id="main-site">
+        <div class="header">
+            <button class="logout" onclick="handleLogout()">LOGOUT</button>
+            <h1>⚡ AURA ETHICAL HACKING TOOL ⚡</h1>
+            <p>Welcome, <span id="user-name" style="color: var(--cyan);">User</span> | Creator: Sandesh Neupane</p>
         </div>
-    </div>
 
-    <div id="ai" class="content-section">
-        <h2>🤖 AI Assistant (Thala Brain)</h2>
-        <div id="ai-display"><div>AI: Hello! I am your AI Assistant. How can I help you today?</div></div>
-        <div style="display:flex; gap: 10px;">
-            <input type="text" id="ai-input" style="flex:1; padding:12px; border-radius:5px; border:1px solid var(--main-green); background:#000; color:#fff;" placeholder="Ask me anything...">
-            <button onclick="askAI()" style="background: var(--cyan); color: #000;">ASK AI</button>
+        <div class="nav" style="margin-top: 20px;">
+            <button class="btn-action btn-green" onclick="showSection('recon')">🔍 Recon</button>
+            <button class="btn-action btn-green" onclick="showSection('pass')">🔑 Pass</button>
+            <button class="btn-action btn-purple" onclick="showSection('ai')">🤖 Smart AI</button>
+            <button class="btn-action btn-purple" onclick="showSection('cmd')">📟 CMD</button>
+            <button class="btn-action btn-purple" onclick="showSection('book')">📖 Book</button>
+            <button class="btn-action btn-purple" onclick="window.open('https://vscode.dev', '_blank')">💙 VS-Code</button>
         </div>
-    </div>
 
-    <div id="book" class="content-section">
-        <h2>📖 Hacking Guide</h2>
-        <p><b>1. How to earn money?</b> <br> Through Bug Bounty (HackerOne), Security Jobs, and Freelancing.</p>
-        <p><b>2. Function of Hacking:</b> <br> Identifying weaknesses to secure systems.</p>
+        <div id="ai" class="content-section">
+            <h2>🤖 AI Assistant (Thala Brain)</h2>
+            <div id="ai-display"><div>AI: Hi! I am your AI Assistant. Ask me anything about hacking or my creator.</div></div>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="ai-input" placeholder="Type a question..." style="flex:1;">
+                <button onclick="askAI()" class="btn-action btn-green" style="width:100px;">ASK</button>
+            </div>
+        </div>
+
+        <div id="cmd" class="content-section">
+            <h2>System Terminal</h2>
+            <div id="terminal-output"><div>Aura OS v3.0... Type 'help' to see commands.</div></div>
+            <input type="text" id="cmd-input" placeholder="C:\Users\Sandesh> " style="width:95%;">
+        </div>
+
+        <div id="book" class="content-section" style="border-color: var(--main-purple);">
+            <h2>📖 ETHICAL HACKING BOOK (Q&A)</h2>
+            <div style="line-height: 1.8;">
+                <p><b>1. What is hacking?</b><br>Identifing and exploiting weaknesses in computer systems.</p>
+                <p><b>2. What can happen from hacking?</b><br>Data theft, financial loss, and privacy breaches.</p>
+                <p><b>3. Operating Systems:</b><br>Kali Linux, Parrot OS, BackBox, and Windows.</p>
+                <p><b>4. Kali Linux Tools:</b><br>600+ tools including Nmap (Scanning) and Metasploit (Exploiting).</p>
+                <p><b>5. How to earn money?</b><br>Bug Bounty, Security Jobs, and Freelancing.</p>
+                <hr>
+                <p style="text-align:center;">Follow <b>Thala FX</b> for more updates!</p>
+            </div>
+        </div>
     </div>
 
     <script>
+        // १. लगइन लजिक र फेसबुक पप-अप
+        function handleLogin(type) {
+            const email = document.getElementById('login-email').value || type + "_User";
+            const pass = document.getElementById('login-pass').value;
+
+            if (type === 'Manual' && (!email || !pass)) {
+                alert("Please enter Gmail and Password!");
+                return;
+            }
+
+            // फेसबुक फलो पप-अप
+            const follow = confirm("Welcome! Please follow 'Thala FX' on Facebook to access the panel. Click OK to visit profile.");
+            if (follow) {
+                window.open("https://www.facebook.com/SandeshNeupane11", "_blank");
+                localStorage.setItem("aura_user", email);
+                startSite(email);
+            } else {
+                alert("Access Denied! You must follow Thala FX.");
+            }
+        }
+
+        function startSite(user) {
+            document.getElementById('login-page').style.display = 'none';
+            document.getElementById('main-site').style.display = 'block';
+            document.getElementById('user-name').innerText = user;
+            document.body.style.display = "block";
+        }
+
+        function handleLogout() {
+            localStorage.removeItem("aura_user");
+            location.reload();
+        }
+
+        // २. सेक्सन म्यानेजमेन्ट
         function showSection(id) {
             document.querySelectorAll('.content-section').forEach(s => s.style.display = 'none');
             document.getElementById(id).style.display = 'block';
         }
 
-        // CMD Logic
-        const cmdIn = document.getElementById('cmd-input');
-        const cmdOut = document.getElementById('terminal-output');
-        cmdIn.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const val = cmdIn.value.toLowerCase().trim();
-                cmdOut.innerHTML += `<div>> ${val}</div>`;
-                if(val === 'help') cmdOut.innerHTML += "<div>Commands: help, ls, clear, whoami</div>";
-                else if(val === 'ls') cmdOut.innerHTML += "<div>ai_logs.txt  tools_config/  root.exe</div>";
-                else if(val === 'whoami') cmdOut.innerHTML += "<div>admin_sandesh_neupane</div>";
-                else if(val === 'clear') cmdOut.innerHTML = "";
-                else cmdOut.innerHTML += `<div style="color:red;">Error: Command not found.</div>`;
-                cmdIn.value = '';
-                cmdOut.scrollTop = cmdOut.scrollHeight;
-            }
-        });
-
-        // AI Logic with your specific questions
+        // ३. AI (तपाईँका सबै प्रश्न र उत्तरहरू)
         function askAI() {
             const inp = document.getElementById('ai-input');
             const disp = document.getElementById('ai-display');
-            const text = inp.value.toLowerCase().trim();
-            if(!text) return;
+            const q = inp.value.toLowerCase().trim();
+            if(!q) return;
 
             disp.innerHTML += `<div class="user-msg">You: ${inp.value}</div>`;
-            let res = "AI: I don't have that information yet. Ask about 'hacking', 'who made you', or 'os'.";
+            let a = "AI: I don't know that. Try asking 'who made you' or 'what is hacking'.";
 
-            if(text.includes('what is hacking')) res = "Hacking is the act of identifying and exploiting weaknesses in a computer system or network.";
-            else if(text.includes('happened')) res = "From hacking, data theft, financial loss, privacy breach, and system damage can happen.";
-            else if(text.includes('os') || text.includes('operating system')) res = "There are many OS like: Kali Linux, Parrot Security OS, Windows, etc.";
-            else if(text.includes('kali') && text.includes('tools')) res = "Kali Linux has 600+ tools for scanning (Nmap), password attacks (Hashcat), and more.";
-            else if(text.includes('who made you')) res = "I have been made by <b>Sandesh Neupane</b>.";
-            else if(text.includes('your name')) res = "My name is <b>AI Assistant</b>.";
-            else if(text.includes('hello') || text.includes('hi')) res = "Hi, I am AI! What can I help you with?";
-            else if(text.includes('end') || text.includes('bye')) res = "Thank you! Follow to <b>Thala FX</b>.";
-            else if(text.includes('when') && text.includes('made')) res = "I was made on <b>2026/05/10 (2083/01/28 BS)</b>.";
-            else if(text.includes('money') || text.includes('earn')) res = "You can earn through Bug Bounty, Pentesting jobs, and Freelancing.";
+            if(q.includes('what is hacking')) a = "Hacking is identifying and exploiting weaknesses in a computer system.";
+            else if(q.includes('happened')) a = "From hacking, data theft, financial loss, and privacy breaches can happen.";
+            else if(q.includes('os') || q.includes('operating system')) a = "Famous OS: Kali Linux, Parrot OS, Windows, etc.";
+            else if(q.includes('kali') && q.includes('tools')) a = "Kali Linux has 600+ tools for scanning, cracking, and testing.";
+            else if(q.includes('who made you')) a = "I have been made by <b>Sandesh Neupane</b>.";
+            else if(q.includes('your name')) a = "My name is <b>AI Assistant</b>.";
+            else if(q.includes('hello') || q.includes('hi')) a = "Hi, I am AI! What can I help you with?";
+            else if(q.includes('end')) a = "Thank you! Follow to <b>Thala FX</b>.";
+            else if(q.includes('when') && q.includes('made')) a = "I was made on 2026/05/10 (2083/01/28).";
 
             setTimeout(() => {
-                disp.innerHTML += `<div class="ai-msg">🤖 AI: ${res}</div>`;
+                disp.innerHTML += `<div class="ai-msg">🤖 AI: ${a}</div>`;
                 disp.scrollTop = disp.scrollHeight;
             }, 500);
             inp.value = '';
         }
 
-        // EXIT POP-UP LOGIC
-        let exitTriggered = false;
-        document.addEventListener("mouseleave", function(e) {
-            if (e.clientY < 0 && !exitTriggered) {
-                const follow = confirm("Thank you for visiting! Please follow Thala FX on Facebook before you go. Click OK to visit my profile.");
-                if (follow) {
-                    window.location.href = "https://www.facebook.com/SandeshNeupane11";
-                }
-                exitTriggered = true;
+        // ४. CMD Terminal
+        document.getElementById('cmd-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = e.target.value.toLowerCase();
+                const out = document.getElementById('terminal-output');
+                out.innerHTML += `<div>> ${cmd}</div>`;
+                if(cmd === 'help') out.innerHTML += "<div>Commands: ls, clear, whoami, date</div>";
+                else if(cmd === 'whoami') out.innerHTML += "<div>admin_sandesh_neupane</div>";
+                else if(cmd === 'clear') out.innerHTML = "";
+                else out.innerHTML += "<div>Command not recognized.</div>";
+                e.target.value = '';
+                out.scrollTop = out.scrollHeight;
             }
         });
+
+        // अटो-लगइन चेक
+        window.onload = () => {
+            const saved = localStorage.getItem("aura_user");
+            if(saved) startSite(saved);
+        };
     </script>
 </body>
 </html>
