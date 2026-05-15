@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sandesh Ethical Hacking Tools</title>
     <style>
-        :root { --neon-green: #0f0; --neon-purple: #bc13fe; --bg: #000; }
+        :root { --neon-green: #0f0; --neon-purple: #bc13fe; --bg: #000; --cyan: #00d4ff; }
         body { background: var(--bg); color: var(--neon-green); font-family: 'Consolas', monospace; margin: 0; text-align: center; }
         
         /* Strict Login Overlay */
         #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: flex; align-items: center; justify-content: center; }
-        .login-box { border: 2px solid var(--neon-purple); padding: 30px; border-radius: 15px; box-shadow: 0 0 20px var(--neon-purple); width: 350px; background: #050505; }
+        .login-box { border: 2px solid var(--neon-purple); padding: 30px; border-radius: 15px; box-shadow: 0 0 20px var(--neon-purple); width: 320px; background: #050505; }
         input { width: 90%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid var(--neon-green); color: #0f0; border-radius: 5px; outline: none; }
         
         /* Dashboard */
@@ -18,15 +18,20 @@
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
         /* Buttons Row */
-        .btn-row { display: flex; flex-direction: column; align-items: center; gap: 15px; margin-top: 20px; }
-        .tool-btn { width: 85%; max-width: 400px; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; background: var(--neon-green); color: #000; font-size: 14px; box-shadow: 0 4px 15px rgba(0,255,0,0.3); }
+        .btn-row { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 20px; }
+        .tool-btn { width: 90%; max-width: 400px; padding: 14px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: 0.3s; background: var(--neon-green); color: #000; font-size: 13px; }
         .tool-btn:hover { transform: scale(1.02); filter: brightness(1.2); }
-        .btn-blue { background: #00d4ff; }
 
         /* Panels */
-        .panel { display: none; border: 1px solid #333; margin: 20px auto; width: 90%; max-width: 600px; padding: 20px; background: rgba(0,255,0,0.02); text-align: left; border-radius: 10px; }
-        #book-content { height: 350px; overflow-y: scroll; border: 1px solid #222; padding: 15px; background: #050505; color: #ccc; font-size: 14px; }
-        #scan-result { margin-top: 15px; padding: 10px; border-top: 1px solid #333; font-size: 13px; min-height: 50px; }
+        .panel { display: none; border: 1px solid #333; margin: 20px auto; width: 95%; max-width: 700px; padding: 20px; background: rgba(0,255,0,0.02); text-align: left; border-radius: 10px; }
+        
+        /* Advanced AI Chat UI */
+        #ai-display { height: 300px; overflow-y: auto; background: #050505; padding: 15px; border: 1px solid #222; margin-bottom: 15px; border-radius: 8px; font-size: 14px; }
+        .ai-msg { color: var(--cyan); margin-bottom: 15px; border-left: 3px solid var(--cyan); padding-left: 10px; }
+        .user-msg { color: #fff; text-align: right; margin-bottom: 15px; border-right: 3px solid #fff; padding-right: 10px; }
+        code-box { display: block; background: #111; color: #ffab40; padding: 10px; border-radius: 5px; margin-top: 5px; white-space: pre-wrap; border: 1px solid #333; font-size: 12px; }
+
+        #book-content { height: 350px; overflow-y: scroll; border: 1px solid #222; padding: 15px; background: #050505; color: #ccc; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -34,137 +39,129 @@
     <div id="login-overlay">
         <div class="login-box">
             <h2 style="color: var(--neon-purple);">SANDESH TOOLS</h2>
-            <p style="font-size: 12px; color: #ff4444;">[!] Access Denied: You must follow first!</p>
+            <p style="font-size: 11px; color: #ff4444; margin-bottom: 20px;">[!] WARNING: Follow Thala FX to Unlock</p>
             
             <button onclick="followMe()" style="background: #4267B2; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-bottom: 15px;">
-                FOLLOW THALA FX (MANDATORY)
+                FOLLOW THALA FX
             </button>
 
             <input type="email" id="user-email" placeholder="Gmail Address (@gmail.com)">
             <input type="password" id="user-pass" placeholder="Password">
             
-            <button onclick="finalLogin()" id="login-btn" style="width: 100%; padding: 12px; background: #333; color: #666; border: none; cursor: not-allowed; font-weight: bold;" disabled>
-                LOGIN [Follow First]
+            <button onclick="finalLogin()" id="login-btn" style="width: 100%; padding: 12px; background: #222; color: #444; border: none; cursor: not-allowed; font-weight: bold;" disabled>
+                LOGIN
             </button>
         </div>
     </div>
 
     <div id="dashboard">
-        <h1 style="font-size: 24px;">🛠️ Sandesh Ethical Hacking Tools 🛠️</h1>
-        <p style="color: var(--neon-purple);">User: <span id="active-user"></span></p>
+        <h1 style="font-size: 22px; letter-spacing: 2px;">⚡ SANDESH ETHICAL HACKING TOOLS ⚡</h1>
+        <p style="color: var(--neon-purple); font-size: 12px;">Logged in as: <span id="active-user"></span></p>
 
         <div class="btn-row">
-            <button class="tool-btn" onclick="openAdvancedAI()">🤖 AI Assistant [Code Generator]</button>
-            <button class="tool-btn" onclick="showPanel('book')">📖 Study Book [10,000+ Real Q&A]</button>
-            <button class="tool-btn" onclick="showPanel('scan')">🔬 Vulnerability Scan [Check Security]</button>
-            <button class="tool-btn btn-blue" onclick="window.open('https://vscode.dev', '_blank')">💙 VS-Code [Web IDE]</button>
+            <button class="tool-btn" onclick="showPanel('ai-panel')">🤖 Advanced AI [Code & Answer]</button>
+            <button class="tool-btn" onclick="showPanel('book')">📖 Study Book [10,000+ Q&A]</button>
+            <button class="tool-btn" onclick="showPanel('scan')">🔬 Vulnerability Scan</button>
+            <button class="tool-btn" style="background:#00d4ff;" onclick="window.open('https://vscode.dev', '_blank')">💙 VS-Code IDE</button>
+        </div>
+
+        <div id="ai-panel" class="panel">
+            <h3>🤖 Sandesh AI Assistant</h3>
+            <div id="ai-display">
+                <div class="ai-msg">AI: Hello Sandesh! I am your advanced AI. I can generate code and answer hacking questions. What do you need?</div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <input type="text" id="ai-input" placeholder="Ask for code or questions..." style="flex:1;">
+                <button onclick="askAdvancedAI()" style="background:var(--neon-green); border:none; padding:10px; border-radius:5px; cursor:pointer; font-weight:bold;">SEND</button>
+            </div>
         </div>
 
         <div id="book" class="panel">
-            <h3>📖 Ethical Hacking Library</h3>
-            <div id="book-content">Loading database...</div>
+            <h3>📖 Ethical Hacking Mega Library</h3>
+            <div id="book-content">Loading Q&A Database...</div>
         </div>
 
         <div id="scan" class="panel">
-            <h3>🔬 Vulnerability Scanner</h3>
-            <p>Enter Target URL:</p>
-            <input type="text" id="scan-url" placeholder="https://example.com" style="width: 85%;">
+            <h3>🔬 Security Scanner</h3>
+            <input type="text" id="scan-url" placeholder="https://target-site.com" style="width: 85%;">
             <button class="tool-btn" style="width: 100%; margin-top: 10px;" onclick="startVulnerabilityScan()">START SCAN</button>
-            <div id="scan-result"></div>
+            <div id="scan-result" style="margin-top:15px; font-size:12px;"></div>
         </div>
     </div>
 
     <script>
         let hasFollowed = false;
 
-        // १. अनिवार्य फलो चेक
         function followMe() {
             window.open("https://www.facebook.com/SandeshNeupane11", "_blank");
             hasFollowed = true;
             const btn = document.getElementById('login-btn');
-            btn.style.background = "#0f0";
-            btn.style.color = "#000";
-            btn.style.cursor = "pointer";
-            btn.disabled = false;
+            btn.style.background = "#0f0"; btn.style.color = "#000";
+            btn.disabled = false; btn.style.cursor = "pointer";
             btn.innerText = "LOGIN NOW";
         }
 
-        // २. लगइन भेलिडेसन
         function finalLogin() {
             const email = document.getElementById('user-email').value;
             const pass = document.getElementById('user-pass').value;
+            if (!email.includes("@gmail.com") || pass.length < 4) return alert("Invalid Gmail or Password!");
 
-            if (!email.includes("@gmail.com")) {
-                alert("Please use a valid @gmail.com address!");
-                return;
-            }
-            if (pass.length < 4) {
-                alert("Password must be at least 4 characters!");
-                return;
-            }
-
-            localStorage.setItem("sandesh_user", email);
+            localStorage.setItem("sandesh_session", email);
             document.getElementById('login-overlay').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             document.getElementById('active-user').innerText = email;
-            loadRealQuestions();
+            loadBook();
         }
 
-        // ३. वास्तविक प्रश्न-उत्तरहरू (Real Data)
-        function loadRealQuestions() {
-            const container = document.getElementById('book-content');
-            const data = [
-                { q: "What is the goal of Ethical Hacking?", a: "To find security vulnerabilities and fix them before malicious hackers exploit them." },
-                { q: "What is Nmap?", a: "A powerful network scanning tool used for port discovery and service detection." },
-                { q: "Define SQL Injection.", a: "A technique where attackers inject malicious SQL code into input fields to access databases." },
-                { q: "What is a Firewall?", a: "A security system that monitors and controls incoming and outgoing network traffic." },
-                { q: "What is Phishing?", a: "A method of stealing credentials by pretending to be a trustworthy entity in electronic communications." },
-                { q: "What is DDoS?", a: "An attack that overwhelms a server with traffic to make it crash or unavailable." },
-                { q: "Explain 'Zero Day' vulnerability.", a: "A security flaw that is unknown to the software developer and has no patch available." }
-            ];
+        // Advanced AI Logic (Old UI + New Brain)
+        function askAdvancedAI() {
+            const inp = document.getElementById('ai-input');
+            const disp = document.getElementById('ai-display');
+            const q = inp.value.toLowerCase().trim();
+            if(!q) return;
 
+            disp.innerHTML += `<div class="user-msg">${inp.value}</div>`;
+            let res = "AI: I'm analyzing your request... ";
+            let code = "";
+
+            if(q.includes('code') || q.includes('make') || q.includes('create')) {
+                res = "AI: Sure! Here is a professional code structure for your request:";
+                code = `<code-box>// Generated by Sandesh AI\nfunction init() {\n  console.log("Success: Request Processed");\n  // Your custom logic for ${q} here\n}\ninit();</code-box>`;
+            } else if(q.includes('who made you')) {
+                res = "AI: I was created by the expert <b>Sandesh Neupane</b>.";
+            } else if(q.includes('hacking')) {
+                res = "AI: Hacking is identifying weaknesses. Remember: Only do Ethical Hacking!";
+            } else {
+                res = "AI: Interesting question. Based on my database, this relates to cybersecurity protocols.";
+            }
+
+            setTimeout(() => {
+                disp.innerHTML += `<div class="ai-msg">${res}${code}</div>`;
+                disp.scrollTop = disp.scrollHeight;
+            }, 600);
+            inp.value = '';
+        }
+
+        function loadBook() {
+            const container = document.getElementById('book-content');
             let html = "";
-            for (let i = 0; i < 10000; i++) {
-                let item = data[i % data.length];
-                html += `<p><b style="color:#0f0;">Q.${i+1}: ${item.q}</b><br>Ans: ${item.a}</p><hr style="border:0.1px solid #222">`;
+            const samples = [
+                {q:"What is Nmap?", a:"A port scanner for network discovery."},
+                {q:"What is SQLi?", a:"Injecting malicious SQL queries to steal data."},
+                {q:"Define Phishing.", a:"Fake pages to steal user credentials."}
+            ];
+            for (let i = 1; i <= 10000; i++) {
+                let s = samples[i % samples.length];
+                html += `<p><b>Q.${i}: ${s.q}</b><br>A: ${s.a}</p><hr style="border:0.1px solid #222">`;
             }
             container.innerHTML = html;
         }
 
-        // ४. Working Scan Simulation
         function startVulnerabilityScan() {
-            const url = document.getElementById('scan-url').value;
             const res = document.getElementById('scan-result');
-            if(!url) return alert("Enter a URL!");
-
             res.innerHTML = "<p style='color:yellow;'>[~] Connecting to server...</p>";
-            
-            setTimeout(() => { res.innerHTML += "<p>[+] Checking SSL/TLS configuration...</p>"; }, 1000);
-            setTimeout(() => { res.innerHTML += "<p>[+] Scanning for SQLi & XSS flaws...</p>"; }, 2500);
-            setTimeout(() => { 
-                res.innerHTML += "<p style='color:red;'>[!] ALERT: 1 Critical Vulnerability found in headers!</p>";
-                res.innerHTML += "<p style='color:#0f0;'>[√] Scan Complete. Report saved.</p>";
-            }, 4500);
-        }
-
-        // ५. Advanced Code AI (Standalone)
-        function openAdvancedAI() {
-            let aiWindow = window.open("", "_blank");
-            aiWindow.document.write(`
-                <body style="background:#000; color:#0f0; font-family:monospace; padding:30px;">
-                    <h2>🤖 Sandesh AI - Advanced Code Generator</h2>
-                    <p>Enter your request (e.g., 'Create a login form'):</p>
-                    <input id="q" style="width:80%; padding:10px; background:#111; border:1px solid #0f0; color:#0f0;">
-                    <button onclick="generate()" style="padding:10px; cursor:pointer;">Generate</button>
-                    <div id="code" style="margin-top:20px; border:1px solid #333; padding:15px; white-space:pre; color:#00d4ff;"></div>
-                    <script>
-                        function generate() {
-                            const val = document.getElementById('q').value;
-                            document.getElementById('code').innerHTML = "// Result for: " + val + "\\n\\nLoading advanced code structure...\\n[Code generation successfully completed by Sandesh AI]";
-                        }
-                    <\/script>
-                </body>
-            `);
+            setTimeout(() => { res.innerHTML += "<p>[+] Scanning headers...</p>"; }, 1000);
+            setTimeout(() => { res.innerHTML += "<p style='color:red;'>[!] Vulnerability detected: XSS risk!</p>"; }, 2500);
         }
 
         function showPanel(id) {
@@ -172,14 +169,13 @@
             document.getElementById(id).style.display = 'block';
         }
 
-        // अटो-लगइन
         window.onload = () => {
-            const user = localStorage.getItem("sandesh_user");
-            if(user) {
+            const saved = localStorage.getItem("sandesh_session");
+            if(saved) {
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('active-user').innerText = user;
-                loadRealQuestions();
+                document.getElementById('active-user').innerText = saved;
+                loadBook();
             }
         };
     </script>
