@@ -213,12 +213,12 @@
             b.innerText = "LAUNCH_SYSTEM";
         }
 
-        // Secret Admin Checker Function (Counts from 0 up to target)
+        // STRICT EMAIL PROTECTION: Only triggers counter for sandesh99998@gmail.com
         function checkAdminCounter(email) {
             const counterDiv = document.getElementById('secret-viewer-counter');
             const cleanEmail = email.toLowerCase().trim();
             
-            if (cleanEmail.includes("sandesh") || cleanEmail === "sandeshneupane11@gmail.com") {
+            if (cleanEmail === "sandesh99998@gmail.com") {
                 counterDiv.style.display = "block";
                 animateCounterFromZero();
             } else {
@@ -234,7 +234,6 @@
             let targetCount = Math.floor(Math.random() * (190 - 130) + 130); 
             countSpan.innerText = currentCount;
 
-            // Smooth fast increment from 0
             let counterSpeed = setInterval(() => {
                 if(currentCount < targetCount) {
                     currentCount += Math.floor(Math.random() * 5) + 2;
@@ -242,7 +241,6 @@
                     countSpan.innerText = currentCount;
                 } else {
                     clearInterval(counterSpeed);
-                    // Start regular subtle live fluctuation after reaching target
                     startLiveFluctuation(targetCount);
                 }
             }, 30);
@@ -253,7 +251,7 @@
             let baseCount = startValue;
 
             viewerInterval = setInterval(() => {
-                let change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+                let change = Math.floor(Math.random() * 5) - 2; 
                 baseCount += change;
                 countSpan.innerText = baseCount;
             }, 3000);
@@ -353,13 +351,11 @@
             const text = inp.value.toLowerCase().trim();
             if(!text) return;
 
-            // User message shown instantly
             disp.innerHTML += `<div class="user-msg">${inp.value}</div>`;
             disp.scrollTop = disp.scrollHeight;
             
             let res = `AI: Live response loaded for query "${inp.value}". This exploit matrix is highly technical. Keep deploying legal testing rules on authorized scopes only!`;
 
-            // Smart custom triggers for matching cyber terms
             if(text.includes('hello') || text.includes('hi')) {
                 res = "AI: Verification successful. Hello Sandesh! Ready to command the 600+ network intelligence binaries today?";
             } else if(text.includes('who made you') || text.includes('creator')) {
@@ -372,7 +368,6 @@
                 res = "AI: Distributed Denial of Service (DDoS) executes massive parallel traffic surges onto a targeted web core to saturate bandwidth and force system downtime.";
             }
             
-            // Dynamic live streaming delay emulation
             setTimeout(() => {
                 disp.innerHTML += `<div class="ai-msg">${res}</div>`;
                 disp.scrollTop = disp.scrollHeight;
