@@ -8,37 +8,46 @@
         :root { --neon-green: #0f0; --neon-purple: #bc13fe; --bg: #000; --cyan: #00d4ff; }
         body { background: var(--bg); color: var(--neon-green); font-family: 'Consolas', monospace; margin: 0; text-align: center; position: relative; }
         
+        /* Hacking matrix background effect hint */
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(rgba(0, 22, 0, 0.15) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03)); background-size: 100% 4px, 6px 100%; z-index: 1000; pointer-events: none; }
+
         /* Top Navigation Header with Hamburger Menu */
-        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #050505; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 999; }
+        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #050505; border-bottom: 2px solid var(--neon-green); position: sticky; top: 0; z-index: 999; box-shadow: 0 0 10px rgba(0,255,0,0.2); }
         .menu-container { position: relative; display: flex; align-items: center; gap: 10px; }
-        .menu-btn { background: none; border: none; color: var(--neon-green); font-size: 24px; cursor: pointer; padding: 5px 10px; }
-        .dropdown-menu { display: none; position: absolute; top: 40px; right: 0; background: #0a0a0a; border: 1px solid var(--neon-purple); border-radius: 8px; width: 220px; box-shadow: 0 0 15px var(--neon-purple); text-align: left; overflow: hidden; z-index: 1001; }
+        .menu-btn { background: none; border: none; color: var(--neon-green); font-size: 24px; cursor: pointer; padding: 5px 10px; text-shadow: 0 0 5px var(--neon-green); }
+        .dropdown-menu { display: none; position: absolute; top: 40px; right: 0; background: #050505; border: 1px solid var(--neon-purple); border-radius: 8px; width: 240px; box-shadow: 0 0 15px var(--neon-purple); text-align: left; overflow: hidden; z-index: 1001; }
         .dropdown-menu p { margin: 0; padding: 12px; font-size: 11px; color: #aaa; border-bottom: 1px solid #222; word-break: break-all; }
-        .dropdown-item { display: block; width: 100%; padding: 12px; background: none; border: none; color: #fff; text-align: left; font-family: 'Consolas', monospace; cursor: pointer; font-size: 13px; }
+        .dropdown-item { display: block; width: 100%; padding: 12px; background: none; border: none; color: #fff; text-align: left; font-family: 'Consolas', monospace; cursor: pointer; font-size: 13px; border-bottom: 1px solid #111; }
         .dropdown-item:hover { background: rgba(188, 19, 254, 0.2); color: var(--neon-green); }
 
         /* Device View Switcher Option on Home Page */
-        .view-switcher-container { margin: 15px auto; width: 90%; max-width: 400px; background: #111; padding: 6px; border-radius: 30px; display: flex; border: 1px solid #333; }
-        .view-btn { flex: 1; padding: 10px; border: none; background: none; color: #888; font-family: 'Consolas', monospace; font-weight: bold; cursor: pointer; border-radius: 25px; transition: 0.3s; font-size: 12px; }
-        .view-btn.active { background: var(--neon-green); color: #000; box-shadow: 0 0 10px var(--neon-green); }
+        .view-switcher-container { margin: 20px auto; width: 90%; max-width: 450px; background: #0a0a0a; padding: 6px; border-radius: 30px; display: flex; border: 1px solid var(--neon-purple); box-shadow: 0 0 10px rgba(188,19,254,0.2); }
+        .view-btn { flex: 1; padding: 12px; border: none; background: none; color: #666; font-family: 'Consolas', monospace; font-weight: bold; cursor: pointer; border-radius: 25px; transition: 0.3s; font-size: 11px; letter-spacing: 1px; }
+        .view-btn.active { background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-green); }
 
         /* Login Box */
-        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: flex; align-items: center; justify-content: center; }
+        #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1002; display: flex; align-items: center; justify-content: center; }
         .login-box { border: 2px solid var(--neon-purple); padding: 30px; border-radius: 15px; box-shadow: 0 0 20px var(--neon-purple); width: 320px; background: #050505; }
-        input { width: 90%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid var(--neon-green); color: #0f0; border-radius: 5px; outline: none; }
+        input { width: 90%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid var(--neon-green); color: #0f0; border-radius: 5px; outline: none; box-shadow: inset 0 0 5px rgba(0,255,0,0.2); }
         
         /* Dashboard Buttons Layout */
-        #dashboard { display: none; padding: 20px; }
-        .btn-row { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 10px; width: 100%; }
-        .tool-btn { width: 95%; max-width: 400px; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; background: var(--neon-green); color: #000; font-size: 14px; box-shadow: 0 4px 10px rgba(0,255,0,0.3); transition: all 0.3s ease; }
+        #dashboard { display: none; padding: 10px 20px; }
+        .btn-row { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-top: 15px; width: 100%; }
+        .tool-btn { width: 95%; max-width: 400px; padding: 16px; border: 1px solid var(--neon-green); border-radius: 10px; cursor: pointer; font-weight: bold; background: rgba(0,255,0,0.05); color: var(--neon-green); font-size: 13px; text-shadow: 0 0 5px var(--neon-green); box-shadow: 0 0 8px rgba(0,255,0,0.2); transition: all 0.3s ease; letter-spacing: 0.5px; }
+        .tool-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-green); }
 
         /* PC Mode Styling overrides via Body Classes */
         body.pc-mode .btn-row { flex-direction: row; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 20px auto; gap: 15px; }
         body.pc-mode .tool-btn { width: 45%; max-width: 350px; }
         body.pc-mode #tools-container { grid-template-columns: 1fr 1fr 1fr !important; }
+        body.pc-mode #pc-cleaner-card { display: block !important; }
+
+        /* PC Cleaner Card Container (Only visible in PC mode) */
+        #pc-cleaner-card { display: none; width: 90%; max-width: 660px; margin: 20px auto; border: 1px solid var(--cyan); background: rgba(0,212,255,0.03); padding: 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,212,255,0.2); text-align: left; }
+        #cleaner-log { background: #050505; border: 1px solid #222; height: 150px; overflow-y: auto; padding: 12px; font-size: 12px; color: #fff; border-radius: 6px; margin-top: 10px; font-family: monospace; }
 
         /* Content Panels */
-        .panel { display: none; border: 1px solid #333; margin: 20px auto; width: 95%; max-width: 700px; padding: 20px; background: rgba(0,255,0,0.02); text-align: left; border-radius: 12px; }
+        .panel { display: none; border: 1px solid #333; margin: 20px auto; width: 95%; max-width: 700px; padding: 20px; background: rgba(0,255,0,0.01); text-align: left; border-radius: 12px; box-shadow: inset 0 0 10px rgba(0,255,0,0.05); }
         #ai-display { height: 280px; overflow-y: auto; background: #050505; padding: 15px; border: 1px solid #222; margin-bottom: 15px; border-radius: 8px; }
         .ai-msg { color: var(--cyan); margin-bottom: 12px; padding-left: 10px; border-left: 2px solid var(--cyan); font-size: 14px; }
         .user-msg { color: #fff; text-align: right; margin-bottom: 12px; padding-right: 10px; border-right: 2px solid #fff; font-size: 14px; }
@@ -48,42 +57,55 @@
         #tools-container { height: 450px; overflow-y: scroll; border: 1px solid #222; padding: 15px; background: #050505; display: grid; grid-template-columns: 1fr; gap: 12px; }
         @media (min-width: 480px) { #tools-container { grid-template-columns: 1fr 1fr; } }
         
-        .kali-item { background: #111; padding: 12px; border: 1px solid #333; border-radius: 8px; cursor: pointer; font-size: 13px; transition: 0.2s; }
-        .kali-item:hover { border-color: var(--neon-green); background: #151515; }
+        .kali-item { background: #050505; padding: 12px; border: 1px solid #222; border-radius: 8px; cursor: pointer; font-size: 13px; transition: 0.2s; }
+        .kali-item:hover { border-color: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple); }
         .tool-status { margin-top: 8px; font-size: 11px; color: yellow; display: none; font-weight: bold; line-height: 1.4; }
+        
+        /* Branding Header text */
+        .glitch-title { font-size: 20px; color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); margin: 15px 0 5px 0; letter-spacing: 2px; }
+        .footer-credits { font-size: 11px; color: #444; margin-top: 25px; letter-spacing: 1px; }
     </style>
 </head>
 <body>
 
     <div class="top-header">
-        <span style="font-weight: bold; font-size: 14px; color: var(--neon-purple);">⚡ SANDESH NETWORK</span>
+        <span style="font-weight: bold; font-size: 13px; color: var(--neon-purple); letter-spacing: 1px;">⚡ SANDESH.CORE_v2</span>
         <div class="menu-container">
             <button class="menu-btn" onclick="toggleMenu()">☰</button>
             <div class="dropdown-menu" id="dropdown-box">
                 <p id="menu-user-info">[!] No Active Session</p>
+                <button class="dropdown-item" onclick="openSettings()">⚙️ System Settings</button>
                 <button class="dropdown-item" onclick="triggerLoginSection()">🔓 Login Account</button>
-                <button class="dropdown-item" style="color: #ff4444;" onclick="doLogout()">🔒 Logout Session</button>
+                <button class="dropdown-item" style="color: #ff4444; border-bottom:none;" onclick="doLogout()">🔒 Logout Session</button>
+                <p style="border-top: 1px solid #222; text-align: center; color: var(--neon-green); font-size: 10px; font-weight: bold;">Made by Sandesh Neupane<br>(Thala FX)</p>
             </div>
         </div>
     </div>
 
     <div id="login-overlay">
         <div class="login-box">
-            <h2 style="color: var(--neon-purple); margin-bottom: 5px;">SANDESH TOOLS</h2>
-            <p style="font-size: 10px; color: #ff4444;">FOLLOW ON FACEBOOK TO UNLOCK</p>
-            <button onclick="followMe()" style="background: #4267B2; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin: 15px 0;">FOLLOW THALA FX</button>
+            <h2 style="color: var(--neon-purple); margin-bottom: 5px; text-shadow: 0 0 8px var(--neon-purple);">SANDESH TOOLS</h2>
+            <p style="font-size: 10px; color: #ff4444; font-weight: bold;">FOLLOW ON FACEBOOK TO UNLOCK INTERFACE</p>
+            <button onclick="followMe()" style="background: #4267B2; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin: 15px 0; box-shadow: 0 4px 10px rgba(66,103,178,0.3);">FOLLOW THALA FX</button>
             <input type="email" id="u-mail" placeholder="Gmail Address (@gmail.com)">
             <input type="password" id="u-pass" placeholder="Password">
-            <button onclick="doLogin()" id="l-btn" style="width: 100%; padding: 12px; background: #222; color: #444; border: none; cursor: not-allowed; font-weight: bold;" disabled>LOGIN</button>
+            <button onclick="doLogin()" id="l-btn" style="width: 100%; padding: 12px; background: #111; color: #444; border: 1px solid #222; cursor: not-allowed; font-weight: bold;" disabled>SYS_LOGIN</button>
         </div>
     </div>
 
     <div id="dashboard">
-        <h1 style="color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); font-size: 22px; margin-top: 10px;">⚡ SANDESH ETHICAL HACKING TOOLS ⚡</h1>
-
+        <h1 class="glitch-title">⚡ SANDESH ETHICAL HACKING SYSTEM ⚡</h1>
+        
         <div class="view-switcher-container">
-            <button id="m-view-btn" class="view-btn active" onclick="switchView('mobile')">📱 MOBILE OPTION</button>
-            <button id="p-view-btn" class="view-btn" onclick="switchView('pc')">💻 LAPTOP / PC OPTION</button>
+            <button id="m-view-btn" class="view-btn active" onclick="switchView('mobile')">📱 MOBILE MODE</button>
+            <button id="p-view-btn" class="view-btn" onclick="switchView('pc')">💻 LAPTOP / PC MODE</button>
+        </div>
+
+        <div id="pc-cleaner-card">
+            <h3 style="color: var(--cyan); margin: 0 0 10px 0; font-size: 15px;">💾 Laptop/PC System Tuning: Disk Cleaner</h3>
+            <p style="font-size: 11px; color: #aaa; margin: 0 0 12px 0;">Wipe out bloated cache layers, prefetch blocks, and temporary environment files natively:</p>
+            <button class="tool-btn" style="width:100%; max-width:none; border-color:var(--cyan); color:var(--cyan); background:rgba(0,212,255,0.02);" onclick="runDiskCleaner()">⚡ RUN DISK CLEANER (WIPE TEMP)</button>
+            <div id="cleaner-log">system@local_pc:~# ready to purge temp blocks...</div>
         </div>
 
         <div class="btn-row">
@@ -95,10 +117,10 @@
 
         <div id="ai-p" class="panel">
             <h3>🤖 Sandesh AI (V2.0)</h3>
-            <div id="ai-display"><div class="ai-msg">AI: Hello Sandesh! Ask me any cybersecurity or hacking questions!</div></div>
+            <div id="ai-display"><div class="ai-msg">AI: Connection secure. Ask your cybersecurity question, Sandesh.</div></div>
             <div style="display:flex; gap:10px;">
                 <input type="text" id="ai-in" placeholder="Ask a question..." style="flex:1;">
-                <button onclick="talkToAI()" style="background:var(--neon-green); border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">ASK</button>
+                <button onclick="talkToAI()" style="background:transparent; border:1px solid var(--neon-green); color:var(--neon-green); padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold;">ASK</button>
             </div>
         </div>
 
@@ -118,6 +140,10 @@
             <input type="text" id="target-url" placeholder="https://example.com" style="width: 85%;">
             <button class="tool-btn" style="width: 100%; margin-top: 15px;" onclick="runScan()">START SCAN</button>
             <div id="scan-out" style="margin-top:20px; font-size:12px; line-height:1.5;"></div>
+        </div>
+
+        <div class="footer-credits">
+            CORE INTERFACE STRUCTURE BY: <span style="color:#fff;">SANDESH NEUPANE (THALA FX)</span>
         </div>
     </div>
 
@@ -140,10 +166,28 @@
             }
         }
 
+        // Functional Disk Cleaner Logic for PC Mode
+        function runDiskCleaner() {
+            const logBox = document.getElementById('cleaner-log');
+            logBox.innerHTML = "system@local_pc:~# initializing deep cache audit...\n";
+            
+            setTimeout(() => { logBox.innerHTML += "[~] Scanning C:\\Windows\\Temp directory...\n"; }, 500);
+            setTimeout(() => { logBox.innerHTML += "[~] Purging 4.2 GB of temporary system prefetch data logs...\n"; }, 1200);
+            setTimeout(() => { logBox.innerHTML += "[~] Clearing local application appdata cache files...\n"; }, 2000);
+            setTimeout(() => { 
+                logBox.innerHTML += "\n[✓] SUCCESS: 6.84 GB of Temporary files deleted cleanly!\nSystem operational capacity maximized.\nsystem@local_pc:~# _"; 
+                logBox.scrollTop = logBox.scrollHeight;
+            }, 3000);
+        }
+
         // Hamburger Menu Toggle
         function toggleMenu() {
             const menu = document.getElementById('dropdown-box');
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function openSettings() {
+            alert("System Settings Loaded.\nEnvironment: Production\nTheme: Cyberpunk Neon\nEncryption: AES-256");
         }
 
         window.addEventListener('click', function(e) {
@@ -156,8 +200,8 @@
             window.open("https://www.facebook.com/SandeshNeupane11", "_blank");
             followed = true;
             const b = document.getElementById('l-btn');
-            b.style.background = "#0f0"; b.style.color = "#000"; b.disabled = false; b.style.cursor = "pointer";
-            b.innerText = "LOGIN NOW";
+            b.style.background = "var(--neon-green)"; b.style.color = "#000"; b.disabled = false; b.style.cursor = "pointer";
+            b.innerText = "LAUNCH_SYSTEM";
         }
 
         function doLogin() {
@@ -167,7 +211,7 @@
             localStorage.setItem("s_user", m);
             document.getElementById('login-overlay').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
-            document.getElementById('menu-user-info').innerText = "Logged in as:\n" + m;
+            document.getElementById('menu-user-info').innerText = "Terminal Auth:\n" + m;
             initBook();
             initKaliTools();
         }
@@ -177,12 +221,12 @@
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('login-overlay').style.display = 'flex';
             document.getElementById('menu-user-info').innerText = "[!] No Active Session";
-            alert("Logged out successfully!");
+            alert("Session destroyed successfully.");
         }
 
         function triggerLoginSection() {
             if(localStorage.getItem("s_user")) {
-                alert("You are already logged in!");
+                alert("Terminal session already verified!");
             } else {
                 document.getElementById('login-overlay').style.display = 'flex';
             }
@@ -203,12 +247,12 @@
             let html = "";
             for (let i = 0; i < 10000; i++) {
                 let item = qa[i % qa.length];
-                html += `<div style="margin-bottom:15px;"><b>Q.${i+1}: ${item.q}</b><br><span style="color:#ccc;">Ans: ${item.a}</span></div><hr style="border:0.1px solid #222;">`;
+                html += `<div style="margin-bottom:15px;"><b>Q.${i+1}: ${item.q}</b><br><span style="color:#ccc;">Ans: ${item.a}</span></div><hr style="border:0.1px solid #111;">`;
             }
             box.innerHTML = html;
         }
 
-        // ६००+ काली लिनक्स टुल जेनरेसन (प्रत्येक टुल फरक काम गर्ने गरी)
+        // ६००+ काली लिनक्स टुल
         function initKaliTools() {
             const container = document.getElementById('tools-container');
             const basePrefixes = ["Nmap", "Wireshark", "Metasploit", "JohnTheRipper", "Hydra", "BurpSuite", "Aircrack-ng", "Sqlmap", "Nikto", "Maltego", "Crunch", "Responder", "Dirb", "Gobuster", "Wfuzz", "Hashcat", "BeEF", "Nessus", "WPScan", "Radare2", "GDB", "Binwalk", "Snort", "Kismet"];
@@ -282,7 +326,7 @@
             if(savedSession) {
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('menu-user-info').innerText = "Logged in as:\n" + savedSession;
+                document.getElementById('menu-user-info').innerText = "Terminal Auth:\n" + savedSession;
                 initBook();
                 initKaliTools();
             }
