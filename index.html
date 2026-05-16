@@ -15,10 +15,14 @@
         .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #050505; border-bottom: 2px solid var(--neon-green); position: sticky; top: 0; z-index: 999; box-shadow: 0 0 10px rgba(0,255,0,0.2); }
         .menu-container { position: relative; display: flex; align-items: center; gap: 10px; }
         .menu-btn { background: none; border: none; color: var(--neon-green); font-size: 24px; cursor: pointer; padding: 5px 10px; text-shadow: 0 0 5px var(--neon-green); }
-        .dropdown-menu { display: none; position: absolute; top: 40px; right: 0; background: #050505; border: 1px solid var(--neon-purple); border-radius: 8px; width: 240px; box-shadow: 0 0 15px var(--neon-purple); text-align: left; overflow: hidden; z-index: 1001; }
+        .dropdown-menu { display: none; position: absolute; top: 40px; right: 0; background: #050505; border: 1px solid var(--neon-purple); border-radius: 8px; width: 240px; box-shadow: 0 0 15px var(--neon-purple); text-align: left; overflow: hidden; z-index: 1010; }
         .dropdown-menu p { margin: 0; padding: 12px; font-size: 11px; color: #aaa; border-bottom: 1px solid #222; word-break: break-all; }
         .dropdown-item { display: block; width: 100%; padding: 12px; background: none; border: none; color: #fff; text-align: left; font-family: 'Consolas', monospace; cursor: pointer; font-size: 13px; border-bottom: 1px solid #111; }
         .dropdown-item:hover { background: rgba(188, 19, 254, 0.2); color: var(--neon-green); }
+
+        /* SECRET ONLY ME VIEWERS COUNTER (Left Side Corner) */
+        #secret-viewer-counter { display: none; background: rgba(0, 255, 0, 0.1); border: 1px solid var(--neon-green); padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: bold; color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; box-shadow: 0 0 8px rgba(0,255,0,0.4); } 100% { opacity: 0.8; } }
 
         /* Device View Switcher Option on Home Page */
         .view-switcher-container { margin: 20px auto; width: 90%; max-width: 450px; background: #0a0a0a; padding: 6px; border-radius: 30px; display: flex; border: 1px solid var(--neon-purple); box-shadow: 0 0 10px rgba(188,19,254,0.2); }
@@ -69,7 +73,11 @@
 <body>
 
     <div class="top-header">
-        <span style="font-weight: bold; font-size: 13px; color: var(--neon-purple); letter-spacing: 1px;">⚡ SANDESH.CORE_v2</span>
+        <div style="display: flex; align-items: center; gap: 12px;">
+            <div id="secret-viewer-counter">👁️ LIVE: <span id="v-count">0</span></div>
+            <span style="font-weight: bold; font-size: 13px; color: var(--neon-purple); letter-spacing: 1px;">⚡ SANDESH.CORE_v2</span>
+        </div>
+        
         <div class="menu-container">
             <button class="menu-btn" onclick="toggleMenu()">☰</button>
             <div class="dropdown-menu" id="dropdown-box">
@@ -89,7 +97,7 @@
             <button onclick="followMe()" style="background: #4267B2; color: white; padding: 12px; width: 100%; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin: 15px 0; box-shadow: 0 4px 10px rgba(66,103,178,0.3);">FOLLOW THALA FX</button>
             <input type="email" id="u-mail" placeholder="Gmail Address (@gmail.com)">
             <input type="password" id="u-pass" placeholder="Password">
-            <button onclick="doLogin()" id="l-btn" style="width: 100%; padding: 12px; background: #111; color: #444; border: 1px solid #222; cursor: not-allowed; font-weight: bold;" disabled>SYS_LOGIN</button>
+            <button onclick="doLogin()" id="l-btn" style="width: 100%; padding: 12px; background: #111; color: #444; border: 1px solid #222; cursor: not-allowed; font-weight: bold;" disabled>LAUNCH_SYSTEM</button>
         </div>
     </div>
 
@@ -149,6 +157,7 @@
 
     <script>
         let followed = false;
+        let viewerInterval;
 
         // View Mode Switcher Function (Mobile / Laptop)
         function switchView(mode) {
@@ -204,6 +213,52 @@
             b.innerText = "LAUNCH_SYSTEM";
         }
 
+        // Secret Admin Checker Function (Counts from 0 up to target)
+        function checkAdminCounter(email) {
+            const counterDiv = document.getElementById('secret-viewer-counter');
+            const cleanEmail = email.toLowerCase().trim();
+            
+            if (cleanEmail.includes("sandesh") || cleanEmail === "sandeshneupane11@gmail.com") {
+                counterDiv.style.display = "block";
+                animateCounterFromZero();
+            } else {
+                counterDiv.style.display = "none";
+                clearInterval(viewerInterval);
+            }
+        }
+
+        // Counting up from 0 to Live target numbers smoothly
+        function animateCounterFromZero() {
+            const countSpan = document.getElementById('v-count');
+            let currentCount = 0;
+            let targetCount = Math.floor(Math.random() * (190 - 130) + 130); 
+            countSpan.innerText = currentCount;
+
+            // Smooth fast increment from 0
+            let counterSpeed = setInterval(() => {
+                if(currentCount < targetCount) {
+                    currentCount += Math.floor(Math.random() * 5) + 2;
+                    if(currentCount > targetCount) currentCount = targetCount;
+                    countSpan.innerText = currentCount;
+                } else {
+                    clearInterval(counterSpeed);
+                    // Start regular subtle live fluctuation after reaching target
+                    startLiveFluctuation(targetCount);
+                }
+            }, 30);
+        }
+
+        function startLiveFluctuation(startValue) {
+            const countSpan = document.getElementById('v-count');
+            let baseCount = startValue;
+
+            viewerInterval = setInterval(() => {
+                let change = Math.floor(Math.random() * 5) - 2; // -2 to +2
+                baseCount += change;
+                countSpan.innerText = baseCount;
+            }, 3000);
+        }
+
         function doLogin() {
             const m = document.getElementById('u-mail').value;
             const p = document.getElementById('u-pass').value;
@@ -212,6 +267,8 @@
             document.getElementById('login-overlay').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             document.getElementById('menu-user-info').innerText = "Terminal Auth:\n" + m;
+            
+            checkAdminCounter(m);
             initBook();
             initKaliTools();
         }
@@ -221,6 +278,8 @@
             document.getElementById('dashboard').style.display = 'none';
             document.getElementById('login-overlay').style.display = 'flex';
             document.getElementById('menu-user-info').innerText = "[!] No Active Session";
+            document.getElementById('secret-viewer-counter').style.display = "none";
+            clearInterval(viewerInterval);
             alert("Session destroyed successfully.");
         }
 
@@ -287,23 +346,38 @@
             }, 1800);
         }
 
-        // Old Style AI Chat
+        // Live Intelligent Answers Engine
         function talkToAI() {
             const inp = document.getElementById('ai-in');
             const disp = document.getElementById('ai-display');
             const text = inp.value.toLowerCase().trim();
             if(!text) return;
 
+            // User message shown instantly
             disp.innerHTML += `<div class="user-msg">${inp.value}</div>`;
-            let res = "AI: That is an important concept. Keep testing on authorized environments only.";
-
-            if(text.includes('hello') || text.includes('hi')) res = "AI: Hello Sandesh! Ready to test your tools today?";
-            else if(text.includes('who made you')) res = "AI: I was built by the system admin <b>Sandesh Neupane</b>.";
+            disp.scrollTop = disp.scrollHeight;
             
+            let res = `AI: Live response loaded for query "${inp.value}". This exploit matrix is highly technical. Keep deploying legal testing rules on authorized scopes only!`;
+
+            // Smart custom triggers for matching cyber terms
+            if(text.includes('hello') || text.includes('hi')) {
+                res = "AI: Verification successful. Hello Sandesh! Ready to command the 600+ network intelligence binaries today?";
+            } else if(text.includes('who made you') || text.includes('creator')) {
+                res = "AI: Critical Database Info: I am a customized cyber entity compiled directly by the system master admin <b>Sandesh Neupane (Thala FX)</b>.";
+            } else if(text.includes('nmap')) {
+                res = "AI: Nmap (Network Mapper) is an open-source tool used for network discovery and vulnerability scanning. It works live by sending raw IP packets to analyze open ports.";
+            } else if(text.includes('phishing')) {
+                res = "AI: Phishing is a social engineering assault vector designed to steal private user credentials via spoofed target login fields.";
+            } else if(text.includes('ddos')) {
+                res = "AI: Distributed Denial of Service (DDoS) executes massive parallel traffic surges onto a targeted web core to saturate bandwidth and force system downtime.";
+            }
+            
+            // Dynamic live streaming delay emulation
             setTimeout(() => {
                 disp.innerHTML += `<div class="ai-msg">${res}</div>`;
                 disp.scrollTop = disp.scrollHeight;
-            }, 400);
+            }, 350);
+            
             inp.value = '';
         }
 
@@ -327,6 +401,8 @@
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
                 document.getElementById('menu-user-info').innerText = "Terminal Auth:\n" + savedSession;
+                
+                checkAdminCounter(savedSession);
                 initBook();
                 initKaliTools();
             }
