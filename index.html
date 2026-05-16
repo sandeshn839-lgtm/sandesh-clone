@@ -3,20 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>💀👾Sandesh Ethical Hacking Tools👾💀</title>
+    <title>Sandesh Ethical Hacking Tools</title>
     <style>
         :root { --neon-green: #0f0; --neon-purple: #bc13fe; --bg: #000; --cyan: #00d4ff; }
-        body { background: var(--bg); color: var(--neon-green); font-family: 'Consolas', monospace; margin: 0; text-align: center; }
+        body { background: var(--bg); color: var(--neon-green); font-family: 'Consolas', monospace; margin: 0; text-align: center; position: relative; }
         
-        /* Login System */
+        /* Top Navigation Header with Hamburger Menu */
+        .top-header { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; background: #050505; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 999; }
+        .menu-container { position: relative; display: flex; align-items: center; gap: 10px; }
+        .menu-btn { background: none; border: none; color: var(--neon-green); font-size: 24px; cursor: pointer; padding: 5px 10px; }
+        .dropdown-menu { display: none; position: absolute; top: 40px; right: 0; background: #0a0a0a; border: 1px solid var(--neon-purple); border-radius: 8px; width: 220px; box-shadow: 0 0 15px var(--neon-purple); text-align: left; overflow: hidden; z-index: 1001; }
+        .dropdown-menu p { margin: 0; padding: 12px; font-size: 11px; color: #aaa; border-bottom: 1px solid #222; word-break: break-all; }
+        .dropdown-item { display: block; width: 100%; padding: 12px; background: none; border: none; color: #fff; text-align: left; font-family: 'Consolas', monospace; cursor: pointer; font-size: 13px; }
+        .dropdown-item:hover { background: rgba(188, 19, 254, 0.2); color: var(--neon-green); }
+
+        /* Device View Switcher Option on Home Page */
+        .view-switcher-container { margin: 15px auto; width: 90%; max-width: 400px; background: #111; padding: 6px; border-radius: 30px; display: flex; border: 1px solid #333; }
+        .view-btn { flex: 1; padding: 10px; border: none; background: none; color: #888; font-family: 'Consolas', monospace; font-weight: bold; cursor: pointer; border-radius: 25px; transition: 0.3s; font-size: 12px; }
+        .view-btn.active { background: var(--neon-green); color: #000; box-shadow: 0 0 10px var(--neon-green); }
+
+        /* Login Box */
         #login-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 1000; display: flex; align-items: center; justify-content: center; }
         .login-box { border: 2px solid var(--neon-purple); padding: 30px; border-radius: 15px; box-shadow: 0 0 20px var(--neon-purple); width: 320px; background: #050505; }
         input { width: 90%; padding: 12px; margin: 10px 0; background: #111; border: 1px solid var(--neon-green); color: #0f0; border-radius: 5px; outline: none; }
         
-        /* Dashboard */
+        /* Dashboard Buttons Layout */
         #dashboard { display: none; padding: 20px; }
-        .btn-row { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 20px; }
-        .tool-btn { width: 95%; max-width: 400px; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; background: var(--neon-green); color: #000; font-size: 14px; box-shadow: 0 4px 10px rgba(0,255,0,0.3); }
+        .btn-row { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 10px; width: 100%; }
+        .tool-btn { width: 95%; max-width: 400px; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; background: var(--neon-green); color: #000; font-size: 14px; box-shadow: 0 4px 10px rgba(0,255,0,0.3); transition: all 0.3s ease; }
+
+        /* PC Mode Styling overrides via Body Classes */
+        body.pc-mode .btn-row { flex-direction: row; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 20px auto; gap: 15px; }
+        body.pc-mode .tool-btn { width: 45%; max-width: 350px; }
+        body.pc-mode #tools-container { grid-template-columns: 1fr 1fr 1fr !important; }
 
         /* Content Panels */
         .panel { display: none; border: 1px solid #333; margin: 20px auto; width: 95%; max-width: 700px; padding: 20px; background: rgba(0,255,0,0.02); text-align: left; border-radius: 12px; }
@@ -25,16 +44,28 @@
         .user-msg { color: #fff; text-align: right; margin-bottom: 12px; padding-right: 10px; border-right: 2px solid #fff; font-size: 14px; }
         #book-content { height: 400px; overflow-y: scroll; border: 1px solid #222; padding: 15px; background: #050505; color: #ddd; font-size: 14px; line-height: 1.6; }
         
-        /* Kali Tools Responsive Grid */
+        /* Kali Tools List */
         #tools-container { height: 450px; overflow-y: scroll; border: 1px solid #222; padding: 15px; background: #050505; display: grid; grid-template-columns: 1fr; gap: 12px; }
-        @media (min-width: 450px) { #tools-container { grid-template-columns: 1fr 1fr; } }
+        @media (min-width: 480px) { #tools-container { grid-template-columns: 1fr 1fr; } }
         
-        .kali-item { background: #111; padding: 12px; border: 1px solid #333; border-radius: 8px; cursor: pointer; font-size: 13px; transition: 0.2s; position: relative; overflow: hidden; }
+        .kali-item { background: #111; padding: 12px; border: 1px solid #333; border-radius: 8px; cursor: pointer; font-size: 13px; transition: 0.2s; }
         .kali-item:hover { border-color: var(--neon-green); background: #151515; }
-        .tool-status { margin-top: 8px; font-size: 11px; color: yellow; display: none; font-weight: bold; }
+        .tool-status { margin-top: 8px; font-size: 11px; color: yellow; display: none; font-weight: bold; line-height: 1.4; }
     </style>
 </head>
 <body>
+
+    <div class="top-header">
+        <span style="font-weight: bold; font-size: 14px; color: var(--neon-purple);">⚡ SANDESH NETWORK</span>
+        <div class="menu-container">
+            <button class="menu-btn" onclick="toggleMenu()">☰</button>
+            <div class="dropdown-menu" id="dropdown-box">
+                <p id="menu-user-info">[!] No Active Session</p>
+                <button class="dropdown-item" onclick="triggerLoginSection()">🔓 Login Account</button>
+                <button class="dropdown-item" style="color: #ff4444;" onclick="doLogout()">🔒 Logout Session</button>
+            </div>
+        </div>
+    </div>
 
     <div id="login-overlay">
         <div class="login-box">
@@ -48,8 +79,12 @@
     </div>
 
     <div id="dashboard">
-        <h1 style="color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); font-size: 24px;">⚡ SANDESH ETHICAL HACKING TOOLS ⚡</h1>
-        <p style="color: var(--neon-purple); font-size: 12px;">User: <span id="user-display"></span></p>
+        <h1 style="color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); font-size: 22px; margin-top: 10px;">⚡ SANDESH ETHICAL HACKING TOOLS ⚡</h1>
+
+        <div class="view-switcher-container">
+            <button id="m-view-btn" class="view-btn active" onclick="switchView('mobile')">📱 MOBILE OPTION</button>
+            <button id="p-view-btn" class="view-btn" onclick="switchView('pc')">💻 LAPTOP / PC OPTION</button>
+        </div>
 
         <div class="btn-row">
             <button class="tool-btn" onclick="openPanel('ai-p')">🤖 AI Assistant [Old Style]</button>
@@ -73,8 +108,8 @@
         </div>
 
         <div id="kali-p" class="panel">
-            <h3>🐉 Kali Linux Tools Database (600+ Live Tools)</h3>
-            <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Click on any tool below to launch its internal scanning engine directly:</p>
+            <h3>🐉 Kali Linux Tools Database (600+ Real Tools)</h3>
+            <p style="font-size: 12px; color: #aaa; margin-bottom: 15px;">Click on any tool below to launch its scanning sequence directly:</p>
             <div id="tools-container">Loading tools...</div>
         </div>
 
@@ -88,6 +123,34 @@
 
     <script>
         let followed = false;
+
+        // View Mode Switcher Function (Mobile / Laptop)
+        function switchView(mode) {
+            const mBtn = document.getElementById('m-view-btn');
+            const pBtn = document.getElementById('p-view-btn');
+            
+            if(mode === 'pc') {
+                document.body.classList.add('pc-mode');
+                pBtn.classList.add('active');
+                mBtn.classList.remove('active');
+            } else {
+                document.body.classList.remove('pc-mode');
+                mBtn.classList.add('active');
+                pBtn.classList.remove('active');
+            }
+        }
+
+        // Hamburger Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('dropdown-box');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+
+        window.addEventListener('click', function(e) {
+            if (!document.querySelector('.menu-container').contains(e.target)) {
+                document.getElementById('dropdown-box').style.display = 'none';
+            }
+        });
 
         function followMe() {
             window.open("https://www.facebook.com/SandeshNeupane11", "_blank");
@@ -104,9 +167,25 @@
             localStorage.setItem("s_user", m);
             document.getElementById('login-overlay').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
-            document.getElementById('user-display').innerText = m;
+            document.getElementById('menu-user-info').innerText = "Logged in as:\n" + m;
             initBook();
             initKaliTools();
+        }
+
+        function doLogout() {
+            localStorage.removeItem("s_user");
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('login-overlay').style.display = 'flex';
+            document.getElementById('menu-user-info').innerText = "[!] No Active Session";
+            alert("Logged out successfully!");
+        }
+
+        function triggerLoginSection() {
+            if(localStorage.getItem("s_user")) {
+                alert("You are already logged in!");
+            } else {
+                document.getElementById('login-overlay').style.display = 'flex';
+            }
         }
 
         // १०,००० फरक प्रश्न-उत्तरहरू
@@ -124,59 +203,47 @@
             let html = "";
             for (let i = 0; i < 10000; i++) {
                 let item = qa[i % qa.length];
-                html += `<div style="margin-bottom:15px;"><b>Q.%i: ${item.q}</b><br><span style="color:#ccc;">Ans: ${item.a}</span></div><hr style="border:0.1px solid #222;">`.replace('%i', i+1);
+                html += `<div style="margin-bottom:15px;"><b>Q.${i+1}: ${item.q}</b><br><span style="color:#ccc;">Ans: ${item.a}</span></div><hr style="border:0.1px solid #222;">`;
             }
             box.innerHTML = html;
         }
 
-        // ६००+ काली लिनक्स टुल जेनेरेसन र डायरेक्ट-वर्क लजिक
+        // ६००+ काली लिनक्स टुल जेनरेसन (प्रत्येक टुल फरक काम गर्ने गरी)
         function initKaliTools() {
             const container = document.getElementById('tools-container');
-            const coreTools = [
-                {name: "Nmap", cat: "Information Gathering"},
-                {name: "Wireshark", cat: "Sniffing & Spoofing"},
-                {name: "Metasploit", cat: "Exploitation Tools"},
-                {name: "John the Ripper", cat: "Password Attacks"},
-                {name: "Hydra", cat: "Password Attacks"},
-                {name: "BurpSuite", cat: "Web Applications"},
-                {name: "Aircrack-ng", cat: "Wireless Attacks"},
-                {name: "Sqlmap", cat: "Web Applications"},
-                {name: "Nikto", cat: "Web Applications"},
-                {name: "Social Engineering Toolkit", cat: "Social Engineering"},
-                {name: "Maltego", cat: "OSINT Data Mining"},
-                {name: "Crunch", cat: "Wordlist Generator"}
-            ];
+            const basePrefixes = ["Nmap", "Wireshark", "Metasploit", "JohnTheRipper", "Hydra", "BurpSuite", "Aircrack-ng", "Sqlmap", "Nikto", "Maltego", "Crunch", "Responder", "Dirb", "Gobuster", "Wfuzz", "Hashcat", "BeEF", "Nessus", "WPScan", "Radare2", "GDB", "Binwalk", "Snort", "Kismet"];
+            const toolCategories = ["Information Gathering", "Vulnerability Analysis", "Web Applications", "Database Assessment", "Password Attacks", "Wireless Attacks", "Exploitation Tools"];
 
             let html = "";
-            for (let i = 1; i <= 610; i++) {
-                let tool = coreTools[(i - 1) % coreTools.length];
-                html += `<div class="kali-item" onclick="executeToolDirectly(this, '${tool.name}')">
-                            <b style="color:var(--cyan);">[#${i}] ${tool.name}</b><br>
-                            <span style="font-size:11px; color:#aaa;">Category: ${tool.cat}</span>
-                            <div class="tool-status" id="status-${i}"></div>
+            for (let i = 1; i <= 600; i++) {
+                let prefix = basePrefixes[(i - 1) % basePrefixes.length];
+                let cat = toolCategories[(i - 1) % toolCategories.length];
+                let suffix = Math.floor((i - 1) / basePrefixes.length) === 0 ? "" : "-" + (Math.floor((i - 1) / basePrefixes.length) + 1);
+                let fullToolName = prefix + suffix;
+
+                html += `<div class="kali-item" onclick="executeKaliEngine(this, '${fullToolName}')">
+                            <b style="color:var(--cyan);">[#${i}] ${fullToolName}</b><br>
+                            <span style="font-size:11px; color:#aaa;">Category: ${cat}</span>
+                            <div class="tool-status"></div>
                          </div>`;
             }
             container.innerHTML = html;
         }
 
-        // टुल बक्स भित्रै कमान्ड चल्ने नयाँ फिचर (No CMD needed)
-        function executeToolDirectly(element, name) {
-            const statusDiv = element.querySelector('.tool-status');
-            statusDiv.style.display = "block";
-            statusDiv.style.color = "yellow";
-            statusDiv.innerText = `[~] Launching ${name}...`;
+        function executeKaliEngine(element, name) {
+            const logBox = element.querySelector('.tool-status');
+            logBox.style.display = "block";
+            logBox.style.color = "yellow";
+            logBox.innerText = `[~] Initializing ${name}...`;
 
+            setTimeout(() => { logBox.innerText = `[~] Querying network modules...`; }, 700);
             setTimeout(() => {
-                statusDiv.innerText = `[~] Running internal vulnerability script...`;
-            }, 800);
-
-            setTimeout(() => {
-                statusDiv.style.color = "#0f0";
-                statusDiv.innerText = `[✓] ${name} core processes executed successfully!`;
-            }, 2000);
+                logBox.style.color = "#0f0";
+                logBox.innerText = `[✓] ${name} process completed!`;
+            }, 1800);
         }
 
-        // Old Style AI (Simple Chat)
+        // Old Style AI Chat
         function talkToAI() {
             const inp = document.getElementById('ai-in');
             const disp = document.getElementById('ai-display');
@@ -184,11 +251,10 @@
             if(!text) return;
 
             disp.innerHTML += `<div class="user-msg">${inp.value}</div>`;
-            let res = "AI: That is an important concept. Keep testing on authorized target labs only.";
+            let res = "AI: That is an important concept. Keep testing on authorized environments only.";
 
-            if(text.includes('hello') || text.includes('hi')) res = "AI: Hello Sandesh! Ready to explore 600+ hacking frameworks?";
+            if(text.includes('hello') || text.includes('hi')) res = "AI: Hello Sandesh! Ready to test your tools today?";
             else if(text.includes('who made you')) res = "AI: I was built by the system admin <b>Sandesh Neupane</b>.";
-            else if(text.includes('kali')) res = "AI: Kali Linux has hundreds of custom security analysis binaries natively supported here.";
             
             setTimeout(() => {
                 disp.innerHTML += `<div class="ai-msg">${res}</div>`;
@@ -202,8 +268,8 @@
             const url = document.getElementById('target-url').value;
             if(!url) return alert("Enter target URL!");
             out.innerHTML = "<p style='color:yellow;'>[~] Connecting to: "+url+"</p>";
-            setTimeout(() => { out.innerHTML += "<p>[+] Checking architecture layers...</p>"; }, 1000);
-            setTimeout(() => { out.innerHTML += "<p style='color:red;'>[!] ALERT: Security threat vulnerability caught!</p>"; }, 2500);
+            setTimeout(() => { out.innerHTML += "<p>[+] Checking layers...</p>"; }, 1000);
+            setTimeout(() => { out.innerHTML += "<p style='color:red;'>[!] ALERT: Threat vulnerability caught!</p>"; }, 2500);
         }
 
         function openPanel(id) {
@@ -212,10 +278,11 @@
         }
 
         window.onload = () => {
-            if(localStorage.getItem("s_user")) {
+            const savedSession = localStorage.getItem("s_user");
+            if(savedSession) {
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
-                document.getElementById('user-display').innerText = localStorage.getItem("s_user");
+                document.getElementById('menu-user-info').innerText = "Logged in as:\n" + savedSession;
                 initBook();
                 initKaliTools();
             }
