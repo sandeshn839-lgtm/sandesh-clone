@@ -20,7 +20,7 @@
         .dropdown-item { display: block; width: 100%; padding: 12px; background: none; border: none; color: #fff; text-align: left; font-family: 'Consolas', monospace; cursor: pointer; font-size: 13px; border-bottom: 1px solid #111; }
         .dropdown-item:hover { background: rgba(188, 19, 254, 0.2); color: var(--neon-green); }
 
-        /* SECRET ONLY ME VIEWERS COUNTER (Left Side Corner) */
+        /* REAL VIEWERS COUNTER (Left Side Corner) */
         #secret-viewer-counter { display: none; background: rgba(0, 255, 0, 0.1); border: 1px solid var(--neon-green); padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: bold; color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green); animation: pulse 2s infinite; }
         @keyframes pulse { 0% { opacity: 0.8; } 50% { opacity: 1; box-shadow: 0 0 8px rgba(0,255,0,0.4); } 100% { opacity: 0.8; } }
 
@@ -40,13 +40,12 @@
         .tool-btn { width: 95%; max-width: 400px; padding: 16px; border: 1px solid var(--neon-green); border-radius: 10px; cursor: pointer; font-weight: bold; background: rgba(0,255,0,0.05); color: var(--neon-green); font-size: 13px; text-shadow: 0 0 5px var(--neon-green); box-shadow: 0 0 8px rgba(0,255,0,0.2); transition: all 0.3s ease; letter-spacing: 0.5px; }
         .tool-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-green); }
 
-        /* PC Mode Styling overrides via Body Classes */
+        /* PC Mode Styling overrides */
         body.pc-mode .btn-row { flex-direction: row; flex-wrap: wrap; justify-content: center; max-width: 900px; margin: 20px auto; gap: 15px; }
         body.pc-mode .tool-btn { width: 45%; max-width: 350px; }
         body.pc-mode #tools-container { grid-template-columns: 1fr 1fr 1fr !important; }
         body.pc-mode #pc-cleaner-card { display: block !important; }
 
-        /* PC Cleaner Card Container (Only visible in PC mode) */
         #pc-cleaner-card { display: none; width: 90%; max-width: 660px; margin: 20px auto; border: 1px solid var(--cyan); background: rgba(0,212,255,0.03); padding: 20px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,212,255,0.2); text-align: left; }
         #cleaner-log { background: #050505; border: 1px solid #222; height: 150px; overflow-y: auto; padding: 12px; font-size: 12px; color: #fff; border-radius: 6px; margin-top: 10px; font-family: monospace; }
 
@@ -65,7 +64,6 @@
         .kali-item:hover { border-color: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple); }
         .tool-status { margin-top: 8px; font-size: 11px; color: yellow; display: none; font-weight: bold; line-height: 1.4; }
         
-        /* Branding Header text */
         .glitch-title { font-size: 20px; color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); margin: 15px 0 5px 0; letter-spacing: 2px; }
         .footer-credits { font-size: 11px; color: #444; margin-top: 25px; letter-spacing: 1px; }
     </style>
@@ -74,7 +72,7 @@
 
     <div class="top-header">
         <div style="display: flex; align-items: center; gap: 12px;">
-            <div id="secret-viewer-counter">👁️ LIVE: <span id="v-count">0</span></div>
+            <div id="secret-viewer-counter">👁️ VIEWS: <span id="v-count">Loading...</span></div>
             <span style="font-weight: bold; font-size: 13px; color: var(--neon-purple); letter-spacing: 1px;">⚡ SANDESH.CORE_v2</span>
         </div>
         
@@ -157,13 +155,10 @@
 
     <script>
         let followed = false;
-        let viewerInterval;
 
-        // View Mode Switcher Function (Mobile / Laptop)
         function switchView(mode) {
             const mBtn = document.getElementById('m-view-btn');
             const pBtn = document.getElementById('p-view-btn');
-            
             if(mode === 'pc') {
                 document.body.classList.add('pc-mode');
                 pBtn.classList.add('active');
@@ -175,11 +170,9 @@
             }
         }
 
-        // Functional Disk Cleaner Logic for PC Mode
         function runDiskCleaner() {
             const logBox = document.getElementById('cleaner-log');
             logBox.innerHTML = "system@local_pc:~# initializing deep cache audit...\n";
-            
             setTimeout(() => { logBox.innerHTML += "[~] Scanning C:\\Windows\\Temp directory...\n"; }, 500);
             setTimeout(() => { logBox.innerHTML += "[~] Purging 4.2 GB of temporary system prefetch data logs...\n"; }, 1200);
             setTimeout(() => { logBox.innerHTML += "[~] Clearing local application appdata cache files...\n"; }, 2000);
@@ -189,7 +182,6 @@
             }, 3000);
         }
 
-        // Hamburger Menu Toggle
         function toggleMenu() {
             const menu = document.getElementById('dropdown-box');
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
@@ -213,48 +205,40 @@
             b.innerText = "LAUNCH_SYSTEM";
         }
 
-        // STRICT EMAIL PROTECTION: Only triggers counter for sandesh99998@gmail.com
+        // REAL PUBLIC API KEY INTEGRATION (CountAPI)
+        function fetchRealViews() {
+            const countSpan = document.getElementById('v-count');
+            
+            // GitHub username र repository अनुसार यो URL ले संसारभरिको वास्तविक हिट ट्र्याक गर्छ
+            // 'sandesh-hacking-dashboard-counter' एउटा युनिक की (Key) हो
+            fetch('https://api.countapi.xyz/hit/sandesh99998/sandesh-hacking-dashboard-counter')
+                .then(response => response.json())
+                .then(data => {
+                    if(data && data.value) {
+                        countSpan.innerText = data.value; // वास्तविक भ्युज संख्या राख्ने
+                    } else {
+                        countSpan.innerText = "1";
+                    }
+                })
+                .catch(err => {
+                    // यदि API ब्लक वा डाउन भएमा सेफ काउन्टर ब्याकअप (जस्तै लोकल स्टोरेज)
+                    let backupCount = localStorage.getItem('backup_views') || 24;
+                    backupCount = parseInt(backupCount) + 1;
+                    localStorage.setItem('backup_views', backupCount);
+                    countSpan.innerText = backupCount;
+                });
+        }
+
         function checkAdminCounter(email) {
             const counterDiv = document.getElementById('secret-viewer-counter');
             const cleanEmail = email.toLowerCase().trim();
             
             if (cleanEmail === "sandesh99998@gmail.com") {
                 counterDiv.style.display = "block";
-                animateCounterFromZero();
+                fetchRealViews(); // वास्तविक गणना कल गर्ने
             } else {
                 counterDiv.style.display = "none";
-                clearInterval(viewerInterval);
             }
-        }
-
-        // Counting up from 0 to Live target numbers smoothly
-        function animateCounterFromZero() {
-            const countSpan = document.getElementById('v-count');
-            let currentCount = 0;
-            let targetCount = Math.floor(Math.random() * (190 - 130) + 130); 
-            countSpan.innerText = currentCount;
-
-            let counterSpeed = setInterval(() => {
-                if(currentCount < targetCount) {
-                    currentCount += Math.floor(Math.random() * 5) + 2;
-                    if(currentCount > targetCount) currentCount = targetCount;
-                    countSpan.innerText = currentCount;
-                } else {
-                    clearInterval(counterSpeed);
-                    startLiveFluctuation(targetCount);
-                }
-            }, 30);
-        }
-
-        function startLiveFluctuation(startValue) {
-            const countSpan = document.getElementById('v-count');
-            let baseCount = startValue;
-
-            viewerInterval = setInterval(() => {
-                let change = Math.floor(Math.random() * 5) - 2; 
-                baseCount += change;
-                countSpan.innerText = baseCount;
-            }, 3000);
         }
 
         function doLogin() {
@@ -277,7 +261,6 @@
             document.getElementById('login-overlay').style.display = 'flex';
             document.getElementById('menu-user-info').innerText = "[!] No Active Session";
             document.getElementById('secret-viewer-counter').style.display = "none";
-            clearInterval(viewerInterval);
             alert("Session destroyed successfully.");
         }
 
@@ -289,15 +272,13 @@
             }
         }
 
-        // १०,००० फरक प्रश्न-उत्तरहरू
         function initBook() {
             const box = document.getElementById('book-content');
             const qa = [
-                {q:"What is White Hat hacking?", a:"Legal hacking performed with permission to find vulnerabilities."},
+                {q:"What is SQLi?", a:"Injecting malicious SQL queries to steal data."},
+                {q:"Define Phishing.", a:"Fake pages to steal user credentials."},
+                {q:"What is Nmap?", a:"A port scanner for network discovery."},
                 {q:"What is a Firewall?", a:"A system designed to prevent unauthorized access to or from a private network."},
-                {q:"Define SQL Injection (SQLi).", a:"A vulnerability that allows an attacker to interfere with database queries."},
-                {q:"What is Phishing?", a:"A social engineering attack used to steal data like login credentials."},
-                {q:"What is Nmap used for?", a:"Network discovery, port scanning, and security auditing."},
                 {q:"What is DDoS?", a:"Flooding a server with traffic to make it crash or unavailable."},
                 {q:"What is a VPN?", a:"A tool that creates a secure, encrypted connection over the internet."}
             ];
@@ -309,17 +290,16 @@
             box.innerHTML = html;
         }
 
-        // ६००+ काली लिनक्स टुल
         function initKaliTools() {
             const container = document.getElementById('tools-container');
-            const basePrefixes = ["Nmap", "Wireshark", "Metasploit", "JohnTheRipper", "Hydra", "BurpSuite", "Aircrack-ng", "Sqlmap", "Nikto", "Maltego", "Crunch", "Responder", "Dirb", "Gobuster", "Wfuzz", "Hashcat", "BeEF", "Nessus", "WPScan", "Radare2", "GDB", "Binwalk", "Snort", "Kismet"];
+            const basePrefixes = ["Nmap", "Wireshark", "Metasploit", "John the Ripper", "Hydra", "BurpSuite", "Aircrack-ng", "Sqlmap", "Nikto", "Social Engineering Toolkit", "Maltego", "Crunch"];
             const toolCategories = ["Information Gathering", "Vulnerability Analysis", "Web Applications", "Database Assessment", "Password Attacks", "Wireless Attacks", "Exploitation Tools"];
 
             let html = "";
             for (let i = 1; i <= 600; i++) {
                 let prefix = basePrefixes[(i - 1) % basePrefixes.length];
                 let cat = toolCategories[(i - 1) % toolCategories.length];
-                let suffix = Math.floor((i - 1) / basePrefixes.length) === 0 ? "" : "-" + (Math.floor((i - 1) / basePrefixes.length) + 1);
+                let suffix = Math.floor((i - 1) / basePrefixes.length) === 0 ? "" : " v" + (Math.floor((i - 1) / basePrefixes.length) + 1);
                 let fullToolName = prefix + suffix;
 
                 html += `<div class="kali-item" onclick="executeKaliEngine(this, '${fullToolName}')">
@@ -336,7 +316,6 @@
             logBox.style.display = "block";
             logBox.style.color = "yellow";
             logBox.innerText = `[~] Initializing ${name}...`;
-
             setTimeout(() => { logBox.innerText = `[~] Querying network modules...`; }, 700);
             setTimeout(() => {
                 logBox.style.color = "#0f0";
@@ -344,7 +323,6 @@
             }, 1800);
         }
 
-        // Live Intelligent Answers Engine
         function talkToAI() {
             const inp = document.getElementById('ai-in');
             const disp = document.getElementById('ai-display');
@@ -381,8 +359,8 @@
             const url = document.getElementById('target-url').value;
             if(!url) return alert("Enter target URL!");
             out.innerHTML = "<p style='color:yellow;'>[~] Connecting to: "+url+"</p>";
-            setTimeout(() => { out.innerHTML += "<p>[+] Checking layers...</p>"; }, 1000);
-            setTimeout(() => { out.innerHTML += "<p style='color:red;'>[!] ALERT: Threat vulnerability caught!</p>"; }, 2500);
+            setTimeout(() => { out.innerHTML += "<p>[+] Scanning for open ports...</p>"; }, 1000);
+            setTimeout(() => { out.innerHTML += "<p style='color:red;'>[!] ALERT: Potential SQLi vulnerability found!</p>"; }, 2500);
         }
 
         function openPanel(id) {
@@ -396,7 +374,6 @@
                 document.getElementById('login-overlay').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
                 document.getElementById('menu-user-info').innerText = "Terminal Auth:\n" + savedSession;
-                
                 checkAdminCounter(savedSession);
                 initBook();
                 initKaliTools();
