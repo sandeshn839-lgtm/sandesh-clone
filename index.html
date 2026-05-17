@@ -20,18 +20,20 @@
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
+            padding: 20px;
         }
 
-        /* Login Container Setup */
+        /* --- LOGIN INTERFACE STYLE --- */
         .login-box {
             background: rgba(10, 10, 10, 0.9);
             border: 2px solid #bc13fe;
             border-radius: 15px;
             padding: 30px;
-            width: 90%;
+            width: 100%;
             max-width: 400px;
             text-align: center;
             box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+            display: block; /* सुरुमा लगइन देखिने */
         }
 
         h2 {
@@ -64,27 +66,24 @@
             box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
         }
 
-        /* Placeholder Color */
         ::placeholder {
-            color: rgba(0, 255, 0, 0.5);
+            color: rgba(0, 255, 0, 0.4);
         }
 
-        /* Launch Button styling */
         .launch-btn {
             width: 100%;
             padding: 12px;
             background: #111;
-            border: 1px solid rgba(0, 255, 0, 0.3);
+            border: 1px solid rgba(0, 255, 0, 0.2);
             border-radius: 5px;
-            color: #555;
+            color: #444;
             font-size: 16px;
             font-weight: bold;
-            cursor: pointer;
+            cursor: not-allowed;
             letter-spacing: 1px;
             transition: 0.3s;
         }
 
-        /* Active state when credentials look ready */
         .launch-btn.active {
             border-color: #00ff00;
             color: #00ff00;
@@ -97,11 +96,92 @@
             color: #000;
             box-shadow: 0 0 25px #00ff00;
         }
+
+        /* --- MAIN SYSTEM DASHBOARD STYLE (सुरुमा लुकेको हुन्छ) --- */
+        .dashboard {
+            display: none; 
+            width: 100%;
+            max-width: 800px;
+            background: rgba(5, 5, 5, 0.95);
+            border: 2px solid #00ff00;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.2);
+        }
+
+        .dash-header {
+            text-align: center;
+            border-bottom: 2px dashed #00ff00;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+
+        .dash-header h1 {
+            color: #00ff00;
+            font-size: 26px;
+            text-shadow: 0 0 15px #00ff00;
+            letter-spacing: 3px;
+        }
+
+        .status-bar {
+            font-size: 14px;
+            color: #bc13fe;
+            margin-top: 5px;
+        }
+
+        /* टुलहरू राख्ने ग्रिड */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card {
+            background: #111;
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tool-card:hover {
+            border-color: #bc13fe;
+            background: #0a0a0a;
+            transform: translateY(-3px);
+            box-shadow: 0 0 15px rgba(188, 19, 254, 0.4);
+        }
+
+        .tool-card h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #00ff00;
+        }
+
+        .tool-card p {
+            font-size: 12px;
+            color: #888;
+        }
+
+        /* टर्मिनल विन्डो एनिमेसनका लागि */
+        .terminal-log {
+            margin-top: 25px;
+            background: #000;
+            border: 1px solid #bc13fe;
+            padding: 15px;
+            border-radius: 5px;
+            height: 120px;
+            overflow-y: auto;
+            font-size: 12px;
+            color: #00ff00;
+            text-align: left;
+        }
     </style>
 </head>
 <body>
 
-    <div class="login-box">
+    <div class="login-box" id="loginBox">
         <h2>SANDESH TOOLS</h2>
         
         <div class="input-group">
@@ -115,14 +195,39 @@
         <button id="launchBtn" onclick="launchSystem()" class="launch-btn" disabled>LAUNCH_SYSTEM</button>
     </div>
 
+    <div class="dashboard" id="mainDashboard">
+        <div class="dash-header">
+            <h1>SANDESH CORE SYSTEM v1.0</h1>
+            <div class="status-bar">STATUS: ONLINE | ACCESS: GRANTED</div>
+        </div>
+
+        <div class="tools-grid">
+            <div class="tool-card" onclick="runTool('Network Scanner')">
+                <h3>🌐 Network Scan</h3>
+                <p>IP र खुल्ला पोर्टहरू स्क्यान गर्नुहोस्</p>
+            </div>
+            <div class="tool-card" onclick="runTool('Vulnerability Finder')">
+                <h3>🛡️ Cyber Audit</h3>
+                <p>प्रणालीको कमजोरीहरू पत्ता लगाउनुहोस्</p>
+            </div>
+            <div class="tool-card" onclick="runTool('DDoS Simulator')">
+                <h3>⚡ Stress Test</h3>
+                <p>सर्भरको लोड क्षमता जाँच गर्नुहोस्</p>
+            </div>
+        </div>
+
+        <div class="terminal-log" id="terminalLog">
+            [system] Welcome Admin Sandesh. System initialized...
+        </div>
+    </div>
+
     <script>
-        // Inputs चेक गर्ने र बटन अन गर्ने फङ्सन
+        // इन्पुट चेक गरेर बटन अन/अफ गर्ने
         function checkInputs() {
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             const launchBtn = document.getElementById('launchBtn');
 
-            // यदि इमेल र पासवर्ड खाली छैन भने बटन एक्टिभ गर्ने
             if (email.trim() !== "" && password.trim() !== "") {
                 launchBtn.removeAttribute('disabled');
                 launchBtn.classList.add('active');
@@ -132,16 +237,31 @@
             }
         }
 
-        // सिस्टम लन्च गर्ने फङ्सन
+        // सिस्टम लन्च गरी ड्यासबोर्ड खोल्ने फङ्सन
         function launchSystem() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            // यहाँ तिम्रो सिस्टम भित्र छिर्ने कोड राख्न सक्छौ
             alert("Access Granted! Launching Sandesh Core System...");
             
-            // उदाहरणका लागि मेन ड्यासबोर्डमा पठाउने लिंक:
-            // window.location.href = "dashboard.html";
+            // लगइन बक्सलाई लुकाउने र ड्यासबोर्ड देखाउने
+            document.getElementById('loginBox').style.display = 'none';
+            document.getElementById('mainDashboard').style.display = 'block';
+            
+            // टर्मिनल लग अपडेट
+            logTerminal("Sandesh Core Hacking System successfully loaded.");
+        }
+
+        // टुल क्लिक गर्दा टर्मिनलमा एनिमेसन देखाउने फङ्सन
+        function runTool(toolName) {
+            logTerminal(`Initializing ${toolName}...`);
+            setTimeout(() => {
+                logTerminal(`[+] ${toolName} working in background... [OK]`);
+            }, 1000);
+        }
+
+        // टर्मिनलमा मेसेज प्रिन्ट गर्ने हेल्पर
+        function logTerminal(message) {
+            const log = document.getElementById('terminalLog');
+            log.innerHTML += `<br>> ${message}`;
+            log.scrollTop = log.scrollHeight; // सधैं तल स्क्रोल गर्ने
         }
     </script>
 </body>
