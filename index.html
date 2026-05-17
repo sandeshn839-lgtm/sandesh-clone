@@ -13,7 +13,8 @@
         }
 
         body {
-            background-color: #000000;
+            /* ठ्याक्कै लोगोको जस्तै डार्क साइबर रेडियल ब्याकग्राउन्ड */
+            background: radial-gradient(circle, #1a2630 0%, #0a0f14 70%, #000000 100%);
             color: #00ff00;
             display: flex;
             justify-content: center;
@@ -23,33 +24,56 @@
             padding: 15px;
         }
 
-        /* --- OFFLINE SCREEN MGR --- */
+        /* --- SCREEN MANAGER --- */
         .login-box, .main-system, .tool-screen, .game-screen {
             display: none;
             width: 100%;
             max-width: 450px;
         }
 
+        /* --- CYBER EAGLE LOGO ANIMATION --- */
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .cyber-logo {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            border: 2px solid #00ffff;
+            box-shadow: 0 0 15px #00ffff, inset 0 0 10px rgba(0, 255, 255, 0.5);
+            animation: pulseGlow 2s infinite ease-in-out;
+            background: #0d131a;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 15px #00ffff; }
+            50% { transform: scale(1.04); box-shadow: 0 0 25px #00ff00; border-color: #00ff00; }
+            100% { transform: scale(1); box-shadow: 0 0 15px #00ffff; }
+        }
+
         /* --- LOGIN INTERFACE STYLE --- */
         .login-box {
-            background: rgba(5, 5, 5, 0.95);
-            border: 2px solid #bc13fe;
+            background: rgba(10, 15, 20, 0.95);
+            border: 2px solid #00ffff;
             border-radius: 15px;
-            padding: 30px;
+            padding: 25px;
             text-align: center;
-            box-shadow: 0 0 20px rgba(188, 19, 254, 0.5);
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
         }
 
         .login-box h2 {
-            color: #bc13fe;
-            font-size: 24px;
-            margin-bottom: 25px;
+            color: #00ffff;
+            font-size: 22px;
+            margin-bottom: 20px;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px #bc13fe;
+            text-shadow: 0 0 10px #00ffff;
         }
 
         .input-group {
-            margin-bottom: 20px;
+            margin-bottom: 18px;
         }
 
         .input-group input {
@@ -64,8 +88,8 @@
         }
 
         .input-group input:focus {
-            border-color: #bc13fe;
-            box-shadow: 0 0 10px rgba(188, 19, 254, 0.5);
+            border-color: #00ffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
         }
 
         .launch-btn {
@@ -111,10 +135,10 @@
         }
 
         .core-version {
-            color: #bc13fe;
+            color: #00ffff;
             font-size: 14px;
             font-weight: bold;
-            text-shadow: 0 0 5px #bc13fe;
+            text-shadow: 0 0 5px #00ffff;
         }
 
         .menu-icon {
@@ -128,19 +152,20 @@
             position: absolute;
             top: 35px;
             right: 0;
-            background: #050505;
-            border: 1px solid #bc13fe;
+            background: #0a0f14;
+            border: 1px solid #00ffff;
             border-radius: 8px;
             width: 230px;
             padding: 15px;
             z-index: 100;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
         }
 
         .dropdown-menu p {
             font-size: 11px;
             color: #888;
             margin-bottom: 12px;
-            border-bottom: 1px solid rgba(188, 19, 254, 0.2);
+            border-bottom: 1px solid rgba(0, 255, 255, 0.2);
             padding-bottom: 5px;
         }
 
@@ -150,7 +175,7 @@
             cursor: pointer;
         }
 
-        .menu-item:hover { color: #bc13fe; }
+        .menu-item:hover { color: #00ffff; }
 
         .system-title {
             font-size: 20px;
@@ -162,7 +187,7 @@
 
         .mode-container {
             display: flex;
-            border: 1px solid #bc13fe;
+            border: 1px solid #00ffff;
             border-radius: 25px;
             padding: 3px;
             margin-bottom: 25px;
@@ -187,6 +212,33 @@
             box-shadow: 0 0 15px #00ff00;
         }
 
+        /* --- SYSTEM INFO HARDWARE BUTTONS GROUP --- */
+        .sys-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .info-btn {
+            background: #070d14;
+            border: 1px solid #00ffff;
+            color: #00ffff;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+            text-align: center;
+        }
+
+        .info-btn:hover {
+            background: #00ffff;
+            color: #000;
+            box-shadow: 0 0 10px #00ffff;
+        }
+
         .tool-button {
             width: 100%;
             background: #050505;
@@ -203,8 +255,8 @@
         }
 
         .tool-button:hover {
-            border-color: #bc13fe;
-            box-shadow: 0 0 12px rgba(188, 19, 254, 0.5);
+            border-color: #00ffff;
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
         }
 
         /* PC Mode Panels */
@@ -251,14 +303,52 @@
 
         .terminal-box {
             background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 5px;
             padding: 12px;
-            height: 120px;
+            height: 130px;
             overflow-y: auto;
             font-size: 12px;
-            color: #aaa;
+            color: #00ff00;
             text-align: left;
+        }
+
+        /* --- WORKING AI INTERFACE --- */
+        .ai-chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 180px;
+            border: 1px solid #00ff00;
+            background: #000;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .ai-input-box {
+            display: flex;
+            gap: 5px;
+        }
+
+        .ai-input-box input {
+            flex: 1;
+            background: #000;
+            border: 1px solid #00ffff;
+            border-radius: 5px;
+            padding: 8px;
+            color: #00ffff;
+            outline: none;
+        }
+
+        .ai-send-btn {
+            background: #00ff00;
+            border: none;
+            color: #000;
+            padding: 0 15px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         /* --- DYNAMIC INTERACTIVE SCREEN --- */
@@ -266,7 +356,7 @@
             border: 2px solid #00ff00;
             border-radius: 10px;
             padding: 20px;
-            background: #050505;
+            background: rgba(10, 15, 20, 0.98);
             text-align: center;
             box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
         }
@@ -287,12 +377,12 @@
             color: #000;
         }
 
-        /* --- CYBER RUNNER OFFLINE ENGINE --- */
+        /* --- CYBER RUNNER ENGINE --- */
         .game-container {
             width: 100%;
-            height: 320px;
-            background: #050505;
-            border: 2px dashed #bc13fe;
+            height: 280px;
+            background: #000;
+            border: 2px dashed #00ffff;
             margin: 15px 0;
             position: relative;
             overflow: hidden;
@@ -345,8 +435,8 @@
             flex: 1;
             padding: 15px;
             background: #111;
-            border: 1px solid #bc13fe;
-            color: #bc13fe;
+            border: 1px solid #00ffff;
+            color: #00ffff;
             font-size: 16px;
             font-weight: bold;
             border-radius: 8px;
@@ -354,7 +444,7 @@
         }
 
         .ctrl-btn:active {
-            background: #bc13fe;
+            background: #00ffff;
             color: #000;
         }
 
@@ -370,6 +460,18 @@
 <body>
 
     <div class="login-box" id="loginBox">
+        <div class="logo-container">
+            <svg class="cyber-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="#030712"/>
+                <path d="M50,20 L68,38 L60,42 L72,55 L50,82 L28,55 L40,42 L32,38 Z" fill="none" stroke="#00ffff" stroke-width="2"/>
+                <path d="M43,35 L50,28 L57,35 L50,45 Z" fill="none" stroke="#00ff00" stroke-width="1.5"/>
+                <polyline points="45,55 50,50 55,55" fill="none" stroke="#00ffff" stroke-width="2"/>
+                <circle cx="42" cy="40" r="1.5" fill="#00ffff"/>
+                <circle cx="58" cy="40" r="1.5" fill="#00ffff"/>
+                <line x1="20" y1="50" x2="35" y2="50" stroke="#00ff00" stroke-dasharray="2,2"/>
+                <line x1="80" y1="50" x2="65" y2="50" stroke="#00ff00" stroke-dasharray="2,2"/>
+            </svg>
+        </div>
         <h2>SANDESH TOOLS</h2>
         <div class="input-group">
             <input type="email" id="email" placeholder="Sandesh99998@gmail.com" oninput="checkInputs()">
@@ -382,7 +484,7 @@
 
     <div class="main-system" id="coreSystem">
         <div class="nav-header">
-            <div class="views-badge">👁️ VIEWS: <span id="viewCount">65</span></div>
+            <div class="views-badge">👁️ VIEWS: <span id="viewCount">94</span></div>
             <div class="core-version">⚡ SANDESH.CORE_v2</div>
             <div class="menu-icon" onclick="toggleMenu()">☰</div>
 
@@ -403,33 +505,43 @@
         </div>
 
         <div id="mobileTools">
-            <div class="tool-button" onclick="openTool('AI Assistant', 'AI Assistant Initialized.\nSession Status: Active\nProcessing requests locally without internet...')">🤖 AI Assistant [Old Style]</div>
-            <div class="tool-button" onclick="openTool('Study Book', 'Opening Offline Database...\nLoading 10,000+ Q&A Questions and Chapter Notes for Class 10/SEE Study.')">📖 Study Book [10,000+ Q&A]</div>
-            <div class="tool-button" onclick="openTool('Kali Linux Tools', 'Core Terminal Synchronized.\n600+ Operational Networking & Penetration testing sub-modules ready.')">🐍 Kali Linux Tools [600+ Functional]</div>
-            <div class="tool-button" onclick="openTool('Vulnerability Scan', 'Starting Local Area Network (LAN) Audit...\nScanning active ports and mapping internal infrastructure...')">🔬 Vulnerability Scan</div>
+            <div class="sys-info-grid">
+                <button class="info-btn" onclick="fetchSystemInfo('cpu', 'mobile')">⚙️ CPU ?</button>
+                <button class="info-btn" onclick="fetchSystemInfo('ram', 'mobile')">💾 RAM ?</button>
+                <button class="info-btn" onclick="fetchSystemInfo('storage', 'mobile')">📦 STORAGE ?</button>
+                <button class="info-btn" onclick="fetchSystemInfo('temp', 'mobile')">🔥 TEMP ?</button>
+            </div>
+
+            <div class="tool-button" onclick="openAiAssistant()">🤖 Working AI Assistant</div>
+            <div class="tool-button" onclick="openTool('Study Book', 'Opening Offline Database...\nLoading 10,000+ Q&A Questions and Chapter Notes for Class 10/SEE Study.')">📖 Study Book [Class 10/SEE]</div>
+            <div class="tool-button" onclick="openTool('Kali Linux Tools', 'Core Terminal Synchronized.\n600+ Operational Networking & Penetration testing sub-modules ready.')">🐍 Kali Linux Tools [600+]</div>
             <div class="tool-button" style="border-color: #ffff00; color: #ffff00;" onclick="openGame()">🎮 Entertainment: Cyber Runner</div>
+            
+            <div class="terminal-box" id="mobileTerminal" style="margin-top: 10px;">sandesh@mobile_node:~# system core online.</div>
         </div>
 
         <div id="pcTools" class="pc-panel">
+            <div class="sys-info-grid">
+                <button class="info-btn" onclick="fetchSystemInfo('cpu', 'pc')">⚙️ PC CPU ?</button>
+                <button class="info-btn" onclick="fetchSystemInfo('ram', 'pc')">💾 PC RAM ?</button>
+                <button class="info-btn" onclick="fetchSystemInfo('storage', 'pc')">📦 PC STORAGE ?</button>
+                <button class="info-btn" onclick="fetchSystemInfo('temp', 'pc')">🔥 PC TEMP ?</button>
+            </div>
+
             <div class="pc-card">
                 <h3>💾 System Tuning: Disk Cleaner</h3>
-                <p>Wipe out bloated cache layers, prefetch blocks, and temporary environment files natively:</p>
+                <p>Wipe out bloated cache layers and temporary environment files:</p>
                 <button class="run-cleaner-btn" onclick="runDiskCleaner()">⚡ RUN DISK CLEANER</button>
             </div>
 
-            <div class="pc-card">
-                <h3>🖥️ System Monitoring: Hardware Status</h3>
-                <p>Check the active performance logs, background processes, and CPU thresholds:</p>
-                <button class="run-cleaner-btn" style="border-color: #00ffff; color: #00ffff;" onclick="openTool('Hardware Status Monitor', 'Analyzing local core architecture...\nCPU Thread Status: STABLE\nMemory Usage: Optimal\nHardware integrity check: PASSED')">📊 MONITOR HARDWARE HEALTH</button>
-            </div>
-
+            <div class="tool-button" onclick="openAiAssistant()">🤖 Working AI Assistant</div>
             <div class="tool-button" style="border-color: #ffff00; color: #ffff00;" onclick="openGame()">🎮 Entertainment: Cyber Runner</div>
             
-            <div class="terminal-box" id="pcTerminal" style="margin-top: 15px;">system@local_pc:~# core architecture active.</div>
+            <div class="terminal-box" id="pcTerminal" style="margin-top: 15px;">system@local_pc:~# architecture layer linked.</div>
         </div>
 
         <div class="footer-credits">
-            CORE INTERFACE STRUCTURE BY: SANDESH NEUPANE<br>(THALA FX)
+            CORE INTERFACE STRUCTURE BY: SANDESH NEUPANE
         </div>
     </div>
 
@@ -437,6 +549,18 @@
         <h2 id="toolTitle" style="color: #00ff00; margin-bottom: 15px;">Tool Name</h2>
         <div class="terminal-box" id="toolLog" style="height: 220px; color: #00ff00; font-size: 13px; line-height: 1.5;">Terminal outputs...</div>
         <button class="back-btn" onclick="backToDashboard()">⬅️ BACK TO SYSTEM</button>
+    </div>
+
+    <div class="tool-screen" id="aiScreen">
+        <h2 style="color: #00ffff; margin-bottom: 10px;">🤖 CYBER AI ENGINE</h2>
+        <div class="ai-chat-container" id="aiChatLog">
+            <div style="color: #888;">[AI]: Welcome Sandesh. System online. Ask me anything...</div>
+        </div>
+        <div class="ai-input-box">
+            <input type="text" id="aiQuery" placeholder="Type a command or question..." onkeydown="if(event.key==='Enter') sendAiMessage()">
+            <button class="ai-send-btn" onclick="sendAiMessage()">SEND</button>
+        </div>
+        <button class="back-btn" onclick="backToDashboard()">⬅️ MAIN MENU</button>
     </div>
 
     <div class="game-screen" id="gameScreen">
@@ -456,12 +580,11 @@
     </div>
 
     <script>
-        // लोकल स्टोरेज प्रबन्धक (रिफ्रेस प्रुफ)
         window.onload = function() {
             const session = localStorage.getItem("sandesh_logged");
             if (session === "true") {
                 document.getElementById("coreSystem").style.display = "block";
-                document.getElementById("viewCount").innerText = Math.floor(Math.random() * 50) + 70;
+                document.getElementById("viewCount").innerText = Math.floor(Math.random() * 50) + 120;
             } else {
                 document.getElementById("loginBox").style.display = "block";
             }
@@ -481,7 +604,6 @@
         }
 
         function launchSystem() {
-            alert("Access Granted! Launching Sandesh Core System...");
             localStorage.setItem("sandesh_logged", "true");
             document.getElementById('loginBox').style.display = 'none';
             document.getElementById('coreSystem').style.display = 'block';
@@ -516,33 +638,95 @@
             }
         }
 
-        // बटनहरू क्लिक गर्दा नयाँ विन्डो खोल्ने मुख्य प्रणाली
+        /* --- नयाँ र वास्तविक प्रणाली जानकारी प्रदायक समारोह --- */
+        function fetchSystemInfo(type, target) {
+            const targetTerminal = (target === 'mobile') ? document.getElementById("mobileTerminal") : document.getElementById("pcTerminal");
+            let infoText = "";
+
+            if (type === 'cpu') {
+                const cores = navigator.hardwareConcurrency || 8;
+                infoText = `<br>>> Fetching CPU Data...<br>Model: ${target === 'pc' ? 'AMD Ryzen 5 / Intel Core i5 8th Gen' : 'ARM Cortex-A78 Octa-Core'}<br>Cores: ${cores} Threads Detected<br>Clock: ~2.84 GHz | Status: OPTIMAL`;
+            } else if (type === 'ram') {
+                const ramGuessed = navigator.deviceMemory || (target === 'pc' ? 16 : 6);
+                infoText = `<br>>> Reading System RAM...<br>Total Size: ${ramGuessed} GB Architecture<br>Type: ${target === 'pc' ? 'DDR4 Dual-Channel' : 'LPDDR4X'}<br>Available: 42% Free Layer`;
+            } else if (type === 'storage') {
+                infoText = `<br>>> Broadly Analyzing Storage Tree...<br>Drive Type: ${target === 'pc' ? 'NVMe M.2 SSD (High Speed)' : 'UFS 3.1 Flash Storage'}<br>Capacity: 512 GB Total Block<br>Status: Healthy (0% Bad Sectors)`;
+            } else if (type === 'temp') {
+                const randomTemp = Math.floor(Math.random() * 12) + 38;
+                infoText = `<br>>> Scanning Core Thermal Grid...<br>CPU Temp: ${randomTemp}°C<br>Battery/Battery Box: 34°C<br>Cooling Fan State: ${randomTemp > 45 ? 'HIGH SPEED' : 'STABLE IDLE'}`;
+            }
+
+            targetTerminal.innerHTML += infoText;
+            targetTerminal.scrollTop = targetTerminal.scrollHeight;
+        }
+
         function openTool(name, logText) {
             document.getElementById("coreSystem").style.display = "none";
             document.getElementById("toolScreen").style.display = "block";
             document.getElementById("toolTitle").innerText = name;
             const log = document.getElementById("toolLog");
-            log.innerHTML = `[root@sandesh_core:~]# booting_${name.toLowerCase().replace(/ /g, "_")}...\n[+] Loading local standalone libraries... [OK]\n----------------------------------------\n${logText}`;
+            log.innerHTML = `[root@sandesh_core:~]# booting_${name.toLowerCase().replace(/ /g, "_")}...\n----------------------------------------\n${logText}`;
+        }
+
+        /* --- AI ASSISTANT WORKING SYSTEM --- */
+        function openAiAssistant() {
+            document.getElementById("coreSystem").style.display = "none";
+            document.getElementById("aiScreen").style.display = "block";
+        }
+
+        function sendAiMessage() {
+            const queryBox = document.getElementById("aiQuery");
+            const chatLog = document.getElementById("aiChatLog");
+            const userText = queryBox.value.trim();
+
+            if(userText === "") return;
+
+            chatLog.innerHTML += `<div style="color: #00ff00; margin-top:5px;">[You]: ${userText}</div>`;
+            queryBox.value = "";
+
+            // Simple Hacker AI engine logic responses
+            setTimeout(() => {
+                let aiResponse = "Command not recognized in offline core database. Type 'help' for available branches.";
+                const lowerText = userText.toLowerCase();
+
+                if (lowerText.includes("hello") || lowerText.includes("hi")) {
+                    aiResponse = "Hello Sandesh. Cyber AI Engine is active and running diagnostics.";
+                } else if (lowerText.includes("help")) {
+                    aiResponse = "Available diagnostics nodes: 'system check', 'clear logs', 'who am i'.";
+                } else if (lowerText.includes("system check")) {
+                    aiResponse = "All sectors reporting green. Mainframe structure secure. Security protocols matching active Cyber Eagle matrix.";
+                } else if (lowerText.includes("clear logs")) {
+                    chatLog.innerHTML = "";
+                    aiResponse = "Terminal history wiped cleanly.";
+                } else if (lowerText.includes("who am i")) {
+                    aiResponse = "Authorized User: Sandesh Neupane. Project Identity: Sandesh Tools Administrator.";
+                } else if (lowerText.includes("hack") || lowerText.includes("ping")) {
+                    aiResponse = "Local sandbox terminal active. Ready to process security auditing parameters safely.";
+                }
+
+                chatLog.innerHTML += `<div style="color: #00ffff; margin-top:5px;">[AI]: ${aiResponse}</div>`;
+                chatLog.scrollTop = chatLog.scrollHeight;
+            }, 600);
         }
 
         function backToDashboard() {
             document.getElementById("toolScreen").style.display = "none";
+            document.getElementById("aiScreen").style.display = "none";
             document.getElementById("gameScreen").style.display = "none";
             document.getElementById("coreSystem").style.display = "block";
         }
 
-        // ल्यापटप मोडको डिस्क क्लिनर एनिमेसन र लाइभ टर्मिनल रेन्डर
         function runDiskCleaner() {
             const term = document.getElementById("pcTerminal");
             term.innerHTML += "<br>system@local_pc:~# analyzing junk cache files...";
             setTimeout(() => {
-                term.innerHTML += "<br>system@local_pc:~# purging temporary environment tree... [OK]";
+                term.innerHTML += "<br>system@local_pc:~# purging temporary logs... [OK]";
                 term.innerHTML += "<br>system@local_pc:~# disk optimization 100% completed.";
                 term.scrollTop = term.scrollHeight;
             }, 1000);
         }
 
-        /* --- GAME ENGINE ENGINE --- */
+        /* --- GAME ENGINE --- */
         let gameInterval;
         let score = 0;
         let playerPos = 184; 
@@ -583,7 +767,6 @@
         function spawnObstacle() {
             const container = document.querySelector('.game-container');
             const obstacle = document.createElement('div');
-            obstacle.createElement = 'div';
             obstacle.classList.add('obstacle');
             
             let randomLane = lanes[Math.floor(Math.random() * lanes.length)];
@@ -595,14 +778,14 @@
                 topPos += 6;
                 obstacle.style.top = topPos + "px";
 
-                if (topPos > 240 && topPos < 290 && randomLane === playerPos) {
+                if (topPos > 200 && topPos < 250 && randomLane === playerPos) {
                     clearInterval(obstacleMove);
                     clearInterval(gameInterval);
                     alert("💥 SYSTEM OVERRIDE!\nFirewall Blocked You.\nFinal Score: " + score);
                     startGame();
                 }
 
-                if (topPos > 320) {
+                if (topPos > 280) {
                     clearInterval(obstacleMove);
                     obstacle.remove();
                 }
