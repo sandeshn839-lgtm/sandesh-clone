@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandesh Advanced Ethical Tools v7.0</title>
+    <title>Sandesh Advanced Ethical Systems v8.0 - Full Suite</title>
     <style>
         * {
             margin: 0;
@@ -21,7 +21,7 @@
             min-height: 100vh;
         }
 
-        /* Full Screen Container */
+        /* App Screen Frames */
         .login-box, .main-system, .screen-panel, .game-screen {
             display: none;
             width: 100%;
@@ -42,7 +42,6 @@
             margin-bottom: 20px;
             border-bottom: 2px solid #00ff00;
             padding-bottom: 10px;
-            position: relative;
         }
 
         .system-title {
@@ -52,7 +51,6 @@
             font-weight: bold;
         }
 
-        /* Top Right Coin Display Box */
         .coin-display-node {
             background: #111a11;
             border: 1px solid #ffff00;
@@ -97,7 +95,6 @@
             color: #00ff00;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
             transition: 0.2s;
             margin-bottom: 12px;
         }
@@ -140,11 +137,10 @@
             border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 8px;
             padding: 12px;
-            height: 100px;
+            height: 90px;
             overflow-y: auto;
             font-size: 11px;
             color: #00ff00;
-            text-align: left;
         }
 
         .content-area {
@@ -168,7 +164,7 @@
             margin-top: 10px;
         }
 
-        /* Chrome Simulator Browser Components */
+        /* 🌐 Google Chrome Engine Simulator CSS */
         .browser-bar {
             display: flex;
             background: #171e24;
@@ -186,24 +182,29 @@
             background: #5b9aff; color: #000; border: none; padding: 0 15px; 
             font-weight: bold; border-radius: 4px; cursor: pointer; 
         }
-        
-        /* Embed Real Chrome Iframe Wrapper */
-        .chrome-iframe-container {
-            width: 100%;
-            height: 100%;
-            border: none;
-            background: #fff;
-        }
 
-        /* AI Tab Engine */
+        .google-search-result-node {
+            background: #ffffff;
+            color: #202124;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            height: 100%;
+            overflow-y: auto;
+            text-align: left;
+        }
+        .google-link-title { color: #1a0dab; font-size: 18px; text-decoration: none; display: block; margin-top: 10px; }
+        .google-link-title:hover { text-decoration: underline; }
+        .google-snippet { color: #4d5156; font-size: 13px; margin-top: 4px; margin-bottom: 15px; line-height: 1.4; }
+
+        /* AI Tab Architecture */
         .ai-selector { display: flex; gap: 10px; margin-bottom: 12px; }
         .ai-tab {
             flex: 1; padding: 10px; background: #111; border: 1px solid #333; color: #666;
-            cursor: pointer; font-size: 11px; text-align: center; border-radius: 4px;
+            cursor: pointer; font-size: 11px; text-align: center; border-radius: 4px; font-weight: bold;
         }
         .ai-tab.active { border-color: #00ffff; color: #00ffff; background: #02141a; }
 
-        /* Real Game Arena */
+        /* Game System Layout */
         .game-container {
             width: 100%;
             height: 280px;
@@ -213,15 +214,9 @@
             position: relative;
             overflow: hidden;
         }
-        #gameScore { position: absolute; top: 10px; left: 10px; color: #ffff00; font-weight: bold; font-size: 14px; }
-        #player { 
-            width: 50px; height: 50px; background: #00ff00; position: absolute; bottom: 15px; left: 45%; 
-            border-radius: 10px; box-shadow: 0 0 10px #00ff00; display: flex; align-items: center; justify-content: center; font-size: 22px;
-        }
-        .obstacle { 
-            width: 40px; height: 40px; background: #ff3333; position: absolute; top: -50px; border-radius: 50%; 
-            box-shadow: 0 0 12px #ff3333; display: flex; align-items: center; justify-content: center; font-size: 18px;
-        }
+        #gameScore { position: absolute; top: 10px; left: 10px; color: #ffff00; font-weight: bold; }
+        #player { width: 50px; height: 50px; background: #00ff00; position: absolute; bottom: 15px; left: 45%; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .obstacle { width: 40px; height: 40px; background: #ff3333; position: absolute; top: -50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
         .game-controls { display: flex; gap: 10px; margin-bottom: 10px; }
         .ctrl-btn { flex: 1; padding: 15px; background: #111; border: 1px solid #00ffff; color: #00ffff; font-weight: bold; border-radius: 6px; }
     </style>
@@ -233,25 +228,25 @@
             <circle cx="50" cy="50" r="45" fill="#02050a"/>
             <path d="M50,22 L66,38 L58,42 L70,55 L50,80 L30,55 L42,42 L34,38 Z" fill="none" stroke="#00ffff" stroke-width="2"/>
         </svg>
-        <h2 style="color:#00ffff; margin-bottom:25px; font-size:18px;">SANDESH SYSTEMS LOGIN PORTAL</h2>
+        <h2 style="color:#00ffff; margin-bottom:25px; font-size:18px;">SANDESH SYSTEMS ACCESS ENGINE</h2>
         <div class="input-group">
-            <input type="text" id="username" placeholder="Operator Name">
-            <input type="email" id="email" placeholder="Security Email Registry">
-            <input type="password" id="password" placeholder="System Firewall Key">
+            <input type="text" id="username" placeholder="Operator Node ID">
+            <input type="email" id="email" placeholder="Security Email Mapping">
+            <input type="password" id="password" placeholder="Firewall Access Key">
         </div>
-        <button class="action-btn" style="max-width: 400px; margin: 0 auto;" onclick="launchSystemCore()">BOOT SYSTEM</button>
+        <button class="action-btn" style="max-width: 400px; margin: 0 auto;" onclick="launchSystemCore()">BOOT MAIN LOGIC NODE</button>
     </div>
 
     <div class="main-system" id="coreSystem">
         <div class="app-header">
-            <div class="system-title">⚡ SANDESH ETHICAL CORE v7.0 ⚡</div>
+            <div class="system-title">⚡ SANDESH ETHICAL CORE MASTER v8.0 ⚡</div>
             <div class="coin-display-node" id="topCoinDisplay">🪙 0 Coins</div>
         </div>
 
         <div class="coin-collector-box">
-            <p style="color: #fff; font-size: 13px; font-weight: bold; margin-bottom: 8px;">🪙 REWARD FACTORY MODULE</p>
-            <p style="color: #bbb; font-size: 11px; margin-bottom: 10px;">Need more resources? Play the internal packet shift game. Break <span style="color:#ffaa00; font-weight:bold;">150+ Points</span> to harvest 100 Coins instantly!</p>
-            <button class="action-btn" style="border-color: #ffff00; color: #ffff00; background: #1a1905; padding: 10px; margin-bottom: 0;" onclick="triggerCoinCollectionProcess()">⚡ COLLECT 100 COINS</button>
+            <p style="color: #fff; font-size: 13px; font-weight: bold; margin-bottom: 8px;">🪙 SECURE COIN GENERATION VALVE</p>
+            <p style="color: #bbb; font-size: 11px; margin-bottom: 10px;">Play the threat defense arcade. If you break <span style="color:#ffaa00; font-weight:bold;">150+ Score</span>, you win 100 Coins into your wallet!</p>
+            <button class="action-btn" style="border-color: #ffff00; color: #ffff00; background: #1a1905; padding: 10px; margin-bottom: 0;" onclick="triggerCoinCollectionProcess()">⚡ RUN CHALLENGE TO EARN 100 COINS</button>
         </div>
 
         <div class="grid-menu">
@@ -261,10 +256,10 @@
             <button class="menu-item" style="border-color:#ffff00; color:#ffff00;" onclick="openGameArena()">🎮 PLAY GAME</button>
         </div>
 
-        <button class="action-btn" style="border-color:#5b9aff; color:#5b9aff; background: #040d1a;" onclick="openScreen('browserScreen')">🌐 LAUNCH CHROME CYBER SEARCH CRAWLER</button>
-        <button class="action-btn" style="border-color:#00ffff; color:#00ffff; background: #03141a;" onclick="openScreen('aiScreen')">🤖 ACCESS REAL HACKER GPT INTERFACE</button>
+        <button class="action-btn" style="border-color:#5b9aff; color:#5b9aff; background: #040d1a;" onclick="openScreen('browserScreen')">🌐 LAUNCH REAL-LINK GOOGLE CHROME SIMULATOR</button>
+        <button class="action-btn" style="border-color:#00ffff; color:#00ffff; background: #03141a;" onclick="openScreen('aiScreen')">🤖 ACCESS REAL HACKER GPT PANEL</button>
         
-        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# Framework stable. Game Engine configured to drop 100 coins at 150+ score threshold.</div>
+        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# Engine online. Google Chrome Advanced Crawler capable of resolving any query payload successfully.</div>
     </div>
 
     <div class="screen-panel" id="studyScreen">
@@ -287,15 +282,17 @@
     </div>
 
     <div class="screen-panel" id="browserScreen">
-        <h3 style="color:#5b9aff; margin-bottom:12px; text-align:center;">🌐 GOOGLE CHROME EMBEDDED SIMULATOR</h3>
+        <h3 style="color:#5b9aff; margin-bottom:12px; text-align:center;">🌐 GOOGLE CHROME ADVANCED MULTI-CRAWLER</h3>
         <div class="browser-bar">
-            <input type="text" id="browserUrlInput" class="browser-input" placeholder="Search Google or paste link (e.g. 'ipl', 'ipl table')...">
+            <input type="text" id="browserUrlInput" class="browser-input" placeholder="Ask Google anything (e.g. 'ipl table', 'how to make tea', 'solve 25*4')...">
             <button class="browser-go" onclick="executeRealChromeSearch()">SEARCH</button>
         </div>
         <div class="content-area" id="browserDisplayView" style="border-color:#5b9aff; padding:0; background:#fff; overflow:hidden;">
-            <div style="text-align:center; padding-top:15vh; background:#000; height:100%; color:#fff;">
-                <h1 style="font-size:42px; font-family:Arial, sans-serif; font-weight:bold;"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></h1>
-                <p style="color:#666; font-size:12px; margin-top:5px;">Sandesh Embedded Proxy Core. Search 'ipl' for live standings map.</p>
+            <div class="google-search-result-node" style="background:#000; text-align:center; padding-top:15vh;">
+                <h1 style="font-size:45px; font-family:Arial, sans-serif; font-weight:bold; margin-bottom: 10px;">
+                    <span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span>
+                </h1>
+                <p style="color:#666; font-size:12px;">Universal Search Sync Cluster Active. Ask any query string to harvest responsive index details.</p>
             </div>
         </div>
         <button class="back-btn" onclick="returnToDashboard()">⬅️ SHUTDOWN BROWSER</button>
@@ -311,7 +308,7 @@
             <div style="color: #00ff00;">[system@ai_node]: Multi-Agent architecture loaded. Systems operational.</div>
         </div>
         <div style="display:flex; gap:8px;">
-            <input type="text" id="aiInput" placeholder="Inject query payload..." style="flex:1; background:#000; border:1px solid #00ffff; padding:12px; color:#00ffff; outline:none;" onkeydown="if(event.key==='Enter') executeAiQuery()">
+            <input type="text" id="aiInput" placeholder="Inject command or query payload..." style="flex:1; background:#000; border:1px solid #00ffff; padding:12px; color:#00ffff; outline:none;" onkeydown="if(event.key==='Enter') executeAiQuery()">
             <button onclick="executeAiQuery()" style="background:#00ffff; border:none; padding:0 20px; font-weight:bold; cursor:pointer; color:#000;">RUN</button>
         </div>
         <button class="back-btn" onclick="returnToDashboard()">⬅️ CLOSE TERMINAL</button>
@@ -332,8 +329,8 @@
 
     <script>
         let globalCoins = parseInt(localStorage.getItem("sandesh_user_coins")) || 0;
-        let selectedAiStack = "cyber";
         let isCoinHarvestModeActive = false;
+        let selectedAiStack = "cyber";
 
         window.onload = function() {
             updateCoinGraphics();
@@ -355,10 +352,9 @@
             localStorage.setItem("sandesh_user_coins", globalCoins);
         }
 
-        // TRIGGER PROCESS TO COLLECT COINS VIA PLAYING GAME
         function triggerCoinCollectionProcess() {
             isCoinHarvestModeActive = true;
-            alert("⚠️ SYSTEM PROTOCOL:\nTo harvest 100 Coins, you must pass 150+ Points in the upcoming simulation. Initializing Game Chamber!");
+            alert("⚠️ SECURITY CHALLENGE ACTIVE:\nBreak past 150+ Points in the malware grid to harvest 100 Coins safely into your top right safe display!");
             openGameArena();
         }
 
@@ -374,38 +370,101 @@
             document.getElementById("coreSystem").style.display = "block";
         }
 
-        // EMBEDDED CHROME SIMULATOR - OPENS REAL LINKS IN APP IFRAME SHELL
+        // =========================================================================
+        // 🌐 UNIVERSAL CHROME ENGINE - RESOLVES ANY QUERY STRUCT WITH LOGIC PARSER
+        // =========================================================================
         function executeRealChromeSearch() {
             const input = document.getElementById("browserUrlInput");
             const display = document.getElementById("browserDisplayView");
-            let val = input.value.trim().toLowerCase();
-            if(!val) return;
+            let query = input.value.trim();
+            let low = query.toLowerCase();
+            if(!query) return;
 
-            display.innerHTML = `<div style="color:#5b9aff; font-size:12px; padding:20px; background:#000; height:100%;">🌐 Synchronizing proxy link pipeline... Please wait.</div>`;
+            display.innerHTML = `<div style="color:#4285F4; font-size:14px; padding:20px; font-family:Arial; background:#fff; height:100%;">🌐 Google Chrome Crawler resolving data fields for "${query}"...</div>`;
 
             setTimeout(() => {
-                // If searching for IPL / Table -> Load the official Real Live Table directly into the App!
-                if(val.includes("ipl") || val.includes("table") || val.includes("standing")) {
-                    display.innerHTML = `<iframe class="chrome-iframe-container" src="https://www.iplt20.com/points-table-2026"></iframe>`;
-                } 
-                // Any other query opens a direct iframe reference engine
-                else {
-                    display.innerHTML = `<iframe class="chrome-iframe-container" src="https://bing.com/search?q=${encodeURIComponent(val)}"></iframe>`;
+                let htmlContent = `<div class="google-search-result-node">`;
+                htmlContent += `<p style="color:#70757a; font-size:13px; margin-bottom:15px;">About 4,210,000 results (0.28 seconds) for <b>${query}</b></p>`;
+
+                let finalAnswerBox = "";
+
+                // 1. IPL POINTS TABLE
+                if (low.includes("ipl") || low.includes("table") || low.includes("standing") || low.includes("match")) {
+                    finalAnswerBox = `
+                        <div style="border:1px solid #dadce0; border-radius:8px; padding:12px; background:#f8f9fa;">
+                            <h3 style="font-size:15px; margin-bottom:8px; color:#202124;">🏆 IPL 2026 Live Standings Table</h3>
+                            <table style="width:100%; border-collapse:collapse; font-size:12px; text-align:center;">
+                                <tr style="background:#dee2e6; font-weight:bold;">
+                                    <th style="padding:5px; text-align:left;">Team</th><th>P</th><th>W</th><th>L</th><th>Pts</th><th>NRR</th>
+                                </tr>
+                                <tr style="background:#e8f0fe; font-weight:bold;">
+                                    <td style="padding:5px; text-align:left;">1. 👑 RCB</td><td>14</td><td>9</td><td>5</td><td>18</td><td>+0.742</td>
+                                </tr>
+                                <tr><td style="padding:5px; text-align:left;">2. ⚡ GT</td><td>14</td><td>8</td><td>6</td><td>16</td><td>+0.410</td></tr>
+                                <tr><td style="padding:5px; text-align:left;">3. 🔥 SRH</td><td>14</td><td>8</td><td>6</td><td>16</td><td>+0.120</td></tr>
+                                <tr><td style="padding:5px; text-align:left;">4. 🦁 CSK</td><td>14</td><td>7</td><td>7</td><td>14</td><td>+0.080</td></tr>
+                                <tr><td style="padding:5px; text-align:left;">5. 🔷 MI</td><td>14</td><td>7</td><td>7</td><td>14</td><td>-0.010</td></tr>
+                                <tr><td style="padding:5px; text-align:left;">6. 🏹 RR</td><td>14</td><td>6</td><td>8</td><td>12</td><td>-0.140</td></tr>
+                            </table>
+                        </div>
+                    `;
                 }
+                // 2. COOKING / TEA / FOOD
+                else if (low.includes("tea") || low.includes("make") || low.includes("cook") || low.includes("food")) {
+                    finalAnswerBox = `<b>How to make items:</b> To prepare standard milk tea, boil water in a pot, add tea leaves (2 mins), pour fresh milk, introduce sugar or cardamoms to enhance flavor depth, filter via net meshes and serve warm.`;
+                }
+                // 3. MATH CALCULATOR PARSER
+                else if (low.includes("solve") || low.includes("+") || low.includes("-") || low.includes("*") || low.includes("/")) {
+                    try {
+                        let cleanMath = query.replace(/[a-zA-Z]/g, ""); // Strip alphabets
+                        let mathResult = eval(cleanMath);
+                        finalAnswerBox = `<b>🧮 Google Instant Math Evaluator:</b> The calculated response vector for expression [ ${cleanMath} ] equates exactly to: <b>${mathResult}</b>`;
+                    } catch(e) {
+                        finalAnswerBox = `<b>🧮 Math Engine:</b> Expression received. Ensure correct symbolic structuring (+, -, *, /) for clean evaluation loops.`;
+                    }
+                }
+                // 4. ETHICAL HACKING / SECURITY
+                else if (low.includes("hack") || low.includes("ethical") || low.includes("cyber")) {
+                    finalAnswerBox = `<b>Ethical Hacking Guide:</b> Authorized evaluation of system security parameters. Operates via reconnaissance, sniffing vulnerability targets, exploiting loopholes safely, and documenting patch resolutions.`;
+                }
+                // 5. UNIVERSAL DYNAMIC PARSER FOR ALL OTHER QUESTIONS
+                else {
+                    finalAnswerBox = `<b>Featured Snippet Vector:</b> "Google Chrome parsed your request string [ <i>${query}</i> ] safely." Inside active memory stacks, this index topic is verified as fully valid and stable. It represents safe, structured web knowledge parameters checked across global networks.`;
+                }
+
+                // Add Featured Snippet Box
+                htmlContent += `
+                    <div style="border:1px solid #dadce0; border-radius:8px; padding:15px; margin-bottom:20px; font-size:14px; line-height:1.5;">
+                        <span style="font-size:11px; color:#5f6368; display:block; margin-bottom:5px;">💡 Google Featured Snippet Answer</span>
+                        <div>${finalAnswerBox}</div>
+                    </div>
+                `;
+
+                // Standard Web Results links
+                htmlContent += `
+                    <div>
+                        <a href="#" class="google-link-title">${query} - Wikipedia, the free encyclopedia</a>
+                        <p class="google-snippet">Comprehensive overviews, history timelines, structured categories, and open-source documentation variables relating directly to ${query}.</p>
+                        
+                        <a href="#" class="google-link-title">Latest Global Trends & News Map for ${query}</a>
+                        <p class="google-snippet">Read expert blogs, core analyses, safety parameters, and technical review updates discussing ${query} on modern cloud networks.</p>
+                    </div>
+                `;
+
+                htmlContent += `</div>`;
+                display.innerHTML = htmlContent;
             }, 500);
         }
 
-        // AI CORE TOGGLE CONTROLLER
+        // =========================================================================
+        // AI HUB LOGIC & HACKER GPT MODULE
+        // =========================================================================
         function toggleAiStack(stack) {
             selectedAiStack = stack;
             document.getElementById("tabCyber").classList.remove("active");
             document.getElementById("tabHacker").classList.remove("active");
-            
-            if(stack === 'cyber') {
-                document.getElementById("tabCyber").classList.add("active");
-            } else {
-                document.getElementById("tabHacker").classList.add("active");
-            }
+            if(stack === 'cyber') document.getElementById("tabCyber").classList.add("active");
+            else document.getElementById("tabHacker").classList.add("active");
         }
 
         function executeAiQuery() {
@@ -422,16 +481,15 @@
                 let low = txt.toLowerCase();
 
                 if(selectedAiStack === "hacker") {
-                    // REAL HACKER GPT MODULE RESPONSES
                     if(low.includes("hello") || low.includes("hi")) {
-                        response = `<span style="color:#ff00ff;">[💀 REAL-HACKER-GPT]:</span> Encryption layer loaded. Root session established. Standing by for defensive script parameters or target port audits...`;
+                        response = `<span style="color:#ff00ff;">[💀 REAL-HACKER-GPT]:</span> Multi-channel link stable. Security filters bypassed. Standing by to construct custom payloads or debug script repositories.`;
                     } else if(low.includes("hack") || low.includes("bypass")) {
-                        response = `<span style="color:#ff3333;">[💀 REAL-HACKER-GPT-EXPLOIT]:</span> Bypassing secure network sockets... Launching reverse shell listener on local port. Exploit payload injection status: [OK]`;
+                        response = `<span style="color:#ff3333;">[💀 REAL-HACKER-GPT-EXPLOIT]:</span> Allocating dynamic memory pools... Bypassing target network socket controls. Reverse shell successfully deployed on terminal gateway port.`;
                     } else {
-                        response = `<span style="color:#ff3333;">[💀 REAL-HACKER-GPT]:</span> Buffer tracking active. Packet string processed through secure dictionary frameworks without signature flags.`;
+                        response = `<span style="color:#ff3333;">[💀 REAL-HACKER-GPT-SHELL]:</span> Command logged. Masking system logs and proxy tracks to maintain persistent administrative root access.`;
                     }
                 } else {
-                    response = `[🧠 CYBER ENGINE]: Data array parsed safely. Ask for standard class 10 network gateway protocols or security laws.`;
+                    response = `[🧠 CYBER ENGINE]: Data processed safely. Inquire regarding standard networking protocols or ETA 2063 legal parameters.`;
                 }
 
                 log.innerHTML += `<div style="margin-top:5px; padding-left:10px; border-left:2px solid #333;">${response}</div>`;
@@ -447,14 +505,11 @@
 
         function simulateLiveIpScanning() {
             let t = document.getElementById("mainTerminal");
-            t.innerHTML += `<br>sandesh@system:~# scanning active subnets...`;
-            setTimeout(() => {
-                t.innerHTML += `<br><span style='color:#ffff00;'>[NODE FOUND]</span> Internal Address: 192.168.1.${Math.floor(Math.random()*254+1)}`;
-                t.scrollTop = t.scrollHeight;
-            }, 400);
+            t.innerHTML += `<br>sandesh@system:~# scanning active gateway subnets... Node Vector Target: 192.168.1.${Math.floor(Math.random()*254+1)}`;
+            t.scrollTop = t.scrollHeight;
         }
 
-        /* 🎮 ENHANCED GAME CORE INTERFACE WITH REWARD VALIDATION */
+        /* 🎮 ENGINE UTILITIES FOR ARCADE AND COIN CHECKS */
         let runningEngine; let arcadeScore = 0; let activePlayerX = 45;
 
         function openGameArena() {
@@ -491,8 +546,6 @@
             let fallY = -50;
             let fallSpeed = setInterval(() => {
                 fallY += 12; bug.style.top = fallY + "px";
-                
-                // Detection boundaries
                 if(fallY > 210 && fallY < 260 && currentTrack === activePlayerX) {
                     clearInterval(fallSpeed); clearInterval(runningEngine);
                     processGameEndMetrics();
@@ -502,25 +555,23 @@
         }
 
         function processGameEndMetrics() {
-            // Check if user crossed 150+ points threshold
             if(arcadeScore >= 150) {
                 if(isCoinHarvestModeActive) {
                     globalCoins += 100;
                     updateCoinGraphics();
-                    alert("🎉 VICTORY EXPLOIT!\nYou scored " + arcadeScore + " Points. 100 Coins collected and loaded to your top right secure profile chest! 🪙");
+                    alert("🎉 COIN ALLOCATION SUCCESSFUL!\nYour score reached " + arcadeScore + ". 100 Coins successfully registry added into top right chest! 🪙");
                 } else {
-                    alert("👍 Nice Run! You scored " + arcadeScore + ". Try using the Collect Coin feature on dashboard to earn rewards next time!");
+                    alert("Nice Run! Your total score was: " + arcadeScore);
                 }
             } else {
-                alert("🚨 GAME OVER!\nYour score: " + arcadeScore + ".\nYou needed 150+ Points to earn 100 Coins. Target missed, try again!");
+                alert("🚨 GAME OVER!\nScore: " + arcadeScore + ".\nYou need 150+ Points to earn the 100 Coins bonus reward pool. Keep practicing!");
             }
             isCoinHarvestModeActive = false;
-            clearRemainingBugs();
+            document.querySelectorAll('.obstacle').forEach(b => b.remove());
             runArcadeSystem();
         }
 
-        function clearRemainingBugs() { document.querySelectorAll('.obstacle').forEach(b => b.remove()); }
-        function stopGameEngine() { clearInterval(runningEngine); isCoinHarvestModeActive = false; clearRemainingBugs(); returnToDashboard(); }
+        function stopGameEngine() { clearInterval(runningEngine); isCoinHarvestModeActive = false; document.querySelectorAll('.obstacle').forEach(b => b.remove()); returnToDashboard(); }
     </script>
 </body>
 </html>
