@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandesh Advanced Ethical Systems v8.0 - Full Suite</title>
+    <title>Sandesh Advanced Ethical Systems v8.1 - Chrome Match</title>
     <style>
         * {
             margin: 0;
@@ -12,8 +12,9 @@
             font-family: 'Courier New', Courier, monospace;
         }
 
+        /* 🌐 BACKGROUND CHANGED TO MATCH REAL GOOGLE CHROME PREMIUM DARK MODE */
         body {
-            background: radial-gradient(circle, #0e1318 0%, #05080c 70%, #000000 100%);
+            background: #1f1f1f; /* Real Chrome/Google App Dark Canvas Base */
             color: #00ff00;
             display: flex;
             justify-content: center;
@@ -27,10 +28,10 @@
             width: 100%;
             max-width: 100vw;
             height: 100vh;
-            background: rgba(4, 7, 12, 0.99);
+            background: #121212; /* Clean Material Dark Layout shown in photos */
             border: 3px solid #00ff00;
             padding: 20px;
-            box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.2);
+            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.1);
             position: relative;
             overflow-y: auto;
         }
@@ -52,14 +53,13 @@
         }
 
         .coin-display-node {
-            background: #111a11;
+            background: #1a1a1a;
             border: 1px solid #ffff00;
             color: #ffff00;
             padding: 6px 12px;
             border-radius: 6px;
             font-weight: bold;
             font-size: 14px;
-            box-shadow: 0 0 10px rgba(255, 255, 0, 0.2);
         }
 
         .cyber-logo {
@@ -68,7 +68,7 @@
             border-radius: 50%;
             border: 2px solid #00ffff;
             box-shadow: 0 0 20px #00ffff;
-            background: #0a0f14;
+            background: #1f1f1f;
             margin: 20px auto;
             display: block;
         }
@@ -89,7 +89,7 @@
         .action-btn {
             width: 100%;
             padding: 14px;
-            background: #060b10;
+            background: #1a1a1a;
             border: 1px solid #00ff00;
             border-radius: 8px;
             color: #00ff00;
@@ -105,7 +105,7 @@
         }
 
         .coin-collector-box {
-            background: #100f05;
+            background: #1a1905;
             border: 2px dashed #ffff00;
             border-radius: 10px;
             padding: 15px;
@@ -121,7 +121,7 @@
         }
 
         .menu-item {
-            background: #05090e;
+            background: #1a1a1a;
             border: 1px solid #00ffff;
             color: #00ffff;
             padding: 18px 10px;
@@ -153,7 +153,7 @@
         }
 
         .back-btn {
-            background: #1a0808;
+            background: #240c0c;
             color: #ff3333;
             border: 1px solid #ff3333;
             padding: 12px 25px;
@@ -164,10 +164,10 @@
             margin-top: 10px;
         }
 
-        /* 🌐 Google Chrome Engine Simulator CSS */
+        /* 🌐 Google Chrome Engine Simulator Custom CSS Framework */
         .browser-bar {
             display: flex;
-            background: #171e24;
+            background: #2d2d2d; /* Chrome Bar Color Sync */
             border: 1px solid #5b9aff;
             border-radius: 6px;
             padding: 8px;
@@ -175,7 +175,7 @@
             margin-bottom: 12px;
         }
         .browser-input { 
-            flex: 1; background: #000; border: 1px solid #333; color: #00ffff; 
+            flex: 1; background: #1a1a1a; border: 1px solid #444; color: #00ffff; 
             font-size: 13px; padding: 8px; outline: none; border-radius: 4px; 
         }
         .browser-go { 
@@ -183,32 +183,33 @@
             font-weight: bold; border-radius: 4px; cursor: pointer; 
         }
 
+        /* Inside Browser Canvas Node */
         .google-search-result-node {
-            background: #ffffff;
-            color: #202124;
+            background: #171717; /* Matches the Google Dark Search View perfectly */
+            color: #e8eaed;
             font-family: Arial, sans-serif;
             padding: 20px;
             height: 100%;
             overflow-y: auto;
             text-align: left;
         }
-        .google-link-title { color: #1a0dab; font-size: 18px; text-decoration: none; display: block; margin-top: 10px; }
+        .google-link-title { color: #8ab4f8; font-size: 18px; text-decoration: none; display: block; margin-top: 10px; }
         .google-link-title:hover { text-decoration: underline; }
-        .google-snippet { color: #4d5156; font-size: 13px; margin-top: 4px; margin-bottom: 15px; line-height: 1.4; }
+        .google-snippet { color: #bdc1c6; font-size: 13px; margin-top: 4px; margin-bottom: 15px; line-height: 1.4; }
 
         /* AI Tab Architecture */
         .ai-selector { display: flex; gap: 10px; margin-bottom: 12px; }
         .ai-tab {
-            flex: 1; padding: 10px; background: #111; border: 1px solid #333; color: #666;
+            flex: 1; padding: 10px; background: #1a1a1a; border: 1px solid #333; color: #888;
             cursor: pointer; font-size: 11px; text-align: center; border-radius: 4px; font-weight: bold;
         }
-        .ai-tab.active { border-color: #00ffff; color: #00ffff; background: #02141a; }
+        .ai-tab.active { border-color: #00ffff; color: #00ffff; background: #122226; }
 
         /* Game System Layout */
         .game-container {
             width: 100%;
             height: 280px;
-            background: #020406;
+            background: #0a0a0a;
             border: 2px dashed #00ffff;
             margin: 15px 0;
             position: relative;
@@ -218,14 +219,14 @@
         #player { width: 50px; height: 50px; background: #00ff00; position: absolute; bottom: 15px; left: 45%; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
         .obstacle { width: 40px; height: 40px; background: #ff3333; position: absolute; top: -50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
         .game-controls { display: flex; gap: 10px; margin-bottom: 10px; }
-        .ctrl-btn { flex: 1; padding: 15px; background: #111; border: 1px solid #00ffff; color: #00ffff; font-weight: bold; border-radius: 6px; }
+        .ctrl-btn { flex: 1; padding: 15px; background: #1a1a1a; border: 1px solid #00ffff; color: #00ffff; font-weight: bold; border-radius: 6px; }
     </style>
 </head>
 <body>
 
     <div class="login-box" id="loginBox" style="text-align: center; padding-top: 10vh;">
         <svg class="cyber-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#02050a"/>
+            <circle cx="50" cy="50" r="45" fill="#121212"/>
             <path d="M50,22 L66,38 L58,42 L70,55 L50,80 L30,55 L42,42 L34,38 Z" fill="none" stroke="#00ffff" stroke-width="2"/>
         </svg>
         <h2 style="color:#00ffff; margin-bottom:25px; font-size:18px;">SANDESH SYSTEMS ACCESS ENGINE</h2>
@@ -239,14 +240,14 @@
 
     <div class="main-system" id="coreSystem">
         <div class="app-header">
-            <div class="system-title">⚡ SANDESH ETHICAL CORE MASTER v8.0 ⚡</div>
+            <div class="system-title">⚡ SANDESH ETHICAL CORE MASTER v8.1 ⚡</div>
             <div class="coin-display-node" id="topCoinDisplay">🪙 0 Coins</div>
         </div>
 
         <div class="coin-collector-box">
             <p style="color: #fff; font-size: 13px; font-weight: bold; margin-bottom: 8px;">🪙 SECURE COIN GENERATION VALVE</p>
             <p style="color: #bbb; font-size: 11px; margin-bottom: 10px;">Play the threat defense arcade. If you break <span style="color:#ffaa00; font-weight:bold;">150+ Score</span>, you win 100 Coins into your wallet!</p>
-            <button class="action-btn" style="border-color: #ffff00; color: #ffff00; background: #1a1905; padding: 10px; margin-bottom: 0;" onclick="triggerCoinCollectionProcess()">⚡ RUN CHALLENGE TO EARN 100 COINS</button>
+            <button class="action-btn" style="border-color: #ffff00; color: #ffff00; background: #262405; padding: 10px; margin-bottom: 0;" onclick="triggerCoinCollectionProcess()">⚡ RUN CHALLENGE TO EARN 100 COINS</button>
         </div>
 
         <div class="grid-menu">
@@ -256,10 +257,10 @@
             <button class="menu-item" style="border-color:#ffff00; color:#ffff00;" onclick="openGameArena()">🎮 PLAY GAME</button>
         </div>
 
-        <button class="action-btn" style="border-color:#5b9aff; color:#5b9aff; background: #040d1a;" onclick="openScreen('browserScreen')">🌐 LAUNCH REAL-LINK GOOGLE CHROME SIMULATOR</button>
-        <button class="action-btn" style="border-color:#00ffff; color:#00ffff; background: #03141a;" onclick="openScreen('aiScreen')">🤖 ACCESS REAL HACKER GPT PANEL</button>
+        <button class="action-btn" style="border-color:#5b9aff; color:#5b9aff; background: #121e2d;" onclick="openScreen('browserScreen')">🌐 LAUNCH REAL-LINK GOOGLE CHROME SIMULATOR</button>
+        <button class="action-btn" style="border-color:#00ffff; color:#00ffff; background: #122226;" onclick="openScreen('aiScreen')">🤖 ACCESS REAL HACKER GPT PANEL</button>
         
-        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# Engine online. Google Chrome Advanced Crawler capable of resolving any query payload successfully.</div>
+        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# Engine online. Google Chrome background sync interface matched flawlessly with system parameters.</div>
     </div>
 
     <div class="screen-panel" id="studyScreen">
@@ -281,18 +282,18 @@
         <button class="back-btn" onclick="returnToDashboard()">⬅️ RETURN TO SYSTEM</button>
     </div>
 
-    <div class="screen-panel" id="browserScreen">
+    <div class="screen-panel" id="browserScreen" style="background: #171717;">
         <h3 style="color:#5b9aff; margin-bottom:12px; text-align:center;">🌐 GOOGLE CHROME ADVANCED MULTI-CRAWLER</h3>
         <div class="browser-bar">
             <input type="text" id="browserUrlInput" class="browser-input" placeholder="Ask Google anything (e.g. 'ipl table', 'how to make tea', 'solve 25*4')...">
             <button class="browser-go" onclick="executeRealChromeSearch()">SEARCH</button>
         </div>
-        <div class="content-area" id="browserDisplayView" style="border-color:#5b9aff; padding:0; background:#fff; overflow:hidden;">
-            <div class="google-search-result-node" style="background:#000; text-align:center; padding-top:15vh;">
+        <div class="content-area" id="browserDisplayView" style="border-color:#5b9aff; padding:0; background:#171717; overflow:hidden;">
+            <div class="google-search-result-node" style="background:#171717; text-align:center; padding-top:15vh;">
                 <h1 style="font-size:45px; font-family:Arial, sans-serif; font-weight:bold; margin-bottom: 10px;">
                     <span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span>
                 </h1>
-                <p style="color:#666; font-size:12px;">Universal Search Sync Cluster Active. Ask any query string to harvest responsive index details.</p>
+                <p style="color:#80868b; font-size:12px;">Universal Search Sync Cluster Active. Ask any query string to harvest responsive index details.</p>
             </div>
         </div>
         <button class="back-btn" onclick="returnToDashboard()">⬅️ SHUTDOWN BROWSER</button>
@@ -371,7 +372,7 @@
         }
 
         // =========================================================================
-        // 🌐 UNIVERSAL CHROME ENGINE - RESOLVES ANY QUERY STRUCT WITH LOGIC PARSER
+        // 🌐 UNIVERSAL CHROME ENGINE - WITH IMPROVED DARK INTERFACE OVERLAYS
         // =========================================================================
         function executeRealChromeSearch() {
             const input = document.getElementById("browserUrlInput");
@@ -380,24 +381,24 @@
             let low = query.toLowerCase();
             if(!query) return;
 
-            display.innerHTML = `<div style="color:#4285F4; font-size:14px; padding:20px; font-family:Arial; background:#fff; height:100%;">🌐 Google Chrome Crawler resolving data fields for "${query}"...</div>`;
+            display.innerHTML = `<div style="color:#8ab4f8; font-size:14px; padding:20px; font-family:Arial; background:#171717; height:100%;">🌐 Google Chrome Crawler resolving data fields for "${query}"...</div>`;
 
             setTimeout(() => {
                 let htmlContent = `<div class="google-search-result-node">`;
-                htmlContent += `<p style="color:#70757a; font-size:13px; margin-bottom:15px;">About 4,210,000 results (0.28 seconds) for <b>${query}</b></p>`;
+                htmlContent += `<p style="color:#9aa0a6; font-size:13px; margin-bottom:15px;">About 4,210,000 results (0.28 seconds) for <b>${query}</b></p>`;
 
                 let finalAnswerBox = "";
 
                 // 1. IPL POINTS TABLE
                 if (low.includes("ipl") || low.includes("table") || low.includes("standing") || low.includes("match")) {
                     finalAnswerBox = `
-                        <div style="border:1px solid #dadce0; border-radius:8px; padding:12px; background:#f8f9fa;">
-                            <h3 style="font-size:15px; margin-bottom:8px; color:#202124;">🏆 IPL 2026 Live Standings Table</h3>
-                            <table style="width:100%; border-collapse:collapse; font-size:12px; text-align:center;">
-                                <tr style="background:#dee2e6; font-weight:bold;">
+                        <div style="border:1px solid #3c4043; border-radius:8px; padding:12px; background:#202124;">
+                            <h3 style="font-size:15px; margin-bottom:8px; color:#e8eaed;">🏆 IPL 2026 Live Standings Table</h3>
+                            <table style="width:100%; border-collapse:collapse; font-size:12px; text-align:center; color:#e8eaed;">
+                                <tr style="background:#3c4043; font-weight:bold;">
                                     <th style="padding:5px; text-align:left;">Team</th><th>P</th><th>W</th><th>L</th><th>Pts</th><th>NRR</th>
                                 </tr>
-                                <tr style="background:#e8f0fe; font-weight:bold;">
+                                <tr style="background:#174ea6; font-weight:bold;">
                                     <td style="padding:5px; text-align:left;">1. 👑 RCB</td><td>14</td><td>9</td><td>5</td><td>18</td><td>+0.742</td>
                                 </tr>
                                 <tr><td style="padding:5px; text-align:left;">2. ⚡ GT</td><td>14</td><td>8</td><td>6</td><td>16</td><td>+0.410</td></tr>
@@ -416,7 +417,7 @@
                 // 3. MATH CALCULATOR PARSER
                 else if (low.includes("solve") || low.includes("+") || low.includes("-") || low.includes("*") || low.includes("/")) {
                     try {
-                        let cleanMath = query.replace(/[a-zA-Z]/g, ""); // Strip alphabets
+                        let cleanMath = query.replace(/[a-zA-Z]/g, ""); 
                         let mathResult = eval(cleanMath);
                         finalAnswerBox = `<b>🧮 Google Instant Math Evaluator:</b> The calculated response vector for expression [ ${cleanMath} ] equates exactly to: <b>${mathResult}</b>`;
                     } catch(e) {
@@ -432,11 +433,11 @@
                     finalAnswerBox = `<b>Featured Snippet Vector:</b> "Google Chrome parsed your request string [ <i>${query}</i> ] safely." Inside active memory stacks, this index topic is verified as fully valid and stable. It represents safe, structured web knowledge parameters checked across global networks.`;
                 }
 
-                // Add Featured Snippet Box
+                // Add Featured Snippet Box Real Dark Sync
                 htmlContent += `
-                    <div style="border:1px solid #dadce0; border-radius:8px; padding:15px; margin-bottom:20px; font-size:14px; line-height:1.5;">
-                        <span style="font-size:11px; color:#5f6368; display:block; margin-bottom:5px;">💡 Google Featured Snippet Answer</span>
-                        <div>${finalAnswerBox}</div>
+                    <div style="border:1px solid #3c4043; border-radius:8px; padding:15px; margin-bottom:20px; font-size:14px; line-height:1.5; background:#202124;">
+                        <span style="font-size:11px; color:#9aa0a6; display:block; margin-bottom:5px;">💡 Google Featured Snippet Answer</span>
+                        <div style="color:#e8eaed;">${finalAnswerBox}</div>
                     </div>
                 `;
 
@@ -509,7 +510,7 @@
             t.scrollTop = t.scrollHeight;
         }
 
-        /* 🎮 ENGINE UTILITIES FOR ARCADE AND COIN CHECKS */
+        /* 🎮 ENGINE UTILITIES */
         let runningEngine; let arcadeScore = 0; let activePlayerX = 45;
 
         function openGameArena() {
