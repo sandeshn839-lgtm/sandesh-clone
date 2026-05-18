@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandesh Advanced Systems</title>
+    <title>Sandesh Advanced Multi-Core Systems</title>
     <style>
         * {
             margin: 0;
@@ -19,89 +19,94 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 15px;
+            padding: 0; /* Expanded to edges */
         }
 
+        /* EXPANDED HOME PAGE CONTAINER AS REQUESTED */
         .login-box, .main-system, .screen-panel, .game-screen {
             display: none;
             width: 100%;
-            max-width: 450px;
-            background: rgba(10, 15, 20, 0.95);
-            border: 2px solid #00ff00;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
-            text-align: center;
+            max-width: 100vw; /* Takes full horizontal width */
+            height: 100vh;    /* Takes full vertical space */
+            background: rgba(5, 9, 14, 0.98);
+            border: 3px solid #00ff00;
+            padding: 20px;
+            box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.3), 0 0 25px rgba(0, 255, 0, 0.2);
             position: relative;
+            overflow-y: auto;
         }
 
         /* App Header Layout */
         .app-header {
-            margin-bottom: 20px;
-            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #00ff00;
             padding-bottom: 10px;
         }
 
         .system-title {
-            font-size: 16px;
+            font-size: 18px;
             color: #00ff00;
-            text-shadow: 0 0 5px #00ff00;
+            text-shadow: 0 0 8px #00ff00;
             font-weight: bold;
         }
 
-        /* Three Dash Menu under Logo/Title */
         .menu-trigger {
-            font-size: 26px;
+            font-size: 32px;
             color: #00ffff;
             cursor: pointer;
-            margin-top: 5px;
-            display: inline-block;
             user-select: none;
             transition: 0.2s;
+            text-shadow: 0 0 5px #00ffff;
         }
         .menu-trigger:hover {
-            color: #00ff00;
+            color: #ff00ff;
             transform: scale(1.1);
         }
 
         .cyber-logo {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             border: 2px solid #00ffff;
-            box-shadow: 0 0 15px #00ffff;
+            box-shadow: 0 0 20px #00ffff;
             background: #0d131a;
-            margin-bottom: 15px;
+            margin: 20px auto;
+            display: block;
             animation: pulseGlow 2s infinite ease-in-out;
         }
 
         @keyframes pulseGlow {
             0% { transform: scale(1); box-shadow: 0 0 15px #00ffff; }
-            50% { transform: scale(1.03); box-shadow: 0 0 20px #00ff00; border-color: #00ff00; }
+            50% { transform: scale(1.03); box-shadow: 0 0 25px #00ff00; border-color: #00ff00; }
             100% { transform: scale(1); box-shadow: 0 0 15px #00ffff; }
         }
 
         .input-group input {
             width: 100%;
+            max-width: 400px;
             padding: 12px;
             background: #000;
             border: 1px solid #00ff00;
             border-radius: 8px;
             color: #00ff00;
-            margin-bottom: 15px;
+            margin: 0 auto 15px auto;
+            display: block;
             outline: none;
         }
 
         .action-btn {
             width: 100%;
             padding: 12px;
-            background: #111;
+            background: #0a0f14;
             border: 1px solid #00ff00;
             border-radius: 8px;
             color: #00ff00;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
             transition: 0.2s;
             margin-bottom: 10px;
         }
@@ -109,33 +114,12 @@
         .action-btn:hover {
             background: #00ff00;
             color: #000;
+            box-shadow: 0 0 15px #00ff00;
         }
-
-        .social-login-group {
-            margin-top: 15px;
-            border-top: 1px dashed #333;
-            padding-top: 15px;
-        }
-        .social-btn {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 8px;
-            border-radius: 6px;
-            border: none;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            font-size: 12px;
-        }
-        .btn-google { background: #fff; color: #000; border: 1px solid #ccc; }
-        .btn-facebook { background: #1877f2; color: #fff; }
 
         .grid-menu {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 12px;
             margin-bottom: 15px;
         }
@@ -146,37 +130,69 @@
             color: #00ffff;
             padding: 15px 10px;
             border-radius: 8px;
-            font-size: 11px;
+            font-size: 12px;
             font-weight: bold;
             cursor: pointer;
+            text-align: center;
         }
 
         .menu-item:hover {
             background: #00ffff;
             color: #000;
+            box-shadow: 0 0 10px #00ffff;
         }
 
-        /* Leaderboard Panel */
-        .leaderboard-panel {
-            background: rgba(0, 0, 0, 0.85);
+        /* Control Layout Splitters */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        @media (max-width: 700px) {
+            .dashboard-layout { grid-template-columns: 1fr; }
+        }
+
+        .panel-box {
+            background: rgba(0, 0, 0, 0.9);
             border: 1px solid #ffff00;
             border-radius: 10px;
             padding: 12px;
-            margin-bottom: 15px;
             text-align: left;
         }
 
-        .leaderboard-title {
+        .panel-title {
             color: #ffff00;
             font-size: 13px;
             font-weight: bold;
             text-align: center;
             margin-bottom: 8px;
+            text-transform: uppercase;
+            border-bottom: 1px solid #332200;
+            padding-bottom: 4px;
         }
 
-        .leaderboard-scroll {
-            max-height: 110px;
+        .panel-scroll {
+            max-height: 150px;
             overflow-y: auto;
+        }
+
+        /* Cyber Tables Styling */
+        .cyber-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+            color: #fff;
+        }
+        .cyber-table th {
+            color: #ffaa00;
+            text-align: left;
+            border-bottom: 1px solid #ffaa00;
+            padding: 4px;
+        }
+        .cyber-table td {
+            padding: 5px 4px;
+            border-bottom: 1px solid #111;
         }
 
         .rank-row {
@@ -189,7 +205,6 @@
             background: #0a0e12;
             border-left: 3px solid #555;
         }
-
         .rank-1 { border-left-color: #ffd700; color: #ffd700; }
         .rank-2 { border-left-color: #c0c0c0; color: #c0c0c0; }
         .rank-3 { border-left-color: #cd7f32; color: #cd7f32; }
@@ -199,22 +214,23 @@
             border: 1px solid rgba(0, 255, 255, 0.4);
             border-radius: 8px;
             padding: 12px;
-            height: 75px;
+            height: 90px;
             overflow-y: auto;
             font-size: 11px;
             color: #00ff00;
             text-align: left;
+            margin-top: 10px;
         }
 
         .content-area {
             background: #000;
             border: 1px solid #00ff00;
             border-radius: 8px;
-            height: 220px;
+            height: calc(100vh - 220px);
             overflow-y: auto;
-            padding: 12px;
+            padding: 15px;
             text-align: left;
-            font-size: 12px;
+            font-size: 13px;
             margin-bottom: 15px;
         }
 
@@ -222,118 +238,161 @@
             background: #222;
             color: #ff3333;
             border: 1px solid #ff3333;
-            padding: 8px 15px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 6px;
             cursor: pointer;
+            font-weight: bold;
         }
 
-        .suggest-box textarea {
-            width: 100%;
-            height: 80px;
-            background: #000;
-            border: 1px solid #00ffff;
-            color: #00ffff;
-            padding: 10px;
-            border-radius: 6px;
-            resize: none;
-            outline: none;
+        /* --- AI TOGGLE SWITCHES --- */
+        .ai-selector {
+            display: flex;
+            gap: 10px;
             margin-bottom: 10px;
         }
-
-        .ai-features-list {
-            background: #08121a;
-            border: 1px solid #00ffff;
+        .ai-tab {
+            flex: 1;
             padding: 8px;
-            border-radius: 6px;
-            margin-bottom: 10px;
+            background: #111;
+            border: 1px solid #333;
+            color: #777;
+            cursor: pointer;
             font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            text-align: center;
+        }
+        .ai-tab.active {
+            background: #001a1a;
+            border-color: #00ffff;
             color: #00ffff;
-            text-align: left;
+            box-shadow: 0 0 5px #00ffff;
         }
 
-        /* --- CYBER BROWSER SIMULATOR BOX STYLING --- */
+        /* Browser Header */
         .browser-bar {
             display: flex;
             background: #111b24;
-            border: 1px solid #00ffff;
+            border: 1px solid #5b9aff;
             border-radius: 6px;
             padding: 6px;
             gap: 5px;
             margin-bottom: 10px;
             align-items: center;
         }
-        .browser-dots { display: flex; gap: 4px; padding-right: 5px; }
-        .b-dot { width: 8px; height: 8px; border-radius: 50%; }
-        .browser-input { flex: 1; background: #000; border: 1px solid #333; color: #00ffff; font-size: 11px; padding: 6px; outline: none; border-radius: 4px; }
-        .browser-go { background: #00ffff; color: #000; border: none; padding: 6px 12px; font-weight: bold; font-size: 11px; border-radius: 4px; cursor: pointer; }
-        
-        .web-result-item { margin-bottom: 12px; border-bottom: 1px solid #111; padding-bottom: 8px; }
-        .web-title { color: #3399ff; font-weight: bold; font-size: 13px; text-decoration: underline; cursor: pointer; }
-        .web-url { color: #22aa22; font-size: 10px; margin: 2px 0; }
-        .web-desc { color: #bbb; font-size: 11px; }
+        .browser-input { 
+            flex: 1; background: #000; border: 1px solid #333; color: #00ffff; 
+            font-size: 12px; padding: 8px; outline: none; border-radius: 4px; 
+        }
+        .browser-go { 
+            background: #5b9aff; color: #000; border: none; padding: 8px 16px; 
+            font-weight: bold; font-size: 12px; border-radius: 4px; cursor: pointer; 
+        }
 
-        /* --- CYBER THREAT ENGINE GRAPHICS --- */
+        .web-result-item { margin-bottom: 15px; border-bottom: 1px solid #222; padding-bottom: 10px; }
+        .web-title { color: #5b9aff; font-weight: bold; font-size: 14px; text-decoration: underline; cursor: pointer; }
+        .web-url { color: #22aa22; font-size: 11px; margin: 2px 0; }
+        .web-desc { color: #bbb; font-size: 12px; }
+
+        /* Game System Engine */
         .game-container {
             width: 100%;
-            height: 250px;
+            height: 300px;
             background: #020508;
             border: 2px dashed #00ffff;
             margin: 15px 0;
             position: relative;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
         }
-        #gameScore { position: absolute; top: 10px; left: 10px; color: #ffff00; font-weight: bold; font-size:12px; z-index: 5; }
+        #gameScore { position: absolute; top: 10px; left: 10px; color: #ffff00; font-weight: bold; }
         #player { 
-            width: 50px; height: 50px; background: #00ff00; position: absolute; bottom: 10px; left: 175px; border-radius: 12px; 
-            color: #000; font-size: 10px; font-weight: bold; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            box-shadow: 0 0 12px #00ff00; border: 2px solid #fff; transition: left 0.1s ease-out;
+            width: 50px; height: 50px; background: #00ff00; position: absolute; bottom: 10px; left: 45%; border-radius: 12px; 
+            box-shadow: 0 0 12px #00ff00; display: flex; align-items: center; justify-content: center; font-size: 20px;
         }
         .obstacle { 
-            width: 48px; height: 48px; background: #ff3333; position: absolute; top: -50px; border-radius: 50%; 
-            color: #fff; font-size: 10px; font-weight: bold; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            box-shadow: 0 0 15px #ff3333; border: 2px solid #ff9999; animation: virusRotate 3s infinite linear;
+            width: 45px; height: 45px; background: #ff3333; position: absolute; top: -50px; border-radius: 50%; 
+            box-shadow: 0 0 15px #ff3333; display: flex; align-items: center; justify-content: center; font-size: 18px;
         }
-        @keyframes virusRotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .game-controls { display: flex; gap: 15px; width: 100%; margin-bottom: 15px; }
-        .ctrl-btn { flex: 1; padding: 12px; background: #111; border: 1px solid #00ffff; color: #00ffff; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .game-controls { display: flex; gap: 15px; margin-bottom: 15px; }
+        .ctrl-btn { flex: 1; padding: 15px; background: #111; border: 1px solid #00ffff; color: #00ffff; font-weight: bold; border-radius: 6px; cursor: pointer; }
     </style>
 </head>
 <body>
 
-    <div class="login-box" id="loginBox">
+    <div class="login-box" id="loginBox" style="text-align: center; justify-content: center; padding-top: 10vh;">
         <svg class="cyber-logo" viewBox="0 0 100 100">
             <circle cx="50" cy="50" r="45" fill="#030712"/>
             <path d="M50,20 L68,38 L60,42 L72,55 L50,82 L28,55 L40,42 L32,38 Z" fill="none" stroke="#00ffff" stroke-width="2"/>
         </svg>
-        <h2 style="color:#00ffff; margin-bottom:15px; font-size:18px;">SANDESH MULTI-CORE</h2>
+        <h2 style="color:#00ffff; margin-bottom:20px; font-size:22px;">SANDESH SECURE CORE ARCHITECTURE</h2>
         
         <div class="input-group">
-            <input type="text" id="username" placeholder="Enter Username / Handle">
-            <input type="email" id="email" placeholder="Enter Email Node">
-            <input type="password" id="password" placeholder="Enter Security Password">
+            <input type="text" id="username" placeholder="Operator Username Token">
+            <input type="email" id="email" placeholder="Secure Email Node Address">
+            <input type="password" id="password" placeholder="System Authorization Key">
         </div>
-        <button class="action-btn" onclick="launchSystem('Standard')">INITIALIZE CORE</button>
-
-        <div class="social-login-group">
-            <button class="social-btn btn-google" onclick="launchSocial('Google')">🌐 Sign in with Google</button>
-            <button class="social-btn btn-facebook" onclick="launchSocial('Facebook')">🔷 Sign in with Facebook</button>
-        </div>
+        <button class="action-btn" style="max-width: 400px; margin: 0 auto;" onclick="launchSystem()">INITIALIZE ENTERPRISE CORE</button>
     </div>
 
     <div class="main-system" id="coreSystem">
         <div class="app-header">
-            <div class="system-title">⚡ SANDESH ETHICAL CORE v5.5 ⚡</div>
+            <div class="system-title">⚡ SANDESH ETHICAL CORE v6.0 [MAX-EXPANDED] ⚡</div>
             <div class="menu-trigger" onclick="openScreen('menuScreen')">≡</div>
         </div>
         
-        <div class="leaderboard-panel">
-            <div class="leaderboard-title">🏆 RUNNER MATRIX (TOP 100 REAL USERS)</div>
-            <div class="leaderboard-scroll" id="leaderboardContainer">
+        <div class="dashboard-layout">
+            <div class="panel-box">
+                <div class="panel-title">🏆 RUNNER MATRIX (TOP 100 ACTIVE NODES)</div>
+                <div class="panel-scroll" id="leaderboardContainer"></div>
+            </div>
+
+            <div class="panel-box" style="border-color: #ffaa00;">
+                <div class="panel-title" style="color: #ffaa00;">🏏 IPL REALTIME STANDINGS TABLE</div>
+                <div class="panel-scroll">
+                    <table class="cyber-table">
+                        <thead>
+                            <tr>
+                                <th>TEAM</th>
+                                <th>WIN</th>
+                                <th>LOSE</th>
+                                <th>PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: rgba(255,215,0,0.05);">
+                                <td style="color:#ffd700; font-weight:bold;">👑 RCB (Royal Challengers)</td>
+                                <td>9</td>
+                                <td>3</td>
+                                <td style="color:#00ff00; font-weight:bold;">18</td>
+                            </tr>
+                            <tr>
+                                <td>⚡ GT (Gujarat Titans)</td>
+                                <td>8</td>
+                                <td>4</td>
+                                <td>16</td>
+                            </tr>
+                            <tr>
+                                <td>🔷 MI (Mumbai Indians)</td>
+                                <td>7</td>
+                                <td>5</td>
+                                <td>14</td>
+                            </tr>
+                            <tr>
+                                <td>🟡 CSK (Chennai Super Kings)</td>
+                                <td>6</td>
+                                <td>6</td>
+                                <td>12</td>
+                            </tr>
+                            <tr style="color: #666;">
+                                <td>💀 KKR (Kolkata Knight Riders)</td>
+                                <td>4</td>
+                                <td>8</td>
+                                <td>8</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
+            </div>
         </div>
 
         <div class="grid-menu">
@@ -343,113 +402,104 @@
             <button class="menu-item" style="border-color:#ffff00; color:#ffff00;" onclick="openGame()">🎮 PLAY GAME</button>
         </div>
 
-        <button class="action-btn" style="margin-bottom:10px; border-color:#5b9aff; color:#5b9aff; background: #050d14; font-size:12px;" onclick="openScreen('browserScreen')">🌐 LAUNCH CYBER SEARCH BROWSER</button>
+        <button class="action-btn" style="margin-bottom:12px; border-color:#5b9aff; color:#5b9aff; background: #050d14;" onclick="openScreen('browserScreen')">🌐 LAUNCH CYBER SEARCH BROWSER ENGINE</button>
+        <button class="action-btn" style="margin-bottom:12px; border-color:#00ffff; color:#00ffff; background: #07121a;" onclick="openScreen('aiScreen')">🤖 LAUNCH HACKER GPT & CYBER AI HUB</button>
         
-        <button class="action-btn" style="margin-bottom:15px; border-color:#00ffff; color:#00ffff; background: #07121a; font-size:12px;" onclick="openScreen('aiScreen')">🤖 LAUNCH ADVANCED CYBER AI ENGINE</button>
-        
-        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# proxy networks aligned. system fully secured.</div>
+        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# viewport expanded. multi-core pipeline systems online. ready for command inputs...</div>
     </div>
 
     <div class="screen-panel" id="menuScreen">
-        <h3 style="color:#00ffff; margin-bottom:15px;">≡ SYSTEM UTILITY MENU</h3>
+        <h3 style="color:#00ffff; margin-bottom:20px; text-align:center;">≡ SYSTEM CORE CONFIG MENU</h3>
         
-        <div class="suggest-box">
-            <p style="font-size:11px; text-align:left; color:#888; margin-bottom:5px;">💡 Drop your feedback/suggestion:</p>
-            <textarea id="suggestionInput" placeholder="Type app enhancement ideas..."></textarea>
-            <button class="action-btn" style="border-color:#00ffff; color:#00ffff; margin-bottom: 15px;" onclick="submitSuggestion()">SUBMIT TO CORE</button>
+        <div style="max-width:500px; margin: 0 auto;">
+            <p style="font-size:12px; color:#888; margin-bottom:8px;">💡 Dispatch System Upgrade Suggestion Payload:</p>
+            <textarea id="suggestionInput" style="width:100%; height:100px; background:#000; border:1px solid #00ffff; color:#00ffff; padding:10px; border-radius:6px; resize:none; outline:none; margin-bottom:15px;" placeholder="Describe layout upgrades..."></textarea>
+            <button class="action-btn" style="border-color:#00ffff; color:#00ffff; margin-bottom: 25px;" onclick="submitSuggestion()">SUBMIT PAYLOAD</button>
+            
+            <div id="adminAccessBtn" style="display:none; margin-bottom:20px; border-top:1px dashed #333; padding-top:15px;">
+                <button class="action-btn" style="border-color:#ff00ff; color:#ff00ff; background:#1a001a;" onclick="openScreen('adminScreen')">🛠️ SECRET ADMIN CONSOLE</button>
+            </div>
+
+            <button class="action-btn" style="border-color:#ff3333; color:#ff3333; background:#1a0505; padding:15px;" onclick="triggerLogout()">🔴 SHUTDOWN SESSION (LOGOUT)</button>
+            <button class="back-btn" style="width: 100%; margin-top:20px;" onclick="showDashboard()">⬅️ RETURN TO SYSTEM DASHBOARD</button>
         </div>
-
-        <div id="adminAccessBtn" style="display:none; margin-bottom:15px; border-top:1px dashed #333; padding-top:12px;">
-            <button class="action-btn" style="border-color:#ff00ff; color:#ff00ff; background:#1a001a;" onclick="openScreen('adminScreen')">🛠️ SECRET ADMIN CONSOLE</button>
-        </div>
-
-        <button class="action-btn" style="border-color:#ff3333; color:#ff3333; background:#1a0505;" onclick="triggerLogout()">🔴 SHUTDOWN SESSION (LOGOUT)</button>
-
-        <button class="back-btn" style="margin-top:10px; width: 100%;" onclick="showDashboard()">⬅️ RETURN TO DASHBOARD</button>
     </div>
 
     <div class="screen-panel" id="adminScreen">
-        <h3 style="color:#ff00ff; margin-bottom:10px;">🛠️ SECRET ADMIN PANEL</h3>
-        <p style="font-size:11px; color:#aaa; margin-bottom:10px;">Logs & User Suggestions database:</p>
-        <div class="content-area" id="adminLogArea" style="border-color:#ff00ff; font-size:11px; background:#050005;">
-            </div>
-        <button class="back-btn" onclick="openScreen('menuScreen')">⬅️ BACK</button>
+        <h3 style="color:#ff00ff; margin-bottom:15px; text-align:center;">🛠️ SECRET ADMIN PANEL CONSOLE</h3>
+        <div class="content-area" id="adminLogArea" style="border-color:#ff00ff; background:#050005;"></div>
+        <button class="back-btn" onclick="openScreen('menuScreen')">⬅| BACK</button>
     </div>
 
     <div class="screen-panel" id="studyScreen">
-        <h3 style="color:#00ff00; margin-bottom:10px;">📖 CLASS 10 ACTIVE NOTES</h3>
+        <h3 style="color:#00ff00; margin-bottom:15px; text-align:center;">📖 CLASS 10 / SEE SYSTEM DATABASE</h3>
         <div class="content-area">
-            <div class="note-card" style="margin-bottom:10px; border-bottom:1px dashed #222; padding-bottom:5px;"><div class="note-q" style="font-weight:bold; color:#00ff00;">Q: What is a Gateway?</div><div class="note-a" style="color:#ccc;">Ans: A network node connecting different protocol architectures.</div></div>
-            <div class="note-card" style="margin-bottom:10px; border-bottom:1px dashed #222; padding-bottom:5px;"><div class="note-q" style="font-weight:bold; color:#00ff00;">Q: Define Cyber Crime.</div><div class="note-a" style="color:#ccc;">Ans: Illegal activities executed using computers and the internet.</div></div>
-            <div class="note-card" style="margin-bottom:10px; border-bottom:1px dashed #222; padding-bottom:5px;"><div class="note-q" style="font-weight:bold; color:#00ff00;">Q: What is Cyber Law?</div><div class="note-a" style="color:#ccc;">Ans: Legal framework to protect digital data and punish computer crimes. In Nepal, the Electronic Transactions Act (ETA) 2063 is the primary law.</div></div>
+            <h4 style="color:#00ffff; margin-bottom:10px;">Computer Networking & Security Notes:</h4>
+            <p style="color:#ccc; margin-bottom:12px;"><strong>Gateway:</strong> A software/hardware component that links two networks operating on completely different communication protocols.</p>
+            <p style="color:#ccc; margin-bottom:12px;"><strong>Cyber Law:</strong> The legal framework addressing digital communication, software integrity, and internet commerce protection. In Nepal, the <strong>Electronic Transactions Act (ETA) 2063</strong> enforces rules against system breaches.</p>
         </div>
-        <button class="back-btn" onclick="showDashboard()">⬅️ RETURN</button>
+        <button class="back-btn" onclick="showDashboard()">⬅️ BACK TO DASHBOARD</button>
     </div>
 
     <div class="screen-panel" id="passScreen">
-        <h3 style="color:#ffaa00; margin-bottom:10px;">🔑 SECURE KEY GENERATOR</h3>
-        <div class="content-area" style="border-color:#ffaa00; text-align:center; display:flex; flex-direction:column; justify-content:center; gap:15px;">
-            <div id="generatedPass" style="background:#111; padding:15px; border:1px dashed #ffaa00; color:#fff; font-size:14px; word-break:break-all;">Click generate key...</div>
-            <button class="action-btn" style="border-color:#ffaa00; color:#ffaa00;" onclick="generateSecurePassword()">GENERATE KEY</button>
+        <h3 style="color:#ffaa00; margin-bottom:15px; text-align:center;">🔑 SECURE KEY GENERATOR MATRIX</h3>
+        <div class="content-area" style="border-color:#ffaa00; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px;">
+            <div id="generatedPass" style="background:#111; padding:20px; border:2px dashed #ffaa00; color:#fff; font-size:18px; width:80%; text-align:center; word-break:break-all;">Click to generate key...</div>
+            <button class="action-btn" style="border-color:#ffaa00; color:#ffaa00; max-width:300px;" onclick="generateSecurePassword()">GENERATE KEY NODE</button>
         </div>
         <button class="back-btn" onclick="showDashboard()">⬅️ RETURN</button>
     </div>
 
     <div class="screen-panel" id="browserScreen">
-        <h3 style="color:#5b9aff; margin-bottom:8px;">🌐 CYBER SEARCH BROWSER</h3>
+        <h3 style="color:#5b9aff; margin-bottom:12px; text-align:center;">🌐 CYBER SEARCH BROWSER ENGINE</h3>
         <div class="browser-bar">
-            <div class="browser-dots">
-                <div class="b-dot" style="background:#ff5f56;"></div>
-                <div class="b-dot" style="background:#ffbd2e;"></div>
-                <div class="b-dot" style="background:#27c93f;"></div>
-            </div>
-            <input type="text" id="browserUrlInput" class="browser-input" placeholder="Search Google or type web link URL..." onkeydown="if(event.key==='Enter') executeFakeSearch()">
-            <button class="browser-go" onclick="executeFakeSearch()">GO</button>
+            <input type="text" id="browserUrlInput" class="browser-input" placeholder="Search web indices or type key queries (e.g., 'sandesh', 'aura live', 'ipl standings')..." onkeydown="if(event.key==='Enter') executeFakeSearch()">
+            <button class="browser-go" onclick="executeFakeSearch()">SEARCH</button>
         </div>
-        <div class="content-area" id="browserDisplayView" style="border-color:#5b9aff; background:#02050a; height:200px;">
-            <div style="text-align:center; padding-top:40px;">
-                <h1 style="font-size:24px; font-family:Arial; font-weight:bold; letter-spacing:-1px;">
-                    <span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span>
-                </h1>
-                <p style="color:#666; font-size:9px; margin-top:5px;">Simulated Security Search Engine v1.0</p>
-                <p style="color:#444; font-size:10px; margin-top:20px;">[ Try searching: 'sandesh', 'aura live', 'hacking', 'facebook.com' ]</p>
+        <div class="content-area" id="browserDisplayView" style="border-color:#5b9aff; background:#02050a;">
+            <div style="text-align:center; padding-top:10vh;">
+                <h1 style="font-size:36px; font-family:Arial; font-weight:bold;"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></h1>
+                <p style="color:#555; font-size:12px; margin-top:5px;">Secure Isolated Sandbox Crawler active.</p>
             </div>
         </div>
-        <button class="back-btn" onclick="showDashboard()">⬅️ EXIT BROWSER</button>
+        <button class="back-btn" onclick="showDashboard()">⬅️ CLOSE BROWSER</button>
     </div>
 
     <div class="screen-panel" id="aiScreen">
-        <h3 style="color:#00ffff; margin-bottom:5px;">🤖 ADVANCED OFFLINE AI MULTI-CORE</h3>
-        <div class="ai-features-list">
-            <strong>🧠 Local Knowledge Engine Base V2:</strong>
-            <div style="margin-top: 5px; color: #bbb; line-height: 1.4; font-size:10px;">
-                Ask about <i>ethical hacking, cyber crime, python, class 10 networking, cyber law, or say hello!</i>
-            </div>
+        <h3 style="color:#00ffff; margin-bottom:12px; text-align:center;">🤖 AI ARCHITECTURE NEURAL INTEGRATION</h3>
+        
+        <div class="ai-selector">
+            <div class="ai-tab active" id="tabCyber" onclick="switchAiMode('cyber')">🧠 ORIGINAL CYBER AI</div>
+            <div class="ai-tab" id="tabHacker" onclick="switchAiMode('hacker')">💀 HACKER GPT MODE</div>
         </div>
-        <div class="content-area" id="aiChatLog" style="height:140px; border-color: #00ffff;">
-            <div style="color: #00ff00;">[system@ai_node]: Matrix Engine Booted successfully. Standalone security rules active.</div>
+
+        <div class="content-area" id="aiChatLog" style="border-color: #00ffff;">
+            <div style="color: #00ff00;">[system@ai_node]: Multi-Agent AI configuration verified. Both local networks online.</div>
         </div>
-        <div style="display:flex; gap:5px;">
-            <input type="text" id="aiInput" placeholder="Ask AI anything..." style="flex:1; background:#000; border:1px solid #00ffff; padding:10px; color:#00ffff; outline:none; border-radius:5px;" onkeydown="if(event.key==='Enter') triggerAdvancedAi()">
-            <button onclick="triggerAdvancedAi()" style="background:#00ffff; border:none; padding:10px; font-weight:bold; border-radius:5px; cursor:pointer; color: #000;">ASK</button>
+        
+        <div style="display:flex; gap:8px;">
+            <input type="text" id="aiInput" placeholder="Send query transmission line..." style="flex:1; background:#000; border:1px solid #00ffff; padding:12px; color:#00ffff; outline:none; border-radius:5px;" onkeydown="if(event.key==='Enter') triggerAdvancedAi()">
+            <button onclick="triggerAdvancedAi()" style="background:#00ffff; border:none; padding:0 25px; font-weight:bold; border-radius:5px; cursor:pointer; color:#000;">RUN</button>
         </div>
-        <button class="back-btn" style="margin-top:10px;" onclick="showDashboard()">⬅️ RETURN</button>
+        <button class="back-btn" style="margin-top:15px; width:100%;" onclick="showDashboard()">⬅️ EXIT AI HUB</button>
     </div>
 
     <div class="game-screen" id="gameScreen">
-        <h3 style="color:#ffff00; margin-bottom:5px;">🛡️ CYBER DEFENDER INTERCEPTOR</h3>
+        <h3 style="color:#ffff00; margin-bottom:10px; text-align:center;">🛡️ NETWORK INTRUSION PACKET INTERCEPTOR</h3>
         <div class="game-container">
             <div id="gameScore">SCORE: 0</div>
-            <div id="player"><div>🛡️</div><div style="font-size:8px;">AV_NODE</div></div>
+            <div id="player">🛡️</div>
         </div>
         <div class="game-controls">
-            <button class="ctrl-btn" onclick="movePlayer('left')">◀ PACKET LEFT</button>
-            <button class="ctrl-btn" onclick="movePlayer('right')">PACKET RIGHT ▶</button>
+            <button class="ctrl-btn" onclick="movePlayer('left')">◀ MOVE LEFT</button>
+            <button class="ctrl-btn" onclick="movePlayer('right')">MOVE RIGHT ▶</button>
         </div>
-        <button class="back-btn" onclick="quitGame()">⬅️ SHUTDOWN GAME</button>
+        <button class="back-btn" style="width:100%;" onclick="quitGame()">⬅️ SHUTDOWN INTEGRATION</button>
     </div>
 
     <script>
+        let currentAiMode = "cyber"; // Tracking AI Mode toggle
+
         window.onload = function() {
             loadLeaderboard();
             checkAdminStatus();
@@ -460,10 +510,9 @@
             }
         }
 
-        function launchSystem(method) {
+        function launchSystem() {
             let userField = document.getElementById("username").value.trim();
             let emailField = document.getElementById("email").value.trim();
-            
             let finalName = userField || (emailField ? emailField.split('@')[0] : "OperatorNode");
             let finalEmail = emailField || "GuestNode@systems.net";
 
@@ -472,31 +521,11 @@
             localStorage.setItem("active_login", "true");
             
             addNewUserToLeaderboard(finalName, 0);
-
             document.getElementById("loginBox").style.display = "none";
             document.getElementById("coreSystem").style.display = "block";
             checkAdminStatus();
         }
 
-        function launchSocial(platform) {
-            let simulatedName = prompt(`Enter profile handle to link via ${platform}:`);
-            if(!simulatedName || simulatedName.trim()==="") simulatedName = platform + "_User";
-            let simulatedEmail = simulatedName.toLowerCase() + "@" + platform.toLowerCase() + ".com";
-            
-            localStorage.setItem("user_display_name", simulatedName);
-            localStorage.setItem("user_node_email", simulatedEmail);
-            localStorage.setItem("active_login", "true");
-            
-            addNewUserToLeaderboard(simulatedName, 0);
-
-            document.getElementById("loginBox").style.display = "none";
-            document.getElementById("coreSystem").style.display = "block";
-            checkAdminStatus();
-            
-            document.getElementById("mainTerminal").innerHTML += `<br><span style="color:#00ffff;">[OAUTH SUCCESS] Synced secure profile via ${platform} (${simulatedName})</span>`;
-        }
-
-        // STRICT VERIFICATION LOGIC FOR sandesh99998@gmail.com ONLY
         function checkAdminStatus() {
             let currentEmail = localStorage.getItem("user_node_email") || "";
             if(currentEmail === "sandesh99998@gmail.com") {
@@ -507,30 +536,113 @@
             }
         }
 
-        // LOGOUT SYSTEM EXECUTION
         function triggerLogout() {
             localStorage.removeItem("active_login");
             localStorage.removeItem("user_display_name");
             localStorage.removeItem("user_node_email");
-            
-            // Clear inputs
-            document.getElementById("username").value = "";
-            document.getElementById("email").value = "";
-            document.getElementById("password").value = "";
-
-            // Reset interfaces
             document.querySelectorAll('.screen-panel').forEach(p => p.style.display = "none");
             document.getElementById("coreSystem").style.display = "none";
             document.getElementById("gameScreen").style.display = "none";
             document.getElementById("loginBox").style.display = "block";
-            
-            alert("🔴 SESSION DISCONNECTED: System core cleared safely.");
+            alert("🔴 SESSION CLOSED: System layout cleared securely.");
         }
 
         function openScreen(screenId) {
             document.getElementById("coreSystem").style.display = "none";
             document.querySelectorAll('.screen-panel').forEach(p => p.style.display = "none");
             document.getElementById(screenId).style.display = "block";
+        }
+
+        // Toggle handling between your two AI modules
+        function switchAiMode(mode) {
+            currentAiMode = mode;
+            document.getElementById("tabCyber").classList.remove("active");
+            document.getElementById("tabHacker").classList.remove("active");
+            
+            if(mode === 'cyber') {
+                document.getElementById("tabCyber").classList.add("active");
+                document.getElementById("aiChatLog").innerHTML += `<div style="color:#00ffff; margin-top:5px;">[SYSTEM]: Switched to original Cyber Knowledge Engine Node.</div>`;
+            } else {
+                document.getElementById("tabHacker").classList.add("active");
+                document.getElementById("aiChatLog").innerHTML += `<div style="color:#ff00ff; margin-top:5px;">[SYSTEM]: Terminal linked with Hacker GPT Terminal Base.</div>`;
+            }
+        }
+
+        function triggerAdvancedAi() {
+            const input = document.getElementById("aiInput");
+            const log = document.getElementById("aiChatLog");
+            let text = input.value.trim();
+            if(!text) return;
+
+            log.innerHTML += `<div style="color:#00ff00; margin-top:5px;">[You]: ${text}</div>`;
+            input.value = "";
+
+            setTimeout(() => {
+                let reply = "";
+                let q = text.toLowerCase();
+
+                // 1. Logic for Hacker GPT Mode
+                if(currentAiMode === "hacker") {
+                    reply = "[💀 HACKER GPT]: Target prompt unauthorized. Command matrix bypass protocols initiated...";
+                    if(q.includes("hello") || q.includes("hi")) {
+                        reply = "[💀 HACKER GPT]: Dark node greeting protocol initialized. Enter encryption instructions, root user.";
+                    } else if (q.includes("hack") || q.includes("security")) {
+                        reply = "[💀 HACKER GPT]: Critical threat vectors analyzed. Firewalls are vulnerable to brute-force subversion algorithms inside isolation chambers.";
+                    } else if (q.includes("python")) {
+                        reply = "[💀 HACKER GPT]: Compiling local script payload sockets inside remote system stacks. Execute main scripts directly.";
+                    }
+                } 
+                // 2. Original Cyber AI Mode retained as requested
+                else {
+                    reply = "[🧠 CYBER ENGINE]: Data array sorted. Try asking about networking, gateways, python script models or class 10 notes.";
+                    if (q.includes("hello") || q.includes("hi")) {
+                        reply = `[🧠 CYBER ENGINE]: Welcome back operator! Local standard modules operating cleanly.`;
+                    } else if (q.includes("gateway")) {
+                        reply = "[🧠 CYBER ENGINE]: Gateway is a vital hardware component node used to securely route packages across mismatched server parameters.";
+                    } else if (q.includes("python")) {
+                        reply = "[🧠 CYBER ENGINE]: Python scripting functions provide immediate automation routines for penetration logging structures.";
+                    }
+                }
+
+                log.innerHTML += `<div style="color:#00ffff; margin-top:5px;">${reply}</div>`;
+                log.scrollTop = log.scrollHeight;
+            }, 300);
+        }
+
+        function executeFakeSearch() {
+            const input = document.getElementById("browserUrlInput");
+            const view = document.getElementById("browserDisplayView");
+            let query = input.value.trim().toLowerCase();
+            if(!query) return;
+
+            view.innerHTML = `<div style="color:#5b9aff; font-size:12px;">🔍 Routing isolated pipeline to sandbox data centers...</div>`;
+
+            setTimeout(() => {
+                if(query.includes('sandesh')) {
+                    view.innerHTML = `
+                        <div class="web-result-item">
+                            <div class="web-title">Sandesh Architecture Core Repositories</div>
+                            <div class="web-url">https://sandesh-terminal-systems.np/main</div>
+                            <div class="web-desc">Exclusive operational panel deployed for custom system control, advanced scripting engines, and UI dashboard scaling layers.</div>
+                        </div>`;
+                }
+                else if(query.includes('aura live') || query.includes('ipl') || query.includes('standings')) {
+                    view.innerHTML = `
+                        <div class="web-result-item">
+                            <div class="web-title">AURA LIVE - IPL Realtime Table Tracker Index</div>
+                            <div class="web-url">https://auralive.io/ipl-dashboard</div>
+                            <div class="web-desc">Streaming links and match details for high tier cricket fixtures. Dynamic standing logs show win/loss arrays instantly: RCB leading at 18pts, followed by GT at 16pts.</div>
+                        </div>`;
+                }
+                else {
+                    view.innerHTML = `
+                        <div class="web-result-item">
+                            <div class="web-title">Sandbox Query Match Block: ${query}</div>
+                            <div class="web-url">https://secured-nodes.net/search?query=${encodeURIComponent(query)}</div>
+                            <div class="web-desc">System locked. This secure layout simulates the response parameters completely offline without accessing target outer servers.</div>
+                        </div>`;
+                }
+            }, 400);
         }
 
         function showDashboard() {
@@ -545,233 +657,88 @@
             if(!text) return;
             let currentEmail = localStorage.getItem("user_node_email") || "Anonymous";
             let suggestions = JSON.parse(localStorage.getItem("app_suggestions")) || [];
-            
             suggestions.push({user: currentEmail, text: text, date: new Date().toLocaleTimeString()});
             localStorage.setItem("app_suggestions", JSON.stringify(suggestions));
-            
             document.getElementById("suggestionInput").value = "";
-            alert("🔒 Encryption successful. Payload dispatched to Admin Console.");
+            alert("🔒 Suggestion payload compiled and synchronized.");
             loadAdminData();
         }
 
         function loadAdminData() {
             let area = document.getElementById("adminLogArea");
             let suggestions = JSON.parse(localStorage.getItem("app_suggestions")) || [];
-            if(suggestions.length === 0) {
-                area.innerHTML = `<div style="color:#666;">No safe incoming feedback payloads yet.</div>`;
-                return;
-            }
-            area.innerHTML = "<strong style='color:#ff00ff;'>📥 INCOMING USER FEEDBACKS:</strong><br><br>";
-            suggestions.forEach((s, idx) => {
-                area.innerHTML += `<div style="margin-bottom:8px; border-bottom:1px solid #222; padding-bottom:4px;"><strong>[#${idx+1}] User:</strong> ${s.user}<br><strong>Msg:</strong> ${s.text}<br><span style="color:#ff3333; font-size:10px;">Time: ${s.date}</span></div>`;
+            if(suggestions.length === 0) { area.innerHTML = "No reports submitted yet."; return; }
+            area.innerHTML = "<strong>📥 SYSTEM SUGGESTION REGISTRY:</strong><br><br>";
+            suggestions.forEach((s) => {
+                area.innerHTML += `<div style='border-bottom:1px solid #222; margin-bottom:8px; padding-bottom:5px;'>User: ${s.user}<br>Msg: ${s.text}</div>`;
             });
         }
 
         function loadLeaderboard() {
-            let scores = JSON.parse(localStorage.getItem("cyber_scores")) || [];
-            if(scores.length === 0) {
-                let currentName = localStorage.getItem("user_display_name") || "Sandesh";
-                scores = [{name: currentName, score: 0}];
-                localStorage.setItem("cyber_scores", JSON.stringify(scores));
-            }
-
+            let scores = JSON.parse(localStorage.getItem("cyber_scores")) || [
+                {name: "Sandesh", score: 150}, {name: "AURA_Pro", score: 120}, {name: "HackerX", score: 90}
+            ];
             scores.sort((a,b) => b.score - a.score);
-            scores = scores.slice(0, 100);
-
             let container = document.getElementById("leaderboardContainer");
             container.innerHTML = "";
-            scores.forEach((s, index) => {
-                let rankClass = "rank-other";
-                let medal = `${index + 1}.`;
-                if(index === 0) { rankClass = "rank-1"; medal = "🥇 1st"; }
-                else if(index === 1) { rankClass = "rank-2"; medal = "🥈 2nd"; }
-                else if(index === 2) { rankClass = "rank-3"; medal = "🥉 3rd"; }
-                container.innerHTML += `<div class="rank-row ${rankClass}"><span>${medal} ${s.name}</span><span>${s.score} pts</span></div>`;
+            scores.slice(0, 100).forEach((s, index) => {
+                let rClass = index===0?"rank-1":(index===1?"rank-2":(index===2?"rank-3":""));
+                container.innerHTML += `<div class="rank-row ${rClass}"><span>${index+1}. ${s.name}</span><span>${s.score} pts</span></div>`;
             });
         }
 
-        function addNewUserToLeaderboard(name, initialScore) {
+        function addNewUserToLeaderboard(name, score) {
             let scores = JSON.parse(localStorage.getItem("cyber_scores")) || [];
-            let exists = scores.find(s => s.name.toLowerCase() === name.toLowerCase());
-            if(!exists) {
-                scores.push({name: name.substring(0, 14), score: initialScore});
+            if(!scores.find(s => s.name.toLowerCase() === name.toLowerCase())) {
+                scores.push({name: name.substring(0,14), score: score});
                 localStorage.setItem("cyber_scores", JSON.stringify(scores));
             }
-            loadLeaderboard();
-        }
-
-        function checkAndSaveScore(finalScore) {
-            let currentName = localStorage.getItem("user_display_name") || "OperatorNode";
-            let scores = JSON.parse(localStorage.getItem("cyber_scores")) || [];
-            
-            let userRecord = scores.find(s => s.name.toLowerCase() === currentName.toLowerCase());
-            if(userRecord) {
-                if(finalScore > userRecord.score) {
-                    userRecord.score = finalScore;
-                    alert(`🎉 New Personal Best for ${currentName}: ${finalScore}!`);
-                }
-            } else {
-                scores.push({name: currentName, score: finalScore});
-            }
-
-            scores.sort((a,b) => b.score - a.score);
-            scores = scores.slice(0, 100);
-            localStorage.setItem("cyber_scores", JSON.stringify(scores));
-            loadLeaderboard();
-        }
-
-        function executeFakeSearch() {
-            const input = document.getElementById("browserUrlInput");
-            const view = document.getElementById("browserDisplayView");
-            let query = input.value.trim().toLowerCase();
-            if(!query) return;
-
-            view.innerHTML = `<div style="color:#5b9aff; font-size:11px;">🔍 Connecting to proxy pipeline server... [OK]<br>Fetching dynamic indexing data...</div>`;
-
-            setTimeout(() => {
-                if(query === 'google' || query === 'google.com') {
-                    view.innerHTML = `
-                        <div style="text-align:center; padding-top:30px;">
-                            <h1 style="font-size:24px; font-family:Arial; font-weight:bold;"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></h1>
-                            <input type="text" style="width:80%; margin-top:10px; padding:6px; background:#111; border:1px solid #555; color:#fff;" placeholder="Search inside cloned core...">
-                        </div>`;
-                } 
-                else if(query.includes('sandesh')) {
-                    view.innerHTML = `
-                        <div class="web-result-item">
-                            <div class="web-title">Sandesh Neupane - Senior Master System Admin</div>
-                            <div class="web-url">https://sandesh-core-network.np/profile</div>
-                            <div class="web-desc">Official portal of Sandesh. Chief Architect of the Ethical Cyber Core Dashboard Applications and Advanced Python Scripts.</div>
-                        </div>`;
-                }
-                else if(query.includes('aura live') || query.includes('cricket')) {
-                    view.innerHTML = `
-                        <div class="web-result-item">
-                            <div class="web-title">AURA LIVE Cricket - Watch Match Realtime Broadcast</div>
-                            <div class="web-url">https://auralive.io/sports/stream-409</div>
-                            <div class="web-desc">Live streaming indices for the hot international cricket fixtures and IPL. Powered securely by Sandesh Multi-core networks.</div>
-                        </div>`;
-                }
-                else if(query.includes('hacking') || query.includes('cyber security')) {
-                    view.innerHTML = `
-                        <div class="web-result-item">
-                            <div class="web-title">Certified Ethical Hacking Index Portal</div>
-                            <div class="web-url">https://cyberdefense-training.org</div>
-                            <div class="web-desc">Learn networking configurations, firewalls penetration tactics, security notes, and sandboxed simulation systems.</div>
-                        </div>`;
-                }
-                else if(query.includes('facebook.com') || query.includes('facebook')) {
-                    view.innerHTML = `
-                        <div style="background:#1877f2; color:#fff; padding:10px; font-size:12px; font-weight:bold; border-radius:4px;">
-                            📘 Facebook Web Sandbox Node
-                        </div>
-                        <div style="padding:10px; color:#ccc; font-size:11px;"> Welcome back to Facebook! Simulated Profile Stream Active.</div>`;
-                }
-                else {
-                    view.innerHTML = `
-                        <div style="font-size:11px; color:#888; margin-bottom:8px;">Showing offline search indexing responses for: "${query}"</div>
-                        <div class="web-result-item">
-                            <div class="web-title">Secure Indexed Target: ${query}</div>
-                            <div class="web-url">https://secured-nodes.net/search?q=${encodeURIComponent(query)}</div>
-                            <div class="web-desc">This is a simulated sandbox result block. The requested payload directory for "${query}" has been filtered safely without reaching real outer servers.</div>
-                        </div>`;
-                }
-            }, 400);
         }
 
         function getLiveIpAddress() {
-            const term = document.getElementById("mainTerminal");
-            term.innerHTML += `<br>sandesh@system:~# parsing network configuration...`;
-            let internalIp = "192.168.1." + Math.floor(Math.random() * 254 + 1);
+            let term = document.getElementById("mainTerminal");
+            term.innerHTML += `<br>sandesh@system:~# tracing interface gateway mapping...`;
             setTimeout(() => {
-                term.innerHTML += `<br><span style="color:#ff3333;">[LOCAL TARGET LINKED]</span> ${internalIp}`;
+                term.innerHTML += `<br><span style='color:#ff3333;'>[LIVE IP TERMINAL TARGET]</span> 192.168.1.` + Math.floor(Math.random()*254+1);
                 term.scrollTop = term.scrollHeight;
             }, 300);
         }
 
         function generateSecurePassword() {
             const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-            let p = ""; for (let i = 0; i < 14; i++) p += chars.charAt(Math.floor(Math.random() * chars.length));
+            let p = ""; for (let i = 0; i < 16; i++) p += chars.charAt(Math.floor(Math.random() * chars.length));
             document.getElementById("generatedPass").innerText = p;
         }
 
-        function triggerAdvancedAi() {
-            const input = document.getElementById("aiInput");
-            const log = document.getElementById("aiChatLog");
-            let text = input.value.trim();
-            if(!text) return;
-
-            log.innerHTML += `<div style="color:#00ff00; margin-top:5px;">[You]: ${text}</div>`;
-            input.value = "";
-
-            setTimeout(() => {
-                let reply = "Processing complete. Command categorized. Try asking about 'ethical hacking', 'cyber crime', 'python', 'cyber law' or 'networking'.";
-                let q = text.toLowerCase();
-
-                if (q.includes("hello") || q.includes("hi ") || q.includes("yo")) {
-                    let adminName = localStorage.getItem("user_display_name") || "Sandesh";
-                    reply = `Hello ${adminName}! Systems are optimal. Cyber AI Core Engine is at your service. How can I assist you today?`;
-                } 
-                else if (q.includes("ethical hacking") || q.includes("hacker")) {
-                    reply = "[LOCAL CORE]: Ethical hacking involves legally penetrating systems to evaluate security defenses, identify bugs, and patch them up before cybercriminals can exploit them.";
-                } 
-                else if (q.includes("cyber crime") || q.includes("crime")) {
-                    reply = "[LOCAL CORE]: Cyber crime refers to criminal acts executed using devices and network targets (e.g., Phishing, Ransomware, DDoS attacks, Data Breaches).";
-                } 
-                else if (q.includes("cyber law") || q.includes("law")) {
-                    reply = "[NEPAL MATRICES]: Cyber Law controls digital operations. In Nepal, the Electronic Transactions Act 2063 regulates online authentication, digital signatures, and dictates major punishments for data violations.";
-                } 
-                else if (q.includes("python")) {
-                    reply = "[CODE AGENT]: Python is a powerful programming language widely utilized in cybersecurity scripts, AI architectures, automated scanning tools, and AI assistant structures.";
-                } 
-                else if (q.includes("networking") || q.includes("gateway") || q.includes("topology")) {
-                    reply = "[NETWORKING MAP]: Data maps utilize Topologies (Bus, Star, Ring, Mesh). Critical networking routers and Gateways link standalone subnets running completely distinct configurations.";
-                } 
-                else if (q.includes("status")) {
-                    reply = "[AI VECTORS]: Security protocols: Active. Processing Core: Advanced Offline Rule Matrix V2. Internet/OpenAI: Disconnected for complete privacy.";
-                } 
-                else if (q.includes("clear")) {
-                    log.innerHTML = "";
-                    reply = "AI local chat databases wiped clean.";
-                }
-
-                log.innerHTML += `<div style="color:#00ffff; margin-top:5px;">[AI Core]: ${reply}</div>`;
-                log.scrollTop = log.scrollHeight;
-            }, 300);
-        }
-
-        /* --- ADVANCED CYBER ENGINE GAME LOGIC --- */
-        let gameInterval; let score = 0; let playerPos = 175; const lanes = [55, 175, 295];
+        /* GAME MATRIX ENGINE */
+        let gameInterval; let score = 0; let playerPos = 45;
         function openGame() { document.getElementById("coreSystem").style.display = "none"; document.getElementById("gameScreen").style.display = "block"; startGame(); }
         function startGame() {
-            score = 0; playerPos = 175; document.getElementById("player").style.left = playerPos + "px";
-            document.getElementById("gameScore").innerText = "SCORE: " + score;
-            document.querySelectorAll('.obstacle').forEach(el => el.remove());
-            gameInterval = setInterval(() => { score += 10; document.getElementById("gameScore").innerText = "SCORE: " + score; spawnObstacle(); }, 1300);
+            score = 0; playerPos = 45; document.getElementById("player").style.left = playerPos + "%";
+            gameInterval = setInterval(() => { score+=10; document.getElementById("gameScore").innerText = "SCORE: " + score; spawnObstacle(); }, 1200);
         }
         function movePlayer(dir) {
-            let idx = lanes.indexOf(playerPos);
-            if (dir === 'left' && idx > 0) idx--; else if (dir === 'right' && idx < 2) idx++;
-            playerPos = lanes[idx]; document.getElementById("player").style.left = playerPos + "px";
+            if(dir==='left' && playerPos > 15) playerPos -= 30;
+            else if(dir==='right' && playerPos < 75) playerPos += 30;
+            document.getElementById("player").style.left = playerPos + "%";
         }
         function spawnObstacle() {
-            const container = document.querySelector('.game-container'); const obstacle = document.createElement('div');
-            obstacle.classList.add('obstacle'); 
-            obstacle.innerHTML = `<div style="font-size:14px; margin-top:3px;">🦠</div><div style="font-size:7px; letter-spacing:0.5px;">VIRUS</div>`;
-            let randomLane = lanes[Math.floor(Math.random() * lanes.length)];
-            obstacle.style.left = randomLane + "px"; container.appendChild(obstacle);
+            const container = document.querySelector('.game-container'); const obs = document.createElement('div');
+            obs.classList.add('obstacle'); obs.innerHTML = "🦠";
+            let positions = [15, 45, 75]; let lane = positions[Math.floor(Math.random()*3)];
+            obs.style.left = lane + "%"; container.appendChild(obs);
             let topPos = -50;
-            let obsMv = setInterval(() => {
-                topPos += 8; obstacle.style.top = topPos + "px";
-                if (topPos > 160 && topPos < 220 && randomLane === playerPos) { 
-                    clearInterval(obsMv); clearInterval(gameInterval); 
-                    alert(`🚨 SYSTEM COMPROMISED! Virus hit your node. Final Defense Score: ${score}`); 
-                    checkAndSaveScore(score); startGame(); 
+            let move = setInterval(() => {
+                topPos += 10; obs.style.top = topPos + "px";
+                if(topPos > 230 && topPos < 280 && lane === playerPos) {
+                    clearInterval(move); clearInterval(gameInterval);
+                    alert("🚨 CRITICAL IMPACT! System node breached. Score: " + score);
+                    startGame();
                 }
-                if (topPos > 250) { clearInterval(obsMv); obstacle.remove(); }
-            }, 20);
+                if(topPos > 300) { clearInterval(move); obs.remove(); }
+            }, 25);
         }
-        function quitGame() { clearInterval(gameInterval); document.querySelectorAll('.obstacle').forEach(el => el.remove()); showDashboard(); }
+        function quitGame() { clearInterval(gameInterval); document.querySelectorAll('.obstacle').forEach(e => e.remove()); showDashboard(); }
     </script>
 </body>
 </html>
