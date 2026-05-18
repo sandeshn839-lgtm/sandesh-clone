@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandesh Advanced Multi-Core Systems</title>
+    <title>Sandesh Advanced Ethical Tools v7.0</title>
     <style>
         * {
             margin: 0;
@@ -13,25 +13,24 @@
         }
 
         body {
-            background: radial-gradient(circle, #10171e 0%, #070a0e 70%, #000000 100%);
+            background: radial-gradient(circle, #0e1318 0%, #05080c 70%, #000000 100%);
             color: #00ff00;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 0;
         }
 
-        /* FULL EXPANDED VIEW LAYOUT */
+        /* Full Screen Container */
         .login-box, .main-system, .screen-panel, .game-screen {
             display: none;
             width: 100%;
             max-width: 100vw;
             height: 100vh;
-            background: rgba(5, 9, 14, 0.98);
+            background: rgba(4, 7, 12, 0.99);
             border: 3px solid #00ff00;
             padding: 20px;
-            box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.3), 0 0 25px rgba(0, 255, 0, 0.2);
+            box-shadow: inset 0 0 30px rgba(0, 255, 0, 0.2);
             position: relative;
             overflow-y: auto;
         }
@@ -40,47 +39,40 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             border-bottom: 2px solid #00ff00;
             padding-bottom: 10px;
+            position: relative;
         }
 
         .system-title {
-            font-size: 18px;
+            font-size: 15px;
             color: #00ff00;
             text-shadow: 0 0 8px #00ff00;
             font-weight: bold;
         }
 
-        .menu-trigger {
-            font-size: 32px;
-            color: #00ffff;
-            cursor: pointer;
-            user-select: none;
-            transition: 0.2s;
-            text-shadow: 0 0 5px #00ffff;
-        }
-        .menu-trigger:hover {
-            color: #ff00ff;
-            transform: scale(1.1);
+        /* Top Right Coin Display Box */
+        .coin-display-node {
+            background: #111a11;
+            border: 1px solid #ffff00;
+            color: #ffff00;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: 0 0 10px rgba(255, 255, 0, 0.2);
         }
 
         .cyber-logo {
-            width: 120px;
-            height: 120px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             border: 2px solid #00ffff;
             box-shadow: 0 0 20px #00ffff;
-            background: #0d131a;
+            background: #0a0f14;
             margin: 20px auto;
             display: block;
-            animation: pulseGlow 2s infinite ease-in-out;
-        }
-
-        @keyframes pulseGlow {
-            0% { transform: scale(1); box-shadow: 0 0 15px #00ffff; }
-            50% { transform: scale(1.03); box-shadow: 0 0 25px #00ff00; border-color: #00ff00; }
-            100% { transform: scale(1); box-shadow: 0 0 15px #00ffff; }
         }
 
         .input-group input {
@@ -98,16 +90,16 @@
 
         .action-btn {
             width: 100%;
-            padding: 12px;
-            background: #0a0f14;
+            padding: 14px;
+            background: #060b10;
             border: 1px solid #00ff00;
             border-radius: 8px;
             color: #00ff00;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 255, 0, 0.2);
+            box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
             transition: 0.2s;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .action-btn:hover {
             background: #00ff00;
@@ -115,376 +107,259 @@
             box-shadow: 0 0 15px #00ff00;
         }
 
+        .coin-collector-box {
+            background: #100f05;
+            border: 2px dashed #ffff00;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .grid-menu {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .menu-item {
-            background: #070d14;
+            background: #05090e;
             border: 1px solid #00ffff;
             color: #00ffff;
-            padding: 15px 10px;
+            padding: 18px 10px;
             border-radius: 8px;
             font-size: 12px;
             font-weight: bold;
             cursor: pointer;
             text-align: center;
         }
-        .menu-item:hover {
-            background: #00ffff;
-            color: #000;
-            box-shadow: 0 0 10px #00ffff;
-        }
-
-        .panel-box {
-            background: rgba(0, 0, 0, 0.9);
-            border: 1px solid #ffff00;
-            border-radius: 10px;
-            padding: 12px;
-            text-align: left;
-            margin-bottom: 15px;
-        }
-
-        .panel-title {
-            color: #ffff00;
-            font-size: 13px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 8px;
-            border-bottom: 1px solid #332200;
-            padding-bottom: 4px;
-        }
-
-        .panel-scroll {
-            max-height: 180px;
-            overflow-y: auto;
-        }
-
-        /* IPL Cyber Table CSS */
-        .cyber-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 11px;
-            color: #fff;
-            margin-top: 5px;
-        }
-        .cyber-table th {
-            color: #ffaa00;
-            text-align: left;
-            border-bottom: 2px solid #ffaa00;
-            padding: 6px 4px;
-            font-size: 12px;
-        }
-        .cyber-table td {
-            padding: 6px 4px;
-            border-bottom: 1px solid #222;
-        }
-
-        .rank-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 6px 8px;
-            margin-bottom: 4px;
-            border-radius: 4px;
-            font-size: 12px;
-            background: #0a0e12;
-            border-left: 3px solid #555;
-        }
-        .rank-1 { border-left-color: #ffd700; color: #ffd700; }
-        .rank-2 { border-left-color: #c0c0c0; color: #c0c0c0; }
-        .rank-3 { border-left-color: #cd7f32; color: #cd7f32; }
 
         .terminal-box {
             background: #000;
-            border: 1px solid rgba(0, 255, 255, 0.4);
+            border: 1px solid rgba(0, 255, 255, 0.3);
             border-radius: 8px;
             padding: 12px;
-            height: 90px;
+            height: 100px;
             overflow-y: auto;
             font-size: 11px;
             color: #00ff00;
             text-align: left;
-            margin-top: 10px;
         }
 
         .content-area {
             background: #000;
             border: 1px solid #00ff00;
             border-radius: 8px;
-            height: calc(100vh - 230px);
+            height: calc(100vh - 240px);
             overflow-y: auto;
             padding: 15px;
-            text-align: left;
-            font-size: 13px;
-            margin-bottom: 15px;
         }
 
         .back-btn {
-            background: #222;
+            background: #1a0808;
             color: #ff3333;
             border: 1px solid #ff3333;
             padding: 12px 25px;
             border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
+            width: 100%;
+            margin-top: 10px;
         }
 
-        /* AI TAB SELECTORS */
-        .ai-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-        .ai-tab {
-            flex: 1;
-            padding: 10px;
-            background: #111;
-            border: 1px solid #333;
-            color: #666;
-            cursor: pointer;
-            font-size: 12px;
-            font-weight: bold;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .ai-tab.active {
-            background: #021a1a;
-            border-color: #00ffff;
-            color: #00ffff;
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
-        }
-
-        /* Chrome Browser Simulator */
+        /* Chrome Simulator Browser Components */
         .browser-bar {
             display: flex;
-            background: #1c242c;
+            background: #171e24;
             border: 1px solid #5b9aff;
             border-radius: 6px;
             padding: 8px;
             gap: 8px;
             margin-bottom: 12px;
-            align-items: center;
         }
         .browser-input { 
             flex: 1; background: #000; border: 1px solid #333; color: #00ffff; 
-            font-size: 13px; padding: 8px 12px; outline: none; border-radius: 4px; 
+            font-size: 13px; padding: 8px; outline: none; border-radius: 4px; 
         }
         .browser-go { 
-            background: #5b9aff; color: #000; border: none; padding: 8px 20px; 
-            font-weight: bold; font-size: 12px; border-radius: 4px; cursor: pointer; 
+            background: #5b9aff; color: #000; border: none; padding: 0 15px; 
+            font-weight: bold; border-radius: 4px; cursor: pointer; 
+        }
+        
+        /* Embed Real Chrome Iframe Wrapper */
+        .chrome-iframe-container {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #fff;
         }
 
-        .web-result-item { margin-bottom: 18px; border-bottom: 1px solid #222; padding-bottom: 12px; }
-        .web-title { color: #5b9aff; font-weight: bold; font-size: 15px; text-decoration: underline; cursor: pointer; }
-        .web-url { color: #22aa22; font-size: 11px; margin: 2px 0; }
-        .web-desc { color: #bbb; font-size: 12px; line-height: 1.4; }
+        /* AI Tab Engine */
+        .ai-selector { display: flex; gap: 10px; margin-bottom: 12px; }
+        .ai-tab {
+            flex: 1; padding: 10px; background: #111; border: 1px solid #333; color: #666;
+            cursor: pointer; font-size: 11px; text-align: center; border-radius: 4px;
+        }
+        .ai-tab.active { border-color: #00ffff; color: #00ffff; background: #02141a; }
 
-        /* Game Box */
+        /* Real Game Arena */
         .game-container {
             width: 100%;
             height: 280px;
-            background: #020508;
+            background: #020406;
             border: 2px dashed #00ffff;
             margin: 15px 0;
             position: relative;
             overflow: hidden;
         }
-        #gameScore { position: absolute; top: 10px; left: 10px; color: #ffff00; font-weight: bold; }
+        #gameScore { position: absolute; top: 10px; left: 10px; color: #ffff00; font-weight: bold; font-size: 14px; }
         #player { 
-            width: 50px; height: 50px; background: #00ff00; position: absolute; bottom: 10px; left: 45%; border-radius: 12px; 
-            box-shadow: 0 0 12px #00ff00; display: flex; align-items: center; justify-content: center; font-size: 20px;
+            width: 50px; height: 50px; background: #00ff00; position: absolute; bottom: 15px; left: 45%; 
+            border-radius: 10px; box-shadow: 0 0 10px #00ff00; display: flex; align-items: center; justify-content: center; font-size: 22px;
         }
         .obstacle { 
-            width: 45px; height: 45px; background: #ff3333; position: absolute; top: -50px; border-radius: 50%; 
-            box-shadow: 0 0 15px #ff3333; display: flex; align-items: center; justify-content: center; font-size: 18px;
+            width: 40px; height: 40px; background: #ff3333; position: absolute; top: -50px; border-radius: 50%; 
+            box-shadow: 0 0 12px #ff3333; display: flex; align-items: center; justify-content: center; font-size: 18px;
         }
-        .game-controls { display: flex; gap: 15px; margin-bottom: 15px; }
-        .ctrl-btn { flex: 1; padding: 15px; background: #111; border: 1px solid #00ffff; color: #00ffff; font-weight: bold; border-radius: 6px; cursor: pointer; }
+        .game-controls { display: flex; gap: 10px; margin-bottom: 10px; }
+        .ctrl-btn { flex: 1; padding: 15px; background: #111; border: 1px solid #00ffff; color: #00ffff; font-weight: bold; border-radius: 6px; }
     </style>
 </head>
 <body>
 
-    <div class="login-box" id="loginBox" style="text-align: center; padding-top: 15vh;">
+    <div class="login-box" id="loginBox" style="text-align: center; padding-top: 10vh;">
         <svg class="cyber-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#030712"/>
-            <path d="M50,20 L68,38 L60,42 L72,55 L50,82 L28,55 L40,42 L32,38 Z" fill="none" stroke="#00ffff" stroke-width="2"/>
+            <circle cx="50" cy="50" r="45" fill="#02050a"/>
+            <path d="M50,22 L66,38 L58,42 L70,55 L50,80 L30,55 L42,42 L34,38 Z" fill="none" stroke="#00ffff" stroke-width="2"/>
         </svg>
-        <h2 style="color:#00ffff; margin-bottom:20px; font-size:22px;">SANDESH MULTI-CORE SYSTEM CONSOLE</h2>
-        
+        <h2 style="color:#00ffff; margin-bottom:25px; font-size:18px;">SANDESH SYSTEMS LOGIN PORTAL</h2>
         <div class="input-group">
-            <input type="text" id="username" placeholder="Operator Node Username">
-            <input type="email" id="email" placeholder="Admin/User Security Email">
-            <input type="password" id="password" placeholder="Terminal Firewall Access Key">
+            <input type="text" id="username" placeholder="Operator Name">
+            <input type="email" id="email" placeholder="Security Email Registry">
+            <input type="password" id="password" placeholder="System Firewall Key">
         </div>
-        <button class="action-btn" style="max-width: 400px; margin: 0 auto;" onclick="launchSystem()">INITIALIZE CORE SECURELY</button>
+        <button class="action-btn" style="max-width: 400px; margin: 0 auto;" onclick="launchSystemCore()">BOOT SYSTEM</button>
     </div>
 
     <div class="main-system" id="coreSystem">
         <div class="app-header">
-            <div class="system-title">⚡ SANDESH ETHICAL SYSTEM v6.5 [EXPANDED MATRIX] ⚡</div>
-            <div class="menu-trigger" onclick="openScreen('menuScreen')">≡</div>
+            <div class="system-title">⚡ SANDESH ETHICAL CORE v7.0 ⚡</div>
+            <div class="coin-display-node" id="topCoinDisplay">🪙 0 Coins</div>
         </div>
-        
-        <div class="panel-box">
-            <div class="panel-title">🏆 RUNNER MATRIX (TOP 100 ACTIVE NETWORK SEEDS)</div>
-            <div class="panel-scroll" id="leaderboardContainer"></div>
+
+        <div class="coin-collector-box">
+            <p style="color: #fff; font-size: 13px; font-weight: bold; margin-bottom: 8px;">🪙 REWARD FACTORY MODULE</p>
+            <p style="color: #bbb; font-size: 11px; margin-bottom: 10px;">Need more resources? Play the internal packet shift game. Break <span style="color:#ffaa00; font-weight:bold;">150+ Points</span> to harvest 100 Coins instantly!</p>
+            <button class="action-btn" style="border-color: #ffff00; color: #ffff00; background: #1a1905; padding: 10px; margin-bottom: 0;" onclick="triggerCoinCollectionProcess()">⚡ COLLECT 100 COINS</button>
         </div>
 
         <div class="grid-menu">
             <button class="menu-item" style="border-color:#00ff00; color:#00ff00;" onclick="openScreen('studyScreen')">📖 STUDY BOOK</button>
             <button class="menu-item" style="border-color:#ffaa00; color:#ffaa00;" onclick="openScreen('passScreen')">🔑 PASS GEN</button>
-            <button class="menu-item" style="border-color:#ff3333; color:#ff3333;" onclick="getLiveIpAddress()">🌐 GET LIVE IP</button>
-            <button class="menu-item" style="border-color:#ffff00; color:#ffff00;" onclick="openGame()">🎮 PLAY GAME</button>
+            <button class="menu-item" style="border-color:#ff3333; color:#ff3333;" onclick="simulateLiveIpScanning()">🌐 GET LIVE IP</button>
+            <button class="menu-item" style="border-color:#ffff00; color:#ffff00;" onclick="openGameArena()">🎮 PLAY GAME</button>
         </div>
 
-        <button class="action-btn" style="margin-bottom:12px; border-color:#5b9aff; color:#5b9aff; background: #050d14; font-size: 13px;" onclick="openScreen('browserScreen')">🌐 LAUNCH CHROME CYBER SEARCH CRAWLER</button>
-        <button class="action-btn" style="margin-bottom:12px; border-color:#00ffff; color:#00ffff; background: #07121a; font-size: 13px;" onclick="openScreen('aiScreen')">🤖 ACCESS REAL HACKER GPT & AI CORE</button>
+        <button class="action-btn" style="border-color:#5b9aff; color:#5b9aff; background: #040d1a;" onclick="openScreen('browserScreen')">🌐 LAUNCH CHROME CYBER SEARCH CRAWLER</button>
+        <button class="action-btn" style="border-color:#00ffff; color:#00ffff; background: #03141a;" onclick="openScreen('aiScreen')">🤖 ACCESS REAL HACKER GPT INTERFACE</button>
         
-        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# viewport expanded perfectly. IPL tables routed inside chrome database cluster.</div>
-    </div>
-
-    <div class="screen-panel" id="menuScreen">
-        <h3 style="color:#00ffff; margin-bottom:20px; text-align:center;">≡ CONTROL FRAMEWORK UTILITIES</h3>
-        
-        <div style="max-width:500px; margin: 0 auto;">
-            <div class="suggest-box" style="margin-bottom: 15px;">
-                <p style="font-size:12px; color:#888; margin-bottom:5px;">📥 Send encrypted suggestions directly to Sandesh Admin Node:</p>
-                <textarea id="suggestionInput" style="width:100%; height:100px; background:#000; border:1px solid #00ffff; color:#00ffff; padding:10px; border-radius:6px; resize:none; outline:none;" placeholder="Type enhancement requests..."></textarea>
-                <button class="action-btn" style="border-color:#00ffff; color:#00ffff; margin-top:8px;" onclick="submitSuggestion()">SUBMIT PAYLOAD DATA</button>
-            </div>
-            
-            <div id="adminAccessBtn" style="display:none; margin-bottom:20px; border-top:1px dashed #333; padding-top:15px;">
-                <button class="action-btn" style="border-color:#ff00ff; color:#ff00ff; background:#1a001a;" onclick="openScreen('adminScreen')">🛠️ SECRET ADMIN CONSOLE</button>
-            </div>
-
-            <button class="action-btn" style="border-color:#ff3333; color:#ff3333; background:#1a0505; padding:14px;" onclick="triggerLogout()">🔴 SHUTDOWN SESSION (LOGOUT)</button>
-            <button class="back-btn" style="width: 100%; margin-top:15px;" onclick="showDashboard()">⬅️ RETURN TO DASHBOARD</button>
-        </div>
-    </div>
-
-    <div class="screen-panel" id="adminScreen">
-        <h3 style="color:#ff00ff; margin-bottom:15px; text-align:center;">🛠️ SECRET ENCRYPTED ADMINISTRATIVE TERMINAL</h3>
-        <div class="content-area" id="adminLogArea" style="border-color:#ff00ff; background:#050005;"></div>
-        <button class="back-btn" onclick="openScreen('menuScreen')">⬅️ BACK</button>
+        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# Framework stable. Game Engine configured to drop 100 coins at 150+ score threshold.</div>
     </div>
 
     <div class="screen-panel" id="studyScreen">
-        <h3 style="color:#00ff00; margin-bottom:15px; text-align:center;">📖 COMPUTER NETWORKING DATA REPOSITORY</h3>
+        <h3 style="color:#00ff00; margin-bottom:15px; text-align:center;">📖 COMPUTER NETWORKING REPOSITORY</h3>
         <div class="content-area">
-            <h4 style="color:#00ffff; margin-bottom:10px;">Class 10 Core Security Syllabi:</h4>
-            <p style="color:#ccc; margin-bottom:12px;"><strong>Network Gateway:</strong> Actively standardizes data signals when communication pathways deploy contrasting network protocols.</p>
-            <p style="color:#ccc; margin-bottom:12px;"><strong>Electronic Transactions Act (ETA) 2063:</strong> The primary internet and data defense framework regulating system intrusion penalties in Nepal.</p>
+            <h4 style="color:#00ffff; margin-bottom:10px;">Class 10 Core Syllabus Logs:</h4>
+            <p style="color:#ccc; margin-bottom:12px;"><strong>Gateway:</strong> Combines and standardizes packet structures when passing variant firewall systems.</p>
+            <p style="color:#ccc; margin-bottom:12px;"><strong>Electronic Transactions Act 2063:</strong> Formed in Nepal to penalize database intruders and structural defacers.</p>
         </div>
-        <button class="back-btn" onclick="showDashboard()">⬅️ RETURN</button>
+        <button class="back-btn" onclick="returnToDashboard()">⬅️ RETURN TO SYSTEM</button>
     </div>
 
     <div class="screen-panel" id="passScreen">
-        <h3 style="color:#ffaa00; margin-bottom:15px; text-align:center;">🔑 SYMMETRIC CIPHER CRYPTO-GENERATOR</h3>
+        <h3 style="color:#ffaa00; margin-bottom:15px; text-align:center;">🔑 SYMMETRIC CRYPTO KEYGEN</h3>
         <div class="content-area" style="border-color:#ffaa00; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px;">
-            <div id="generatedPass" style="background:#111; padding:20px; border:2px dashed #ffaa00; color:#fff; font-size:18px; width:80%; text-align:center; word-break:break-all;">Click below to construct key...</div>
-            <button class="action-btn" style="border-color:#ffaa00; color:#ffaa00; max-width:300px;" onclick="generateSecurePassword()">CONSTRUCT CIPHER NODE</button>
+            <div id="generatedPass" style="background:#000; padding:20px; border:2px dashed #ffaa00; color:#fff; font-size:16px; width:90%; text-align:center;">Deploy Generator Blueprint...</div>
+            <button class="action-btn" style="border-color:#ffaa00; color:#ffaa00; max-width:280px;" onclick="generateCryptoString()">BUILD VECTOR CIPHER</button>
         </div>
-        <button class="back-btn" onclick="showDashboard()">⬅️ RETURN</button>
+        <button class="back-btn" onclick="returnToDashboard()">⬅️ RETURN TO SYSTEM</button>
     </div>
 
     <div class="screen-panel" id="browserScreen">
-        <h3 style="color:#5b9aff; margin-bottom:12px; text-align:center;">🌐 GOOGLE CHROME CYBER CRAWLER SIMULATOR</h3>
+        <h3 style="color:#5b9aff; margin-bottom:12px; text-align:center;">🌐 GOOGLE CHROME EMBEDDED SIMULATOR</h3>
         <div class="browser-bar">
-            <input type="text" id="browserUrlInput" class="browser-input" placeholder="Search Google or type keyword (try: 'ipl', 'sandesh', 'aura live')..." onkeydown="if(event.key==='Enter') executeFakeSearch()">
-            <button class="browser-go" onclick="executeFakeSearch()">SEARCH</button>
+            <input type="text" id="browserUrlInput" class="browser-input" placeholder="Search Google or paste link (e.g. 'ipl', 'ipl table')...">
+            <button class="browser-go" onclick="executeRealChromeSearch()">SEARCH</button>
         </div>
-        <div class="content-area" id="browserDisplayView" style="border-color:#5b9aff; background:#02050a; overflow-y:auto;">
-            <div style="text-align:center; padding-top:10vh;">
-                <h1 style="font-size:36px; font-family:Arial; font-weight:bold;"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></h1>
-                <p style="color:#555; font-size:12px; margin-top:5px;">Chrome Standalone Isolated Sandbox Engine V2.</p>
+        <div class="content-area" id="browserDisplayView" style="border-color:#5b9aff; padding:0; background:#fff; overflow:hidden;">
+            <div style="text-align:center; padding-top:15vh; background:#000; height:100%; color:#fff;">
+                <h1 style="font-size:42px; font-family:Arial, sans-serif; font-weight:bold;"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></h1>
+                <p style="color:#666; font-size:12px; margin-top:5px;">Sandesh Embedded Proxy Core. Search 'ipl' for live standings map.</p>
             </div>
         </div>
-        <button class="back-btn" onclick="showDashboard()">⬅️ SHUTDOWN BROWSER</button>
+        <button class="back-btn" onclick="returnToDashboard()">⬅️ SHUTDOWN BROWSER</button>
     </div>
 
     <div class="screen-panel" id="aiScreen">
         <h3 style="color:#00ffff; margin-bottom:12px; text-align:center;">🤖 QUANTUM ADVANCED AI TERMINAL STACK</h3>
-        
         <div class="ai-selector">
-            <div class="ai-tab active" id="tabCyber" onclick="switchAiMode('cyber')">🧠 ORIGINAL CYBER AI</div>
-            <div class="ai-tab" id="tabHacker" onclick="switchAiMode('hacker')">💀 REAL HACKER GPT</div>
+            <div class="ai-tab active" id="tabCyber" onclick="toggleAiStack('cyber')">🧠 ORIGINAL CYBER AI</div>
+            <div class="ai-tab" id="tabHacker" onclick="toggleAiStack('hacker')">💀 REAL HACKER GPT</div>
         </div>
-
         <div class="content-area" id="aiChatLog" style="border-color: #00ffff; height: calc(100vh - 280px);">
-            <div style="color: #00ff00;">[system@ai_node]: Multi-Agent Core ready. Tap switches to launch payloads.</div>
+            <div style="color: #00ff00;">[system@ai_node]: Multi-Agent architecture loaded. Systems operational.</div>
         </div>
-        
         <div style="display:flex; gap:8px;">
-            <input type="text" id="aiInput" placeholder="Inject command code or question string..." style="flex:1; background:#000; border:1px solid #00ffff; padding:14px; color:#00ffff; outline:none; border-radius:5px;" onkeydown="if(event.key==='Enter') triggerAdvancedAi()">
-            <button onclick="triggerAdvancedAi()" style="background:#00ffff; border:none; padding:0 30px; font-weight:bold; border-radius:5px; cursor:pointer; color:#000;">EXECUTE</button>
+            <input type="text" id="aiInput" placeholder="Inject query payload..." style="flex:1; background:#000; border:1px solid #00ffff; padding:12px; color:#00ffff; outline:none;" onkeydown="if(event.key==='Enter') executeAiQuery()">
+            <button onclick="executeAiQuery()" style="background:#00ffff; border:none; padding:0 20px; font-weight:bold; cursor:pointer; color:#000;">RUN</button>
         </div>
-        <button class="back-btn" style="margin-top:12px; width:100%;" onclick="showDashboard()">⬅️ CLOSE AI NETWORK INTERFACE</button>
+        <button class="back-btn" onclick="returnToDashboard()">⬅️ CLOSE TERMINAL</button>
     </div>
 
     <div class="game-screen" id="gameScreen">
-        <h3 style="color:#ffff00; margin-bottom:10px; text-align:center;">🛡️ MALWARE PACKET DESTRUCTION VECTOR</h3>
+        <h3 style="color:#ffff00; margin-bottom:10px; text-align:center;">🎮 MALWARE PACKET DESTRUCTION CORE</h3>
         <div class="game-container">
             <div id="gameScore">SCORE: 0</div>
             <div id="player">🛡️</div>
         </div>
         <div class="game-controls">
-            <button class="ctrl-btn" onclick="movePlayer('left')">◀ PACKET SHIFT LEFT</button>
-            <button class="ctrl-btn" onclick="movePlayer('right')">PACKET SHIFT RIGHT ▶</button>
+            <button class="ctrl-btn" onclick="shiftPlayerLeft()">◀ SHIFT LEFT</button>
+            <button class="ctrl-btn" onclick="shiftPlayerRight()">SHIFT RIGHT ▶</button>
         </div>
-        <button class="back-btn" style="width:100%;" onclick="quitGame()">⬅️ QUIT SIMULATION</button>
+        <button class="back-btn" onclick="stopGameEngine()">⬅️ TERMINATE SIMULATION</button>
     </div>
 
     <script>
-        let currentAiMode = "cyber";
+        let globalCoins = parseInt(localStorage.getItem("sandesh_user_coins")) || 0;
+        let selectedAiStack = "cyber";
+        let isCoinHarvestModeActive = false;
 
         window.onload = function() {
-            loadLeaderboard();
-            checkAdminStatus();
-            if(localStorage.getItem("active_login") === "true") {
+            updateCoinGraphics();
+            if(localStorage.getItem("active_session") === "true") {
                 document.getElementById("coreSystem").style.display = "block";
             } else {
                 document.getElementById("loginBox").style.display = "block";
             }
         }
 
-        function launchSystem() {
-            let userField = document.getElementById("username").value.trim();
-            let emailField = document.getElementById("email").value.trim();
-            let finalName = userField || (emailField ? emailField.split('@')[0] : "OperatorNode");
-            let finalEmail = emailField || "GuestNode@systems.net";
-
-            localStorage.setItem("user_display_name", finalName);
-            localStorage.setItem("user_node_email", finalEmail.toLowerCase());
-            localStorage.setItem("active_login", "true");
-            
-            addNewUserToLeaderboard(finalName, 0);
+        function launchSystemCore() {
+            localStorage.setItem("active_session", "true");
             document.getElementById("loginBox").style.display = "none";
             document.getElementById("coreSystem").style.display = "block";
-            checkAdminStatus();
         }
 
-        function checkAdminStatus() {
-            let currentEmail = localStorage.getItem("user_node_email") || "";
-            if(currentEmail === "sandesh99998@gmail.com") {
-                document.getElementById("adminAccessBtn").style.display = "block";
-                loadAdminData();
-            } else {
-                document.getElementById("adminAccessBtn").style.display = "none";
-            }
+        function updateCoinGraphics() {
+            document.getElementById("topCoinDisplay").innerText = "🪙 " + globalCoins + " Coins";
+            localStorage.setItem("sandesh_user_coins", globalCoins);
         }
 
-        function triggerLogout() {
-            localStorage.removeItem("active_login");
-            localStorage.removeItem("user_display_name");
-            localStorage.removeItem("user_node_email");
-            document.querySelectorAll('.screen-panel').forEach(p => p.style.display = "none");
-            document.getElementById("coreSystem").style.display = "none";
-            document.getElementById("gameScreen").style.display = "none";
-            document.getElementById("loginBox").style.display = "block";
-            alert("🔴 SECURITY DISCONNECT: Session and cached variables cleared.");
+        // TRIGGER PROCESS TO COLLECT COINS VIA PLAYING GAME
+        function triggerCoinCollectionProcess() {
+            isCoinHarvestModeActive = true;
+            alert("⚠️ SYSTEM PROTOCOL:\nTo harvest 100 Coins, you must pass 150+ Points in the upcoming simulation. Initializing Game Chamber!");
+            openGameArena();
         }
 
         function openScreen(screenId) {
@@ -493,231 +368,159 @@
             document.getElementById(screenId).style.display = "block";
         }
 
-        function switchAiMode(mode) {
-            currentAiMode = mode;
-            document.getElementById("tabCyber").classList.remove("active");
-            document.getElementById("tabHacker").classList.remove("active");
-            
-            if(mode === 'cyber') {
-                document.getElementById("tabCyber").classList.add("active");
-                document.getElementById("aiChatLog").innerHTML += `<div style="color:#00ffff; margin-top:5px;">[CORE]: Linked to Cyber Knowledge Matrix.</div>`;
-            } else {
-                document.getElementById("tabHacker").classList.add("active");
-                document.getElementById("aiChatLog").innerHTML += `<div style="color:#ff00ff; margin-top:5px;">[ROOT@HACKER-GPT-V4]: Exploits, penetration models, and automated bypass modules synchronized.</div>`;
-            }
-        }
-
-        // REALISTIC HACKER GPT MODULE & ORIGINAL AI INTEGRATION
-        function triggerAdvancedAi() {
-            const input = document.getElementById("aiInput");
-            const log = document.getElementById("aiChatLog");
-            let text = input.value.trim();
-            if(!text) return;
-
-            log.innerHTML += `<div style="color:#00ff00; margin-top:8px;">[SYSTEM_OP]: ${text}</div>`;
-            input.value = "";
-
-            setTimeout(() => {
-                let reply = "";
-                let q = text.toLowerCase();
-
-                if(currentAiMode === "hacker") {
-                    // REAL DANGEROUS LOOKING HACKER GPT LOGIC
-                    reply = `<span style="color:#ff3333;">[💀 HACKER-GPT-SHELL]:</span> Command Unknown. Bruteforcing target node dictionaries... <br><span style="color:#888;">[INFO] Scanning ports 80, 443, 8080... Filtered. Injecting custom SQL Exploit payload.</span>`;
-                    
-                    if(q.includes("hello") || q.includes("hi ") || q.includes("hey")) {
-                        reply = `<span style="color:#ff00ff;">[💀 HACKER-GPT]:</span> Root session authorized. Monitoring network handshakes. Standing by for specific network penetration guidelines or script debugging payloads, commander.`;
-                    } else if (q.includes("hack") || q.includes("bypass") || q.includes("ddos")) {
-                        reply = `<span style="color:#ff3333;">[💀 HACKER-GPT-EXPLOIT]:</span> Initializing Metasploit payload wrapper. Target firewalls running outdated configurations. Sending automated sync flood to exhaust port configurations... [SIMULATION BUFFER ACTIVE]`;
-                    } else if (q.includes("python") || q.includes("code")) {
-                        reply = `<span style="color:#00ffff;">[💀 HACKER-GPT-DEV]:</span> Python cyber agent initialized. Importing socket, sys, requests modules. Constructing stealth multi-threaded scanner. Provide parameters to deploy payload.`;
-                    } else if (q.includes("virus") || q.includes("trojan")) {
-                        reply = `<span style="color:#ffcc00;">[💀 HACKER-GPT-WARN]:</span> Compiling binary payload structure... Encrypting signatures using polymorphic multi-layers to avoid signature-based detection models.`;
-                    }
-                } 
-                else {
-                    // YOUR ORIGINAL KNOWLEDGE BASE AI
-                    reply = "[🧠 CYBER ENGINE]: Processing query structure. Ask about networking, gateways, cyber law or class 10 computer notes.";
-                    if (q.includes("hello") || q.includes("hi")) {
-                        reply = `[🧠 CYBER ENGINE]: Connection stabilized. Ready to display standard security indexing maps.`;
-                    } else if (q.includes("gateway")) {
-                        reply = "[🧠 CYBER ENGINE]: A Gateway translates information packages when passing boundaries separating completely variant network profiles.";
-                    } else if (q.includes("python")) {
-                        reply = "[🧠 CYBER ENGINE]: Python scripting algorithms allow high speed calculation processing and simple modular logic structuring.";
-                    } else if (q.includes("law") || q.includes("cyber law")) {
-                        reply = "[🧠 CYBER ENGINE]: Electronic Transactions Act 2063 serves as Nepal's official cyber law framework, monitoring system breaches.";
-                    }
-                }
-
-                log.innerHTML += `<div style="margin-top:5px; padding-left:10px; border-left:2px solid #555;">${reply}</div>`;
-                log.scrollTop = log.scrollHeight;
-            }, 350);
-        }
-
-        // CHROME SEARCH CRAWLER: IPL 10 TEAMS AND DETAILS EXTENDED HERE
-        function executeFakeSearch() {
-            const input = document.getElementById("browserUrlInput");
-            const view = document.getElementById("browserDisplayView");
-            let query = input.value.trim().toLowerCase();
-            if(!query) return;
-
-            view.innerHTML = `<div style="color:#5b9aff; font-size:12px;">🔍 Chrome Fetching live index caches...</div>`;
-
-            setTimeout(() => {
-                // IF USER SEARCHES FOR IPL / TABLE / STANDINGS
-                if(query.includes('ipl') || query.includes('cricket') || query.includes('standing') || query.includes('table')) {
-                    view.innerHTML = `
-                        <div class="web-result-item" style="border: 1px solid #ffaa00; padding: 12px; border-radius: 8px; background: #060a0f;">
-                            <div class="web-title" style="color: #ffaa00;">VIVO IPL Realtime Standings (10 Active Teams Tracker)</div>
-                            <div class="web-url">https://www.iplt20.com/points-table-2026</div>
-                            <p style="color: #888; font-size:11px; margin-bottom:10px;">Live match tracker data updated from official stadiums. Showing complete list of total wins, losses and accumulated points score:</p>
-                            
-                            <table class="cyber-table">
-                                <thead>
-                                    <tr>
-                                        <th>RANK / TEAM NAME</th>
-                                        <th>WIN</th>
-                                        <th>LOSE</th>
-                                        <th>POINTS</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr style="background:rgba(0,255,0,0.1); font-weight:bold;"><td>1. 👑 RCB (Royal Challengers Bengaluru)</td><td>9</td><td>3</td><td style="color:#00ff00;">18</td></tr>
-                                    <tr><td>2. ⚡ GT (Gujarat Titans)</td><td>8</td><td>4</td><td>16</td></tr>
-                                    <tr><td>3. 🔷 MI (Mumbai Indians)</td><td>7</td><td>5</td><td>14</td></tr>
-                                    <tr><td>4. 🟡 CSK (Chennai Super Kings)</td><td>7</td><td>5</td><td>14</td></tr>
-                                    <tr><td>5. 🦅 LSG (Lucknow Super Giants)</td><td>6</td><td>6</td><td>12</td></tr>
-                                    <tr><td>6. 🏹 RR (Rajasthan Royals)</td><td>6</td><td>6</td><td>12</td></tr>
-                                    <tr><td>7. 👑 PBKS (Punjab Kings)</td><td>5</td><td>7</td><td>10</td></tr>
-                                    <tr><td>8. 🍊 SRH (Sunrisers Hyderabad)</td><td>5</td><td>7</td><td>10</td></tr>
-                                    <tr style="color:#777;"><td>9. 🔴 DC (Delhi Capitals)</td><td>4</td><td>8</td><td>8</td></tr>
-                                    <tr style="color:#777;"><td>10.💀 KKR (Kolkata Knight Riders)</td><td>3</td><td>9</td><td>6</td></tr>
-                                </tbody>
-                            </table>
-                            <div style="font-size:10px; color:#ff3333; margin-top:10px; border-top:1px dashed #222; padding-top:5px;">🔥 Current Trend: RCB holds position #1. KKR near elimination bounds.</div>
-                        </div>`;
-                }
-                else if(query.includes('sandesh')) {
-                    view.innerHTML = `
-                        <div class="web-result-item">
-                            <div class="web-title">Sandesh Dev Ops - Enterprise Terminal Control Base</div>
-                            <div class="web-url">https://sandesh-terminal-systems.np/main</div>
-                            <div class="web-desc">Exclusive customized web portal engineered for database logging, network status checks, study note caching, and custom CSS UI expansion modules.</div>
-                        </div>`;
-                }
-                else if(query.includes('aura live')) {
-                    view.innerHTML = `
-                        <div class="web-result-item">
-                            <div class="web-title">AURA LIVE Cricket Streaming Node</div>
-                            <div class="web-url">https://auralive.io/sports/streaming</div>
-                            <div class="web-desc">Simulated video stream interface for high tier tournament relays. Configured and structured cleanly by Sandesh server algorithms.</div>
-                        </div>`;
-                }
-                else {
-                    view.innerHTML = `
-                        <div class="web-result-item">
-                            <div class="web-title">Cloned Search Node Results for: "${query}"</div>
-                            <div class="web-url">https://google.com/search?q=${encodeURIComponent(query)}</div>
-                            <div class="web-desc">Offline sandbox filter block. The server successfully processed the query string "${query}" inside isolated memory stacks safely.</div>
-                        </div>`;
-                }
-            }, 400);
-        }
-
-        function showDashboard() {
+        function returnToDashboard() {
             document.querySelectorAll('.screen-panel').forEach(p => p.style.display = "none");
             document.getElementById("gameScreen").style.display = "none";
             document.getElementById("coreSystem").style.display = "block";
-            loadLeaderboard();
         }
 
-        function submitSuggestion() {
-            let text = document.getElementById("suggestionInput").value.trim();
-            if(!text) return;
-            let currentEmail = localStorage.getItem("user_node_email") || "Anonymous";
-            let suggestions = JSON.parse(localStorage.getItem("app_suggestions")) || [];
-            suggestions.push({user: currentEmail, text: text, date: new Date().toLocaleTimeString()});
-            localStorage.setItem("app_suggestions", JSON.stringify(suggestions));
-            document.getElementById("suggestionInput").value = "";
-            alert("🔒 Payload dispatched securely to Admin Database.");
-            loadAdminData();
+        // EMBEDDED CHROME SIMULATOR - OPENS REAL LINKS IN APP IFRAME SHELL
+        function executeRealChromeSearch() {
+            const input = document.getElementById("browserUrlInput");
+            const display = document.getElementById("browserDisplayView");
+            let val = input.value.trim().toLowerCase();
+            if(!val) return;
+
+            display.innerHTML = `<div style="color:#5b9aff; font-size:12px; padding:20px; background:#000; height:100%;">🌐 Synchronizing proxy link pipeline... Please wait.</div>`;
+
+            setTimeout(() => {
+                // If searching for IPL / Table -> Load the official Real Live Table directly into the App!
+                if(val.includes("ipl") || val.includes("table") || val.includes("standing")) {
+                    display.innerHTML = `<iframe class="chrome-iframe-container" src="https://www.iplt20.com/points-table-2026"></iframe>`;
+                } 
+                // Any other query opens a direct iframe reference engine
+                else {
+                    display.innerHTML = `<iframe class="chrome-iframe-container" src="https://bing.com/search?q=${encodeURIComponent(val)}"></iframe>`;
+                }
+            }, 500);
         }
 
-        function loadAdminData() {
-            let area = document.getElementById("adminLogArea");
-            let suggestions = JSON.parse(localStorage.getItem("app_suggestions")) || [];
-            if(suggestions.length === 0) { area.innerHTML = "No reports submitted yet."; return; }
-            area.innerHTML = "<strong>📥 SYSTEM LOG INCOMING PAYLOADS:</strong><br><br>";
-            suggestions.forEach((s) => {
-                area.innerHTML += `<div style='border-bottom:1px solid #222; margin-bottom:8px; padding-bottom:5px;'>User Node: ${s.user}<br>Message: ${s.text}</div>`;
-            });
-        }
-
-        function loadLeaderboard() {
-            let scores = JSON.parse(localStorage.getItem("cyber_scores")) || [
-                {name: "Sandesh", score: 210}, {name: "AURA_Pro", score: 140}, {name: "HackerX", score: 95}
-            ];
-            scores.sort((a,b) => b.score - a.score);
-            let container = document.getElementById("leaderboardContainer");
-            container.innerHTML = "";
-            scores.slice(0, 100).forEach((s, index) => {
-                let rClass = index===0?"rank-1":(index===1?"rank-2":(index===2?"rank-3":""));
-                container.innerHTML += `<div class="rank-row ${rClass}"><span>${index+1}. ${s.name}</span><span>${s.score} pts</span></div>`;
-            });
-        }
-
-        function addNewUserToLeaderboard(name, score) {
-            let scores = JSON.parse(localStorage.getItem("cyber_scores")) || [];
-            if(!scores.find(s => s.name.toLowerCase() === name.toLowerCase())) {
-                scores.push({name: name.substring(0,14), score: score});
-                localStorage.setItem("cyber_scores", JSON.stringify(scores));
+        // AI CORE TOGGLE CONTROLLER
+        function toggleAiStack(stack) {
+            selectedAiStack = stack;
+            document.getElementById("tabCyber").classList.remove("active");
+            document.getElementById("tabHacker").classList.remove("active");
+            
+            if(stack === 'cyber') {
+                document.getElementById("tabCyber").classList.add("active");
+            } else {
+                document.getElementById("tabHacker").classList.add("active");
             }
         }
 
-        function getLiveIpAddress() {
-            let term = document.getElementById("mainTerminal");
-            term.innerHTML += `<br>sandesh@system:~# parsing packet headers...`;
+        function executeAiQuery() {
+            const input = document.getElementById("aiInput");
+            const log = document.getElementById("aiChatLog");
+            let txt = input.value.trim();
+            if(!txt) return;
+
+            log.innerHTML += `<div style="color:#00ff00; margin-top:8px;">[USER_EXEC]: ${txt}</div>`;
+            input.value = "";
+
             setTimeout(() => {
-                term.innerHTML += `<br><span style='color:#ff3333;'>[TARGET GATEWAY FOUND]</span> 192.168.1.` + Math.floor(Math.random()*254+1);
-                term.scrollTop = term.scrollHeight;
+                let response = "";
+                let low = txt.toLowerCase();
+
+                if(selectedAiStack === "hacker") {
+                    // REAL HACKER GPT MODULE RESPONSES
+                    if(low.includes("hello") || low.includes("hi")) {
+                        response = `<span style="color:#ff00ff;">[💀 REAL-HACKER-GPT]:</span> Encryption layer loaded. Root session established. Standing by for defensive script parameters or target port audits...`;
+                    } else if(low.includes("hack") || low.includes("bypass")) {
+                        response = `<span style="color:#ff3333;">[💀 REAL-HACKER-GPT-EXPLOIT]:</span> Bypassing secure network sockets... Launching reverse shell listener on local port. Exploit payload injection status: [OK]`;
+                    } else {
+                        response = `<span style="color:#ff3333;">[💀 REAL-HACKER-GPT]:</span> Buffer tracking active. Packet string processed through secure dictionary frameworks without signature flags.`;
+                    }
+                } else {
+                    response = `[🧠 CYBER ENGINE]: Data array parsed safely. Ask for standard class 10 network gateway protocols or security laws.`;
+                }
+
+                log.innerHTML += `<div style="margin-top:5px; padding-left:10px; border-left:2px solid #333;">${response}</div>`;
+                log.scrollTop = log.scrollHeight;
             }, 300);
         }
 
-        function generateSecurePassword() {
-            const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
-            let p = ""; for (let i = 0; i < 16; i++) p += chars.charAt(Math.floor(Math.random() * chars.length));
-            document.getElementById("generatedPass").innerText = p;
+        function generateCryptoString() {
+            const set = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+            let res = ""; for(let i=0; i<14; i++) res += set.charAt(Math.floor(Math.random()*set.length));
+            document.getElementById("generatedPass").innerText = res;
         }
 
-        /* PACKET IMPACT GAME ENGINE */
-        let gameInterval; let score = 0; let playerPos = 45;
-        function openGame() { document.getElementById("coreSystem").style.display = "none"; document.getElementById("gameScreen").style.display = "block"; startGame(); }
-        function startGame() {
-            score = 0; playerPos = 45; document.getElementById("player").style.left = playerPos + "%";
-            gameInterval = setInterval(() => { score+=10; document.getElementById("gameScore").innerText = "SCORE: " + score; spawnObstacle(); }, 1200);
+        function simulateLiveIpScanning() {
+            let t = document.getElementById("mainTerminal");
+            t.innerHTML += `<br>sandesh@system:~# scanning active subnets...`;
+            setTimeout(() => {
+                t.innerHTML += `<br><span style='color:#ffff00;'>[NODE FOUND]</span> Internal Address: 192.168.1.${Math.floor(Math.random()*254+1)}`;
+                t.scrollTop = t.scrollHeight;
+            }, 400);
         }
-        function movePlayer(dir) {
-            if(dir==='left' && playerPos > 15) playerPos -= 30;
-            else if(dir==='right' && playerPos < 75) playerPos += 30;
-            document.getElementById("player").style.left = playerPos + "%";
+
+        /* 🎮 ENHANCED GAME CORE INTERFACE WITH REWARD VALIDATION */
+        let runningEngine; let arcadeScore = 0; let activePlayerX = 45;
+
+        function openGameArena() {
+            document.getElementById("coreSystem").style.display = "none";
+            document.getElementById("gameScreen").style.display = "block";
+            runArcadeSystem();
         }
-        function spawnObstacle() {
-            const container = document.querySelector('.game-container'); const obs = document.createElement('div');
-            obs.classList.add('obstacle'); obs.innerHTML = "🦠";
-            let positions = [15, 45, 75]; let lane = positions[Math.floor(Math.random()*3)];
-            obs.style.left = lane + "%"; container.appendChild(obs);
-            let topPos = -50;
-            let move = setInterval(() => {
-                topPos += 10; obs.style.top = topPos + "px";
-                if(topPos > 210 && topPos < 260 && lane === playerPos) {
-                    clearInterval(move); clearInterval(gameInterval);
-                    alert("🚨 EXPLOIT BUFFER OVERFLOW! Final Score: " + score);
-                    startGame();
+
+        function runArcadeSystem() {
+            arcadeScore = 0; activePlayerX = 45;
+            document.getElementById("player").style.left = activePlayerX + "%";
+            document.getElementById("gameScore").innerText = "SCORE: " + arcadeScore;
+            
+            runningEngine = setInterval(() => {
+                arcadeScore += 10;
+                document.getElementById("gameScore").innerText = "SCORE: " + arcadeScore;
+                generateVirusObstacle();
+            }, 1000);
+        }
+
+        function shiftPlayerLeft() { if(activePlayerX > 15) activePlayerX -= 30; document.getElementById("player").style.left = activePlayerX + "%"; }
+        function shiftPlayerRight() { if(activePlayerX < 75) activePlayerX += 30; document.getElementById("player").style.left = activePlayerX + "%"; }
+
+        function generateVirusObstacle() {
+            const box = document.querySelector('.game-container');
+            const bug = document.createElement('div');
+            bug.classList.add('obstacle'); bug.innerHTML = "🦠";
+            
+            let tracks = [15, 45, 75];
+            let currentTrack = tracks[Math.floor(Math.random() * 3)];
+            bug.style.left = currentTrack + "%";
+            box.appendChild(bug);
+            
+            let fallY = -50;
+            let fallSpeed = setInterval(() => {
+                fallY += 12; bug.style.top = fallY + "px";
+                
+                // Detection boundaries
+                if(fallY > 210 && fallY < 260 && currentTrack === activePlayerX) {
+                    clearInterval(fallSpeed); clearInterval(runningEngine);
+                    processGameEndMetrics();
                 }
-                if(topPos > 280) { clearInterval(move); obs.remove(); }
-            }, 25);
+                if(fallY > 280) { clearInterval(fallSpeed); bug.remove(); }
+            }, 30);
         }
-        function quitGame() { clearInterval(gameInterval); document.querySelectorAll('.obstacle').forEach(e => e.remove()); showDashboard(); }
+
+        function processGameEndMetrics() {
+            // Check if user crossed 150+ points threshold
+            if(arcadeScore >= 150) {
+                if(isCoinHarvestModeActive) {
+                    globalCoins += 100;
+                    updateCoinGraphics();
+                    alert("🎉 VICTORY EXPLOIT!\nYou scored " + arcadeScore + " Points. 100 Coins collected and loaded to your top right secure profile chest! 🪙");
+                } else {
+                    alert("👍 Nice Run! You scored " + arcadeScore + ". Try using the Collect Coin feature on dashboard to earn rewards next time!");
+                }
+            } else {
+                alert("🚨 GAME OVER!\nYour score: " + arcadeScore + ".\nYou needed 150+ Points to earn 100 Coins. Target missed, try again!");
+            }
+            isCoinHarvestModeActive = false;
+            clearRemainingBugs();
+            runArcadeSystem();
+        }
+
+        function clearRemainingBugs() { document.querySelectorAll('.obstacle').forEach(b => b.remove()); }
+        function stopGameEngine() { clearInterval(runningEngine); isCoinHarvestModeActive = false; clearRemainingBugs(); returnToDashboard(); }
     </script>
 </body>
 </html>
