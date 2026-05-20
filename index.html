@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandesh Advanced Ethical Systems v8.1 - Chrome Match</title>
+    <title>Sandesh Advanced Ethical Systems v9.0 - Infinite Subway Edition</title>
     <style>
         * {
             margin: 0;
@@ -12,9 +12,8 @@
             font-family: 'Courier New', Courier, monospace;
         }
 
-        /* 🌐 BACKGROUND CHANGED TO MATCH REAL GOOGLE CHROME PREMIUM DARK MODE */
         body {
-            background: #1f1f1f; /* Real Chrome/Google App Dark Canvas Base */
+            background: #000000;
             color: #00ff00;
             display: flex;
             justify-content: center;
@@ -22,16 +21,17 @@
             min-height: 100vh;
         }
 
-        /* App Screen Frames */
+        /* MAIN SYSTEM GRAPHICS NODE WITH NEON GREEN GLOW */
         .login-box, .main-system, .screen-panel, .game-screen {
             display: none;
             width: 100%;
             max-width: 100vw;
             height: 100vh;
-            background: #121212; /* Clean Material Dark Layout shown in photos */
+            background: #05070a; 
             border: 3px solid #00ff00;
+            border-radius: 12px;
             padding: 20px;
-            box-shadow: inset 0 0 20px rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3), inset 0 0 15px rgba(0, 255, 0, 0.15);
             position: relative;
             overflow-y: auto;
         }
@@ -60,17 +60,6 @@
             border-radius: 6px;
             font-weight: bold;
             font-size: 14px;
-        }
-
-        .cyber-logo {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            border: 2px solid #00ffff;
-            box-shadow: 0 0 20px #00ffff;
-            background: #1f1f1f;
-            margin: 20px auto;
-            display: block;
         }
 
         .input-group input {
@@ -144,7 +133,7 @@
         }
 
         .content-area {
-            background: #000;
+            background: #010204;
             border: 1px solid #00ff00;
             border-radius: 8px;
             height: calc(100vh - 240px);
@@ -164,89 +153,187 @@
             margin-top: 10px;
         }
 
-        /* 🌐 Google Chrome Engine Simulator Custom CSS Framework */
+        /* 🌐 GOOGLE CHROME CYBER SIMULATOR */
         .browser-bar {
             display: flex;
-            background: #2d2d2d; /* Chrome Bar Color Sync */
-            border: 1px solid #5b9aff;
-            border-radius: 6px;
+            background: #0c0f14;
+            border: 1px solid #2855a1;
+            border-radius: 8px;
             padding: 8px;
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 10px;
+            margin-bottom: 15px;
         }
         .browser-input { 
-            flex: 1; background: #1a1a1a; border: 1px solid #444; color: #00ffff; 
-            font-size: 13px; padding: 8px; outline: none; border-radius: 4px; 
+            flex: 1; background: #000000; border: 1px solid #222; 
+            color: #00ffff; font-size: 14px; padding: 10px; outline: none; border-radius: 6px; 
         }
         .browser-go { 
-            background: #5b9aff; color: #000; border: none; padding: 0 15px; 
-            font-weight: bold; border-radius: 4px; cursor: pointer; 
+            background: #5b9aff; color: #000000; border: none; padding: 0 22px; 
+            font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 13px;
         }
 
-        /* Inside Browser Canvas Node */
         .google-search-result-node {
-            background: #171717; /* Matches the Google Dark Search View perfectly */
-            color: #e8eaed;
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            height: 100%;
-            overflow-y: auto;
-            text-align: left;
+            background: #05070a; color: #a8b2c1;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 15px; height: 100%; overflow-y: auto;
+            text-align: left; border: 1px solid #1f3d6b; border-radius: 8px;
         }
-        .google-link-title { color: #8ab4f8; font-size: 18px; text-decoration: none; display: block; margin-top: 10px; }
-        .google-link-title:hover { text-decoration: underline; }
-        .google-snippet { color: #bdc1c6; font-size: 13px; margin-top: 4px; margin-bottom: 15px; line-height: 1.4; }
+        .google-link-title { color: #5b9aff; font-size: 16px; text-decoration: none; display: block; margin-top: 12px; font-weight: bold; }
+        .google-snippet { color: #8895a5; font-size: 12px; margin-top: 5px; margin-bottom: 15px; line-height: 1.4; }
 
-        /* AI Tab Architecture */
-        .ai-selector { display: flex; gap: 10px; margin-bottom: 12px; }
-        .ai-tab {
-            flex: 1; padding: 10px; background: #1a1a1a; border: 1px solid #333; color: #888;
-            cursor: pointer; font-size: 11px; text-align: center; border-radius: 4px; font-weight: bold;
+        /* 👑 PLAY STORE & INFINITE SUBWAY RUNNER ARCHITECTURE */
+        .playstore-container {
+            background: #11141a;
+            border-radius: 12px;
+            padding: 15px;
+            color: #fff;
         }
-        .ai-tab.active { border-color: #00ffff; color: #00ffff; background: #122226; }
-
-        /* Game System Layout */
-        .game-container {
+        .game-meta-header {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .game-icon-box {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #ff007f, #7f00ff);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+        }
+        .game-title-text h2 { font-size: 18px; color: #fff; font-family: sans-serif; }
+        .game-title-text p { font-size: 13px; color: #00e676; font-weight: bold; font-family: sans-serif; }
+        
+        .game-stats-row {
+            display: flex;
+            justify-content: space-around;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+            padding: 8px 0;
+            margin-bottom: 15px;
+            font-family: sans-serif;
+            text-align: center;
+        }
+        .stat-item h4 { font-size: 13px; color: #fff; }
+        .stat-item p { font-size: 10px; color: #888; }
+        
+        .playstore-install-btn {
             width: 100%;
-            height: 280px;
-            background: #0a0a0a;
-            border: 2px dashed #00ffff;
-            margin: 15px 0;
+            padding: 12px;
+            background: #00875f;
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            margin-bottom: 15px;
+            font-family: sans-serif;
+        }
+
+        /* 🚄 3-LANE INFINITE CANVAS FIELD */
+        .subway-ditto-field {
+            display: none;
+            width: 100%;
+            height: 320px;
+            background: #181d26;
+            border: 2px solid #00875f;
+            border-radius: 10px;
             position: relative;
             overflow: hidden;
         }
-        #gameScore { position: absolute; top: 10px; left: 10px; color: #ffff00; font-weight: bold; }
-        #player { width: 50px; height: 50px; background: #00ff00; position: absolute; bottom: 15px; left: 45%; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 22px; }
-        .obstacle { width: 40px; height: 40px; background: #ff3333; position: absolute; top: -50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; }
-        .game-controls { display: flex; gap: 10px; margin-bottom: 10px; }
-        .ctrl-btn { flex: 1; padding: 15px; background: #1a1a1a; border: 1px solid #00ffff; color: #00ffff; font-weight: bold; border-radius: 6px; }
+
+        .game-dashboard-bar {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            background: rgba(0,0,0,0.6);
+            font-size: 12px;
+            color: #fff;
+            z-index: 10;
+        }
+
+        .tracks-container {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .subway-lane-track {
+            flex: 1;
+            height: 100%;
+            border-left: 1px dashed rgba(255,255,255,0.15);
+            border-right: 1px dashed rgba(255,255,255,0.15);
+            position: relative;
+        }
+
+        #subwayHero {
+            position: absolute;
+            bottom: 20px;
+            width: 45px;
+            height: 45px;
+            font-size: 32px;
+            text-align: center;
+            transition: left 0.12s ease-in-out, bottom 0.2s ease;
+            z-index: 5;
+        }
+
+        .subway-obstacle-node {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            font-size: 30px;
+            text-align: center;
+            top: -50px;
+            z-index: 4;
+        }
+
+        .subway-controls-grid {
+            display: none;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 12px;
+        }
+        .subway-btn {
+            padding: 14px;
+            background: #222;
+            border: 1px solid #00875f;
+            color: #00e676;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            user-select: none;
+        }
     </style>
 </head>
 <body>
 
     <div class="login-box" id="loginBox" style="text-align: center; padding-top: 10vh;">
-        <svg class="cyber-logo" viewBox="0 0 100 100">
-            <circle cx="50" cy="50" r="45" fill="#121212"/>
-            <path d="M50,22 L66,38 L58,42 L70,55 L50,80 L30,55 L42,42 L34,38 Z" fill="none" stroke="#00ffff" stroke-width="2"/>
-        </svg>
-        <h2 style="color:#00ffff; margin-bottom:25px; font-size:18px;">SANDESH SYSTEMS ACCESS ENGINE</h2>
+        <h2 style="color:#00ffff; margin-bottom:25px; font-size:18px;">SANDESH CORE ENGINE ACCREDITATION</h2>
         <div class="input-group">
             <input type="text" id="username" placeholder="Operator Node ID">
             <input type="email" id="email" placeholder="Security Email Mapping">
             <input type="password" id="password" placeholder="Firewall Access Key">
         </div>
-        <button class="action-btn" style="max-width: 400px; margin: 0 auto;" onclick="launchSystemCore()">BOOT MAIN LOGIC NODE</button>
+        <button class="action-btn" style="max-width: 400px; margin: 0 auto;" onclick="launchSystemCore()">BOOT CORE</button>
     </div>
 
     <div class="main-system" id="coreSystem">
         <div class="app-header">
-            <div class="system-title">⚡ SANDESH ETHICAL CORE MASTER v8.1 ⚡</div>
+            <div class="system-title">⚡ SANDESH ETHICAL CORE MASTER v9.0 ⚡</div>
             <div class="coin-display-node" id="topCoinDisplay">🪙 0 Coins</div>
         </div>
 
         <div class="coin-collector-box">
             <p style="color: #fff; font-size: 13px; font-weight: bold; margin-bottom: 8px;">🪙 SECURE COIN GENERATION VALVE</p>
-            <p style="color: #bbb; font-size: 11px; margin-bottom: 10px;">Play the threat defense arcade. If you break <span style="color:#ffaa00; font-weight:bold;">150+ Score</span>, you win 100 Coins into your wallet!</p>
+            <p style="color: #bbb; font-size: 11px; margin-bottom: 10px;">Run Subway Ditto. Secure <span style="color:#ffaa00; font-weight:bold;">150+ Run Points</span> without dying to harvest 100 Coins!</p>
             <button class="action-btn" style="border-color: #ffff00; color: #ffff00; background: #262405; padding: 10px; margin-bottom: 0;" onclick="triggerCoinCollectionProcess()">⚡ RUN CHALLENGE TO EARN 100 COINS</button>
         </div>
 
@@ -254,13 +341,12 @@
             <button class="menu-item" style="border-color:#00ff00; color:#00ff00;" onclick="openScreen('studyScreen')">📖 STUDY BOOK</button>
             <button class="menu-item" style="border-color:#ffaa00; color:#ffaa00;" onclick="openScreen('passScreen')">🔑 PASS GEN</button>
             <button class="menu-item" style="border-color:#ff3333; color:#ff3333;" onclick="simulateLiveIpScanning()">🌐 GET LIVE IP</button>
-            <button class="menu-item" style="border-color:#ffff00; color:#ffff00;" onclick="openGameArena()">🎮 PLAY GAME</button>
+            <button class="menu-item" style="border-color:#ffff00; color:#ffff00;" onclick="openPlayStoreMarket()">🎮 PLAY GAME</button>
         </div>
 
-        <button class="action-btn" style="border-color:#5b9aff; color:#5b9aff; background: #121e2d;" onclick="openScreen('browserScreen')">🌐 LAUNCH REAL-LINK GOOGLE CHROME SIMULATOR</button>
-        <button class="action-btn" style="border-color:#00ffff; color:#00ffff; background: #122226;" onclick="openScreen('aiScreen')">🤖 ACCESS REAL HACKER GPT PANEL</button>
+        <button class="action-btn" style="border-color:#5b9aff; color:#5b9aff; background: #06111f;" onclick="openScreen('browserScreen')">🌐 LAUNCH REAL-LINK GOOGLE CHROME SIMULATOR</button>
         
-        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# Engine online. Google Chrome background sync interface matched flawlessly with system parameters.</div>
+        <div class="terminal-box" id="mainTerminal">sandesh@system_node:~# Infinite ♾️ game loop engine fully deployed. No finish threshold until collision damage.</div>
     </div>
 
     <div class="screen-panel" id="studyScreen">
@@ -268,7 +354,7 @@
         <div class="content-area">
             <h4 style="color:#00ffff; margin-bottom:10px;">Class 10 Core Syllabus Logs:</h4>
             <p style="color:#ccc; margin-bottom:12px;"><strong>Gateway:</strong> Combines and standardizes packet structures when passing variant firewall systems.</p>
-            <p style="color:#ccc; margin-bottom:12px;"><strong>Electronic Transactions Act 2063:</strong> Formed in Nepal to penalize database intruders and structural defacers.</p>
+            <p style="color:#ccc; margin-bottom:12px;"><strong>Electronic Transactions Act 2063:</strong> Formed in Nepal to penalize database intruders.</p>
         </div>
         <button class="back-btn" onclick="returnToDashboard()">⬅️ RETURN TO SYSTEM</button>
     </div>
@@ -276,62 +362,83 @@
     <div class="screen-panel" id="passScreen">
         <h3 style="color:#ffaa00; margin-bottom:15px; text-align:center;">🔑 SYMMETRIC CRYPTO KEYGEN</h3>
         <div class="content-area" style="border-color:#ffaa00; display:flex; flex-direction:column; justify-content:center; align-items:center; gap:20px;">
-            <div id="generatedPass" style="background:#000; padding:20px; border:2px dashed #ffaa00; color:#fff; font-size:16px; width:90%; text-align:center;">Deploy Generator Blueprint...</div>
-            <button class="action-btn" style="border-color:#ffaa00; color:#ffaa00; max-width:280px;" onclick="generateCryptoString()">BUILD VECTOR CIPHER</button>
+            <div id="generatedPass" style="background:#000; padding:20px; border:2px dashed #ffaa00; color:#fff; font-size:16px; width:90%; text-align:center;">Deploy Blueprint...</div>
+            <button class="action-btn" style="border-color:#ffaa00; color:#ffaa00; max-width:280px;" onclick="generateCryptoString()">BUILD CIPHER</button>
         </div>
         <button class="back-btn" onclick="returnToDashboard()">⬅️ RETURN TO SYSTEM</button>
     </div>
 
-    <div class="screen-panel" id="browserScreen" style="background: #171717;">
-        <h3 style="color:#5b9aff; margin-bottom:12px; text-align:center;">🌐 GOOGLE CHROME ADVANCED MULTI-CRAWLER</h3>
+    <div class="screen-panel" id="browserScreen">
         <div class="browser-bar">
-            <input type="text" id="browserUrlInput" class="browser-input" placeholder="Ask Google anything (e.g. 'ipl table', 'how to make tea', 'solve 25*4')...">
+            <input type="text" id="browserUrlInput" class="browser-input" placeholder="Search Google...">
             <button class="browser-go" onclick="executeRealChromeSearch()">SEARCH</button>
         </div>
-        <div class="content-area" id="browserDisplayView" style="border-color:#5b9aff; padding:0; background:#171717; overflow:hidden;">
-            <div class="google-search-result-node" style="background:#171717; text-align:center; padding-top:15vh;">
-                <h1 style="font-size:45px; font-family:Arial, sans-serif; font-weight:bold; margin-bottom: 10px;">
-                    <span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span>
-                </h1>
-                <p style="color:#80868b; font-size:12px;">Universal Search Sync Cluster Active. Ask any query string to harvest responsive index details.</p>
+        <div class="content-area" id="browserDisplayView" style="border-color:#5b9aff; background:#05070a; padding: 0;">
+            <div class="google-search-result-node" style="text-align:center; padding-top:15vh; border:none;">
+                <h1 style="font-size:42px; font-weight:bold; margin-bottom: 12px; color:#4285F4;">Google</h1>
             </div>
         </div>
         <button class="back-btn" onclick="returnToDashboard()">⬅️ SHUTDOWN BROWSER</button>
     </div>
 
-    <div class="screen-panel" id="aiScreen">
-        <h3 style="color:#00ffff; margin-bottom:12px; text-align:center;">🤖 QUANTUM ADVANCED AI TERMINAL STACK</h3>
-        <div class="ai-selector">
-            <div class="ai-tab active" id="tabCyber" onclick="toggleAiStack('cyber')">🧠 ORIGINAL CYBER AI</div>
-            <div class="ai-tab" id="tabHacker" onclick="toggleAiStack('hacker')">💀 REAL HACKER GPT</div>
-        </div>
-        <div class="content-area" id="aiChatLog" style="border-color: #00ffff; height: calc(100vh - 280px);">
-            <div style="color: #00ff00;">[system@ai_node]: Multi-Agent architecture loaded. Systems operational.</div>
-        </div>
-        <div style="display:flex; gap:8px;">
-            <input type="text" id="aiInput" placeholder="Inject command or query payload..." style="flex:1; background:#000; border:1px solid #00ffff; padding:12px; color:#00ffff; outline:none;" onkeydown="if(event.key==='Enter') executeAiQuery()">
-            <button onclick="executeAiQuery()" style="background:#00ffff; border:none; padding:0 20px; font-weight:bold; cursor:pointer; color:#000;">RUN</button>
-        </div>
-        <button class="back-btn" onclick="returnToDashboard()">⬅️ CLOSE TERMINAL</button>
-    </div>
-
     <div class="game-screen" id="gameScreen">
-        <h3 style="color:#ffff00; margin-bottom:10px; text-align:center;">🎮 MALWARE PACKET DESTRUCTION CORE</h3>
-        <div class="game-container">
-            <div id="gameScore">SCORE: 0</div>
-            <div id="player">🛡️</div>
+        <div class="app-header" style="border-color: #00875f;">
+            <div class="system-title" style="color: #00875f;">🎮 GOOGLE PLAY STORE MARKETPLACE</div>
         </div>
-        <div class="game-controls">
-            <button class="ctrl-btn" onclick="shiftPlayerLeft()">◀ SHIFT LEFT</button>
-            <button class="ctrl-btn" onclick="shiftPlayerRight()">SHIFT RIGHT ▶</button>
+
+        <div class="playstore-container">
+            <div class="game-meta-header">
+                <div class="game-icon-box">🏃‍♀️</div>
+                <div class="game-title-text">
+                    <h2>Subway Princess Runner</h2>
+                    <p>Ivy • Action & Arcade</p>
+                </div>
+            </div>
+
+            <div class="game-stats-row">
+                <div class="stat-item"><h4>4.0 ★</h4><p>1m reviews</p></div>
+                <div class="stat-item"><h4 style="border: 1px solid #fff; padding: 1px 4px; border-radius:3px; font-size:11px;">3+</h4><p>Rated for 3+</p></div>
+                <div class="stat-item"><h4>138 MB</h4><p>Size Cluster</p></div>
+            </div>
+
+            <button class="playstore-install-btn" id="subwayActionTrigger" onclick="executePlayStoreDeployment()">Install</button>
+
+            <div class="subway-ditto-field" id="subwayCanvasHub">
+                <div class="game-dashboard-bar">
+                    <div id="subwayLiveScore">🏃 DISTANCE: 0m</div>
+                    <div id="subwayCollectedCoins" style="color:#ffff00;">🪙 COINS: 0</div>
+                </div>
+
+                <div class="tracks-container">
+                    <div class="subway-lane-track" id="laneIndex0"></div>
+                    <div class="subway-lane-track" id="laneIndex1"></div>
+                    <div class="subway-lane-track" id="laneIndex2"></div>
+                </div>
+
+                <div id="subwayHero">🏃‍♀️</div>
+            </div>
+
+            <div class="subway-controls-grid" id="subwayActionControllerPad">
+                <button class="subway-btn" onclick="shiftHeroLane('left')">◀ LEFT</button>
+                <button class="subway-btn" style="color:#ffff00; border-color:#ffff00;" onclick="triggerHeroJump()">▲ JUMP</button>
+                <button class="subway-btn" onclick="shiftHeroLane('right')">RIGHT ▶</button>
+            </div>
         </div>
-        <button class="back-btn" onclick="stopGameEngine()">⬅️ TERMINATE SIMULATION</button>
+
+        <button class="back-btn" style="margin-top: 15px;" onclick="shutdownSubwayEngine()">⬅️ EXIT HUB</button>
     </div>
 
     <script>
         let globalCoins = parseInt(localStorage.getItem("sandesh_user_coins")) || 0;
         let isCoinHarvestModeActive = false;
-        let selectedAiStack = "cyber";
+        
+        let subwayLoopClock;
+        let runningScoreMetric = 0;
+        let collectedCoinsMetric = 0;
+        let activeHeroLaneIndex = 1; 
+        let isHeroMidAir = false;
+        let isSubwaySessionLive = false;
+        let speedMultiplier = 7;
 
         window.onload = function() {
             updateCoinGraphics();
@@ -355,8 +462,8 @@
 
         function triggerCoinCollectionProcess() {
             isCoinHarvestModeActive = true;
-            alert("⚠️ SECURITY CHALLENGE ACTIVE:\nBreak past 150+ Points in the malware grid to harvest 100 Coins safely into your top right safe display!");
-            openGameArena();
+            alert("🚀 INFINITE CHALLENGE VALVE ACTIVE:\nEnter the game hub, launch Subway Princess, and reach 150m without dying to secure 100 wallet coins!");
+            openPlayStoreMarket();
         }
 
         function openScreen(screenId) {
@@ -365,137 +472,207 @@
             document.getElementById(screenId).style.display = "block";
         }
 
+        function openPlayStoreMarket() {
+            document.getElementById("coreSystem").style.display = "none";
+            document.getElementById("gameScreen").style.display = "block";
+            
+            document.getElementById("subwayActionTrigger").innerText = "Install";
+            document.getElementById("subwayActionTrigger").style.background = "#00875f";
+            document.getElementById("subwayCanvasHub").style.display = "none";
+            document.getElementById("subwayActionControllerPad").style.display = "none";
+            isSubwaySessionLive = false;
+        }
+
+        function executePlayStoreDeployment() {
+            const actionBtn = document.getElementById("subwayActionTrigger");
+            if (actionBtn.innerText === "Install") {
+                actionBtn.innerText = "Downloading Cluster... 0%";
+                actionBtn.style.background = "#333";
+                
+                let loadValue = 0;
+                let loadingClock = setInterval(() => {
+                    loadValue += 25;
+                    actionBtn.innerText = `Downloading Cluster... ${loadValue}%`;
+                    if (loadValue >= 100) {
+                        clearInterval(loadingClock);
+                        actionBtn.innerText = "Play Game Node";
+                        actionBtn.style.background = "#00e676";
+                        actionBtn.style.color = "#000";
+                        document.getElementById("subwayCanvasHub").style.display = "block";
+                        document.getElementById("subwayActionControllerPad").style.display = "grid";
+                        bootSubwayRunnerLogic();
+                    }
+                }, 300);
+            } else if (actionBtn.innerText === "Play Game Node" && !isSubwaySessionLive) {
+                bootSubwayRunnerLogic();
+            }
+        }
+
+        // 🚄 ♾️ INFINITE SYSTEM ENGINE LOOP
+        function bootSubwayRunnerLogic() {
+            runningScoreMetric = 0;
+            collectedCoinsMetric = 0;
+            activeHeroLaneIndex = 1;
+            isSubwaySessionLive = true;
+            isHeroMidAir = false;
+            speedMultiplier = 7; // Reset speed index
+
+            document.getElementById("subwayLiveScore").innerText = "🏃 DISTANCE: 0m";
+            document.getElementById("subwayCollectedCoins").innerText = "🪙 COINS: 0";
+            
+            repositionHeroGraphics();
+            document.querySelectorAll('.subway-obstacle-node').forEach(el => el.remove());
+
+            let tickCounter = 0;
+            subwayLoopClock = setInterval(() => {
+                runningScoreMetric += 1;
+                document.getElementById("subwayLiveScore").innerText = "🏃 DISTANCE: " + runningScoreMetric + "m";
+
+                // Gradually increase speed over time to make it harder as you go infinite!
+                if (runningScoreMetric % 100 === 0 && speedMultiplier < 15) {
+                    speedMultiplier += 1;
+                }
+
+                tickCounter++;
+                if (tickCounter % 25 === 0) {
+                    injectSubwayElementNode();
+                }
+
+                moveSubwayElementsAndDetectCrash();
+            }, 40);
+        }
+
+        function repositionHeroGraphics() {
+            const hero = document.getElementById("subwayHero");
+            const lanes = [
+                document.getElementById("laneIndex0"),
+                document.getElementById("laneIndex1"),
+                document.getElementById("laneIndex2")
+            ];
+            
+            let targetLane = lanes[activeHeroLaneIndex];
+            let targetLeftPosition = targetLane.offsetLeft + (targetLane.offsetWidth / 2) - 22;
+            hero.style.left = targetLeftPosition + "px";
+        }
+
+        function shiftHeroLane(direction) {
+            if (!isSubwaySessionLive) return;
+            if (direction === 'left' && activeHeroLaneIndex > 0) {
+                activeHeroLaneIndex--;
+            } else if (direction === 'right' && activeHeroLaneIndex < 2) {
+                activeHeroLaneIndex++;
+            }
+            repositionHeroGraphics();
+        }
+
+        function triggerHeroJump() {
+            if (isHeroMidAir || !isSubwaySessionLive) return;
+            isHeroMidAir = true;
+            const hero = document.getElementById("subwayHero");
+            hero.style.bottom = "95px"; 
+            
+            setTimeout(() => {
+                hero.style.bottom = "20px";
+                setTimeout(() => { isHeroMidAir = false; }, 100);
+            }, 350);
+        }
+
+        function injectSubwayElementNode() {
+            const canvas = document.getElementById("subwayCanvasHub");
+            const node = document.createElement('div');
+            node.classList.add('subway-obstacle-node');
+
+            let designatedLaneIndex = Math.floor(Math.random() * 3);
+            node.dataset.lane = designatedLaneIndex;
+
+            let entityRng = Math.random();
+            if (entityRng < 0.4) {
+                node.innerText = "🚊"; 
+                node.dataset.type = "train";
+            } else if (entityRng < 0.7) {
+                node.innerText = "🚧"; 
+                node.dataset.type = "block";
+            } else {
+                node.innerText = "🪙"; 
+                node.dataset.type = "coin";
+                node.style.color = "#ffff00";
+            }
+
+            const lanes = [
+                document.getElementById("laneIndex0"),
+                document.getElementById("laneIndex1"),
+                document.getElementById("laneIndex2")
+            ];
+            let selectedLane = lanes[designatedLaneIndex];
+            node.style.left = (selectedLane.offsetLeft + (selectedLane.offsetWidth / 2) - 20) + "px";
+            node.style.top = "-40px";
+
+            canvas.appendChild(node);
+        }
+
+        function moveSubwayElementsAndDetectCrash() {
+            const elements = document.querySelectorAll('.subway-obstacle-node');
+            
+            elements.forEach(node => {
+                let currentTop = parseInt(node.style.top);
+                let elementNextTop = currentTop + speedMultiplier; 
+                node.style.top = elementNextTop + "px";
+
+                if (elementNextTop > 240 && elementNextTop < 295) {
+                    let elementLane = parseInt(node.dataset.lane);
+                    let elementType = node.dataset.type;
+
+                    if (elementLane === activeHeroLaneIndex) {
+                        if (elementType === "train") {
+                            executeSubwayCrashSequence(); // DIE ON IMPACT
+                        } else if (elementType === "block" && !isHeroMidAir) {
+                            executeSubwayCrashSequence(); // DIE ON IMPACT
+                        } else if (elementType === "coin") {
+                            collectedCoinsMetric += 10;
+                            document.getElementById("subwayCollectedCoins").innerText = "🪙 COINS: " + collectedCoinsMetric;
+                            node.remove();
+                        }
+                    }
+                }
+
+                if (elementNextTop > 320) {
+                    node.remove();
+                }
+            });
+        }
+
+        // 💀 TERMINATION TRIGGER (DIE METHOD)
+        function executeSubwayCrashSequence() {
+            clearInterval(subwayLoopClock);
+            isSubwaySessionLive = false;
+
+            // Give Reward if condition met before dying
+            if (runningScoreMetric >= 150 && isCoinHarvestModeActive) {
+                globalCoins += 100;
+                updateCoinGraphics();
+                alert(`💀 GAME OVER (DIED) 💀\n\n🎉 Challenge Success!\nDistance Covered: ${runningScoreMetric}m\nCoins Earned: ${collectedCoinsMetric}\n\n100 Coins added into your Main Vault System safely! 🪙`);
+            } else {
+                alert(`💀 GAME OVER (DIED) 💀\n\nYou crashed into an obstacle!\n\n🔹 Total Run Distance: ${runningScoreMetric}m\n🔹 Coins Gathered: ${collectedCoinsMetric}\n\n[Press OK to Respawn Node and Try Again]`);
+            }
+
+            isCoinHarvestModeActive = false;
+            // Clean tracks and show play layout back
+            document.querySelectorAll('.subway-obstacle-node').forEach(el => el.remove());
+            bootSubwayRunnerLogic(); // Auto respawn to let you play again!
+        }
+
+        function shutdownSubwayEngine() {
+            clearInterval(subwayLoopClock);
+            isSubwaySessionLive = false;
+            isCoinHarvestModeActive = false;
+            document.querySelectorAll('.subway-obstacle-node').forEach(el => el.remove());
+            returnToDashboard();
+        }
+
         function returnToDashboard() {
             document.querySelectorAll('.screen-panel').forEach(p => p.style.display = "none");
             document.getElementById("gameScreen").style.display = "none";
             document.getElementById("coreSystem").style.display = "block";
-        }
-
-        // =========================================================================
-        // 🌐 UNIVERSAL CHROME ENGINE - WITH IMPROVED DARK INTERFACE OVERLAYS
-        // =========================================================================
-        function executeRealChromeSearch() {
-            const input = document.getElementById("browserUrlInput");
-            const display = document.getElementById("browserDisplayView");
-            let query = input.value.trim();
-            let low = query.toLowerCase();
-            if(!query) return;
-
-            display.innerHTML = `<div style="color:#8ab4f8; font-size:14px; padding:20px; font-family:Arial; background:#171717; height:100%;">🌐 Google Chrome Crawler resolving data fields for "${query}"...</div>`;
-
-            setTimeout(() => {
-                let htmlContent = `<div class="google-search-result-node">`;
-                htmlContent += `<p style="color:#9aa0a6; font-size:13px; margin-bottom:15px;">About 4,210,000 results (0.28 seconds) for <b>${query}</b></p>`;
-
-                let finalAnswerBox = "";
-
-                // 1. IPL POINTS TABLE
-                if (low.includes("ipl") || low.includes("table") || low.includes("standing") || low.includes("match")) {
-                    finalAnswerBox = `
-                        <div style="border:1px solid #3c4043; border-radius:8px; padding:12px; background:#202124;">
-                            <h3 style="font-size:15px; margin-bottom:8px; color:#e8eaed;">🏆 IPL 2026 Live Standings Table</h3>
-                            <table style="width:100%; border-collapse:collapse; font-size:12px; text-align:center; color:#e8eaed;">
-                                <tr style="background:#3c4043; font-weight:bold;">
-                                    <th style="padding:5px; text-align:left;">Team</th><th>P</th><th>W</th><th>L</th><th>Pts</th><th>NRR</th>
-                                </tr>
-                                <tr style="background:#174ea6; font-weight:bold;">
-                                    <td style="padding:5px; text-align:left;">1. 👑 RCB</td><td>14</td><td>9</td><td>5</td><td>18</td><td>+0.742</td>
-                                </tr>
-                                <tr><td style="padding:5px; text-align:left;">2. ⚡ GT</td><td>14</td><td>8</td><td>6</td><td>16</td><td>+0.410</td></tr>
-                                <tr><td style="padding:5px; text-align:left;">3. 🔥 SRH</td><td>14</td><td>8</td><td>6</td><td>16</td><td>+0.120</td></tr>
-                                <tr><td style="padding:5px; text-align:left;">4. 🦁 CSK</td><td>14</td><td>7</td><td>7</td><td>14</td><td>+0.080</td></tr>
-                                <tr><td style="padding:5px; text-align:left;">5. 🔷 MI</td><td>14</td><td>7</td><td>7</td><td>14</td><td>-0.010</td></tr>
-                                <tr><td style="padding:5px; text-align:left;">6. 🏹 RR</td><td>14</td><td>6</td><td>8</td><td>12</td><td>-0.140</td></tr>
-                            </table>
-                        </div>
-                    `;
-                }
-                // 2. COOKING / TEA / FOOD
-                else if (low.includes("tea") || low.includes("make") || low.includes("cook") || low.includes("food")) {
-                    finalAnswerBox = `<b>How to make items:</b> To prepare standard milk tea, boil water in a pot, add tea leaves (2 mins), pour fresh milk, introduce sugar or cardamoms to enhance flavor depth, filter via net meshes and serve warm.`;
-                }
-                // 3. MATH CALCULATOR PARSER
-                else if (low.includes("solve") || low.includes("+") || low.includes("-") || low.includes("*") || low.includes("/")) {
-                    try {
-                        let cleanMath = query.replace(/[a-zA-Z]/g, ""); 
-                        let mathResult = eval(cleanMath);
-                        finalAnswerBox = `<b>🧮 Google Instant Math Evaluator:</b> The calculated response vector for expression [ ${cleanMath} ] equates exactly to: <b>${mathResult}</b>`;
-                    } catch(e) {
-                        finalAnswerBox = `<b>🧮 Math Engine:</b> Expression received. Ensure correct symbolic structuring (+, -, *, /) for clean evaluation loops.`;
-                    }
-                }
-                // 4. ETHICAL HACKING / SECURITY
-                else if (low.includes("hack") || low.includes("ethical") || low.includes("cyber")) {
-                    finalAnswerBox = `<b>Ethical Hacking Guide:</b> Authorized evaluation of system security parameters. Operates via reconnaissance, sniffing vulnerability targets, exploiting loopholes safely, and documenting patch resolutions.`;
-                }
-                // 5. UNIVERSAL DYNAMIC PARSER FOR ALL OTHER QUESTIONS
-                else {
-                    finalAnswerBox = `<b>Featured Snippet Vector:</b> "Google Chrome parsed your request string [ <i>${query}</i> ] safely." Inside active memory stacks, this index topic is verified as fully valid and stable. It represents safe, structured web knowledge parameters checked across global networks.`;
-                }
-
-                // Add Featured Snippet Box Real Dark Sync
-                htmlContent += `
-                    <div style="border:1px solid #3c4043; border-radius:8px; padding:15px; margin-bottom:20px; font-size:14px; line-height:1.5; background:#202124;">
-                        <span style="font-size:11px; color:#9aa0a6; display:block; margin-bottom:5px;">💡 Google Featured Snippet Answer</span>
-                        <div style="color:#e8eaed;">${finalAnswerBox}</div>
-                    </div>
-                `;
-
-                // Standard Web Results links
-                htmlContent += `
-                    <div>
-                        <a href="#" class="google-link-title">${query} - Wikipedia, the free encyclopedia</a>
-                        <p class="google-snippet">Comprehensive overviews, history timelines, structured categories, and open-source documentation variables relating directly to ${query}.</p>
-                        
-                        <a href="#" class="google-link-title">Latest Global Trends & News Map for ${query}</a>
-                        <p class="google-snippet">Read expert blogs, core analyses, safety parameters, and technical review updates discussing ${query} on modern cloud networks.</p>
-                    </div>
-                `;
-
-                htmlContent += `</div>`;
-                display.innerHTML = htmlContent;
-            }, 500);
-        }
-
-        // =========================================================================
-        // AI HUB LOGIC & HACKER GPT MODULE
-        // =========================================================================
-        function toggleAiStack(stack) {
-            selectedAiStack = stack;
-            document.getElementById("tabCyber").classList.remove("active");
-            document.getElementById("tabHacker").classList.remove("active");
-            if(stack === 'cyber') document.getElementById("tabCyber").classList.add("active");
-            else document.getElementById("tabHacker").classList.add("active");
-        }
-
-        function executeAiQuery() {
-            const input = document.getElementById("aiInput");
-            const log = document.getElementById("aiChatLog");
-            let txt = input.value.trim();
-            if(!txt) return;
-
-            log.innerHTML += `<div style="color:#00ff00; margin-top:8px;">[USER_EXEC]: ${txt}</div>`;
-            input.value = "";
-
-            setTimeout(() => {
-                let response = "";
-                let low = txt.toLowerCase();
-
-                if(selectedAiStack === "hacker") {
-                    if(low.includes("hello") || low.includes("hi")) {
-                        response = `<span style="color:#ff00ff;">[💀 REAL-HACKER-GPT]:</span> Multi-channel link stable. Security filters bypassed. Standing by to construct custom payloads or debug script repositories.`;
-                    } else if(low.includes("hack") || low.includes("bypass")) {
-                        response = `<span style="color:#ff3333;">[💀 REAL-HACKER-GPT-EXPLOIT]:</span> Allocating dynamic memory pools... Bypassing target network socket controls. Reverse shell successfully deployed on terminal gateway port.`;
-                    } else {
-                        response = `<span style="color:#ff3333;">[💀 REAL-HACKER-GPT-SHELL]:</span> Command logged. Masking system logs and proxy tracks to maintain persistent administrative root access.`;
-                    }
-                } else {
-                    response = `[🧠 CYBER ENGINE]: Data processed safely. Inquire regarding standard networking protocols or ETA 2063 legal parameters.`;
-                }
-
-                log.innerHTML += `<div style="margin-top:5px; padding-left:10px; border-left:2px solid #333;">${response}</div>`;
-                log.scrollTop = log.scrollHeight;
-            }, 300);
         }
 
         function generateCryptoString() {
@@ -506,73 +683,25 @@
 
         function simulateLiveIpScanning() {
             let t = document.getElementById("mainTerminal");
-            t.innerHTML += `<br>sandesh@system:~# scanning active gateway subnets... Node Vector Target: 192.168.1.${Math.floor(Math.random()*254+1)}`;
+            t.innerHTML += `<br>sandesh@system:~# Scanning IP gateways... Node found: 192.168.1.${Math.floor(Math.random()*254+1)}`;
             t.scrollTop = t.scrollHeight;
         }
 
-        /* 🎮 ENGINE UTILITIES */
-        let runningEngine; let arcadeScore = 0; let activePlayerX = 45;
+        function executeRealChromeSearch() {
+            const input = document.getElementById("browserUrlInput");
+            const display = document.getElementById("browserDisplayView");
+            let query = input.value.trim();
+            if(!query) return;
 
-        function openGameArena() {
-            document.getElementById("coreSystem").style.display = "none";
-            document.getElementById("gameScreen").style.display = "block";
-            runArcadeSystem();
+            display.innerHTML = `<div style="color:#5b9aff; font-size:13px; padding:20px;">🌐 Resolving index strings for "${query}"...</div>`;
+            setTimeout(() => {
+                display.innerHTML = `
+                    <div class="google-search-result-node">
+                        <a href="#" class="google-link-title">${query} - Source Repository</a>
+                        <p class="google-snippet">Verified data structures matched with request parameter query logs.</p>
+                    </div>`;
+            }, 400);
         }
-
-        function runArcadeSystem() {
-            arcadeScore = 0; activePlayerX = 45;
-            document.getElementById("player").style.left = activePlayerX + "%";
-            document.getElementById("gameScore").innerText = "SCORE: " + arcadeScore;
-            
-            runningEngine = setInterval(() => {
-                arcadeScore += 10;
-                document.getElementById("gameScore").innerText = "SCORE: " + arcadeScore;
-                generateVirusObstacle();
-            }, 1000);
-        }
-
-        function shiftPlayerLeft() { if(activePlayerX > 15) activePlayerX -= 30; document.getElementById("player").style.left = activePlayerX + "%"; }
-        function shiftPlayerRight() { if(activePlayerX < 75) activePlayerX += 30; document.getElementById("player").style.left = activePlayerX + "%"; }
-
-        function generateVirusObstacle() {
-            const box = document.querySelector('.game-container');
-            const bug = document.createElement('div');
-            bug.classList.add('obstacle'); bug.innerHTML = "🦠";
-            
-            let tracks = [15, 45, 75];
-            let currentTrack = tracks[Math.floor(Math.random() * 3)];
-            bug.style.left = currentTrack + "%";
-            box.appendChild(bug);
-            
-            let fallY = -50;
-            let fallSpeed = setInterval(() => {
-                fallY += 12; bug.style.top = fallY + "px";
-                if(fallY > 210 && fallY < 260 && currentTrack === activePlayerX) {
-                    clearInterval(fallSpeed); clearInterval(runningEngine);
-                    processGameEndMetrics();
-                }
-                if(fallY > 280) { clearInterval(fallSpeed); bug.remove(); }
-            }, 30);
-        }
-
-        function processGameEndMetrics() {
-            if(arcadeScore >= 150) {
-                if(isCoinHarvestModeActive) {
-                    globalCoins += 100;
-                    updateCoinGraphics();
-                    alert("🎉 COIN ALLOCATION SUCCESSFUL!\nYour score reached " + arcadeScore + ". 100 Coins successfully registry added into top right chest! 🪙");
-                } else {
-                    alert("Nice Run! Your total score was: " + arcadeScore);
-                }
-            } else {
-                alert("🚨 GAME OVER!\nScore: " + arcadeScore + ".\nYou need 150+ Points to earn the 100 Coins bonus reward pool. Keep practicing!");
-            }
-            isCoinHarvestModeActive = false;
-            document.querySelectorAll('.obstacle').forEach(b => b.remove());
-            runArcadeSystem();
-        }
-
-        function stopGameEngine() { clearInterval(runningEngine); isCoinHarvestModeActive = false; document.querySelectorAll('.obstacle').forEach(b => b.remove()); returnToDashboard(); }
     </script>
 </body>
 </html>
