@@ -2,444 +2,379 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sandesh Tools v15.0 - Ultimate 50+ Kali Core</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SANDESH ETHICAL CORE v15.0</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Courier New', Courier, monospace;
-        }
-
+        /* दुरुस्तै फोटोको जस्तै म्याट डार्क ब्याकग्राउन्ड र फन्ट */
         body {
-            background: #000000;
-            color: #00ff00;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
+            background-color: #05080c;
+            color: #22c55e;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 25px;
+            margin: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
-        .sandesh-mainframe {
-            width: 100vw;
-            height: 100vh;
-            background: #05070a;
-            padding: 15px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        .core-dashboard, .sub-screen {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 100%;
-        }
-
-        .sub-screen { display: none; }
-
-        /* HEADER INTERFACE */
-        .system-header {
+        /* SANDESH ETHICAL CORE v15.0 - ग्लोइङ हरियो फन्ट */
+        h1 {
+            color: #22c55e;
+            font-size: 24px;
             text-align: center;
-            margin-bottom: 20px;
-            margin-top: 10px;
-        }
-        .system-header h2 {
-            font-size: 18px;
-            color: #00ff00;
             letter-spacing: 2px;
-            text-shadow: 0 0 10px #00ff00;
+            margin-bottom: 25px;
+            text-shadow: 0 0 15px rgba(34, 197, 94, 0.6);
+            font-weight: bold;
         }
 
-        /* METRICS */
-        .runner-matrix-container {
-            background: #0a0e14;
-            border: 1px solid rgba(0, 255, 0, 0.3);
-            border-radius: 12px;
-            padding: 15px;
+        /* SYSTEM SECURITY MULTI-METRICS Box */
+        .metrics-box {
+            width: 100%;
+            max-width: 1100px;
+            border: 1px solid #131a26;
+            border-radius: 8px;
+            background-color: #030508;
+            padding: 15px 20px;
             margin-bottom: 20px;
         }
-        .matrix-title {
-            text-align: center;
-            font-size: 12px;
-            color: #00ff00;
+
+        .metrics-header {
+            color: #38bdf8;
+            font-size: 13px;
             font-weight: bold;
-            margin-bottom: 12px;
             letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-        .matrix-row {
+
+        .metric-row {
             display: flex;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 6px;
-            padding: 8px 15px;
-            margin-bottom: 8px;
-            font-size: 13px;
+            padding: 6px 0;
+            font-size: 14px;
         }
 
-        /* HUB GRID */
-        .control-grid-hub {
+        .metric-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .firewall-text { color: #f97316; } /* आगोको जस्तै सुन्तला रङ */
+        .kali-sub-text { color: #818cf8; }   /* बैजनी/निलो रङ */
+
+        .status-secure { color: #22c55e; font-weight: bold; }
+        .status-online { color: #a855f7; font-weight: bold; }
+
+        /* BUTTONS GRID - फोटोको जस्तै २-कलम लेआउट */
+        .button-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 1100px;
             margin-bottom: 20px;
         }
-        .hub-btn {
-            background: transparent;
-            border-radius: 10px;
-            padding: 18px 12px;
-            font-size: 13px;
+
+        /* फोटोमा जस्तै ठ्याक्कै बोर्डर र स्टाइल भएका कडा बटनहरू */
+        .grid-btn {
+            background-color: rgba(3, 5, 8, 0.6);
+            padding: 22px;
+            font-size: 14px;
             font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-            text-align: center;
-        }
-        .btn-study { border: 1px solid #00ff00; color: #00ff00; }
-        .btn-pass  { border: 1px solid #ffaa00; color: #ffaa00; }
-        .btn-ip    { border: 1px solid #ff3333; color: #ff3333; }
-        .btn-kali  { 
-            border: 1px solid #8c52ff; 
-            color: #8c52ff; 
-            box-shadow: 0 0 12px rgba(140, 82, 255, 0.5);
-            background: rgba(140, 82, 255, 0.08);
-        }
-
-        .live-terminal-console {
-            background: #000000;
-            border: 1px solid rgba(0, 255, 0, 0.2);
-            border-radius: 12px;
-            padding: 15px;
-            flex: 1;
-            overflow-y: auto;
-            font-size: 12px;
-            color: #00ff00;
-            line-height: 1.5;
-        }
-
-        /* 🐉 REAL KALI LINUX INTERFACE (BIG SCREEN) */
-        .kali-full-viewport {
-            width: 100%;
-            height: 100%;
+            font-family: 'Courier New', Courier, monospace;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 12px;
+        }
+
+        .grid-btn:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+            transform: translateY(-2px);
+        }
+
+        /* फोटोको जस्तै रङका बोर्डर र ग्लो इफेक्ट */
+        .btn-study { border: 2px solid #16a34a; color: #22c55e; box-shadow: inset 0 0 10px rgba(22, 163, 74, 0.1); }
+        .btn-pass { border: 2px solid #d97706; color: #f59e0b; box-shadow: inset 0 0 10px rgba(217, 119, 6, 0.1); }
+        .btn-ip { border: 2px solid #dc2626; color: #ef4444; box-shadow: inset 0 0 10px rgba(220, 38, 38, 0.1); }
+        .btn-kali { border: 2px solid #7c3aed; color: #a855f7; box-shadow: inset 0 0 15px rgba(124, 58, 237, 0.2); }
+
+        /* MAIN TERMINAL SCREEN - हरियो बोर्डर भएको कालो बक्स */
+        .main-terminal {
+            width: 100%;
+            max-width: 1100px;
+            height: 280px;
+            border: 2px solid rgba(22, 163, 74, 0.4);
+            border-radius: 10px;
+            background-color: #000000;
+            padding: 20px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.6;
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.9);
+        }
+
+        /* 🐉 REAL KALI LINUX INTERFACE (यो बटन थिचेपछि मात्र खुल्छ) */
+        .kali-big-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background-color: #050811;
-            /* Radial Gradient + SVG embedded vector for authentic Kali Dragon Wallpaper styling */
-            background-image: radial-gradient(circle at center, rgba(140, 82, 255, 0.16) 0%, #03050a 100%), 
-                              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" opacity="0.12"><path d="M400,80 Q460,130 430,200 Q510,220 580,180 Q520,260 440,260 Q460,340 370,410 Q400,310 360,260 Q280,260 220,180 Q300,220 370,200 Q340,130 400,80 Z" fill="%238c52ff"/><path d="M400,200 Q480,250 520,350 Q430,320 380,240 Z" fill="%2300ffff" opacity="0.4"/><circle cx="400" cy="230" r="145" stroke="%238c52ff" stroke-width="1" fill="none" stroke-dasharray="3,6"/></svg>');
+            /* काली लिनक्सको मेटल ड्रागन ब्याकग्राउन्ड इफेक्ट */
+            background-image: radial-gradient(circle at center, rgba(124, 58, 237, 0.15) 0%, #020306 100%), 
+                              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" opacity="0.12"><path d="M400,80 Q460,130 430,200 Q510,220 580,180 Q520,260 440,260 Q460,340 370,410 Q400,310 360,260 Q280,260 220,180 Q300,220 370,200 Q340,130 400,80 Z" fill="%237c3aed"/><circle cx="400" cy="230" r="140" stroke="%237c3aed" stroke-width="1" fill="none" stroke-dasharray="4,8"/></svg>');
             background-size: cover;
             background-position: center;
-            border: 2px solid #8c52ff;
-            border-radius: 12px;
-            padding: 12px;
-            overflow: hidden;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.9);
+            z-index: 9999;
+            padding: 20px;
+            flex-direction: column;
         }
 
         .kali-top-bar {
             display: flex;
             justify-content: space-between;
-            color: #a5b4fc;
-            font-size: 12px;
-            background: rgba(15, 23, 42, 0.9);
-            padding: 10px 15px;
+            color: #94a3b8;
+            font-size: 13px;
+            background: #0f172a;
+            padding: 12px 20px;
             border-radius: 8px;
-            border: 1px solid rgba(140, 82, 255, 0.3);
-            margin-bottom: 12px;
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            margin-bottom: 15px;
         }
 
-        .kali-terminal-area {
+        .kali-terminal-core {
             flex: 1;
-            background: rgba(3, 7, 18, 0.92);
+            background: rgba(1, 2, 4, 0.93);
             border-radius: 8px;
-            border: 1px solid rgba(140, 82, 255, 0.25);
-            padding: 15px;
+            border: 1px solid rgba(124, 58, 237, 0.25);
+            padding: 20px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            backdrop-filter: blur(6px);
+            box-shadow: inset 0 0 30px #000;
         }
 
         .kali-logs {
             flex: 1;
             overflow-y: auto;
-            font-size: 13px;
-            color: #d1d5db;
+            font-size: 14px;
+            color: #e2e8f0;
             line-height: 1.6;
-            margin-bottom: 12px;
         }
 
         .kali-input-row {
             display: flex;
             align-items: center;
-            background: rgba(0, 0, 0, 0.6);
-            padding: 8px 12px;
+            background: #000000;
+            padding: 10px 15px;
             border-radius: 6px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            margin-top: 10px;
         }
 
-        .kali-prompt-text {
-            color: #8c52ff;
+        .kali-prompt {
+            color: #a855f7;
             font-weight: bold;
             margin-right: 10px;
             white-space: nowrap;
         }
 
-        .kali-input-field {
+        .kali-input {
             flex: 1;
             background: transparent;
             border: none;
-            color: #00ffff;
+            color: #06b6d4;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 13px;
+            font-size: 14px;
             outline: none;
         }
 
         .kali-run-btn {
-            background: #8c52ff;
+            background: #7c3aed;
             border: none;
             color: white;
-            padding: 6px 16px;
-            font-size: 12px;
+            padding: 8px 20px;
+            font-size: 13px;
             font-weight: bold;
             border-radius: 5px;
             cursor: pointer;
             margin-left: 10px;
-            transition: 0.2s;
         }
-        .kali-run-btn:hover { background: #733dd8; }
 
-        .kali-release-badge {
-            font-size: 22px;
+        .kali-badge {
+            font-size: 24px;
             font-weight: bold;
-            color: rgba(140, 82, 255, 0.28);
+            color: rgba(124, 58, 237, 0.2);
             text-align: right;
-            margin-top: 8px;
-            user-select: none;
+            margin-top: 10px;
             letter-spacing: 1px;
         }
 
-        .shutdown-btn-node {
-            background: rgba(255, 51, 51, 0.12);
-            border: 1px solid #ff3333;
-            color: #ff3333;
+        .exit-btn {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            color: #ef4444;
             padding: 12px;
             border-radius: 8px;
             text-align: center;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 10px;
-            font-size: 12px;
-            transition: 0.2s;
+            margin-top: 15px;
+            font-size: 13px;
+            width: 100%;
+            max-width: 200px;
+            align-self: center;
         }
-        .shutdown-btn-node:hover { background: rgba(255, 51, 51, 0.25); }
     </style>
 </head>
 <body>
 
-    <div class="sandesh-mainframe">
+    <h1>SANDESH ETHICAL CORE v15.0</h1>
+
+    <div class="metrics-box">
+        <div class="metrics-header">
+            <span>💻</span> SYSTEM SECURITY MULTI-METRICS
+        </div>
         
-        <div class="core-dashboard" id="mainDashboardView">
-            <div class="system-header">
-                <h2>SANDESH ETHICAL CORE v15.0</h2>
+        <div class="metric-row">
+            <div class="metric-left firewall-text">
+                <span>🔥</span> Firewall State
+            </div>
+            <div class="status-secure">SECURE</div>
+        </div>
+
+        <div class="metric-row">
+            <div class="metric-left kali-sub-text">
+                <span>🧬</span> Kali Subsystem
+            </div>
+            <div class="status-online">ONLINE (50+ TERMINAL TOOLS)</div>
+        </div>
+    </div>
+
+    <div class="button-grid">
+        <div class="grid-btn btn-study" onclick="logAction('Study Book initialized. Mapped to Class 10 IT Security module.')">
+            <span>📖</span> STUDY BOOK
+        </div>
+        <div class="grid-btn btn-pass" onclick="logAction('Password Cipher active. Generating SHA-256 secure hash matrices...')">
+            <span>🔑</span> PASS GEN
+        </div>
+        <div class="grid-btn btn-ip" onclick="logAction('Tracking secure network layer... Node IP: 192.168.1.105 [Local Proxy Sandbox Active]')">
+            <span>🌐</span> GET LIVE IP
+        </div>
+        <div class="grid-btn btn-kali" onclick="openKaliScreen()">
+            <span>🔮</span> KALI LINUX
+        </div>
+    </div>
+
+    <div class="main-terminal" id="mainTerminal">
+        <span style="color: #16a34a;">[SYSTEM] Core Sandbox environment operational...</span><br>
+        <span style="color: #16a34a;">[READY] 50+ Hacking Tools mapped to terminal engine logic.</span><br>
+    </div>
+
+
+    <div class="kali-big-screen" id="kaliScreen">
+        <div class="kali-top-bar">
+            <span>🐉 kali@sandesh-os: ~ (50+ Tools Configured)</span>
+            <span>⚙️ Kernel: 6.6.9-kali-amd64</span>
+            <span>🔋 Core: 100%</span>
+        </div>
+        
+        <div class="kali-terminal-core">
+            <div class="kali-logs" id="kaliLogs">
+                <div>Kali Linux 2024.4 (Rolling Repository Active)</div>
+                <div>Type <span style="color: #06b6d4;">'help'</span> to look over all 50+ hacking tools available inside the console shell.</div>
+                <br>
+                <span class="kali-prompt">⚡ kali@sandesh:~$</span> <span style="color: #fff;">init_pentest_suite</span><br>
+                <span style="color: #a855f7; font-weight: bold;">[✔] EVERY SECURITY TOOL MAP LOADED. READY TO SCAN...</span><br>
             </div>
 
-            <div class="runner-matrix-container">
-                <div class="matrix-title">💻 SYSTEM SECURITY MULTI-METRICS</div>
-                <div class="matrix-row"><span>🔥 Firewall State</span><strong style="color:#00ff00;">SECURE</strong></div>
-                <div class="matrix-row"><span>🧬 Kali Subsystem</span><strong style="color:#8c52ff;">ONLINE (50+ TERMINAL TOOLS)</strong></div>
-            </div>
-
-            <div class="control-grid-hub">
-                <button class="hub-btn btn-study" onclick="alert('Study Core Engine Running')">📖 STUDY BOOK</button>
-                <button class="hub-btn btn-pass" onclick="alert('Password Cipher Matrix Open')">🔑 PASS GEN</button>
-                <button class="hub-btn btn-ip" onclick="alert('Routing Anonymous Sandbox IP...')">🌐 GET LIVE IP</button>
-                <button class="hub-btn btn-kali" onclick="bootKaliLinux()">🎯 KALI LINUX</button>
-            </div>
-
-            <div class="live-terminal-console" id="terminalLogsView">
-                <div>[SYSTEM] Core Sandbox environment operational...</div>
-                <div>[READY] 50+ Hacking Tools mapped to terminal engine logic.</div>
+            <div class="kali-input-row">
+                <span class="kali-prompt">⚡ kali@sandesh:~$</span>
+                <input type="text" id="kaliInput" class="kali-input" placeholder="Enter tool name (e.g. nmap, wireshark, airmon-ng)...">
+                <button class="kali-run-btn" onclick="runKaliTool()">RUN</button>
             </div>
         </div>
 
-        <div class="sub-screen" id="kaliSubsystemView">
-            <div class="kali-full-viewport">
-                <div class="kali-top-bar">
-                    <span>🐉 kali@sandesh-os: ~ (50+ Real Terminal Tools Loaded)</span>
-                    <span>⚙️ Kernel: 6.6.9-kali-amd64</span>
-                    <span>🔋 100% Core</span>
-                </div>
-                
-                <div class="kali-terminal-area">
-                    <div class="kali-logs" id="kaliTerminalOutput">
-                        <div>Kali Linux 2024.4 (50+ Hacking Terminal Architecture Configured)</div>
-                        <div>Type <span style="color: #00ffff;">'help'</span> or <span style="color: #00ffff;">'show tools'</span> to list all 50+ tools with terminal aliases.</div>
-                        <br>
-                        <span class="kali-prompt-text">⚡ kali@sandesh:~$</span> <span style="color: #fff;">load_full_database</span><br>
-                        <span style="color: #8c52ff; font-weight: bold;">[!] ALL 50+ KALI TOOL BINARIES HOOKED TO RUNNER EXECUTION CORE.</span><br>
-                    </div>
-
-                    <div class="kali-input-row">
-                        <span class="kali-prompt-text">⚡ kali@sandesh:~$</span>
-                        <input type="text" id="kaliInputField" class="kali-input-field" placeholder="Enter terminal command..." autofocus>
-                        <button class="kali-run-btn" onclick="executeKaliCommand()">RUN</button>
-                    </div>
-                </div>
-
-                <div class="kali-release-badge">RELEASE 2024.4</div>
-            </div>
-            <button class="shutdown-btn-node" onclick="closePanels()">⬅️ SHUTDOWN KALI</button>
-        </div>
-
+        <div class="kali-badge">RELEASE 2024.4</div>
+        <div class="exit-btn" onclick="closeKaliScreen()">⬅️ SHUTDOWN KALI</div>
     </div>
 
     <script>
-        // Full Dataset of the 50+ Real Kali Linux Terminal Tools
-        const kaliToolsData = {
-            "Information Gathering": ["nmap", "recon-ng", "theharvester", "maltego", "amass", "dnsenum", "whois", "nikto", "dig", "fierce"],
-            "Vulnerability Analysis": ["lynis", "unix-privesc-check"],
-            "Web Application Analysis": ["burpsuite", "owasp-zap", "dirb", "gobuster", "wpscan", "commix", "hydra", "cadaver"],
-            "Database Assessment": ["sqlninja", "bbqsql", "sqlmap"],
-            "Password Attacks": ["john", "hashcat", "medusa", "crunch", "ophcrack", "cewl"],
-            "Wireless Attacks": ["aircrack-ng", "wifite", "reaver", "kismet", "fluxion", "mdk4"],
-            "Reverse Engineering": ["ghidra", "radare2", "gdb", "apktool", "edb-debugger"],
-            "Exploitation Tools": ["msfconsole", "searchsploit", "setoolkit", "beef-xss"],
-            "Sniffing & Spoofing": ["wireshark", "ettercap", "bettercap", "responder", "mitmproxy", "macchanger"],
-            "Post Exploitation": ["mimikatz", "powersploit", "weevely"]
-        };
+        const mainTerminal = document.getElementById('mainTerminal');
+        const kaliScreen = document.getElementById('kaliScreen');
+        const kaliLogs = document.getElementById('kaliLogs');
+        const kaliInput = document.getElementById('kaliInput');
 
-        function closePanels() {
-            document.querySelectorAll('.sub-screen').forEach(s => s.style.display = "none");
-            document.getElementById("mainDashboardView").style.display = "flex";
+        // Main dashboard logging
+        function logAction(message) {
+            mainTerminal.innerHTML += `<br><span style="color: #22c55e;">> ${message}</span>`;
+            mainTerminal.scrollTop = mainTerminal.scrollHeight;
         }
 
-        function bootKaliLinux() {
-            document.getElementById("mainDashboardView").style.display = "none";
-            document.getElementById("kaliSubsystemView").style.display = "flex";
-            setTimeout(() => { document.getElementById("kaliInputField").focus(); }, 50);
+        // Trigger Big Screen Kali
+        function openKaliScreen() {
+            kaliScreen.style.display = 'flex';
+            kaliInput.focus();
         }
 
-        function executeKaliCommand() {
-            const inputEl = document.getElementById("kaliInputField");
-            const rawCmd = inputEl.value.trim();
-            const cmd = rawCmd.toLowerCase();
-            const output = document.getElementById("kaliTerminalOutput");
+        function closeKaliScreen() {
+            kaliScreen.style.display = 'none';
+            logAction('Kali Linux Subsystem safely suspended.');
+        }
 
-            if(cmd === "") return;
+        // Kali 50+ tools list database
+        const toolsDatabase = ["nmap", "wireshark", "john", "aircrack-ng", "burpsuite", "msfconsole", "sqlmap", "hashcat", "setoolkit", "gobuster", "dirb", "macchanger", "recon-ng", "theharvester", "maltego", "amass", "dnsenum", "whois", "nikto", "dig", "fierce", "lynis", "unix-privesc-check", "owasp-zap", "wpscan", "commix", "hydra", "cadaver", "sqlninja", "bbqsql", "medusa", "crunch", "ophcrack", "cewl", "wifite", "reaver", "kismet", "fluxion", "mdk4", "ghidra", "radare2", "gdb", "apktool", "edb-debugger", "searchsploit", "beef-xss", "ettercap", "bettercap", "responder", "mitmproxy", "mimikatz", "powersploit", "weevely"];
 
-            output.innerHTML += `<br><span class="kali-prompt-text">⚡ kali@sandesh:~$</span> <span style="color:#fff;">${rawCmd}</span><br>`;
+        function runKaliTool() {
+            const rawVal = kaliInput.value.trim();
+            const cmd = rawVal.toLowerCase();
 
-            // Core Interactive Shell Commands Execution System
-            if(cmd === 'help' || cmd === 'show tools') {
-                let listHtml = `<span style="color:#a5b4fc; font-weight:bold;">--- REGISTERED 50+ KALI SYSTEM BINARIES ---</span><br>`;
-                for (let category in kaliToolsData) {
-                    listHtml += `<br><span style="color:#ffaa00;">📁 ${category}:</span><br> ↳ ${kaliToolsData[category].join(", ")}<br>`;
-                }
-                listHtml += `<br><span style="color:#00ffff;">[Tip] Type any command name listed above into the terminal to run it!</span><br>`;
-                output.innerHTML += listHtml;
-            }
-            else if(cmd.startsWith('nmap')) {
-                output.innerHTML += `<span style="color:#00ff00;">Starting Nmap 7.94 ( Network Exploration & Vulnerability Scanner )<br>
-                Executing sequence: nmap -sV -O target_node_route...<br>
-                Host status: online (0.0019s latency registered).<br><br>
-                PORT     STATE SERVICE     VERSION<br>
-                21/tcp   open  ftp         vsftpd 3.0.3<br>
-                22/tcp   open  ssh         OpenSSH 9.2p1 (Protocol 2.0)<br>
-                80/tcp   open  http        Apache httpd 2.4.57 (Debian)<br>
-                443/tcp  open  ssl/http    Apache httpd 2.4.57<br><br>
-                Device Signature: General Purpose Router Matrix<br>
-                OS Profile Matrix: Linux 5.X - 6.X (Verified Core)<br>
-                Nmap scan process complete in 3.12 seconds.</span><br>`;
-            }
-            else if(cmd === 'wireshark') {
-                output.innerHTML += `<span style="color:#00ffff;">[Wireshark Packet Interface Open] Capturing socket channel data...<br>
-                Listening on [eth0] link layer. Captured Frame Stacks:<br>
-                -> [FRAME 01] TCP Source: 192.168.1.100 -> Destination: 93.184.216.34 (HTTP Request Payload)<br>
-                -> [FRAME 02] UDP Source: 192.168.1.100 -> Destination: 8.8.8.8 (DNS Standard Query A: sandesh-core)<br>
-                -> [FRAME 03] ICMP Echo Request (Ping Matrix Probe Check Complete)</span><br>`;
-            }
-            else if(cmd === 'john') {
-                output.innerHTML += `<span style="color:#ffcc00;">John the Ripper v1.9.0-jumbo Core Subsystem Loaded.<br>
-                Scanning standard local hash database crypt structures...<br>
-                [✔ SUCCESS] Cracked Password Found: <span style="color:#00ff00; font-weight:bold;">sandesh2026</span> (Account mapping: root node)</span><br>`;
-            }
-            else if(cmd === 'aircrack-ng') {
-                output.innerHTML += `<span style="color:#ff5555;">Aircrack-ng 1.7 - Wireless Network Auditing Engine<br>
-                [wlan0mon] Parsing wireless monitor frames...<br>
-                Target Network BSSID: 52:A1:38:D2:BC:44 | Station ESSID: "Secure_Lab_WiFi"<br>
-                [✔ STATUS] WPA2 Handshake successfully dumped to sandbox local workspace file!</span><br>`;
-            }
-            else if(cmd === 'burpsuite') {
-                output.innerHTML += `<span style="color:#8c52ff;">[Burp Suite Community Edition Proxy Server Running]<br>
-                Local Proxy Listening Hook: 127.0.0.1:8080<br>
-                Intercept Array Status: ACTIVE (Holding 1 inbound Web Client packet payload...)</span><br>`;
-            }
-            else if(cmd === 'msfconsole') {
-                output.innerHTML += `<span style="color:#ffaa00;">Metasploit Penetration Testing Framework Shell Loader v6.4<br>
-                =========================================================<br>
-                [ exploits: 2465 | auxiliary: 1310 | payloads: 615 ]<br><br>
-                msf6 > core sandbox active. Use 'search' command to query exploit database.</span><br>`;
-            }
-            else if(cmd === 'sqlmap') {
-                output.innerHTML += `<span style="color:#00ff00;">sqlmap/1.7.8 automatic SQL Injection Engine Core.<br>
-                [!] Target endpoint parameter validated as vulnerable to blind SQL injection array.<br>
-                Extracting schema tables: [✔] admin_login, [✔] user_registry_backup</span><br>`;
-            }
-            else if(cmd === 'hashcat') {
-                output.innerHTML += `<span style="color:#00ffff;">Hashcat v6.2.6 GPU Core Worker Thread System Booted.<br>
-                Dictionary Attack Sequence initialized. Complete: 100% Hash match confirmed.</span><br>`;
-            }
-            else if(cmd === 'setoolkit' || cmd === 'social-engineer-toolkit') {
-                output.innerHTML += `<span style="color:#ff3333;">Social Engineer Toolkit (SET) Vector Framework Open.<br>
-                Select Attack Strategy Vector:<br>
-                1) Spear-Phishing Attack Matrix Engines<br>
-                2) Automated Web Site Cloner (Credential Harvester Core Template Loaded)</span><br>`;
-            }
-            else if(cmd === 'gobuster' || cmd === 'dirb') {
-                output.innerHTML += `<span style="color:#cfcfcf;">Gobuster v3.5 - Web Path Discovery System<br>
-                ---------------------------------------------------------------<br>
-                /dashboard            (Status: 200) [Size: 4120]<br>
-                /admin_panel          (Status: 301) [Size: 220]<br>
-                /db_backup.sql        (Status: 200) [Size: 8192] <span style="color:#ffaa00;">[HIGH RISK DETECTED]</span></span><br>`;
-            }
-            else if(cmd === 'macchanger') {
-                output.innerHTML += `<span style="color:#00ff00;">Interface Network Adapter Configured: wlan0<br>
-                Permanent Hardware MAC: 3c:5a:ac:14:de:11<br>
-                Current Spoofed MAC:   <span style="color:#ffff00;">00:aa:11:bb:22:cc</span> (Anonymity Firewall Matrix Armed)</span><br>`;
-            }
-            else if(cmd === 'clear') {
-                output.innerHTML = "<div>Terminal cleared. Kali Advanced Core active.</div>";
-            }
+            if (cmd === "") return;
+
+            kaliLogs.innerHTML += `<br><span class="kali-prompt">⚡ kali@sandesh:~$</span> <span style="color:#fff;">${rawVal}</span><br>`;
+
+            if (cmd === 'help') {
+                kaliLogs.innerHTML += `<span style="color:#f59e0b; font-weight:bold;">[+] 50+ REGISTERED TERMINAL ALIASES:</span><br><span style="color:#94a3b8;">${toolsDatabase.join(", ")}</span><br>`;
+            } 
+            else if (cmd.startsWith('nmap')) {
+                kaliLogs.innerHTML += `<span style="color:#22c55e;">Starting Nmap 7.94 ( Target scanning Matrix active )<br>Command: nmap -sV -O target_node<br>Host is up. Open Ports found: 22/tcp (SSH), 80/tcp (HTTP), 443/tcp (HTTPS). OS: Linux 6.1 Core.</span><br>`;
+            } 
+            else if (cmd === 'wireshark') {
+                kaliLogs.innerHTML += `<span style="color:#06b6d4;">[TShark Engine Active] Intercepting network adapters... Packet Dump:<br>Frame 1: 192.168.1.5 -> 8.8.8.8 [DNS Query]<br>Frame 2: 8.8.8.8 -> 192.168.1.5 [DNS Response]</span><br>`;
+            } 
+            else if (toolsDatabase.includes(cmd)) {
+                kaliLogs.innerHTML += `<span style="color:#22c55e;">[✔] Initializing module: ${cmd}...<br>Status: Running standalone simulation for tool code inside Sandesh Sandbox environment.</span><br>`;
+            } 
+            else if (cmd === 'clear') {
+                kaliLogs.innerHTML = "<div>Terminal buffer cleared. Kali Core live.</div>";
+            } 
             else {
-                // Dynamically evaluate any of the remaining 50+ tools in the dataset
-                let isRegisteredTool = false;
-                for(let cat in kaliToolsData) {
-                    if(kaliToolsData[cat].includes(cmd)) {
-                        output.innerHTML += `<span style="color:#00ff00;">[✔] Initializing ${rawCmd}...<br>
-                        [SUCCESS] Module '${rawCmd}' loaded inside Kali Virtual Sandbox Sandbox.<br>
-                        Execution Parameter Context: Simulating vectors for category "${cat}".</span><br>`;
-                        isRegisteredTool = true;
-                        break;
-                    }
-                }
-                if(!isRegisteredTool) {
-                    output.innerHTML += `<span style="color:#ff3333;">bash: command not found: ${rawCmd}.<br>Type 'help' to review the full list of 50+ integrated tools.</span><br>`;
-                }
+                kaliLogs.innerHTML += `<span style="color:#ef4444;">bash: command not found: ${rawVal}. Type 'help' to list 50+ available tools.</span><br>`;
             }
 
-            inputEl.value = "";
-            output.scrollTop = output.scrollHeight;
+            kaliInput.value = "";
+            kaliLogs.scrollTop = kaliLogs.scrollHeight;
         }
 
-        // Handle enter key press inside inputs
-        document.getElementById("kaliInputField").addEventListener("keyup", function(event) {
+        // Bind Enter key trigger
+        kaliInput.addEventListener("keyup", function(event) {
             if (event.key === "Enter") {
-                executeKaliCommand();
+                runKaliTool();
             }
         });
     </script>
