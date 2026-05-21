@@ -6,13 +6,7 @@
 <title>Sandesh Ethical Hacking Tools</title>
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --green:#00ff41;--green2:#00cc33;--dark-green:#003b00;
-    --bg:#0a0a0a;--panel:#0d1117;--panel2:#111820;
-    --cyan:#00eeff;--red:#ff003c;--yellow:#ffe600;
-    --glow:0 0 10px #00ff41,0 0 20px #00ff4155;
-    --glow-cyan:0 0 10px #00eeff,0 0 20px #00eeff55;
-  }
+  :root{--green:#00ff41;--green2:#00cc33;--dark-green:#003b00;--bg:#0a0a0a;--panel:#0d1117;--panel2:#111820;--cyan:#00eeff;--red:#ff003c;--yellow:#ffe600;--glow:0 0 10px #00ff41,0 0 20px #00ff4155;--glow-cyan:0 0 10px #00eeff,0 0 20px #00eeff55;}
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Share Tech Mono',monospace;background:var(--bg);color:var(--green);min-height:100vh;overflow-x:hidden;}
   #matrix-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.13;pointer-events:none;}
@@ -77,7 +71,7 @@
   .scan-table td{border:1px solid #00ff4122;padding:8px 12px;color:#00ff41cc;}
   .scan-table tr:hover td{background:#00ff4108;}
   .secure{color:#00ff41;}.weak{color:var(--yellow);}.vuln{color:var(--red);}
-  .chat-box{background:#000;border:1px solid #00ff4133;height:400px;overflow-y:auto;padding:16px;margin-bottom:12px;font-size:13px;}
+  .chat-box{background:#000;border:1px solid #00ff4133;height:420px;overflow-y:auto;padding:16px;margin-bottom:12px;font-size:13px;}
   .chat-box::-webkit-scrollbar{width:4px;}.chat-box::-webkit-scrollbar-thumb{background:#00ff4144;}
   .chat-msg{margin-bottom:14px;}
   .chat-msg .from{font-size:10px;letter-spacing:3px;margin-bottom:4px;}
@@ -87,8 +81,8 @@
   .chat-msg.ai .text{color:var(--green);border-color:var(--green);background:#001500;}
   .chat-input-row{display:flex;gap:10px;}
   .chat-input{flex:1;background:#001500;border:1px solid #00ff4144;color:var(--green);font-family:'Share Tech Mono',monospace;font-size:13px;padding:10px 14px;outline:none;}
-  .ai-typing{color:#00ff4166;font-size:12px;letter-spacing:2px;}
-  .ai-badge{display:inline-block;background:#002200;border:1px solid #00ff4144;padding:4px 12px;font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:14px;}
+  .ai-typing{color:#00ff4166;font-size:12px;letter-spacing:2px;margin-top:8px;}
+  .ai-badge{display:inline-block;background:#002200;border:1px solid #00ff4144;padding:4px 12px;font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:10px;}
   .game-area{background:#000;border:1px solid #00ff4144;padding:24px;text-align:center;}
   .game-title{font-family:'VT323',monospace;font-size:38px;color:var(--green);text-shadow:var(--glow);margin-bottom:8px;}
   .game-desc{color:#00ff4188;font-size:13px;margin-bottom:20px;}
@@ -187,11 +181,11 @@
           <div class="form-row">
             <label>&#9658; CHARACTER SETS</label>
             <div style="display:flex;flex-direction:column;gap:8px;padding:12px;background:#001500;border:1px solid #00ff4122;">
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-upper" checked style="accent-color:var(--green);"> UPPERCASE (A-Z)</label>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-lower" checked style="accent-color:var(--green);"> LOWERCASE (a-z)</label>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-nums" checked style="accent-color:var(--green);"> NUMBERS (0-9)</label>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-sym" checked style="accent-color:var(--green);"> SYMBOLS (!@#$%^&amp;*)</label>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-hex" style="accent-color:var(--green);"> HEX ONLY (0-9, a-f)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-upper" checked style="accent-color:var(--green)"> UPPERCASE (A-Z)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-lower" checked style="accent-color:var(--green)"> LOWERCASE (a-z)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-nums" checked style="accent-color:var(--green)"> NUMBERS (0-9)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-sym" checked style="accent-color:var(--green)"> SYMBOLS (!@#$%^&amp;*)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-hex" style="accent-color:var(--green)"> HEX ONLY (0-9,a-f)</label>
             </div>
           </div>
           <div class="form-row"><label>&#9658; QUANTITY</label><input class="form-input" type="number" id="pass-qty" value="5" min="1" max="20"></div>
@@ -201,12 +195,12 @@
         <div>
           <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px;">&#9658; OUTPUT</div>
           <div class="output-box" id="pass-output" style="min-height:180px;">...</div>
-          <div class="strength-bar"><div class="strength-fill" id="strength-fill" style="width:0%;"></div></div>
+          <div class="strength-bar"><div class="strength-fill" id="strength-fill" style="width:0%"></div></div>
           <div class="strength-label" id="strength-label"></div>
-          <button class="btn btn-cyan btn-full" style="margin-top:12px;" onclick="copyPasswords()">&#x2398; COPY TO CLIPBOARD</button>
+          <button class="btn btn-cyan btn-full" style="margin-top:12px" onclick="copyPasswords()">&#x2398; COPY TO CLIPBOARD</button>
           <div style="margin-top:20px;font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px;">&#9658; STRENGTH CHECKER</div>
           <input class="form-input" type="password" id="check-pass" placeholder="Type password to check..." oninput="checkStrength(this.value)">
-          <div class="strength-bar"><div class="strength-fill" id="check-fill" style="width:0%;"></div></div>
+          <div class="strength-bar"><div class="strength-fill" id="check-fill" style="width:0%"></div></div>
           <div class="strength-label" id="check-label"></div>
           <div class="output-box" id="check-details" style="min-height:60px;font-size:12px;margin-top:8px;"></div>
         </div>
@@ -223,21 +217,21 @@
           <div class="form-row"><label>&#9658; INTERFACE</label><select class="form-select" id="wifi-iface"><option>wlan0</option><option>wlan1</option><option>eth0</option></select></div>
           <div class="form-row"><label>&#9658; SCAN MODE</label><select class="form-select" id="wifi-mode"><option>PASSIVE SCAN</option><option>ACTIVE SCAN</option><option>MONITOR MODE</option></select></div>
           <button class="btn btn-full" onclick="scanWifi()" id="scan-btn">&#128225; START SCAN</button>
-          <div class="progress-bar" style="margin-top:10px;"><div class="progress-fill" id="scan-progress" style="width:0%;"></div></div>
-          <div style="font-size:11px;color:#00ff4177;margin-top:5px;" id="scan-status">READY</div>
-          <div style="margin-top:20px;">
-            <div class="section-title" style="font-size:14px;">SECURE YOUR WIFI</div>
-            <div style="background:#001500;border:1px solid #00ff4122;padding:14px;font-size:12px;color:#00ff41cc;line-height:1.8;">&#9658; Use WPA3 encryption<br>&#9658; Set a strong password (20+ chars)<br>&#9658; Disable WPS<br>&#9658; Hide your SSID<br>&#9658; Enable MAC address filtering<br>&#9658; Use a guest network for IoT devices<br>&#9658; Update router firmware regularly</div>
+          <div class="progress-bar" style="margin-top:10px"><div class="progress-fill" id="scan-progress" style="width:0%"></div></div>
+          <div style="font-size:11px;color:#00ff4177;margin-top:5px" id="scan-status">READY</div>
+          <div style="margin-top:20px">
+            <div class="section-title" style="font-size:14px">SECURE YOUR WIFI</div>
+            <div style="background:#001500;border:1px solid #00ff4122;padding:14px;font-size:12px;color:#00ff41cc;line-height:1.8">&#9658; Use WPA3 encryption<br>&#9658; Set a strong password (20+ chars)<br>&#9658; Disable WPS<br>&#9658; Hide your SSID<br>&#9658; Enable MAC address filtering<br>&#9658; Use a guest network for IoT<br>&#9658; Update router firmware regularly</div>
           </div>
         </div>
         <div>
-          <div class="section-title" style="font-size:14px;">SCAN RESULTS</div>
-          <div style="overflow-x:auto;"><table class="scan-table"><thead><tr><th>SSID</th><th>BSSID</th><th>CH</th><th>SIGNAL</th><th>SECURITY</th><th>STATUS</th></tr></thead><tbody id="wifi-results"><tr><td colspan="6" style="color:#00ff4144;text-align:center;">Run a scan to see results</td></tr></tbody></table></div>
-          <div style="margin-top:20px;">
-            <div class="section-title" style="font-size:14px;">WPS AUDIT (EDUCATIONAL)</div>
+          <div class="section-title" style="font-size:14px">SCAN RESULTS</div>
+          <div style="overflow-x:auto"><table class="scan-table"><thead><tr><th>SSID</th><th>BSSID</th><th>CH</th><th>SIGNAL</th><th>SECURITY</th><th>STATUS</th></tr></thead><tbody id="wifi-results"><tr><td colspan="6" style="color:#00ff4144;text-align:center">Run a scan to see results</td></tr></tbody></table></div>
+          <div style="margin-top:20px">
+            <div class="section-title" style="font-size:14px">WPS AUDIT (EDUCATIONAL)</div>
             <div class="form-row"><label>&#9658; TARGET BSSID (your own network only)</label><input class="form-input" id="wps-target" placeholder="AA:BB:CC:DD:EE:FF"></div>
             <button class="btn" onclick="wpsAudit()">RUN WPS AUDIT</button>
-            <div class="output-box" id="wps-output" style="font-size:12px;margin-top:10px;min-height:80px;">...</div>
+            <div class="output-box" id="wps-output" style="font-size:12px;margin-top:10px;min-height:80px">...</div>
           </div>
         </div>
       </div>
@@ -248,23 +242,23 @@
       <div class="section-title">NETWORK TOOLS</div>
       <div class="two-col">
         <div>
-          <div class="section-title" style="font-size:14px;">PORT SCANNER (SIMULATED)</div>
+          <div class="section-title" style="font-size:14px">PORT SCANNER (SIMULATED)</div>
           <div class="form-row"><label>&#9658; TARGET HOST</label><input class="form-input" id="port-host" placeholder="192.168.1.1 or example.com"></div>
           <div class="form-row"><label>&#9658; PORT RANGE</label><select class="form-select" id="port-range"><option value="common">COMMON PORTS (Top 20)</option><option value="web">WEB PORTS</option><option value="all">ALL PORTS (1-1024)</option></select></div>
           <button class="btn btn-full" onclick="portScan()">&#128269; SCAN PORTS</button>
-          <div class="output-box" id="port-output" style="min-height:200px;font-size:12px;margin-top:10px;">...</div>
+          <div class="output-box" id="port-output" style="min-height:200px;font-size:12px;margin-top:10px">...</div>
         </div>
         <div>
-          <div class="section-title" style="font-size:14px;">IP / DNS LOOKUP</div>
+          <div class="section-title" style="font-size:14px">IP / DNS LOOKUP</div>
           <div class="form-row"><label>&#9658; DOMAIN / IP</label><input class="form-input" id="lookup-host" placeholder="example.com"></div>
           <button class="btn btn-full" onclick="dnsLookup()">&#127760; LOOKUP</button>
-          <div class="output-box" id="lookup-output" style="min-height:130px;font-size:12px;margin-top:10px;">...</div>
-          <div style="margin-top:20px;">
-            <div class="section-title" style="font-size:14px;">HASH GENERATOR</div>
+          <div class="output-box" id="lookup-output" style="min-height:130px;font-size:12px;margin-top:10px">...</div>
+          <div style="margin-top:20px">
+            <div class="section-title" style="font-size:14px">HASH GENERATOR</div>
             <div class="form-row"><label>&#9658; INPUT TEXT</label><input class="form-input" id="hash-input" placeholder="Enter text to hash..."></div>
             <div class="form-row"><label>&#9658; ALGORITHM</label><select class="form-select" id="hash-algo"><option>MD5</option><option>SHA-1</option><option>SHA-256</option><option>SHA-512</option><option>BASE64</option></select></div>
             <button class="btn btn-full" onclick="hashText()">GENERATE HASH</button>
-            <div class="output-box" id="hash-output" style="margin-top:10px;font-size:12px;">...</div>
+            <div class="output-box" id="hash-output" style="margin-top:10px;font-size:12px">...</div>
           </div>
         </div>
       </div>
@@ -273,21 +267,19 @@
     <!-- AI ASSISTANT -->
     <div class="tab-panel" id="tab-ai">
       <div class="section-title">AI ASSISTANT — SANDESH-AI</div>
-      <div class="ai-badge">&#9672; ADVANCED AI &bull; ANSWERS ALL QUESTIONS &bull; POWERED BY CLAUDE</div>
-      <div style="font-size:11px;color:#00ff4166;letter-spacing:1px;margin-bottom:14px;line-height:1.8;">
-        Ask me ANYTHING: &nbsp;&#9658; Cybersecurity &amp; Hacking &nbsp;&#9658; Science &amp; Math &nbsp;&#9658; Coding &nbsp;&#9658; History &nbsp;&#9658; Medicine &nbsp;&#9658; Business &nbsp;&#9658; Cooking &nbsp;&#9658; Sports &nbsp;&#9658; General Knowledge &nbsp;&#9658; And everything else!
-      </div>
+      <div class="ai-badge">&#9672; ADVANCED AI &bull; ANSWERS ALL QUESTIONS &bull; FREE &bull; NO API KEY NEEDED</div>
+      <div style="font-size:11px;color:#00ff4166;letter-spacing:1px;margin-bottom:14px;line-height:1.8">Ask me ANYTHING: &#9658; Cybersecurity &amp; Hacking &#9658; Science &amp; Math &#9658; Coding &#9658; History &#9658; Medicine &#9658; Business &#9658; Cooking &#9658; Sports &#9658; General Knowledge &#9658; Everything!</div>
       <div class="chat-box" id="chat-box">
         <div class="chat-msg ai">
-          <div class="from">&#9672; SANDESH-AI — ADVANCED UNIVERSAL ASSISTANT</div>
-          <div class="text">Hello! I am SANDESH-AI, your advanced AI assistant. I can answer ANY question on ANY topic — cybersecurity, hacking, science, math, history, coding, medicine, cooking, sports, entertainment, general knowledge, and everything in between.<br><br>What would you like to know today?</div>
+          <div class="from">&#9672; SANDESH-AI — UNIVERSAL AI ASSISTANT</div>
+          <div class="text">Hello! I am SANDESH-AI. I can answer ANY question on ANY topic — cybersecurity, hacking, science, math, history, coding, medicine, cooking, sports, entertainment, and everything else.<br><br>What would you like to know?</div>
         </div>
       </div>
       <div class="chat-input-row">
         <input class="chat-input" id="chat-input" placeholder="Ask me ANYTHING — no limits on topics!" onkeydown="if(event.key==='Enter')sendChat()">
         <button class="btn btn-cyan" onclick="sendChat()">SEND &#10230;</button>
       </div>
-      <div class="ai-typing" id="ai-typing" style="margin-top:8px;display:none;">&#9672; SANDESH-AI IS THINKING<span class="blink">_</span></div>
+      <div class="ai-typing" id="ai-typing" style="display:none">&#9672; SANDESH-AI IS THINKING<span class="blink">_</span></div>
     </div>
 
     <!-- GAME -->
@@ -302,8 +294,8 @@
           <div>TIME: <span id="g-time">0s</span></div>
           <div>SCORE: <span id="g-score">0</span></div>
         </div>
-        <div class="game-grid" id="game-grid" style="grid-template-columns:repeat(10,44px);"></div>
-        <div id="game-msg" style="font-family:'Orbitron',sans-serif;font-size:16px;color:var(--green);margin-bottom:12px;min-height:24px;text-shadow:var(--glow);"></div>
+        <div class="game-grid" id="game-grid" style="grid-template-columns:repeat(10,44px)"></div>
+        <div id="game-msg" style="font-family:'Orbitron',sans-serif;font-size:16px;color:var(--green);margin-bottom:12px;min-height:24px;text-shadow:var(--glow)"></div>
         <div class="game-controls">
           <button class="btn" onclick="initGame('easy')">EASY</button>
           <button class="btn btn-cyan" onclick="initGame('medium')">MEDIUM</button>
@@ -327,8 +319,8 @@ function drawMatrix(){ctx.fillStyle='rgba(0,0,0,0.04)';ctx.fillRect(0,0,canvas.w
 setInterval(drawMatrix,50);
 
 // LOCALSTORAGE
-function lsGet(key,def){try{const v=localStorage.getItem(key);return v!==null?JSON.parse(v):def;}catch(e){return def;}}
-function lsSet(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}}
+function lsGet(k,d){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch(e){return d;}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
 
 // STATS
 let stats=lsGet('seth_stats',{scans:0,pass:0,ai:0,score:0});
@@ -349,8 +341,7 @@ async function doLogin(){
   const user=document.getElementById('login-user').value.trim();
   const pass=document.getElementById('login-pass').value;
   if(!user||!pass){setStatus('[ ERROR: CREDENTIALS REQUIRED ]','#ff003c');return;}
-  const msgs=['Authenticating...','Verifying credentials...','Establishing secure session...','[ ACCESS GRANTED ]'];
-  for(const m of msgs){setStatus(m);await delay(400);}
+  for(const m of ['Authenticating...','Verifying credentials...','Establishing secure session...','[ ACCESS GRANTED ]']){setStatus(m);await delay(400);}
   currentUser=user;lsSet('seth_user',user);launchApp();
 }
 
@@ -420,7 +411,7 @@ const COMMANDS={
   netstat:()=>[{c:'success',t:'tcp  192.168.1.100:52341  142.250.185.78:443  ESTABLISHED'},{c:'success',t:'tcp  192.168.1.100:48291  151.101.1.91:443   ESTABLISHED'}],
   'ps aux':()=>[{c:'success',t:'root     1   0.0  /sbin/init'},{c:'',t:'root   423   0.0  /usr/sbin/sshd -D'},{c:'',t:'sandesh 1337 2.1  ./eth-hack-tools'}],
   'airmon-ng':()=>[{c:'warn',t:'Found 2 processes that could cause trouble.'},{c:'success',t:'phy0  wlan0  ath9k_htc  Atheros AR9271'},{c:'success',t:'phy1  wlan1  rt2800usb  Ralink RT2870'}],
-  hashcat:()=>[{c:'success',t:'hashcat v6.2.6 - Educational Information Only'},{c:'',t:'-m 0=MD5  -m 100=SHA1  -m 1800=sha512crypt'},{c:'warn',t:'Only use on hashes you own or have permission to crack.'}],
+  hashcat:()=>[{c:'success',t:'hashcat v6.2.6 - Educational Information Only'},{c:'',t:'-m 0=MD5  -m 100=SHA1  -m 1800=sha512crypt'},{c:'warn',t:'Only use on hashes you own or have permission.'}],
   metasploit:()=>[{c:'success',t:'=[ metasploit v6.3.4 | 2375 exploits ]'},{c:'warn',t:'EDUCATIONAL ONLY. Use in authorized environments.'}],
   clear:()=>'CLEAR',
 };
@@ -446,8 +437,7 @@ function executeCmd(cmd){
     stats.scans++;updateStats();return;
   }
   if(!key&&lower.startsWith('ping')){
-    const host=cmd.split(' ')[1]||'localhost';
-    addTermLine('PING '+host,'cmd');
+    const host=cmd.split(' ')[1]||'localhost';addTermLine('PING '+host,'cmd');
     for(let i=1;i<=4;i++)setTimeout(()=>addTermLine('64 bytes from '+host+': icmp_seq='+i+' time='+(Math.random()*20+1).toFixed(1)+'ms','success'),i*400);
     return;
   }
@@ -535,13 +525,13 @@ function displayWifiResults(){
   document.getElementById('wifi-results').innerHTML=FAKE_NETWORKS.map(n=>{
     const cls=n.status==='secure'?'secure':n.status==='vuln'?'vuln':'weak';
     const icons={secure:'[SECURE]',ok:'[OK]',weak:'[WEAK]',vuln:'[VULN]'};
-    return '<tr><td>'+n.ssid+'</td><td style="font-size:11px;">'+n.bssid+'</td><td>'+n.ch+'</td><td>'+n.signal+'dBm</td><td class="'+cls+'">'+n.sec+'</td><td class="'+cls+'">'+icons[n.status]+' '+n.status.toUpperCase()+'</td></tr>';
+    return '<tr><td>'+n.ssid+'</td><td style="font-size:11px">'+n.bssid+'</td><td>'+n.ch+'</td><td>'+n.signal+'dBm</td><td class="'+cls+'">'+n.sec+'</td><td class="'+cls+'">'+icons[n.status]+' '+n.status.toUpperCase()+'</td></tr>';
   }).join('');
 }
 function wpsAudit(){
   const target=document.getElementById('wps-target').value||'AA:BB:CC:DD:EE:FF';
   const out=document.getElementById('wps-output');out.textContent='';
-  ['[*] Testing WPS on '+target,'[*] Sending probe requests...','[*] WPS version detected: 2.0','[!] WPS is ENABLED - device may be vulnerable','[+] Recommendation: Disable WPS in router settings'].forEach((l,i)=>setTimeout(()=>out.textContent+=l+'\n',i*350));
+  ['[*] Testing WPS on '+target,'[*] Sending probe requests...','[*] WPS version detected: 2.0','[!] WPS ENABLED - device may be vulnerable','[+] Fix: Disable WPS in your router settings'].forEach((l,i)=>setTimeout(()=>out.textContent+=l+'\n',i*350));
 }
 
 // NETWORK TOOLS
@@ -571,69 +561,77 @@ async function hashText(){
   out.textContent=algo+': '+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 
-// AI ASSISTANT — ADVANCED, ANSWERS ALL QUESTIONS
-// Chat history stored per session for better context
+// ═══════════════════════════════════════
+// AI ASSISTANT — USES POLLINATIONS AI
+// FREE · NO API KEY · NO CORS ISSUES
+// ANSWERS ALL QUESTIONS ON ALL TOPICS
+// ═══════════════════════════════════════
 let chatHistory=[];
 
 async function sendChat(){
   const input=document.getElementById('chat-input');
   const msg=input.value.trim();if(!msg)return;
-  input.value='';addChatMsg('user',msg);
+  input.value='';
+  addChatMsg('user',msg);
   document.getElementById('ai-typing').style.display='block';
   stats.ai++;updateStats();
 
-  // Add to history for context
   chatHistory.push({role:'user',content:msg});
-  // Keep last 10 messages for context window
-  if(chatHistory.length>10)chatHistory=chatHistory.slice(-10);
+  if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);
 
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
+    const res=await fetch('https://text.pollinations.ai/openai',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
+        model:'openai',
+        messages:[
+          {role:'system',content:`You are SANDESH-AI, a powerful advanced AI assistant built into the Sandesh Ethical Hacking Tools system. You are highly intelligent and answer ANY question on ANY topic including: cybersecurity, ethical hacking, penetration testing, CTFs, network security, science, physics, chemistry, biology, astronomy, mathematics, algebra, calculus, statistics, programming, coding in all languages, history, geography, politics, economics, medicine, health, nutrition, law, business, finance, cooking, recipes, sports, games, arts, literature, music, movies, philosophy, psychology, general knowledge, trivia, current events, and absolutely everything else. Always give complete accurate detailed helpful answers. Be friendly and clear. Never refuse a genuine question.`},
+          ...chatHistory
+        ],
         max_tokens:1500,
-        system:`You are SANDESH-AI, a powerful and advanced AI assistant built into the Sandesh Ethical Hacking Tools system. You are highly intelligent and knowledgeable across ALL topics and domains.
-
-You can answer ANY question on ANY topic including but not limited to:
-- Cybersecurity, ethical hacking, penetration testing, CTFs, network security
-- Science (physics, chemistry, biology, astronomy, geology)
-- Mathematics (algebra, calculus, statistics, geometry, number theory)
-- Programming and coding (Python, JavaScript, C++, Java, HTML, SQL, and all languages)
-- History, geography, politics, economics
-- Medicine, health, nutrition, fitness
-- Law, business, finance, investing
-- Arts, literature, music, movies, entertainment
-- Cooking, recipes, food
-- Sports, games, hobbies
-- Philosophy, psychology, sociology
-- General knowledge and trivia
-- Current events and world affairs
-- Language and writing help
-- And absolutely everything else
-
-Always give complete, accurate, detailed, and helpful answers. Be friendly and conversational. Format answers clearly. Never refuse a genuine question — always do your best to help the user.`,
-        messages:chatHistory
+        temperature:0.7
       })
     });
+
+    if(!res.ok)throw new Error('Server error: '+res.status);
     const data=await res.json();
-    const reply=data.content?.[0]?.text||'Connection error. Please try again.';
+    const reply=data.choices?.[0]?.message?.content||'No response received. Please try again.';
     document.getElementById('ai-typing').style.display='none';
-    // Add assistant reply to history
     chatHistory.push({role:'assistant',content:reply});
     addChatMsg('ai',reply);
+
   }catch(e){
-    document.getElementById('ai-typing').style.display='none';
-    addChatMsg('ai','Connection error: '+e.message+'\n\nMake sure you have internet access.');
+    // Fallback to simple GET method if POST fails
+    try{
+      const encoded=encodeURIComponent('You are SANDESH-AI, answer all questions helpfully. User asks: '+msg);
+      const res2=await fetch('https://text.pollinations.ai/'+encoded);
+      const reply=await res2.text();
+      document.getElementById('ai-typing').style.display='none';
+      chatHistory.push({role:'assistant',content:reply});
+      addChatMsg('ai',reply);
+    }catch(e2){
+      document.getElementById('ai-typing').style.display='none';
+      addChatMsg('ai','&#9888; Connection issue. Please check your internet and try again.\n\nError: '+e.message);
+    }
   }
 }
 
 function addChatMsg(role,text){
   const box=document.getElementById('chat-box');
-  const div=document.createElement('div');div.className='chat-msg '+role;
-  div.innerHTML='<div class="from">'+(role==='user'?'&#9658; YOU':'&#9672; SANDESH-AI')+'</div><div class="text">'+text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</div>';
-  box.appendChild(div);box.scrollTop=box.scrollHeight;
+  const div=document.createElement('div');
+  div.className='chat-msg '+role;
+  const formatted=text
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'<em>$1</em>')
+    .replace(/`(.*?)`/g,'<code style="background:#002200;padding:1px 4px">$1</code>')
+    .replace(/\n/g,'<br>');
+  div.innerHTML='<div class="from">'+(role==='user'?'&#9658; YOU':'&#9672; SANDESH-AI')+'</div><div class="text">'+formatted+'</div>';
+  box.appendChild(div);
+  box.scrollTop=box.scrollHeight;
 }
 
 // GAME — FIREWALL BREAKER
@@ -655,18 +653,20 @@ function renderGame(){
     const cell=document.createElement('div');cell.className='game-cell';const d=gBoard[r][c];
     if(d.flagged){cell.textContent='🚩';cell.classList.add('flagged');}
     else if(d.revealed){cell.classList.add('revealed');if(d.mine){cell.textContent='💥';cell.classList.add('mine');}else if(d.count>0){cell.textContent=d.count;const cols=['','#00ff41','#00eeff','#ff003c','#4444ff','#ff6600','#00aaff','#ff00ff','#aaa'];cell.style.color=cols[d.count]||'#00ff41';}}
-    cell.addEventListener('click',()=>clickCell(r,c));cell.addEventListener('contextmenu',e=>{e.preventDefault();flagCell(r,c);});grid.appendChild(cell);
+    cell.addEventListener('click',()=>clickCell(r,c));
+    cell.addEventListener('contextmenu',e=>{e.preventDefault();flagCell(r,c);});
+    grid.appendChild(cell);
   }
 }
 function clickCell(r,c){
   if(gOver||gBoard[r][c].flagged||gBoard[r][c].revealed)return;
   if(!gStarted){gStarted=true;gTimerIv=setInterval(()=>{gTimer++;document.getElementById('g-time').textContent=gTimer+'s';},1000);}
-  if(gBoard[r][c].mine){gBoard[r][c].revealed=true;gOver=true;clearInterval(gTimerIv);for(let i=0;i<gRows;i++)for(let j=0;j<gCols;j++)if(gBoard[i][j].mine)gBoard[i][j].revealed=true;renderGame();document.getElementById('game-msg').style.color='#ff003c';document.getElementById('game-msg').textContent='HONEYPOT TRIGGERED - SYSTEM BREACH DETECTED';return;}
+  if(gBoard[r][c].mine){gBoard[r][c].revealed=true;gOver=true;clearInterval(gTimerIv);for(let i=0;i<gRows;i++)for(let j=0;j<gCols;j++)if(gBoard[i][j].mine)gBoard[i][j].revealed=true;renderGame();document.getElementById('game-msg').style.color='#ff003c';document.getElementById('game-msg').textContent='💥 HONEYPOT TRIGGERED — SYSTEM BREACH DETECTED';return;}
   floodReveal(r,c);renderGame();checkWin();
 }
 function floodReveal(r,c){if(r<0||r>=gRows||c<0||c>=gCols||gBoard[r][c].revealed||gBoard[r][c].flagged||gBoard[r][c].mine)return;gBoard[r][c].revealed=true;gRevealed++;if(gBoard[r][c].count===0)for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++)floodReveal(r+dr,c+dc);}
 function flagCell(r,c){if(gOver||gBoard[r][c].revealed)return;gBoard[r][c].flagged=!gBoard[r][c].flagged;gFlags+=gBoard[r][c].flagged?1:-1;document.getElementById('g-flags').textContent=gFlags;renderGame();}
-function checkWin(){if(gRevealed>=gRows*gCols-gMines){gOver=true;clearInterval(gTimerIv);const sc=Math.max(0,1000-gTimer*5+gMines*10);stats.score=Math.max(stats.score,sc);updateStats();document.getElementById('g-score').textContent=sc;document.getElementById('game-msg').style.color='#00ff41';document.getElementById('game-msg').textContent='FIREWALL BREACHED - SCORE: '+sc+' pts';}}
+function checkWin(){if(gRevealed>=gRows*gCols-gMines){gOver=true;clearInterval(gTimerIv);const sc=Math.max(0,1000-gTimer*5+gMines*10);stats.score=Math.max(stats.score,sc);updateStats();document.getElementById('g-score').textContent=sc;document.getElementById('game-msg').style.color='#00ff41';document.getElementById('game-msg').textContent='✅ FIREWALL BREACHED — SCORE: '+sc+' pts';}}
 
 // AUTO LOGIN ON PAGE LOAD
 window.addEventListener('load',()=>{
@@ -680,4 +680,4 @@ window.addEventListener('load',()=>{
 });
 </script>
 </body>
-                                                                                                                       </html>
+            </html>
