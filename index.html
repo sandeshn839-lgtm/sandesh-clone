@@ -7,140 +7,128 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green: #00ff41; --green2: #00cc33; --dark-green: #003b00;
-    --bg: #0a0a0a; --panel: #0d1117; --panel2: #111820;
-    --cyan: #00eeff; --red: #ff003c; --yellow: #ffe600;
-    --glow: 0 0 10px #00ff41, 0 0 20px #00ff4155;
-    --glow-cyan: 0 0 10px #00eeff, 0 0 20px #00eeff55;
+    --green:#00ff41;--green2:#00cc33;--dark-green:#003b00;
+    --bg:#0a0a0a;--panel:#0d1117;--panel2:#111820;
+    --cyan:#00eeff;--red:#ff003c;--yellow:#ffe600;
+    --glow:0 0 10px #00ff41,0 0 20px #00ff4155;
+    --glow-cyan:0 0 10px #00eeff,0 0 20px #00eeff55;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Share Tech Mono', monospace; background: var(--bg); color: var(--green); min-height: 100vh; overflow-x: hidden; }
-  #matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.13; pointer-events: none; }
-  body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.02) 2px, rgba(0,255,65,0.02) 4px); z-index: 1; pointer-events: none; }
-  #login-screen { position: fixed; inset: 0; background: #000; z-index: 1000; display: flex; align-items: center; justify-content: center; flex-direction: column; }
-  .login-box { background: rgba(0,15,0,0.97); border: 1px solid var(--green); box-shadow: var(--glow), inset 0 0 40px rgba(0,255,65,0.03); width: 420px; padding: 40px 36px; position: relative; }
-  .login-box::before { content: 'SECURE LOGIN'; position: absolute; top: -12px; left: 20px; background: #000; padding: 0 8px; font-family: 'Orbitron', sans-serif; font-size: 11px; color: var(--green); letter-spacing: 4px; }
-  .login-logo { font-family: 'Orbitron', sans-serif; font-size: 22px; font-weight: 900; color: var(--green); text-align: center; text-shadow: var(--glow); margin-bottom: 6px; }
-  .login-sub { text-align: center; font-size: 11px; color: #00ff4188; margin-bottom: 28px; letter-spacing: 3px; }
-  .login-field { margin-bottom: 16px; }
-  .login-field label { display: block; font-size: 11px; color: #00ff4188; margin-bottom: 6px; letter-spacing: 2px; }
-  .login-field input { width: 100%; background: #001500; border: 1px solid #00ff4155; color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 14px; padding: 10px 14px; outline: none; transition: border-color .2s, box-shadow .2s; }
-  .login-field input:focus { border-color: var(--green); box-shadow: 0 0 8px #00ff4144; }
-  .login-btn { width: 100%; background: transparent; border: 1px solid var(--green); color: var(--green); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 4px; padding: 12px; cursor: pointer; transition: all .2s; margin-top: 8px; text-transform: uppercase; }
-  .login-btn:hover { background: var(--green); color: #000; box-shadow: var(--glow); }
-  .gmail-btn { width: 100%; background: transparent; border: 1px solid #4285f4; color: #4285f4; font-family: 'Share Tech Mono', monospace; font-size: 13px; letter-spacing: 2px; padding: 11px; cursor: pointer; transition: all .2s; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; }
-  .gmail-btn:hover { background: #4285f422; box-shadow: 0 0 10px #4285f444; }
-  .login-status { text-align: center; font-size: 12px; color: var(--cyan); margin-top: 14px; min-height: 18px; letter-spacing: 1px; }
-  #app { position: relative; z-index: 2; display: none; }
-  .header { background: rgba(0,10,0,0.95); border-bottom: 1px solid #00ff4133; padding: 14px 28px; display: flex; align-items: center; gap: 18px; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(8px); }
-  .header-logo { font-family: 'Orbitron', sans-serif; font-size: 16px; font-weight: 900; color: var(--green); text-shadow: var(--glow); flex: 1; }
-  .header-logo span { color: var(--cyan); }
-  .header-status { font-size: 11px; color: #00ff4177; letter-spacing: 2px; }
-  .user-badge { background: #001f00; border: 1px solid #00ff4144; padding: 5px 14px; font-size: 12px; color: var(--green); }
-  .logout-btn { background: transparent; border: 1px solid var(--red); color: var(--red); font-family: 'Share Tech Mono', monospace; font-size: 11px; padding: 5px 12px; cursor: pointer; transition: all .2s; letter-spacing: 1px; }
-  .logout-btn:hover { background: #ff003c22; }
-  .nav { display: flex; gap: 0; background: rgba(0,5,0,0.9); border-bottom: 1px solid #00ff4122; overflow-x: auto; }
-  .nav-btn { background: transparent; border: none; border-right: 1px solid #00ff4122; color: #00ff4166; font-family: 'Share Tech Mono', monospace; font-size: 12px; padding: 12px 20px; cursor: pointer; transition: all .2s; letter-spacing: 1px; white-space: nowrap; }
-  .nav-btn:hover { color: var(--green); background: #00ff4108; }
-  .nav-btn.active { color: var(--green); background: #001f00; border-bottom: 2px solid var(--green); text-shadow: var(--glow); }
-  .content { padding: 28px; max-width: 1200px; margin: 0 auto; }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-  .section-title { font-family: 'Orbitron', sans-serif; font-size: 18px; font-weight: 700; color: var(--green); text-shadow: var(--glow); margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
-  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(90deg, #00ff4144, transparent); }
-  .terminal { background: #000; border: 1px solid #00ff4144; font-family: 'Share Tech Mono', monospace; font-size: 13px; color: var(--green); padding: 16px; height: 260px; overflow-y: auto; }
-  .terminal::-webkit-scrollbar { width: 4px; }
-  .terminal::-webkit-scrollbar-thumb { background: #00ff4144; }
-  .terminal-line { margin: 2px 0; }
-  .terminal-line.cmd { color: var(--cyan); }
-  .terminal-line.err { color: var(--red); }
-  .terminal-line.warn { color: var(--yellow); }
-  .terminal-line.success { color: #00ff41; }
-  .terminal-input-row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
-  .term-prompt { color: var(--green); white-space: nowrap; font-size: 13px; }
-  .term-input { flex: 1; background: transparent; border: none; color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 13px; outline: none; caret-color: var(--green); }
-  .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; margin-bottom: 28px; }
-  .card { background: var(--panel); border: 1px solid #00ff4122; padding: 22px; transition: border-color .2s, box-shadow .2s; }
-  .card:hover { border-color: #00ff4166; box-shadow: 0 0 20px #00ff4111; }
-  .card-title { font-family: 'Orbitron', sans-serif; font-size: 13px; color: var(--green); margin-bottom: 12px; letter-spacing: 2px; }
-  .card-icon { font-size: 28px; margin-bottom: 12px; display: block; }
-  .btn { background: transparent; border: 1px solid var(--green); color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 12px; padding: 8px 18px; cursor: pointer; transition: all .2s; letter-spacing: 1px; }
-  .btn:hover { background: #00ff4122; box-shadow: var(--glow); }
-  .btn-cyan { border-color: var(--cyan); color: var(--cyan); }
-  .btn-cyan:hover { background: #00eeff22; box-shadow: var(--glow-cyan); }
-  .btn-red { border-color: var(--red); color: var(--red); }
-  .btn-red:hover { background: #ff003c22; }
-  .btn-full { width: 100%; text-align: center; }
-  .form-row { margin-bottom: 14px; }
-  .form-row label { display: block; font-size: 11px; color: #00ff4188; margin-bottom: 5px; letter-spacing: 2px; }
-  .form-input { width: 100%; background: #001500; border: 1px solid #00ff4144; color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 13px; padding: 9px 12px; outline: none; transition: border-color .2s; }
-  .form-input:focus { border-color: var(--green); }
-  .form-select { width: 100%; background: #001500; border: 1px solid #00ff4144; color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 13px; padding: 9px 12px; outline: none; }
-  .output-box { background: #000; border: 1px solid #00ff4133; padding: 14px; font-size: 13px; color: var(--cyan); min-height: 50px; word-break: break-all; margin-top: 12px; font-family: 'Share Tech Mono', monospace; }
-  .strength-bar { height: 6px; background: #002200; border-radius: 3px; margin-top: 10px; overflow: hidden; }
-  .strength-fill { height: 100%; border-radius: 3px; transition: width .4s, background .4s; }
-  .strength-label { font-size: 11px; margin-top: 5px; letter-spacing: 2px; }
-  .scan-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 14px; }
-  .scan-table th { background: #001f00; border: 1px solid #00ff4133; padding: 8px 12px; color: var(--green); font-family: 'Orbitron', sans-serif; font-size: 11px; text-align: left; letter-spacing: 2px; }
-  .scan-table td { border: 1px solid #00ff4122; padding: 8px 12px; color: #00ff41cc; }
-  .scan-table tr:hover td { background: #00ff4108; }
-  .secure { color: #00ff41; } .weak { color: var(--yellow); } .vuln { color: var(--red); }
-  .chat-box { background: #000; border: 1px solid #00ff4133; height: 340px; overflow-y: auto; padding: 16px; margin-bottom: 12px; font-size: 13px; }
-  .chat-box::-webkit-scrollbar { width: 4px; }
-  .chat-box::-webkit-scrollbar-thumb { background: #00ff4144; }
-  .chat-msg { margin-bottom: 14px; }
-  .chat-msg .from { font-size: 10px; letter-spacing: 3px; margin-bottom: 4px; }
-  .chat-msg.user .from { color: var(--cyan); }
-  .chat-msg.ai .from { color: var(--green); }
-  .chat-msg .text { line-height: 1.6; padding: 10px 14px; border-left: 2px solid; }
-  .chat-msg.user .text { color: var(--cyan); border-color: var(--cyan); background: #001a1f; }
-  .chat-msg.ai .text { color: var(--green); border-color: var(--green); background: #001500; }
-  .chat-input-row { display: flex; gap: 10px; }
-  .chat-input { flex: 1; background: #001500; border: 1px solid #00ff4144; color: var(--green); font-family: 'Share Tech Mono', monospace; font-size: 13px; padding: 10px 14px; outline: none; }
-  .ai-typing { color: #00ff4166; font-size: 12px; letter-spacing: 2px; }
-  .game-area { background: #000; border: 1px solid #00ff4144; padding: 24px; text-align: center; }
-  .game-title { font-family: 'VT323', monospace; font-size: 38px; color: var(--green); text-shadow: var(--glow); margin-bottom: 8px; }
-  .game-desc { color: #00ff4188; font-size: 13px; margin-bottom: 20px; }
-  .game-grid { display: inline-grid; gap: 4px; margin: 0 auto 20px; }
-  .game-cell { width: 44px; height: 44px; border: 1px solid #00ff4133; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; transition: all .15s; background: #001500; font-family: 'Share Tech Mono', monospace; color: var(--green); }
-  .game-cell:hover { border-color: var(--green); background: #002500; box-shadow: var(--glow); }
-  .game-cell.revealed { background: #002000; cursor: default; }
-  .game-cell.mine { background: #1a0000; border-color: var(--red); }
-  .game-cell.flagged { background: #1a1000; border-color: var(--yellow); }
-  .game-stats { display: flex; gap: 28px; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 14px; margin-bottom: 16px; color: var(--green); }
-  .game-controls { display: flex; gap: 10px; justify-content: center; }
-  .progress-bar { height: 8px; background: #002200; margin-top: 6px; border-radius: 4px; overflow: hidden; }
-  .progress-fill { height: 100%; background: var(--green); box-shadow: 0 0 6px var(--green); transition: width .3s; }
-  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
-  .stat-card { background: var(--panel); border: 1px solid #00ff4122; padding: 18px; text-align: center; }
-  .stat-num { font-family: 'Orbitron', sans-serif; font-size: 28px; color: var(--green); text-shadow: var(--glow); }
-  .stat-lbl { font-size: 10px; color: #00ff4166; letter-spacing: 2px; margin-top: 4px; }
-  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  @keyframes glitch { 0%{text-shadow:2px 0 var(--red),-2px 0 var(--cyan);} 50%{text-shadow:-2px 0 var(--red),2px 0 var(--cyan);} 100%{text-shadow:2px 0 var(--red),-2px 0 var(--cyan);} }
-  .glitch { animation: glitch 3s infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-  .blink { animation: blink 1s step-end infinite; }
-  @media (max-width: 700px) { .stat-row{grid-template-columns:repeat(2,1fr);} .login-box{width:95vw;padding:28px 20px;} .content{padding:16px;} .two-col{grid-template-columns:1fr;} }
-  ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:#000;} ::-webkit-scrollbar-thumb{background:#00ff4133;border-radius:3px;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Share Tech Mono',monospace;background:var(--bg);color:var(--green);min-height:100vh;overflow-x:hidden;}
+  #matrix-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.13;pointer-events:none;}
+  body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,65,0.02) 2px,rgba(0,255,65,0.02) 4px);z-index:1;pointer-events:none;}
+  #login-screen{position:fixed;inset:0;background:#000;z-index:1000;display:flex;align-items:center;justify-content:center;flex-direction:column;}
+  .login-box{background:rgba(0,15,0,0.97);border:1px solid var(--green);box-shadow:var(--glow),inset 0 0 40px rgba(0,255,65,0.03);width:420px;padding:40px 36px;position:relative;}
+  .login-box::before{content:'SECURE LOGIN';position:absolute;top:-12px;left:20px;background:#000;padding:0 8px;font-family:'Orbitron',sans-serif;font-size:11px;color:var(--green);letter-spacing:4px;}
+  .login-logo{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--green);text-align:center;text-shadow:var(--glow);margin-bottom:6px;}
+  .login-sub{text-align:center;font-size:11px;color:#00ff4188;margin-bottom:28px;letter-spacing:3px;}
+  .login-field{margin-bottom:16px;}
+  .login-field label{display:block;font-size:11px;color:#00ff4188;margin-bottom:6px;letter-spacing:2px;}
+  .login-field input{width:100%;background:#001500;border:1px solid #00ff4155;color:var(--green);font-family:'Share Tech Mono',monospace;font-size:14px;padding:10px 14px;outline:none;transition:border-color .2s,box-shadow .2s;}
+  .login-field input:focus{border-color:var(--green);box-shadow:0 0 8px #00ff4144;}
+  .login-btn{width:100%;background:transparent;border:1px solid var(--green);color:var(--green);font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;padding:12px;cursor:pointer;transition:all .2s;margin-top:8px;text-transform:uppercase;}
+  .login-btn:hover{background:var(--green);color:#000;box-shadow:var(--glow);}
+  .gmail-btn{width:100%;background:transparent;border:1px solid #4285f4;color:#4285f4;font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:2px;padding:11px;cursor:pointer;transition:all .2s;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .gmail-btn:hover{background:#4285f422;box-shadow:0 0 10px #4285f444;}
+  .login-status{text-align:center;font-size:12px;color:var(--cyan);margin-top:14px;min-height:18px;letter-spacing:1px;}
+  #app{position:relative;z-index:2;display:none;}
+  .header{background:rgba(0,10,0,0.95);border-bottom:1px solid #00ff4133;padding:14px 28px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);}
+  .header-logo{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:var(--green);text-shadow:var(--glow);flex:1;}
+  .header-logo span{color:var(--cyan);}
+  .header-status{font-size:11px;color:#00ff4177;letter-spacing:2px;}
+  .user-badge{background:#001f00;border:1px solid #00ff4144;padding:5px 14px;font-size:12px;color:var(--green);}
+  .logout-btn{background:transparent;border:1px solid var(--red);color:var(--red);font-family:'Share Tech Mono',monospace;font-size:11px;padding:5px 12px;cursor:pointer;transition:all .2s;letter-spacing:1px;}
+  .logout-btn:hover{background:#ff003c22;}
+  .nav{display:flex;gap:0;background:rgba(0,5,0,0.9);border-bottom:1px solid #00ff4122;overflow-x:auto;}
+  .nav-btn{background:transparent;border:none;border-right:1px solid #00ff4122;color:#00ff4166;font-family:'Share Tech Mono',monospace;font-size:12px;padding:12px 20px;cursor:pointer;transition:all .2s;letter-spacing:1px;white-space:nowrap;}
+  .nav-btn:hover{color:var(--green);background:#00ff4108;}
+  .nav-btn.active{color:var(--green);background:#001f00;border-bottom:2px solid var(--green);text-shadow:var(--glow);}
+  .content{padding:28px;max-width:1200px;margin:0 auto;}
+  .tab-panel{display:none;}.tab-panel.active{display:block;}
+  .section-title{font-family:'Orbitron',sans-serif;font-size:18px;font-weight:700;color:var(--green);text-shadow:var(--glow);margin-bottom:24px;display:flex;align-items:center;gap:12px;}
+  .section-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,#00ff4144,transparent);}
+  .terminal{background:#000;border:1px solid #00ff4144;font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--green);padding:16px;height:260px;overflow-y:auto;}
+  .terminal::-webkit-scrollbar{width:4px;}.terminal::-webkit-scrollbar-thumb{background:#00ff4144;}
+  .terminal-line{margin:2px 0;}.terminal-line.cmd{color:var(--cyan);}.terminal-line.err{color:var(--red);}.terminal-line.warn{color:var(--yellow);}.terminal-line.success{color:#00ff41;}
+  .terminal-input-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
+  .term-prompt{color:var(--green);white-space:nowrap;font-size:13px;}
+  .term-input{flex:1;background:transparent;border:none;color:var(--green);font-family:'Share Tech Mono',monospace;font-size:13px;outline:none;caret-color:var(--green);}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-bottom:28px;}
+  .card{background:var(--panel);border:1px solid #00ff4122;padding:22px;transition:border-color .2s,box-shadow .2s;}
+  .card:hover{border-color:#00ff4166;box-shadow:0 0 20px #00ff4111;}
+  .card-title{font-family:'Orbitron',sans-serif;font-size:13px;color:var(--green);margin-bottom:12px;letter-spacing:2px;}
+  .card-icon{font-size:28px;margin-bottom:12px;display:block;}
+  .btn{background:transparent;border:1px solid var(--green);color:var(--green);font-family:'Share Tech Mono',monospace;font-size:12px;padding:8px 18px;cursor:pointer;transition:all .2s;letter-spacing:1px;}
+  .btn:hover{background:#00ff4122;box-shadow:var(--glow);}
+  .btn-cyan{border-color:var(--cyan);color:var(--cyan);}.btn-cyan:hover{background:#00eeff22;box-shadow:var(--glow-cyan);}
+  .btn-red{border-color:var(--red);color:var(--red);}.btn-red:hover{background:#ff003c22;}
+  .btn-full{width:100%;text-align:center;}
+  .form-row{margin-bottom:14px;}
+  .form-row label{display:block;font-size:11px;color:#00ff4188;margin-bottom:5px;letter-spacing:2px;}
+  .form-input{width:100%;background:#001500;border:1px solid #00ff4144;color:var(--green);font-family:'Share Tech Mono',monospace;font-size:13px;padding:9px 12px;outline:none;transition:border-color .2s;}
+  .form-input:focus{border-color:var(--green);}
+  .form-select{width:100%;background:#001500;border:1px solid #00ff4144;color:var(--green);font-family:'Share Tech Mono',monospace;font-size:13px;padding:9px 12px;outline:none;}
+  .output-box{background:#000;border:1px solid #00ff4133;padding:14px;font-size:13px;color:var(--cyan);min-height:50px;word-break:break-all;margin-top:12px;font-family:'Share Tech Mono',monospace;}
+  .strength-bar{height:6px;background:#002200;border-radius:3px;margin-top:10px;overflow:hidden;}
+  .strength-fill{height:100%;border-radius:3px;transition:width .4s,background .4s;}
+  .strength-label{font-size:11px;margin-top:5px;letter-spacing:2px;}
+  .scan-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:14px;}
+  .scan-table th{background:#001f00;border:1px solid #00ff4133;padding:8px 12px;color:var(--green);font-family:'Orbitron',sans-serif;font-size:11px;text-align:left;letter-spacing:2px;}
+  .scan-table td{border:1px solid #00ff4122;padding:8px 12px;color:#00ff41cc;}
+  .scan-table tr:hover td{background:#00ff4108;}
+  .secure{color:#00ff41;}.weak{color:var(--yellow);}.vuln{color:var(--red);}
+  .chat-box{background:#000;border:1px solid #00ff4133;height:400px;overflow-y:auto;padding:16px;margin-bottom:12px;font-size:13px;}
+  .chat-box::-webkit-scrollbar{width:4px;}.chat-box::-webkit-scrollbar-thumb{background:#00ff4144;}
+  .chat-msg{margin-bottom:14px;}
+  .chat-msg .from{font-size:10px;letter-spacing:3px;margin-bottom:4px;}
+  .chat-msg.user .from{color:var(--cyan);}.chat-msg.ai .from{color:var(--green);}
+  .chat-msg .text{line-height:1.7;padding:10px 14px;border-left:2px solid;}
+  .chat-msg.user .text{color:var(--cyan);border-color:var(--cyan);background:#001a1f;}
+  .chat-msg.ai .text{color:var(--green);border-color:var(--green);background:#001500;}
+  .chat-input-row{display:flex;gap:10px;}
+  .chat-input{flex:1;background:#001500;border:1px solid #00ff4144;color:var(--green);font-family:'Share Tech Mono',monospace;font-size:13px;padding:10px 14px;outline:none;}
+  .ai-typing{color:#00ff4166;font-size:12px;letter-spacing:2px;}
+  .ai-badge{display:inline-block;background:#002200;border:1px solid #00ff4144;padding:4px 12px;font-size:10px;letter-spacing:3px;color:var(--green);margin-bottom:14px;}
+  .game-area{background:#000;border:1px solid #00ff4144;padding:24px;text-align:center;}
+  .game-title{font-family:'VT323',monospace;font-size:38px;color:var(--green);text-shadow:var(--glow);margin-bottom:8px;}
+  .game-desc{color:#00ff4188;font-size:13px;margin-bottom:20px;}
+  .game-grid{display:inline-grid;gap:4px;margin:0 auto 20px;}
+  .game-cell{width:44px;height:44px;border:1px solid #00ff4133;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:all .15s;background:#001500;font-family:'Share Tech Mono',monospace;color:var(--green);}
+  .game-cell:hover{border-color:var(--green);background:#002500;box-shadow:var(--glow);}
+  .game-cell.revealed{background:#002000;cursor:default;}
+  .game-cell.mine{background:#1a0000;border-color:var(--red);}
+  .game-cell.flagged{background:#1a1000;border-color:var(--yellow);}
+  .game-stats{display:flex;gap:28px;justify-content:center;font-family:'Orbitron',sans-serif;font-size:14px;margin-bottom:16px;color:var(--green);}
+  .game-controls{display:flex;gap:10px;justify-content:center;}
+  .progress-bar{height:8px;background:#002200;margin-top:6px;border-radius:4px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--green);box-shadow:0 0 6px var(--green);transition:width .3s;}
+  .stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:28px;}
+  .stat-card{background:var(--panel);border:1px solid #00ff4122;padding:18px;text-align:center;}
+  .stat-num{font-family:'Orbitron',sans-serif;font-size:28px;color:var(--green);text-shadow:var(--glow);}
+  .stat-lbl{font-size:10px;color:#00ff4166;letter-spacing:2px;margin-top:4px;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  @keyframes glitch{0%{text-shadow:2px 0 var(--red),-2px 0 var(--cyan);}50%{text-shadow:-2px 0 var(--red),2px 0 var(--cyan);}100%{text-shadow:2px 0 var(--red),-2px 0 var(--cyan);}}
+  .glitch{animation:glitch 3s infinite;}
+  @keyframes blink{50%{opacity:0;}}.blink{animation:blink 1s step-end infinite;}
+  @media(max-width:700px){.stat-row{grid-template-columns:repeat(2,1fr);}.login-box{width:95vw;padding:28px 20px;}.content{padding:16px;}.two-col{grid-template-columns:1fr;}}
+  ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:#000;}::-webkit-scrollbar-thumb{background:#00ff4133;border-radius:3px;}
 </style>
 </head>
 <body>
 <canvas id="matrix-canvas"></canvas>
 
-<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">&#9889; SANDESH ETH-HACK</div>
     <div class="login-sub">ETHICAL HACKING TOOLS SYSTEM v2.0</div>
     <div class="login-field"><label>&#9658; USERNAME / EMAIL</label><input type="text" id="login-user" placeholder="root@sandesh.local" autocomplete="off"></div>
-    <div class="login-field"><label>&#9658; PASSWORD</label><input type="password" id="login-pass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" onkeydown="if(event.key==='Enter')doLogin()"></div>
+    <div class="login-field"><label>&#9658; PASSWORD</label><input type="password" id="login-pass" placeholder="••••••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <button class="login-btn" onclick="doLogin()">[ AUTHENTICATE ]</button>
     <button class="gmail-btn" onclick="gmailLogin()"><span>G</span> SIGN IN WITH GMAIL</button>
     <div class="login-status" id="login-status"></div>
   </div>
 </div>
 
-<!-- APP -->
 <div id="app">
   <div class="header">
     <div class="header-logo">&#9889; <span>SANDESH</span> ETHICAL HACKING TOOLS</div>
@@ -174,7 +162,7 @@
         <div class="cards-grid">
           <div class="card"><span class="card-icon">&#128273;</span><div class="card-title">PASSWORD GENERATOR</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Generate ultra-secure passwords with custom rules.</p><button class="btn" onclick="showTab('passgen')">OPEN TOOL &rarr;</button></div>
           <div class="card"><span class="card-icon">&#128225;</span><div class="card-title">WIFI SECURITY AUDIT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Simulate network scanning and security assessment.</p><button class="btn" onclick="showTab('wifi')">OPEN TOOL &rarr;</button></div>
-          <div class="card"><span class="card-icon">&#129302;</span><div class="card-title">AI CYBER ASSISTANT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Ask anything about cybersecurity, hacking, CTFs.</p><button class="btn" onclick="showTab('ai')">OPEN AI &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#129302;</span><div class="card-title">AI CYBER ASSISTANT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Ask ANYTHING — science, coding, hacking, math, history...</p><button class="btn" onclick="showTab('ai')">OPEN AI &rarr;</button></div>
           <div class="card"><span class="card-icon">&#127918;</span><div class="card-title">HACK THE PLANET</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Defuse the firewall — minesweeper hacker edition.</p><button class="btn" onclick="showTab('game')">PLAY &rarr;</button></div>
         </div>
       </div>
@@ -228,7 +216,7 @@
     <!-- WIFI TOOLS -->
     <div class="tab-panel" id="tab-wifi">
       <div class="section-title">WIFI SECURITY TOOLKIT</div>
-      <div style="background:#1a0800;border:1px solid #ff660044;padding:12px 16px;margin-bottom:20px;font-size:12px;color:#ff9944;">&#9888; EDUCATIONAL SIMULATION ONLY — All results are simulated for learning purposes. Unauthorized network access is illegal.</div>
+      <div style="background:#1a0800;border:1px solid #ff660044;padding:12px 16px;margin-bottom:20px;font-size:12px;color:#ff9944;">&#9888; EDUCATIONAL SIMULATION ONLY — All results are simulated for learning. Unauthorized network access is illegal.</div>
       <div class="two-col">
         <div>
           <div class="section-title" style="font-size:14px;">NETWORK SCANNER</div>
@@ -239,7 +227,7 @@
           <div style="font-size:11px;color:#00ff4177;margin-top:5px;" id="scan-status">READY</div>
           <div style="margin-top:20px;">
             <div class="section-title" style="font-size:14px;">SECURE YOUR WIFI</div>
-            <div style="background:#001500;border:1px solid #00ff4122;padding:14px;font-size:12px;color:#00ff41cc;line-height:1.8;">&#9658; Use WPA3 encryption<br>&#9658; Set a strong password (20+ chars)<br>&#9658; Disable WPS<br>&#9658; Hide your SSID<br>&#9658; Enable MAC address filtering<br>&#9658; Use a guest network for IoT<br>&#9658; Update router firmware regularly</div>
+            <div style="background:#001500;border:1px solid #00ff4122;padding:14px;font-size:12px;color:#00ff41cc;line-height:1.8;">&#9658; Use WPA3 encryption<br>&#9658; Set a strong password (20+ chars)<br>&#9658; Disable WPS<br>&#9658; Hide your SSID<br>&#9658; Enable MAC address filtering<br>&#9658; Use a guest network for IoT devices<br>&#9658; Update router firmware regularly</div>
           </div>
         </div>
         <div>
@@ -284,16 +272,22 @@
 
     <!-- AI ASSISTANT -->
     <div class="tab-panel" id="tab-ai">
-      <div class="section-title">AI CYBER ASSISTANT</div>
-      <div style="font-size:11px;color:#00ff4166;letter-spacing:2px;margin-bottom:14px;">Powered by Claude AI &middot; Ask anything about cybersecurity, CTFs, ethical hacking...</div>
+      <div class="section-title">AI ASSISTANT — SANDESH-AI</div>
+      <div class="ai-badge">&#9672; ADVANCED AI &bull; ANSWERS ALL QUESTIONS &bull; POWERED BY CLAUDE</div>
+      <div style="font-size:11px;color:#00ff4166;letter-spacing:1px;margin-bottom:14px;line-height:1.8;">
+        Ask me ANYTHING: &nbsp;&#9658; Cybersecurity &amp; Hacking &nbsp;&#9658; Science &amp; Math &nbsp;&#9658; Coding &nbsp;&#9658; History &nbsp;&#9658; Medicine &nbsp;&#9658; Business &nbsp;&#9658; Cooking &nbsp;&#9658; Sports &nbsp;&#9658; General Knowledge &nbsp;&#9658; And everything else!
+      </div>
       <div class="chat-box" id="chat-box">
-        <div class="chat-msg ai"><div class="from">&#9672; SANDESH-AI v2.0</div><div class="text">Greetings, hacker. I am your AI Cyber Assistant. Ask me anything about ethical hacking, cybersecurity, network defense, CTF challenges, penetration testing, cryptography, or any tech topic.</div></div>
+        <div class="chat-msg ai">
+          <div class="from">&#9672; SANDESH-AI — ADVANCED UNIVERSAL ASSISTANT</div>
+          <div class="text">Hello! I am SANDESH-AI, your advanced AI assistant. I can answer ANY question on ANY topic — cybersecurity, hacking, science, math, history, coding, medicine, cooking, sports, entertainment, general knowledge, and everything in between.<br><br>What would you like to know today?</div>
+        </div>
       </div>
       <div class="chat-input-row">
-        <input class="chat-input" id="chat-input" placeholder="Ask anything... e.g. What is SQL injection?" onkeydown="if(event.key==='Enter')sendChat()">
+        <input class="chat-input" id="chat-input" placeholder="Ask me ANYTHING — no limits on topics!" onkeydown="if(event.key==='Enter')sendChat()">
         <button class="btn btn-cyan" onclick="sendChat()">SEND &#10230;</button>
       </div>
-      <div class="ai-typing" id="ai-typing" style="margin-top:8px;display:none;">&#9672; AI IS THINKING<span class="blink">_</span></div>
+      <div class="ai-typing" id="ai-typing" style="margin-top:8px;display:none;">&#9672; SANDESH-AI IS THINKING<span class="blink">_</span></div>
     </div>
 
     <!-- GAME -->
@@ -323,20 +317,20 @@
 
 <script>
 // MATRIX RAIN
-const canvas = document.getElementById('matrix-canvas');
-const ctx = canvas.getContext('2d');
-let drops = [];
+const canvas=document.getElementById('matrix-canvas');
+const ctx=canvas.getContext('2d');
+let drops=[];
 function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;drops=Array(Math.floor(canvas.width/14)).fill(1);}
-resizeCanvas(); window.addEventListener('resize',resizeCanvas);
+resizeCanvas();window.addEventListener('resize',resizeCanvas);
 const chars='アイウエオカキクケコ0123456789ABCDEF<>/\\|{}[]';
 function drawMatrix(){ctx.fillStyle='rgba(0,0,0,0.04)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#00ff41';ctx.font='13px Share Tech Mono';drops.forEach((y,i)=>{const ch=chars[Math.floor(Math.random()*chars.length)];ctx.fillText(ch,i*14,y*14);if(y*14>canvas.height&&Math.random()>0.975)drops[i]=0;drops[i]++;});}
 setInterval(drawMatrix,50);
 
-// LOCALSTORAGE HELPERS
+// LOCALSTORAGE
 function lsGet(key,def){try{const v=localStorage.getItem(key);return v!==null?JSON.parse(v):def;}catch(e){return def;}}
 function lsSet(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}}
 
-// STATS - saved to localStorage
+// STATS
 let stats=lsGet('seth_stats',{scans:0,pass:0,ai:0,score:0});
 function updateStats(){
   document.getElementById('stat-scans').textContent=stats.scans;
@@ -346,7 +340,7 @@ function updateStats(){
   lsSet('seth_stats',stats);
 }
 
-// LOGIN - saved to localStorage
+// LOGIN
 let currentUser=lsGet('seth_user','');
 function delay(ms){return new Promise(r=>setTimeout(r,ms));}
 function setStatus(msg,color='#00eeff'){const el=document.getElementById('login-status');el.style.color=color;el.textContent=msg;}
@@ -357,31 +351,25 @@ async function doLogin(){
   if(!user||!pass){setStatus('[ ERROR: CREDENTIALS REQUIRED ]','#ff003c');return;}
   const msgs=['Authenticating...','Verifying credentials...','Establishing secure session...','[ ACCESS GRANTED ]'];
   for(const m of msgs){setStatus(m);await delay(400);}
-  currentUser=user;
-  lsSet('seth_user',user);
-  launchApp();
+  currentUser=user;lsSet('seth_user',user);launchApp();
 }
 
 async function gmailLogin(){
   setStatus('Connecting to Gmail OAuth...','#4285f4');await delay(600);
   setStatus('Simulating Google OAuth flow...','#4285f4');await delay(800);
   setStatus('[ GMAIL AUTH SUCCESS ]','#00ff41');await delay(500);
-  currentUser='user@gmail.com';
-  lsSet('seth_user','user@gmail.com');
-  launchApp();
+  currentUser='user@gmail.com';lsSet('seth_user','user@gmail.com');launchApp();
 }
 
 function launchApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('user-badge').textContent=currentUser;
-  updateStats();
-  startDashboard();
+  updateStats();startDashboard();
 }
 
 function logout(){
-  lsSet('seth_user','');
-  currentUser='';
+  lsSet('seth_user','');currentUser='';
   document.getElementById('login-screen').style.display='flex';
   document.getElementById('app').style.display='none';
   document.getElementById('login-status').textContent='';
@@ -442,8 +430,7 @@ function handleTermKey(e){
   const input=document.getElementById('term-input');
   if(e.key==='Enter'){
     const cmd=input.value.trim();if(!cmd)return;
-    addTermLine('└─$ '+cmd,'cmd');termHistory.unshift(cmd);termIdx=-1;input.value='';
-    executeCmd(cmd);
+    addTermLine('└─$ '+cmd,'cmd');termHistory.unshift(cmd);termIdx=-1;input.value='';executeCmd(cmd);
   }else if(e.key==='ArrowUp'){if(termIdx<termHistory.length-1){termIdx++;input.value=termHistory[termIdx];}}
   else if(e.key==='ArrowDown'){if(termIdx>0){termIdx--;input.value=termHistory[termIdx];}else{termIdx=-1;input.value='';}}
   else if(e.key==='Tab'){e.preventDefault();const m=Object.keys(COMMANDS).find(k=>k.startsWith(input.value));if(m)input.value=m;}
@@ -521,7 +508,7 @@ function checkStrength(pwd){
   const s=calcStrength(pwd);
   document.getElementById('check-fill').style.width=s.pct+'%';document.getElementById('check-fill').style.background=s.color;
   document.getElementById('check-label').style.color=s.color;document.getElementById('check-label').textContent='STRENGTH: '+s.label;
-  document.getElementById('check-details').textContent='Length: '+pwd.length+' '+(pwd.length>=16?'OK':'SHORT')+'  |  Upper: '+((/[A-Z]/.test(pwd))?'YES':'NO')+'  |  Lower: '+((/[a-z]/.test(pwd))?'YES':'NO')+'  |  Numbers: '+((/[0-9]/.test(pwd))?'YES':'NO')+'  |  Symbols: '+((/[^A-Za-z0-9]/.test(pwd))?'YES':'NO');
+  document.getElementById('check-details').textContent='Length: '+pwd.length+' '+(pwd.length>=16?'OK':'SHORT')+'  |  Upper: '+(/[A-Z]/.test(pwd)?'YES':'NO')+'  |  Lower: '+(/[a-z]/.test(pwd)?'YES':'NO')+'  |  Numbers: '+(/[0-9]/.test(pwd)?'YES':'NO')+'  |  Symbols: '+(/[^A-Za-z0-9]/.test(pwd)?'YES':'NO');
 }
 function copyPasswords(){navigator.clipboard.writeText(document.getElementById('pass-output').textContent).then(()=>{const btn=event.target;btn.textContent='COPIED!';setTimeout(()=>btn.textContent='COPY TO CLIPBOARD',1500);});}
 
@@ -584,40 +571,72 @@ async function hashText(){
   out.textContent=algo+': '+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 
-// AI ASSISTANT
+// AI ASSISTANT — ADVANCED, ANSWERS ALL QUESTIONS
+// Chat history stored per session for better context
+let chatHistory=[];
+
 async function sendChat(){
   const input=document.getElementById('chat-input');
   const msg=input.value.trim();if(!msg)return;
   input.value='';addChatMsg('user',msg);
   document.getElementById('ai-typing').style.display='block';
   stats.ai++;updateStats();
+
+  // Add to history for context
+  chatHistory.push({role:'user',content:msg});
+  // Keep last 10 messages for context window
+  if(chatHistory.length>10)chatHistory=chatHistory.slice(-10);
+
   try{
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',max_tokens:1000,
-        system:'You are SANDESH-AI, an expert AI assistant for the Sandesh Ethical Hacking Tools system. You are an expert in cybersecurity, ethical hacking, penetration testing, network security, cryptography, CTF challenges, Linux and Kali Linux, and all technology topics. Answer educationally and ethically. Be concise but thorough.',
-        messages:[{role:'user',content:msg}]
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1500,
+        system:`You are SANDESH-AI, a powerful and advanced AI assistant built into the Sandesh Ethical Hacking Tools system. You are highly intelligent and knowledgeable across ALL topics and domains.
+
+You can answer ANY question on ANY topic including but not limited to:
+- Cybersecurity, ethical hacking, penetration testing, CTFs, network security
+- Science (physics, chemistry, biology, astronomy, geology)
+- Mathematics (algebra, calculus, statistics, geometry, number theory)
+- Programming and coding (Python, JavaScript, C++, Java, HTML, SQL, and all languages)
+- History, geography, politics, economics
+- Medicine, health, nutrition, fitness
+- Law, business, finance, investing
+- Arts, literature, music, movies, entertainment
+- Cooking, recipes, food
+- Sports, games, hobbies
+- Philosophy, psychology, sociology
+- General knowledge and trivia
+- Current events and world affairs
+- Language and writing help
+- And absolutely everything else
+
+Always give complete, accurate, detailed, and helpful answers. Be friendly and conversational. Format answers clearly. Never refuse a genuine question — always do your best to help the user.`,
+        messages:chatHistory
       })
     });
     const data=await res.json();
-    const reply=data.content?.[0]?.text||'Connection error.';
+    const reply=data.content?.[0]?.text||'Connection error. Please try again.';
     document.getElementById('ai-typing').style.display='none';
+    // Add assistant reply to history
+    chatHistory.push({role:'assistant',content:reply});
     addChatMsg('ai',reply);
   }catch(e){
     document.getElementById('ai-typing').style.display='none';
-    addChatMsg('ai','AI connection error: '+e.message);
+    addChatMsg('ai','Connection error: '+e.message+'\n\nMake sure you have internet access.');
   }
 }
+
 function addChatMsg(role,text){
   const box=document.getElementById('chat-box');
   const div=document.createElement('div');div.className='chat-msg '+role;
-  div.innerHTML='<div class="from">'+(role==='user'?'YOU':'SANDESH-AI v2.0')+'</div><div class="text">'+text.replace(/\n/g,'<br>')+'</div>';
+  div.innerHTML='<div class="from">'+(role==='user'?'&#9658; YOU':'&#9672; SANDESH-AI')+'</div><div class="text">'+text.replace(/\n/g,'<br>').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')+'</div>';
   box.appendChild(div);box.scrollTop=box.scrollHeight;
 }
 
-// GAME - FIREWALL BREAKER
+// GAME — FIREWALL BREAKER
 let gBoard=[],gRows=8,gCols=10,gMines=12,gFlags=0,gRevealed=0,gTimer=0,gTimerIv=null,gOver=false,gStarted=false;
 const CONFIGS={easy:{rows:6,cols:8,mines:6},medium:{rows:8,cols:10,mines:12},hard:{rows:10,cols:12,mines:22}};
 function initGame(diff){
@@ -656,10 +675,9 @@ window.addEventListener('load',()=>{
     document.getElementById('login-screen').style.display='none';
     document.getElementById('app').style.display='block';
     document.getElementById('user-badge').textContent=currentUser;
-    updateStats();
-    startDashboard();
+    updateStats();startDashboard();
   }
 });
 </script>
 </body>
-            </html>
+                                                                                                                       </html>
