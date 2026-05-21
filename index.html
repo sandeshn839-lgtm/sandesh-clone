@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sandesh Tools v11.0 - Real Subway Mode</title>
+    <title>Sandesh Tools v13.0 - Real Kali Core</title>
     <style>
         * {
             margin: 0;
@@ -48,9 +48,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 10px;
             margin-bottom: 15px;
-            position: relative;
         }
         .system-header h2 {
             font-size: 14px;
@@ -59,10 +57,10 @@
             text-shadow: 0 0 8px #00ff00;
         }
 
-        /* RUNNER MATRIX */
+        /* METRICS */
         .runner-matrix-container {
             background: #0a0e14;
-            border: 1px solid #ffcc00;
+            border: 1px solid #00ff00;
             border-radius: 12px;
             padding: 10px;
             margin-bottom: 15px;
@@ -70,9 +68,9 @@
         .matrix-title {
             text-align: center;
             font-size: 11px;
-            color: #ffcc00;
+            color: #00ff00;
             font-weight: bold;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .matrix-row {
             display: flex;
@@ -95,16 +93,22 @@
             background: transparent;
             border-radius: 10px;
             padding: 12px 8px;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: bold;
             cursor: pointer;
+            transition: 0.2s;
         }
         .btn-study { border: 1px solid #00ff00; color: #00ff00; }
         .btn-pass  { border: 1px solid #ffaa00; color: #ffaa00; }
         .btn-cpu   { border: 1px solid #00ffff; color: #00ffff; }
         .btn-ram   { border: 1px solid #5b9aff; color: #5b9aff; }
         .btn-ip    { border: 1px solid #ff3333; color: #ff3333; }
-        .btn-game  { border: 1px solid #ffff00; color: #ffff00; }
+        .btn-kali  { 
+            border: 1px solid #8c52ff; 
+            color: #8c52ff; 
+            box-shadow: 0 0 10px rgba(140, 82, 255, 0.4);
+            background: rgba(140, 82, 255, 0.05);
+        }
 
         .live-terminal-console {
             background: #000000;
@@ -117,127 +121,122 @@
             color: #00ff00;
         }
 
-        /* CHROME SIMULATOR */
-        .browser-bar-node { display: flex; gap: 8px; background: #0c0f14; padding: 6px; margin-bottom: 15px; border-radius: 8px; }
-        .browser-input-field { flex: 1; background: transparent; border: none; color: #00ffff; outline: none; }
-        .browser-search-btn { background: #4285F4; border: none; padding: 8px 16px; font-weight: bold; border-radius: 6px; }
-        .browser-viewport-content { background: #020406; border-radius: 10px; flex: 1; padding: 12px; overflow-y: auto; }
-
-        /* 🎮 REAL SUBWAY STYLING ENGINE */
-        .game-play-arena {
-            display: none;
+        /* 🐉 FULL-SCREEN KALI LINUX INTERFACE */
+        .kali-full-viewport {
+            width: 100%;
+            height: 100%;
+            display: flex;
             flex-direction: column;
-            flex: 1;
-            background: #0a0e17;
-            position: relative;
+            background-color: #0b111e;
+            /* Real Kali Dragon Background via CSS styling */
+            background-image: radial-gradient(circle at center, rgba(12, 21, 38, 0.4) 0%, #050811 100%), 
+                              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" opacity="0.15"><path d="M400,100 Q450,150 420,220 Q480,240 550,200 Q500,280 430,280 Q450,350 380,400 Q410,320 370,280 Q300,280 250,200 Q320,240 380,220 Q350,150 400,100 Z" fill="%238c52ff"/><circle cx="400" cy="230" r="120" stroke="%238c52ff" stroke-width="2" fill="none" stroke-dasharray="5,5"/></svg>');
+            background-size: cover;
+            background-position: center;
+            border: 2px solid #8c52ff;
+            border-radius: 12px;
+            padding: 10px;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
         }
-        .game-stat-overlay {
+
+        .kali-top-bar {
             display: flex;
             justify-content: space-between;
-            padding: 15px;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
-            font-size: 14px;
-            color: #ffffff;
-            font-weight: bold;
-            z-index: 10;
-        }
-        
-        /* 🛤️ 3D PERSPECTIVE SUBWAY TRACKS */
-        .tracks-canvas-box {
-            flex: 1;
-            background: linear-gradient(to bottom, #1a2a44 0%, #0d1527 50%, #2c1a04 100%);
-            position: relative;
-            overflow: hidden;
-            perspective: 150px;
-        }
-        
-        /* Rails drawing to resemble photos */
-        .railway-line {
-            position: absolute;
-            bottom: 0;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            width: 2px;
-            transform-origin: top;
-        }
-        .rail-1 { left: 25%; transform: rotate(-5deg); }
-        .rail-2 { left: 42%; transform: rotate(-1deg); }
-        .rail-3 { left: 58%; transform: rotate(1deg); }
-        .rail-4 { left: 75%; transform: rotate(5deg); }
-
-        /* 🏃‍♂️ REAL RUNNING PLAYER STYLING */
-        .avatar-player-node {
-            position: absolute;
-            bottom: 40px;
-            width: 50px;
-            height: 70px;
-            background: url('https://img.icons8.com/color/96/subway-surfers.png') no-repeat center;
-            background-size: contain;
-            transition: left 0.15s ease-out, bottom 0.2s ease-out, transform 0.2s;
-            z-index: 5;
-        }
-        
-        /* 🚊 REAL TRAIN AND OBSTACLES */
-        .falling-obstacle {
-            position: absolute;
-            width: 60px;
-            height: 80px;
-            border-radius: 6px;
-            z-index: 4;
-            transition: transform 0.04s linear;
-        }
-        
-        .obstacle-train {
-            background: linear-gradient(to bottom, #ff3333, #990000);
-            border: 2px solid #fff;
-            box-shadow: 0 4px 10px rgba(255,0,0,0.5);
-        }
-        .obstacle-train::after {
-            content: "🚊"; font-size: 24px; display: block; text-align: center; margin-top: 10px;
-        }
-
-        .obstacle-barricade {
-            background: #ffcc00;
-            height: 40px;
-            border-bottom: 8px solid #000;
-        }
-        .obstacle-barricade::after {
-            content: "🚧"; font-size: 20px; display: block; text-align: center;
-        }
-
-        .obstacle-coin {
-            width: 30px;
-            height: 30px;
-            background: #ffd700;
-            border-radius: 50%;
-            box-shadow: 0 0 12px #ffd700;
-            animation: spin 0.5s infinite linear;
-        }
-        .obstacle-coin::after {
-            content: "🪙"; font-size: 18px; display: block; text-align: center;
-        }
-
-        @keyframes spin { 100% { transform: rotateY(360deg); } }
-
-        .sensor-guide-banner {
-            background: rgba(0, 255, 255, 0.1);
-            color: #00ffff;
+            color: #a5b4fc;
             font-size: 11px;
-            text-align: center;
-            padding: 8px;
-            border-top: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(15, 23, 42, 0.8);
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(140, 82, 255, 0.2);
+            margin-bottom: 10px;
         }
+
+        .kali-terminal-area {
+            flex: 1;
+            background: rgba(3, 7, 18, 0.85);
+            border-radius: 8px;
+            border: 1px solid rgba(140, 82, 255, 0.2);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            backdrop-filter: blur(4px);
+        }
+
+        .kali-logs {
+            flex: 1;
+            overflow-y: auto;
+            font-size: 11px;
+            color: #d1d5db;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .kali-input-row {
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.5);
+            padding: 6px 10px;
+            border-radius: 6px;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+        }
+
+        .kali-prompt-text {
+            color: #8c52ff;
+            font-weight: bold;
+            margin-right: 8px;
+            white-space: nowrap;
+        }
+
+        .kali-input-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #00ffff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            outline: none;
+        }
+
+        .kali-run-btn {
+            background: #8c52ff;
+            border: none;
+            color: white;
+            padding: 4px 14px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 8px;
+        }
+
+        .kali-release-badge {
+            font-size: 20px;
+            font-weight: bold;
+            color: rgba(140, 82, 255, 0.25);
+            text-align: right;
+            margin-top: 5px;
+            user-select: none;
+        }
+
+        /* BROWSER INTERFACE */
+        .browser-bar-node { display: flex; gap: 8px; background: #0c0f14; padding: 6px; margin-bottom: 15px; border-radius: 8px; }
+        .browser-input-field { flex: 1; background: transparent; border: none; color: #00ffff; outline: none; }
+        .browser-search-btn { background: #4285F4; border: none; padding: 8px 16px; font-weight: bold; border-radius: 6px; color: white; }
+        .browser-viewport-content { background: #020406; border-radius: 10px; flex: 1; padding: 12px; overflow-y: auto; }
 
         .shutdown-btn-node {
-            background: rgba(255, 51, 51, 0.15);
+            background: rgba(255, 51, 51, 0.12);
             border: 1px solid #ff3333;
             color: #ff3333;
-            padding: 12px;
-            border-radius: 10px;
+            padding: 10px;
+            border-radius: 8px;
             text-align: center;
             font-weight: bold;
             cursor: pointer;
-            margin-top: 5px;
+            margin-top: 8px;
+            font-size: 11px;
         }
     </style>
 </head>
@@ -247,26 +246,27 @@
         
         <div class="core-dashboard" id="mainDashboardView">
             <div class="system-header">
-                <h2>SANDESH ETHICAL CORE v11.0</h2>
+                <h2>SANDESH ETHICAL CORE v13.0</h2>
             </div>
 
             <div class="runner-matrix-container">
-                <div class="matrix-title">🏆 RUNNER MATRIX (TOP 100)</div>
-                <div class="matrix-row"><span>🥇 1st Sandesh</span><strong>150</strong></div>
-                <div class="matrix-row"><span>🥈 2nd AURA_Pro</span><strong>120</strong></div>
+                <div class="matrix-title">💻 SYSTEM SECURITY MULTI-METRICS</div>
+                <div class="matrix-row"><span>🥇 Firewall State</span><strong>SECURE</strong></div>
+                <div class="matrix-row"><span>🥈 Kali Subsystem</span><strong>ONLINE (2024.4)</strong></div>
             </div>
 
             <div class="control-grid-hub">
-                <button class="hub-btn btn-study" onclick="alert('ETA 2063 Active')">📖 STUDY BOOK</button>
+                <button class="hub-btn btn-study" onclick="alert('ETA Active')">📖 STUDY BOOK</button>
                 <button class="hub-btn btn-pass" onclick="alert('Cipher Ready')">🔑 PASS GEN</button>
-                <button class="hub-btn btn-cpu" onclick="triggerTerminal('CPU Metrics Stacked')">⚙️ LIVE CPU</button>
-                <button class="hub-btn btn-ram" onclick="triggerTerminal('RAM Allocation Stable')">💾 LIVE RAM</button>
+                <button class="hub-btn btn-cpu" onclick="triggerTerminal('CPU Metrics Loaded')">⚙️ LIVE CPU</button>
+                <button class="hub-btn btn-ram" onclick="triggerTerminal('RAM Pool Allocated')">💾 LIVE RAM</button>
                 <button class="hub-btn btn-ip" onclick="launchBrowser()">🌐 GET LIVE IP</button>
-                <button class="hub-btn btn-game" onclick="launchPlayStore()">🎮 PLAY GAME</button>
+                <button class="hub-btn btn-kali" onclick="bootKaliLinux()">🎯 KALI LINUX</button>
             </div>
 
             <div class="live-terminal-console" id="terminalLogsView">
-                <div>[SYSTEM] Core Sandbox deployment active...</div>
+                <div>[SYSTEM] Core Sandbox environment operational...</div>
+                <div>[READY] Real Kali Linux terminal integration complete.</div>
             </div>
         </div>
 
@@ -279,27 +279,33 @@
             <button class="shutdown-btn-node" onclick="closePanels()">⬅️ CLOSE CHROME</button>
         </div>
 
-        <div class="sub-screen" id="playStoreScreenView">
-            <div class="game-play-arena" id="gameEngineLayout">
-                <div class="game-stat-overlay">
-                    <span id="scoreTrackerNode">RUN: 0m</span>
-                    <span id="coinTrackerNode" style="color:#ffcc00;">🪙 COINS: 0</span>
+        <div class="sub-screen" id="kaliSubsystemView">
+            <div class="kali-full-viewport">
+                <div class="kali-top-bar">
+                    <span>🐉 kali@sandesh-os: ~</span>
+                    <span>⚙️ Kernel: 6.6.9-kali-amd64</span>
+                    <span>🔋 100%</span>
                 </div>
                 
-                <div class="tracks-canvas-box" id="canvasTracksField">
-                    <div class="railway-line rail-1"></div>
-                    <div class="railway-line rail-2"></div>
-                    <div class="railway-line rail-3"></div>
-                    <div class="railway-line rail-4"></div>
-                    
-                    <div class="avatar-player-node" id="playerNodeEntity"></div>
+                <div class="kali-terminal-area">
+                    <div class="kali-logs" id="kaliTerminalOutput">
+                        <div>Kali Linux 2024.4 (Release rolling)</div>
+                        <div>Type <span style="color: #00ffff;">'nmap'</span>, <span style="color: #00ffff;">'msfconsole'</span>, or <span style="color: #00ffff;">'clear'</span> to execute tools.</div>
+                        <br>
+                        <span class="kali-prompt-text">⚡ kali@sandesh:~$</span> <span style="color: #fff;">welcome_banner</span><br>
+                        <span style="color: #8c52ff; font-weight: bold;">[!] SANDESH PENTESTING ENGINE ONLINE</span><br>
+                    </div>
+
+                    <div class="kali-input-row">
+                        <span class="kali-prompt-text">⚡ kali@sandesh:~$</span>
+                        <input type="text" id="kaliInputField" class="kali-input-field" placeholder="Enter command..." autofocus>
+                        <button class="kali-run-btn" onclick="executeKaliCommand()">RUN</button>
+                    </div>
                 </div>
 
-                <div class="sensor-guide-banner">
-                    📲 FREE SENSOR ACTIVATED: Swipe Left/Right to turn | Swipe UP to Jump!
-                </div>
+                <div class="kali-release-badge">RELEASE 2024.4</div>
             </div>
-            <button class="shutdown-btn-node" onclick="closePanels(); stopSubwayEngine();">⬅️ EXIT GAME HUB</button>
+            <button class="shutdown-btn-node" onclick="closePanels()">⬅️ SHUTDOWN KALI</button>
         </div>
 
     </div>
@@ -309,15 +315,10 @@
             document.querySelectorAll('.sub-screen').forEach(s => s.style.display = "none");
             document.getElementById("mainDashboardView").style.display = "flex";
         }
+        
         function launchBrowser() {
             document.getElementById("mainDashboardView").style.display = "none";
             document.getElementById("browserScreenView").style.display = "flex";
-        }
-        function launchPlayStore() {
-            document.getElementById("mainDashboardView").style.display = "none";
-            document.getElementById("playStoreScreenView").style.display = "flex";
-            document.getElementById("gameEngineLayout").style.display = "flex";
-            startSubwayEngine();
         }
 
         function triggerTerminal(msg) {
@@ -328,133 +329,63 @@
             let q = document.getElementById("chromeSearchInput").value.toLowerCase();
             let out = document.getElementById("browserBodyOutput");
             if(q.includes('ipl')) {
-                out.innerHTML = "<b>Live IPL 2026 Table:</b><br>1. RCB (Pts: 18)<br>2. GT (Pts: 16)";
-            } else { out.innerHTML = "No matches."; }
+                out.innerHTML = "<b>Live IPL Table:</b><br>1. RCB (Pts: 18)<br>2. GT (Pts: 16)";
+            } else { out.innerHTML = "No matches found."; }
         }
 
-        // 🚀 SUBWAY REAL ENGINE CLONE
-        let gameLoop;
-        let score = 0;
-        let coins = 0;
-        let currentLane = 1; // 0=Left, 1=Center, 2=Right
-        let jumping = false;
-        let gameSpeed = 8;
+        // KALI ENGINE FUNCTIONS
+        function bootKaliLinux() {
+            document.getElementById("mainDashboardView").style.display = "none";
+            document.getElementById("kaliSubsystemView").style.display = "flex";
+            document.getElementById("kaliInputField").focus();
+        }
 
-        function startSubwayEngine() {
-            score = 0; coins = 0; currentLane = 1; jumping = false; gameSpeed = 8;
-            document.querySelectorAll('.falling-obstacle').forEach(e => e.remove());
-            alignPlayer();
-            
-            // Touch Swipe Detection (No Buttons Setup)
-            let touchStartX = 0; let touchStartY = 0;
-            const field = document.getElementById("canvasTracksField");
-            
-            field.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-                touchStartY = e.changedTouches[0].screenY;
-            }, false);
+        function executeKaliCommand() {
+            const inputEl = document.getElementById("kaliInputField");
+            const cmd = inputEl.value.trim().toLowerCase();
+            const output = document.getElementById("kaliTerminalOutput");
 
-            field.addEventListener('touchend', e => {
-                let diffX = e.changedTouches[0].screenX - touchStartX;
-                let diffY = e.changedTouches[0].screenY - touchStartY;
+            if(cmd === "") return;
 
-                if (Math.abs(diffX) > Math.abs(diffY)) {
-                    if (diffX > 40 && currentLane < 2) currentLane++;
-                    if (diffX < -40 && currentLane > 0) currentLane--;
-                } else {
-                    if (diffY < -40) triggerJump();
-                }
-                alignPlayer();
-            }, false);
+            // Display typed command
+            output.innerHTML += `<br><span class="kali-prompt-text">⚡ kali@sandesh:~$</span> <span style="color:#fff;">${inputEl.value}</span><br>`;
 
-            // Device Motion Sensor (Gyroscope Left/Right fallback)
-            if (window.DeviceOrientationEvent) {
-                window.addEventListener('deviceorientation', event => {
-                    let tilt = event.gamma; // Left/Right tilt
-                    if (tilt > 15 && currentLane < 2) { currentLane = 2; alignPlayer(); }
-                    else if (tilt < -15 && currentLane > 0) { currentLane = 0; alignPlayer(); }
-                    else if (tilt > -5 && tilt < 5) { currentLane = 1; alignPlayer(); }
-                }, false);
+            // Core Logic for real feel terminal commands
+            if(cmd === 'nmap') {
+                output.innerHTML += `<span style="color:#00ff00;">Starting Nmap 7.94 ( https://nmap.org ) at 2026...<br>
+                Nmap scan report for sandesh-target (192.168.1.1)<br>
+                Host is up (0.003s latency).<br>
+                PORT    STATE SERVICE<br>
+                22/tcp  open  ssh<br>
+                80/tcp  open  http<br>
+                Nmap done: 1 IP address scanned in 1.45 seconds</span><br>`;
+            } 
+            else if(cmd === 'msfconsole') {
+                output.innerHTML += `<span style="color:#ffaa00;">
+                       _--------_ <br>
+                      /          \\ <br>
+                     |  MSF v6.4  | <br>
+                      \\        / <br>
+                       -------- <br>
+                [+] msf > Exploit database loaded. Ready to launch handler.</span><br>`;
+            } 
+            else if(cmd === 'clear') {
+                output.innerHTML = "<div>Terminal cleared. Kali Sandbox active.</div>";
+            } 
+            else {
+                output.innerHTML += `<span style="color:#ff3333;">bash: command not found: ${inputEl.value}. Try 'nmap', 'msfconsole' or 'clear'.</span><br>`;
             }
 
-            let frame = 0;
-            gameLoop = setInterval(() => {
-                score++;
-                document.getElementById("scoreTrackerNode").innerText = "RUN: " + score + "m";
-                
-                if(frame % 25 === 0) spawnSubwayObstacle();
-                moveObstacles();
-                frame++;
-            }, 30);
+            inputEl.value = "";
+            output.scrollTop = output.scrollHeight;
         }
 
-        function alignPlayer() {
-            const p = document.getElementById("playerNodeEntity");
-            const w = document.getElementById("canvasTracksField").offsetWidth;
-            let targetLeft = (currentLane * (w/3)) + (w/6) - 25;
-            p.style.left = targetLeft + "px";
-        }
-
-        function triggerJump() {
-            if(jumping) return;
-            jumping = true;
-            const p = document.getElementById("playerNodeEntity");
-            p.style.transform = "scale(1.3)";
-            p.style.bottom = "140px";
-            setTimeout(() => {
-                p.style.bottom = "40px";
-                p.style.transform = "scale(1)";
-                setTimeout(() => { jumping = false; }, 100);
-            }, 350);
-        }
-
-        function spawnSubwayObstacle() {
-            const field = document.getElementById("canvasTracksField");
-            const obs = document.createElement('div');
-            obs.classList.add('falling-obstacle');
-            
-            let lane = Math.floor(Math.random() * 3);
-            obs.dataset.lane = lane;
-            
-            let r = Math.random();
-            if(r < 0.4) { obs.classList.add('obstacle-train'); obs.dataset.type = "train"; }
-            else if(r < 0.7) { obs.classList.add('obstacle-barricade'); obs.dataset.type = "barricade"; }
-            else { obs.classList.add('obstacle-coin'); obs.dataset.type = "coin"; }
-
-            const w = field.offsetWidth;
-            obs.style.left = (lane * (w/3)) + (w/6) - 20 + "px";
-            obs.style.top = "-90px";
-            field.appendChild(obs);
-        }
-
-        function moveObstacles() {
-            const obs = document.querySelectorAll('.falling-obstacle');
-            const h = document.getElementById("canvasTracksField").offsetHeight;
-
-            obs.forEach(o => {
-                let top = parseInt(o.style.top);
-                o.style.top = (top + gameSpeed) + "px";
-
-                // Hit Detection Zone
-                if(top > (h - 120) && top < (h - 40)) {
-                    if(parseInt(o.dataset.lane) === currentLane) {
-                        let type = o.dataset.type;
-                        if(type === 'train' || (type === 'barricade' && !jumping)) {
-                            clearInterval(gameLoop);
-                            alert(`💀 CRASHED INTO TRAIN! 💀\n\nScore: ${score}m\nCoins: ${coins}`);
-                            startSubwayEngine();
-                        } else if(type === 'coin') {
-                            coins += 1;
-                            document.getElementById("coinTrackerNode").innerText = "🪙 COINS: " + coins;
-                            o.remove();
-                        }
-                    }
-                }
-                if(top > h) o.remove();
-            });
-        }
-
-        function stopSubwayEngine() { clearInterval(gameLoop); }
+        // Bind Enter key to terminal inputs
+        document.getElementById("kaliInputField").addEventListener("keyup", function(event) {
+            if (event.key === "Enter") {
+                executeKaliCommand();
+            }
+        });
     </script>
 </body>
 </html>
