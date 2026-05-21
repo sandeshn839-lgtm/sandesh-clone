@@ -7,15 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=VT323&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green: #00ff41;
-    --green2: #00cc33;
-    --dark-green: #003b00;
-    --bg: #0a0a0a;
-    --panel: #0d1117;
-    --panel2: #111820;
-    --cyan: #00eeff;
-    --red: #ff003c;
-    --yellow: #ffe600;
+    --green: #00ff41; --green2: #00cc33; --dark-green: #003b00;
+    --bg: #0a0a0a; --panel: #0d1117; --panel2: #111820;
+    --cyan: #00eeff; --red: #ff003c; --yellow: #ffe600;
     --glow: 0 0 10px #00ff41, 0 0 20px #00ff4155;
     --glow-cyan: 0 0 10px #00eeff, 0 0 20px #00eeff55;
   }
@@ -90,9 +84,7 @@
   .scan-table th { background: #001f00; border: 1px solid #00ff4133; padding: 8px 12px; color: var(--green); font-family: 'Orbitron', sans-serif; font-size: 11px; text-align: left; letter-spacing: 2px; }
   .scan-table td { border: 1px solid #00ff4122; padding: 8px 12px; color: #00ff41cc; }
   .scan-table tr:hover td { background: #00ff4108; }
-  .secure { color: #00ff41; }
-  .weak { color: var(--yellow); }
-  .vuln { color: var(--red); }
+  .secure { color: #00ff41; } .weak { color: var(--yellow); } .vuln { color: var(--red); }
   .chat-box { background: #000; border: 1px solid #00ff4133; height: 340px; overflow-y: auto; padding: 16px; margin-bottom: 12px; font-size: 13px; }
   .chat-box::-webkit-scrollbar { width: 4px; }
   .chat-box::-webkit-scrollbar-thumb { background: #00ff4144; }
@@ -116,7 +108,6 @@
   .game-cell.mine { background: #1a0000; border-color: var(--red); }
   .game-cell.flagged { background: #1a1000; border-color: var(--yellow); }
   .game-stats { display: flex; gap: 28px; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 14px; margin-bottom: 16px; color: var(--green); }
-  .game-stat span { color: var(--cyan); }
   .game-controls { display: flex; gap: 10px; justify-content: center; }
   .progress-bar { height: 8px; background: #002200; margin-top: 6px; border-radius: 4px; overflow: hidden; }
   .progress-fill { height: 100%; background: var(--green); box-shadow: 0 0 6px var(--green); transition: width .3s; }
@@ -125,44 +116,46 @@
   .stat-num { font-family: 'Orbitron', sans-serif; font-size: 28px; color: var(--green); text-shadow: var(--glow); }
   .stat-lbl { font-size: 10px; color: #00ff4166; letter-spacing: 2px; margin-top: 4px; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  @keyframes glitch { 0% { text-shadow: 2px 0 var(--red), -2px 0 var(--cyan); } 50% { text-shadow: -2px 0 var(--red), 2px 0 var(--cyan); } 100% { text-shadow: 2px 0 var(--red), -2px 0 var(--cyan); } }
+  @keyframes glitch { 0%{text-shadow:2px 0 var(--red),-2px 0 var(--cyan);} 50%{text-shadow:-2px 0 var(--red),2px 0 var(--cyan);} 100%{text-shadow:2px 0 var(--red),-2px 0 var(--cyan);} }
   .glitch { animation: glitch 3s infinite; }
   @keyframes blink { 50% { opacity: 0; } }
   .blink { animation: blink 1s step-end infinite; }
-  @media (max-width: 700px) { .stat-row { grid-template-columns: repeat(2,1fr); } .login-box { width: 95vw; padding: 28px 20px; } .content { padding: 16px; } .two-col { grid-template-columns: 1fr; } }
-  ::-webkit-scrollbar { width: 6px; } ::-webkit-scrollbar-track { background: #000; } ::-webkit-scrollbar-thumb { background: #00ff4133; border-radius: 3px; }
+  @media (max-width: 700px) { .stat-row{grid-template-columns:repeat(2,1fr);} .login-box{width:95vw;padding:28px 20px;} .content{padding:16px;} .two-col{grid-template-columns:1fr;} }
+  ::-webkit-scrollbar{width:6px;} ::-webkit-scrollbar-track{background:#000;} ::-webkit-scrollbar-thumb{background:#00ff4133;border-radius:3px;}
 </style>
 </head>
 <body>
 <canvas id="matrix-canvas"></canvas>
 
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
-    <div class="login-logo">⚡ SANDESH ETH-HACK</div>
+    <div class="login-logo">&#9889; SANDESH ETH-HACK</div>
     <div class="login-sub">ETHICAL HACKING TOOLS SYSTEM v2.0</div>
-    <div class="login-field"><label>▸ USERNAME / EMAIL</label><input type="text" id="login-user" placeholder="root@sandesh.local" autocomplete="off"></div>
-    <div class="login-field"><label>▸ PASSWORD</label><input type="password" id="login-pass" placeholder="••••••••••••"></div>
+    <div class="login-field"><label>&#9658; USERNAME / EMAIL</label><input type="text" id="login-user" placeholder="root@sandesh.local" autocomplete="off"></div>
+    <div class="login-field"><label>&#9658; PASSWORD</label><input type="password" id="login-pass" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <button class="login-btn" onclick="doLogin()">[ AUTHENTICATE ]</button>
     <button class="gmail-btn" onclick="gmailLogin()"><span>G</span> SIGN IN WITH GMAIL</button>
     <div class="login-status" id="login-status"></div>
   </div>
 </div>
 
+<!-- APP -->
 <div id="app">
   <div class="header">
-    <div class="header-logo">⚡ <span>SANDESH</span> ETHICAL HACKING TOOLS</div>
-    <div class="header-status"><span class="blink">●</span> SYSTEM ACTIVE</div>
+    <div class="header-logo">&#9889; <span>SANDESH</span> ETHICAL HACKING TOOLS</div>
+    <div class="header-status"><span class="blink">&#9679;</span> SYSTEM ACTIVE</div>
     <div class="user-badge" id="user-badge">root@localhost</div>
     <button class="logout-btn" onclick="logout()">LOGOUT</button>
   </div>
   <div class="nav">
-    <button class="nav-btn active" onclick="showTab('dashboard')">⌂ DASHBOARD</button>
+    <button class="nav-btn active" onclick="showTab('dashboard')">&#8962; DASHBOARD</button>
     <button class="nav-btn" onclick="showTab('terminal')">$ TERMINAL</button>
-    <button class="nav-btn" onclick="showTab('passgen')">🔑 PASS GEN</button>
-    <button class="nav-btn" onclick="showTab('wifi')">📡 WIFI TOOLS</button>
-    <button class="nav-btn" onclick="showTab('network')">🌐 NETWORK</button>
-    <button class="nav-btn" onclick="showTab('ai')">🤖 AI ASSISTANT</button>
-    <button class="nav-btn" onclick="showTab('game')">🎮 HACK GAME</button>
+    <button class="nav-btn" onclick="showTab('passgen')">&#128273; PASS GEN</button>
+    <button class="nav-btn" onclick="showTab('wifi')">&#128225; WIFI TOOLS</button>
+    <button class="nav-btn" onclick="showTab('network')">&#127760; NETWORK</button>
+    <button class="nav-btn" onclick="showTab('ai')">&#129302; AI ASSISTANT</button>
+    <button class="nav-btn" onclick="showTab('game')">&#127918; HACK GAME</button>
   </div>
   <div class="content">
 
@@ -179,10 +172,10 @@
       <div style="margin-top:14px;">
         <div class="section-title" style="font-size:14px;">QUICK TOOLS</div>
         <div class="cards-grid">
-          <div class="card"><span class="card-icon">🔑</span><div class="card-title">PASSWORD GENERATOR</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Generate ultra-secure passwords with custom rules.</p><button class="btn" onclick="showTab('passgen')">OPEN TOOL →</button></div>
-          <div class="card"><span class="card-icon">📡</span><div class="card-title">WIFI SECURITY AUDIT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Simulate network scanning & security assessment.</p><button class="btn" onclick="showTab('wifi')">OPEN TOOL →</button></div>
-          <div class="card"><span class="card-icon">🤖</span><div class="card-title">AI CYBER ASSISTANT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Ask anything about cybersecurity, hacking, CTFs.</p><button class="btn" onclick="showTab('ai')">OPEN AI →</button></div>
-          <div class="card"><span class="card-icon">🎮</span><div class="card-title">HACK THE PLANET</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Defuse the firewall — minesweeper hacker edition.</p><button class="btn" onclick="showTab('game')">PLAY →</button></div>
+          <div class="card"><span class="card-icon">&#128273;</span><div class="card-title">PASSWORD GENERATOR</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Generate ultra-secure passwords with custom rules.</p><button class="btn" onclick="showTab('passgen')">OPEN TOOL &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#128225;</span><div class="card-title">WIFI SECURITY AUDIT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Simulate network scanning and security assessment.</p><button class="btn" onclick="showTab('wifi')">OPEN TOOL &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#129302;</span><div class="card-title">AI CYBER ASSISTANT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Ask anything about cybersecurity, hacking, CTFs.</p><button class="btn" onclick="showTab('ai')">OPEN AI &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#127918;</span><div class="card-title">HACK THE PLANET</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Defuse the firewall — minesweeper hacker edition.</p><button class="btn" onclick="showTab('game')">PLAY &rarr;</button></div>
         </div>
       </div>
     </div>
@@ -192,7 +185,7 @@
       <div class="section-title">KALI-STYLE TERMINAL</div>
       <div class="terminal" id="main-term"></div>
       <div class="terminal-input-row">
-        <span class="term-prompt">┌──(root㉿sandesh)-[~]<br>└─$&nbsp;</span>
+        <span class="term-prompt">&#9484;&#9472;&#9472;(root&#9753;sandesh)-[~]<br>&#9492;&#9472;$&nbsp;</span>
         <input class="term-input" id="term-input" placeholder="type a command..." onkeydown="handleTermKey(event)" autocomplete="off" spellcheck="false">
       </div>
     </div>
@@ -202,28 +195,28 @@
       <div class="section-title">PASSWORD GENERATOR</div>
       <div class="two-col">
         <div>
-          <div class="form-row"><label>▸ PASSWORD LENGTH</label><input class="form-input" type="number" id="pass-len" value="24" min="6" max="128"></div>
+          <div class="form-row"><label>&#9658; PASSWORD LENGTH</label><input class="form-input" type="number" id="pass-len" value="24" min="6" max="128"></div>
           <div class="form-row">
-            <label>▸ CHARACTER SETS</label>
+            <label>&#9658; CHARACTER SETS</label>
             <div style="display:flex;flex-direction:column;gap:8px;padding:12px;background:#001500;border:1px solid #00ff4122;">
               <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-upper" checked style="accent-color:var(--green);"> UPPERCASE (A-Z)</label>
               <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-lower" checked style="accent-color:var(--green);"> LOWERCASE (a-z)</label>
               <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-nums" checked style="accent-color:var(--green);"> NUMBERS (0-9)</label>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-sym" checked style="accent-color:var(--green);"> SYMBOLS (!@#$%^&*)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-sym" checked style="accent-color:var(--green);"> SYMBOLS (!@#$%^&amp;*)</label>
               <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-hex" style="accent-color:var(--green);"> HEX ONLY (0-9, a-f)</label>
             </div>
           </div>
-          <div class="form-row"><label>▸ QUANTITY</label><input class="form-input" type="number" id="pass-qty" value="5" min="1" max="20"></div>
-          <div class="form-row"><label>▸ MODE</label><select class="form-select" id="pass-mode"><option value="random">RANDOM</option><option value="passphrase">PASSPHRASE</option><option value="pin">PIN / NUMERIC</option></select></div>
-          <button class="btn btn-full" onclick="generatePasswords()">⚡ GENERATE PASSWORDS</button>
+          <div class="form-row"><label>&#9658; QUANTITY</label><input class="form-input" type="number" id="pass-qty" value="5" min="1" max="20"></div>
+          <div class="form-row"><label>&#9658; MODE</label><select class="form-select" id="pass-mode"><option value="random">RANDOM</option><option value="passphrase">PASSPHRASE</option><option value="pin">PIN / NUMERIC</option></select></div>
+          <button class="btn btn-full" onclick="generatePasswords()">&#9889; GENERATE PASSWORDS</button>
         </div>
         <div>
-          <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px;">▸ OUTPUT</div>
+          <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px;">&#9658; OUTPUT</div>
           <div class="output-box" id="pass-output" style="min-height:180px;">...</div>
           <div class="strength-bar"><div class="strength-fill" id="strength-fill" style="width:0%;"></div></div>
           <div class="strength-label" id="strength-label"></div>
-          <button class="btn btn-cyan btn-full" style="margin-top:12px;" onclick="copyPasswords()">⎘ COPY TO CLIPBOARD</button>
-          <div style="margin-top:20px;font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px;">▸ STRENGTH CHECKER</div>
+          <button class="btn btn-cyan btn-full" style="margin-top:12px;" onclick="copyPasswords()">&#x2398; COPY TO CLIPBOARD</button>
+          <div style="margin-top:20px;font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px;">&#9658; STRENGTH CHECKER</div>
           <input class="form-input" type="password" id="check-pass" placeholder="Type password to check..." oninput="checkStrength(this.value)">
           <div class="strength-bar"><div class="strength-fill" id="check-fill" style="width:0%;"></div></div>
           <div class="strength-label" id="check-label"></div>
@@ -235,18 +228,18 @@
     <!-- WIFI TOOLS -->
     <div class="tab-panel" id="tab-wifi">
       <div class="section-title">WIFI SECURITY TOOLKIT</div>
-      <div style="background:#1a0800;border:1px solid #ff660044;padding:12px 16px;margin-bottom:20px;font-size:12px;color:#ff9944;">⚠ EDUCATIONAL SIMULATION ONLY — All results are simulated for learning purposes. Unauthorized network access is illegal.</div>
+      <div style="background:#1a0800;border:1px solid #ff660044;padding:12px 16px;margin-bottom:20px;font-size:12px;color:#ff9944;">&#9888; EDUCATIONAL SIMULATION ONLY — All results are simulated for learning purposes. Unauthorized network access is illegal.</div>
       <div class="two-col">
         <div>
           <div class="section-title" style="font-size:14px;">NETWORK SCANNER</div>
-          <div class="form-row"><label>▸ INTERFACE</label><select class="form-select" id="wifi-iface"><option>wlan0</option><option>wlan1</option><option>eth0</option></select></div>
-          <div class="form-row"><label>▸ SCAN MODE</label><select class="form-select" id="wifi-mode"><option>PASSIVE SCAN</option><option>ACTIVE SCAN</option><option>MONITOR MODE</option></select></div>
-          <button class="btn btn-full" onclick="scanWifi()" id="scan-btn">📡 START SCAN</button>
+          <div class="form-row"><label>&#9658; INTERFACE</label><select class="form-select" id="wifi-iface"><option>wlan0</option><option>wlan1</option><option>eth0</option></select></div>
+          <div class="form-row"><label>&#9658; SCAN MODE</label><select class="form-select" id="wifi-mode"><option>PASSIVE SCAN</option><option>ACTIVE SCAN</option><option>MONITOR MODE</option></select></div>
+          <button class="btn btn-full" onclick="scanWifi()" id="scan-btn">&#128225; START SCAN</button>
           <div class="progress-bar" style="margin-top:10px;"><div class="progress-fill" id="scan-progress" style="width:0%;"></div></div>
           <div style="font-size:11px;color:#00ff4177;margin-top:5px;" id="scan-status">READY</div>
           <div style="margin-top:20px;">
             <div class="section-title" style="font-size:14px;">SECURE YOUR WIFI</div>
-            <div style="background:#001500;border:1px solid #00ff4122;padding:14px;font-size:12px;color:#00ff41cc;line-height:1.8;">▸ Use WPA3 encryption<br>▸ Set a strong password (20+ chars)<br>▸ Disable WPS<br>▸ Hide your SSID<br>▸ Enable MAC address filtering<br>▸ Use a guest network for IoT<br>▸ Update router firmware regularly</div>
+            <div style="background:#001500;border:1px solid #00ff4122;padding:14px;font-size:12px;color:#00ff41cc;line-height:1.8;">&#9658; Use WPA3 encryption<br>&#9658; Set a strong password (20+ chars)<br>&#9658; Disable WPS<br>&#9658; Hide your SSID<br>&#9658; Enable MAC address filtering<br>&#9658; Use a guest network for IoT<br>&#9658; Update router firmware regularly</div>
           </div>
         </div>
         <div>
@@ -254,7 +247,7 @@
           <div style="overflow-x:auto;"><table class="scan-table"><thead><tr><th>SSID</th><th>BSSID</th><th>CH</th><th>SIGNAL</th><th>SECURITY</th><th>STATUS</th></tr></thead><tbody id="wifi-results"><tr><td colspan="6" style="color:#00ff4144;text-align:center;">Run a scan to see results</td></tr></tbody></table></div>
           <div style="margin-top:20px;">
             <div class="section-title" style="font-size:14px;">WPS AUDIT (EDUCATIONAL)</div>
-            <div class="form-row"><label>▸ TARGET BSSID (your own network only)</label><input class="form-input" id="wps-target" placeholder="AA:BB:CC:DD:EE:FF"></div>
+            <div class="form-row"><label>&#9658; TARGET BSSID (your own network only)</label><input class="form-input" id="wps-target" placeholder="AA:BB:CC:DD:EE:FF"></div>
             <button class="btn" onclick="wpsAudit()">RUN WPS AUDIT</button>
             <div class="output-box" id="wps-output" style="font-size:12px;margin-top:10px;min-height:80px;">...</div>
           </div>
@@ -268,20 +261,20 @@
       <div class="two-col">
         <div>
           <div class="section-title" style="font-size:14px;">PORT SCANNER (SIMULATED)</div>
-          <div class="form-row"><label>▸ TARGET HOST</label><input class="form-input" id="port-host" placeholder="192.168.1.1 or example.com"></div>
-          <div class="form-row"><label>▸ PORT RANGE</label><select class="form-select" id="port-range"><option value="common">COMMON PORTS (Top 20)</option><option value="web">WEB PORTS</option><option value="all">ALL PORTS (1-1024)</option></select></div>
-          <button class="btn btn-full" onclick="portScan()">🔍 SCAN PORTS</button>
+          <div class="form-row"><label>&#9658; TARGET HOST</label><input class="form-input" id="port-host" placeholder="192.168.1.1 or example.com"></div>
+          <div class="form-row"><label>&#9658; PORT RANGE</label><select class="form-select" id="port-range"><option value="common">COMMON PORTS (Top 20)</option><option value="web">WEB PORTS</option><option value="all">ALL PORTS (1-1024)</option></select></div>
+          <button class="btn btn-full" onclick="portScan()">&#128269; SCAN PORTS</button>
           <div class="output-box" id="port-output" style="min-height:200px;font-size:12px;margin-top:10px;">...</div>
         </div>
         <div>
           <div class="section-title" style="font-size:14px;">IP / DNS LOOKUP</div>
-          <div class="form-row"><label>▸ DOMAIN / IP</label><input class="form-input" id="lookup-host" placeholder="example.com"></div>
-          <button class="btn btn-full" onclick="dnsLookup()">🌐 LOOKUP</button>
+          <div class="form-row"><label>&#9658; DOMAIN / IP</label><input class="form-input" id="lookup-host" placeholder="example.com"></div>
+          <button class="btn btn-full" onclick="dnsLookup()">&#127760; LOOKUP</button>
           <div class="output-box" id="lookup-output" style="min-height:130px;font-size:12px;margin-top:10px;">...</div>
           <div style="margin-top:20px;">
             <div class="section-title" style="font-size:14px;">HASH GENERATOR</div>
-            <div class="form-row"><label>▸ INPUT TEXT</label><input class="form-input" id="hash-input" placeholder="Enter text to hash..."></div>
-            <div class="form-row"><label>▸ ALGORITHM</label><select class="form-select" id="hash-algo"><option>MD5</option><option>SHA-1</option><option>SHA-256</option><option>SHA-512</option><option>BASE64</option></select></div>
+            <div class="form-row"><label>&#9658; INPUT TEXT</label><input class="form-input" id="hash-input" placeholder="Enter text to hash..."></div>
+            <div class="form-row"><label>&#9658; ALGORITHM</label><select class="form-select" id="hash-algo"><option>MD5</option><option>SHA-1</option><option>SHA-256</option><option>SHA-512</option><option>BASE64</option></select></div>
             <button class="btn btn-full" onclick="hashText()">GENERATE HASH</button>
             <div class="output-box" id="hash-output" style="margin-top:10px;font-size:12px;">...</div>
           </div>
@@ -292,23 +285,23 @@
     <!-- AI ASSISTANT -->
     <div class="tab-panel" id="tab-ai">
       <div class="section-title">AI CYBER ASSISTANT</div>
-      <div style="font-size:11px;color:#00ff4166;letter-spacing:2px;margin-bottom:14px;">Powered by Claude AI · Ask anything about cybersecurity, CTFs, ethical hacking...</div>
+      <div style="font-size:11px;color:#00ff4166;letter-spacing:2px;margin-bottom:14px;">Powered by Claude AI &middot; Ask anything about cybersecurity, CTFs, ethical hacking...</div>
       <div class="chat-box" id="chat-box">
-        <div class="chat-msg ai"><div class="from">◈ SANDESH-AI v2.0</div><div class="text">Greetings, hacker. I am your AI Cyber Assistant. Ask me anything about ethical hacking, cybersecurity, network defense, CTF challenges, penetration testing, cryptography, or any tech topic.</div></div>
+        <div class="chat-msg ai"><div class="from">&#9672; SANDESH-AI v2.0</div><div class="text">Greetings, hacker. I am your AI Cyber Assistant. Ask me anything about ethical hacking, cybersecurity, network defense, CTF challenges, penetration testing, cryptography, or any tech topic.</div></div>
       </div>
       <div class="chat-input-row">
-        <input class="chat-input" id="chat-input" placeholder="Ask anything... (e.g. 'What is SQL injection?')" onkeydown="if(event.key==='Enter')sendChat()">
-        <button class="btn btn-cyan" onclick="sendChat()">SEND ⟶</button>
+        <input class="chat-input" id="chat-input" placeholder="Ask anything... e.g. What is SQL injection?" onkeydown="if(event.key==='Enter')sendChat()">
+        <button class="btn btn-cyan" onclick="sendChat()">SEND &#10230;</button>
       </div>
-      <div class="ai-typing" id="ai-typing" style="margin-top:8px;display:none;">◈ AI IS THINKING<span class="blink">_</span></div>
+      <div class="ai-typing" id="ai-typing" style="margin-top:8px;display:none;">&#9672; AI IS THINKING<span class="blink">_</span></div>
     </div>
 
     <!-- GAME -->
     <div class="tab-panel" id="tab-game">
-      <div class="section-title">HACK THE PLANET — FIREWALL BREAKER</div>
+      <div class="section-title">HACK THE PLANET &mdash; FIREWALL BREAKER</div>
       <div class="game-area">
-        <div class="game-title">⚡ FIREWALL BREAKER ⚡</div>
-        <div class="game-desc">Deactivate all firewall nodes without triggering the honeypots. Left-click to probe. Right-click to flag.</div>
+        <div class="game-title">&#9889; FIREWALL BREAKER &#9889;</div>
+        <div class="game-desc">Deactivate all firewall nodes without triggering honeypots. Left-click to probe. Right-click to flag.</div>
         <div class="game-stats">
           <div>NODES: <span id="g-mines">0</span></div>
           <div>FLAGS: <span id="g-flags">0</span></div>
@@ -333,39 +326,78 @@
 const canvas = document.getElementById('matrix-canvas');
 const ctx = canvas.getContext('2d');
 let drops = [];
-function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; drops = Array(Math.floor(canvas.width/14)).fill(1); }
-resizeCanvas(); window.addEventListener('resize', resizeCanvas);
-const chars = 'アイウエオカキクケコ0123456789ABCDEF<>/\\|{}[]';
-function drawMatrix() { ctx.fillStyle='rgba(0,0,0,0.04)'; ctx.fillRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#00ff41'; ctx.font='13px Share Tech Mono'; drops.forEach((y,i)=>{ const ch=chars[Math.floor(Math.random()*chars.length)]; ctx.fillText(ch,i*14,y*14); if(y*14>canvas.height&&Math.random()>0.975)drops[i]=0; drops[i]++; }); }
-setInterval(drawMatrix, 50);
+function resizeCanvas(){canvas.width=window.innerWidth;canvas.height=window.innerHeight;drops=Array(Math.floor(canvas.width/14)).fill(1);}
+resizeCanvas(); window.addEventListener('resize',resizeCanvas);
+const chars='アイウエオカキクケコ0123456789ABCDEF<>/\\|{}[]';
+function drawMatrix(){ctx.fillStyle='rgba(0,0,0,0.04)';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#00ff41';ctx.font='13px Share Tech Mono';drops.forEach((y,i)=>{const ch=chars[Math.floor(Math.random()*chars.length)];ctx.fillText(ch,i*14,y*14);if(y*14>canvas.height&&Math.random()>0.975)drops[i]=0;drops[i]++;});}
+setInterval(drawMatrix,50);
 
-// STATS
-let stats={scans:0,pass:0,ai:0,score:0};
-function updateStats(){ document.getElementById('stat-scans').textContent=stats.scans; document.getElementById('stat-pass').textContent=stats.pass; document.getElementById('stat-ai').textContent=stats.ai; document.getElementById('stat-score').textContent=stats.score; }
+// LOCALSTORAGE HELPERS
+function lsGet(key,def){try{const v=localStorage.getItem(key);return v!==null?JSON.parse(v):def;}catch(e){return def;}}
+function lsSet(key,val){try{localStorage.setItem(key,JSON.stringify(val));}catch(e){}}
 
-// LOGIN
-let currentUser='';
+// STATS - saved to localStorage
+let stats=lsGet('seth_stats',{scans:0,pass:0,ai:0,score:0});
+function updateStats(){
+  document.getElementById('stat-scans').textContent=stats.scans;
+  document.getElementById('stat-pass').textContent=stats.pass;
+  document.getElementById('stat-ai').textContent=stats.ai;
+  document.getElementById('stat-score').textContent=stats.score;
+  lsSet('seth_stats',stats);
+}
+
+// LOGIN - saved to localStorage
+let currentUser=lsGet('seth_user','');
 function delay(ms){return new Promise(r=>setTimeout(r,ms));}
 function setStatus(msg,color='#00eeff'){const el=document.getElementById('login-status');el.style.color=color;el.textContent=msg;}
+
 async function doLogin(){
   const user=document.getElementById('login-user').value.trim();
   const pass=document.getElementById('login-pass').value;
   if(!user||!pass){setStatus('[ ERROR: CREDENTIALS REQUIRED ]','#ff003c');return;}
   const msgs=['Authenticating...','Verifying credentials...','Establishing secure session...','[ ACCESS GRANTED ]'];
   for(const m of msgs){setStatus(m);await delay(400);}
-  currentUser=user; launchApp();
+  currentUser=user;
+  lsSet('seth_user',user);
+  launchApp();
 }
+
 async function gmailLogin(){
-  setStatus('Connecting to Gmail OAuth...','#4285f4'); await delay(600);
-  setStatus('Simulating Google OAuth flow...','#4285f4'); await delay(800);
-  setStatus('[ GMAIL AUTH SUCCESS ]','#00ff41'); await delay(500);
-  currentUser='user@gmail.com'; launchApp();
+  setStatus('Connecting to Gmail OAuth...','#4285f4');await delay(600);
+  setStatus('Simulating Google OAuth flow...','#4285f4');await delay(800);
+  setStatus('[ GMAIL AUTH SUCCESS ]','#00ff41');await delay(500);
+  currentUser='user@gmail.com';
+  lsSet('seth_user','user@gmail.com');
+  launchApp();
 }
-function launchApp(){ document.getElementById('login-screen').style.display='none'; document.getElementById('app').style.display='block'; document.getElementById('user-badge').textContent=currentUser; startDashboard(); }
-function logout(){ document.getElementById('login-screen').style.display='flex'; document.getElementById('app').style.display='none'; document.getElementById('login-status').textContent=''; document.getElementById('login-user').value=''; document.getElementById('login-pass').value=''; }
+
+function launchApp(){
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('user-badge').textContent=currentUser;
+  updateStats();
+  startDashboard();
+}
+
+function logout(){
+  lsSet('seth_user','');
+  currentUser='';
+  document.getElementById('login-screen').style.display='flex';
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-status').textContent='';
+  document.getElementById('login-user').value='';
+  document.getElementById('login-pass').value='';
+}
 
 // TABS
-function showTab(id){ document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active')); document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); document.getElementById('tab-'+id).classList.add('active'); document.querySelectorAll('.nav-btn').forEach(b=>{if(b.getAttribute('onclick').includes("'"+id+"'"))b.classList.add('active');}); if(id==='terminal')initTerminal(); if(id==='game')initGame('medium'); }
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b=>{if(b.getAttribute('onclick').includes("'"+id+"'"))b.classList.add('active');});
+  if(id==='terminal')initTerminal();
+  if(id==='game')initGame('medium');
+}
 
 // DASHBOARD
 const dashLines=[
@@ -379,9 +411,14 @@ const dashLines=[
   {t:1100,txt:'[+] wifi_audit_tool........OK',c:'success'},
   {t:1300,txt:'[+] ai_assistant...........OK',c:'success'},
   {t:1500,txt:'[+] game_engine............OK',c:'success'},
-  {t:1700,txt:'[*] All systems operational. Welcome, root.',c:'warn'},
+  {t:1700,txt:'[*] Session restored. Welcome back, root.',c:'warn'},
 ];
-function startDashboard(){ const term=document.getElementById('dash-term'); dashLines.forEach(l=>{ setTimeout(()=>{ const d=document.createElement('div'); d.className='terminal-line '+l.c; d.textContent=l.txt; term.appendChild(d); term.scrollTop=term.scrollHeight; },l.t||0); }); }
+let dashDone=false;
+function startDashboard(){
+  if(dashDone)return;dashDone=true;
+  const term=document.getElementById('dash-term');
+  dashLines.forEach(l=>setTimeout(()=>{const d=document.createElement('div');d.className='terminal-line '+l.c;d.textContent=l.txt;term.appendChild(d);term.scrollTop=term.scrollHeight;},l.t));
+}
 
 // TERMINAL
 let termHistory=[],termIdx=-1,termInitialized=false;
@@ -389,45 +426,45 @@ const COMMANDS={
   help:()=>[{c:'success',t:'Available commands:'},{c:'cmd',t:'  help, whoami, uname -a, ifconfig, ls'},{c:'cmd',t:'  cat /etc/passwd, netstat, ps aux'},{c:'cmd',t:'  nmap <host>, ping <host>'},{c:'cmd',t:'  airmon-ng, hashcat, metasploit, clear'}],
   whoami:()=>[{c:'success',t:'root'}],
   'uname -a':()=>[{c:'success',t:'Linux kali 6.5.0-kali3-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.5.6-1kali1 x86_64 GNU/Linux'}],
-  ifconfig:()=>[{c:'success',t:'eth0: inet 192.168.1.100 netmask 255.255.255.0'},{c:'success',t:'wlan0: inet 192.168.1.102 netmask 255.255.255.0'},{c:'success',t:'lo: inet 127.0.0.1 netmask 255.0.0.0'}],
+  ifconfig:()=>[{c:'success',t:'eth0:  inet 192.168.1.100  netmask 255.255.255.0'},{c:'success',t:'wlan0: inet 192.168.1.102  netmask 255.255.255.0'},{c:'success',t:'lo:    inet 127.0.0.1      netmask 255.0.0.0'}],
   ls:()=>[{c:'success',t:'Desktop  Documents  Downloads  tools  wordlists  scripts  payloads'}],
   'cat /etc/passwd':()=>[{c:'success',t:'root:x:0:0:root:/root:/bin/bash'},{c:'',t:'kali:x:1000:1000:Kali:/home/kali:/bin/bash'},{c:'',t:'sandesh:x:1001:1001:Sandesh:/home/sandesh:/bin/bash'}],
   netstat:()=>[{c:'success',t:'tcp  192.168.1.100:52341  142.250.185.78:443  ESTABLISHED'},{c:'success',t:'tcp  192.168.1.100:48291  151.101.1.91:443   ESTABLISHED'}],
-  'ps aux':()=>[{c:'success',t:'root     1  0.0  /sbin/init'},{c:'',t:'root   423  0.0  /usr/sbin/sshd -D'},{c:'',t:'sandesh 1337 2.1  ./eth-hack-tools'}],
+  'ps aux':()=>[{c:'success',t:'root     1   0.0  /sbin/init'},{c:'',t:'root   423   0.0  /usr/sbin/sshd -D'},{c:'',t:'sandesh 1337 2.1  ./eth-hack-tools'}],
   'airmon-ng':()=>[{c:'warn',t:'Found 2 processes that could cause trouble.'},{c:'success',t:'phy0  wlan0  ath9k_htc  Atheros AR9271'},{c:'success',t:'phy1  wlan1  rt2800usb  Ralink RT2870'}],
-  hashcat:()=>[{c:'success',t:'hashcat v6.2.6 — Educational Information Only'},{c:'',t:'-m 0=MD5  -m 100=SHA1  -m 1800=sha512crypt'},{c:'warn',t:'⚠ Only use on hashes you own or have permission.'}],
-  metasploit:()=>[{c:'success',t:'=[ metasploit v6.3.4 | 2375 exploits ]'},{c:'warn',t:'⚠ EDUCATIONAL ONLY. Use in authorized environments.'}],
+  hashcat:()=>[{c:'success',t:'hashcat v6.2.6 - Educational Information Only'},{c:'',t:'-m 0=MD5  -m 100=SHA1  -m 1800=sha512crypt'},{c:'warn',t:'Only use on hashes you own or have permission to crack.'}],
+  metasploit:()=>[{c:'success',t:'=[ metasploit v6.3.4 | 2375 exploits ]'},{c:'warn',t:'EDUCATIONAL ONLY. Use in authorized environments.'}],
   clear:()=>'CLEAR',
 };
-function initTerminal(){ if(termInitialized)return; termInitialized=true; const term=document.getElementById('main-term'); [{c:'success',t:'SANDESH KALI TERMINAL v2.0 — Type "help" for commands'}].forEach(l=>addTermLine(l.t,l.c)); }
-function addTermLine(text,cls=''){ const term=document.getElementById('main-term'); const d=document.createElement('div'); d.className='terminal-line '+cls; d.textContent=text; term.appendChild(d); term.scrollTop=term.scrollHeight; }
+function initTerminal(){if(termInitialized)return;termInitialized=true;addTermLine('SANDESH KALI TERMINAL v2.0 - Type "help" for commands','success');}
+function addTermLine(text,cls=''){const term=document.getElementById('main-term');const d=document.createElement('div');d.className='terminal-line '+cls;d.textContent=text;term.appendChild(d);term.scrollTop=term.scrollHeight;}
 function handleTermKey(e){
   const input=document.getElementById('term-input');
   if(e.key==='Enter'){
-    const cmd=input.value.trim(); if(!cmd)return;
-    addTermLine('└─$ '+cmd,'cmd'); termHistory.unshift(cmd); termIdx=-1; input.value='';
+    const cmd=input.value.trim();if(!cmd)return;
+    addTermLine('└─$ '+cmd,'cmd');termHistory.unshift(cmd);termIdx=-1;input.value='';
     executeCmd(cmd);
-  } else if(e.key==='ArrowUp'){ if(termIdx<termHistory.length-1){termIdx++;input.value=termHistory[termIdx];} }
-  else if(e.key==='ArrowDown'){ if(termIdx>0){termIdx--;input.value=termHistory[termIdx];}else{termIdx=-1;input.value='';} }
-  else if(e.key==='Tab'){ e.preventDefault(); const m=Object.keys(COMMANDS).find(k=>k.startsWith(input.value)); if(m)input.value=m; }
+  }else if(e.key==='ArrowUp'){if(termIdx<termHistory.length-1){termIdx++;input.value=termHistory[termIdx];}}
+  else if(e.key==='ArrowDown'){if(termIdx>0){termIdx--;input.value=termHistory[termIdx];}else{termIdx=-1;input.value='';}}
+  else if(e.key==='Tab'){e.preventDefault();const m=Object.keys(COMMANDS).find(k=>k.startsWith(input.value));if(m)input.value=m;}
 }
 function executeCmd(cmd){
   const lower=cmd.toLowerCase();
   let key=Object.keys(COMMANDS).find(k=>lower===k||lower.startsWith(k));
   if(!key&&lower.startsWith('nmap')){
     const host=cmd.split(' ')[1]||'localhost';
-    addTermLine(`Starting Nmap on ${host}...`,'cmd');
-    [[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql'],[8080,'http-proxy']].forEach((p,i)=>{ setTimeout(()=>addTermLine(`${p[0]}/tcp  open  ${p[1]}`,'success'),i*200); });
+    addTermLine('Starting Nmap on '+host+'...','cmd');
+    [[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql'],[8080,'http-proxy']].forEach((p,i)=>setTimeout(()=>addTermLine(p[0]+'/tcp  open  '+p[1],'success'),i*200));
     setTimeout(()=>addTermLine('Nmap done.','warn'),1200);
     stats.scans++;updateStats();return;
   }
   if(!key&&lower.startsWith('ping')){
     const host=cmd.split(' ')[1]||'localhost';
-    addTermLine(`PING ${host}`,'cmd');
-    for(let i=1;i<=4;i++)setTimeout(()=>addTermLine(`64 bytes from ${host}: icmp_seq=${i} time=${(Math.random()*20+1).toFixed(1)}ms`,'success'),i*400);
+    addTermLine('PING '+host,'cmd');
+    for(let i=1;i<=4;i++)setTimeout(()=>addTermLine('64 bytes from '+host+': icmp_seq='+i+' time='+(Math.random()*20+1).toFixed(1)+'ms','success'),i*400);
     return;
   }
-  if(!key){addTermLine(`bash: ${cmd}: command not found`,'err');return;}
+  if(!key){addTermLine('bash: '+cmd+': command not found','err');return;}
   const result=COMMANDS[key]();
   if(result==='CLEAR'){document.getElementById('main-term').innerHTML='';return;}
   result.forEach(l=>addTermLine(l.t,l.c));
@@ -449,15 +486,15 @@ function generatePasswords(){
     let pwd='';
     if(mode==='passphrase'){
       const sep=syms?['!','@','#','$','_'][Math.floor(Math.random()*5)]:'-';
-      pwd=Array.from({length:Math.floor(len/6)||4},()=>{ let w=WORDS[Math.floor(Math.random()*WORDS.length)]; return upper?w.charAt(0).toUpperCase()+w.slice(1):w; }).join(sep);
+      pwd=Array.from({length:Math.floor(len/6)||4},()=>{let w=WORDS[Math.floor(Math.random()*WORDS.length)];return upper?w.charAt(0).toUpperCase()+w.slice(1):w;}).join(sep);
       if(nums)pwd+=Math.floor(Math.random()*9999);
-    } else if(mode==='pin'){
+    }else if(mode==='pin'){
       pwd=Array.from({length:len},()=>Math.floor(Math.random()*10)).join('');
-    } else {
+    }else{
       let charset=hex?'0123456789abcdef':'';
       if(!hex){if(upper)charset+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(lower)charset+='abcdefghijklmnopqrstuvwxyz';if(nums)charset+='0123456789';if(syms)charset+='!@#$%^&*()-_=+[]{}|;:,.<>?';}
       if(!charset)charset='abcdefghijklmnopqrstuvwxyz';
-      const arr=new Uint32Array(len); crypto.getRandomValues(arr);
+      const arr=new Uint32Array(len);crypto.getRandomValues(arr);
       pwd=Array.from(arr).map(v=>charset[v%charset.length]).join('');
     }
     passwords.push(pwd);
@@ -468,7 +505,7 @@ function generatePasswords(){
   document.getElementById('strength-fill').style.width=s.pct+'%';
   document.getElementById('strength-fill').style.background=s.color;
   document.getElementById('strength-label').style.color=s.color;
-  document.getElementById('strength-label').textContent='▸ STRENGTH: '+s.label;
+  document.getElementById('strength-label').textContent='STRENGTH: '+s.label;
 }
 function calcStrength(pwd){
   let score=0;
@@ -477,16 +514,16 @@ function calcStrength(pwd){
   if(/[0-9]/.test(pwd))score++;if(/[^A-Za-z0-9]/.test(pwd))score++;
   if(pwd.length>=30)score++;
   const levels=[{min:0,pct:15,color:'#ff003c',label:'VERY WEAK'},{min:2,pct:35,color:'#ff6600',label:'WEAK'},{min:3,pct:55,color:'#ffe600',label:'MODERATE'},{min:5,pct:75,color:'#88ff00',label:'STRONG'},{min:6,pct:100,color:'#00ff41',label:'VERY STRONG'}];
-  let level=levels[0]; for(const l of levels)if(score>=l.min)level=l; return level;
+  let level=levels[0];for(const l of levels)if(score>=l.min)level=l;return level;
 }
 function checkStrength(pwd){
   if(!pwd){document.getElementById('check-fill').style.width='0%';document.getElementById('check-label').textContent='';document.getElementById('check-details').textContent='';return;}
   const s=calcStrength(pwd);
   document.getElementById('check-fill').style.width=s.pct+'%';document.getElementById('check-fill').style.background=s.color;
-  document.getElementById('check-label').style.color=s.color;document.getElementById('check-label').textContent='▸ STRENGTH: '+s.label;
-  document.getElementById('check-details').textContent=`Length: ${pwd.length} ${pwd.length>=16?'✓':'✗'}  |  Upper: ${/[A-Z]/.test(pwd)?'✓':'✗'}  |  Lower: ${/[a-z]/.test(pwd)?'✓':'✗'}  |  Numbers: ${/[0-9]/.test(pwd)?'✓':'✗'}  |  Symbols: ${/[^A-Za-z0-9]/.test(pwd)?'✓':'✗'}`;
+  document.getElementById('check-label').style.color=s.color;document.getElementById('check-label').textContent='STRENGTH: '+s.label;
+  document.getElementById('check-details').textContent='Length: '+pwd.length+' '+(pwd.length>=16?'OK':'SHORT')+'  |  Upper: '+((/[A-Z]/.test(pwd))?'YES':'NO')+'  |  Lower: '+((/[a-z]/.test(pwd))?'YES':'NO')+'  |  Numbers: '+((/[0-9]/.test(pwd))?'YES':'NO')+'  |  Symbols: '+((/[^A-Za-z0-9]/.test(pwd))?'YES':'NO');
 }
-function copyPasswords(){ navigator.clipboard.writeText(document.getElementById('pass-output').textContent).then(()=>{const btn=event.target;btn.textContent='✓ COPIED!';setTimeout(()=>btn.textContent='⎘ COPY TO CLIPBOARD',1500);}); }
+function copyPasswords(){navigator.clipboard.writeText(document.getElementById('pass-output').textContent).then(()=>{const btn=event.target;btn.textContent='COPIED!';setTimeout(()=>btn.textContent='COPY TO CLIPBOARD',1500);});}
 
 // WIFI TOOLS
 const FAKE_NETWORKS=[
@@ -498,39 +535,50 @@ const FAKE_NETWORKS=[
   {ssid:'Guest_WiFi',bssid:'FC:F5:28:12:34:56',ch:9,signal:-76,sec:'WPA2',status:'weak'},
 ];
 function scanWifi(){
-  const btn=document.getElementById('scan-btn'); btn.disabled=true; btn.textContent='⟳ SCANNING...';
-  const prog=document.getElementById('scan-progress'); const status=document.getElementById('scan-status');
-  let pct=0; const iv=setInterval(()=>{ pct+=Math.random()*15; if(pct>100)pct=100; prog.style.width=pct+'%'; status.textContent='SCANNING... '+Math.floor(pct)+'%';
-    if(pct>=100){ clearInterval(iv); displayWifiResults(); btn.disabled=false; btn.textContent='📡 START SCAN'; status.textContent='COMPLETE — '+FAKE_NETWORKS.length+' networks found'; stats.scans++;updateStats(); }
+  const btn=document.getElementById('scan-btn');btn.disabled=true;btn.textContent='SCANNING...';
+  const prog=document.getElementById('scan-progress');const statusEl=document.getElementById('scan-status');
+  let pct=0;
+  const iv=setInterval(()=>{
+    pct+=Math.random()*15;if(pct>100)pct=100;
+    prog.style.width=pct+'%';statusEl.textContent='SCANNING... '+Math.floor(pct)+'%';
+    if(pct>=100){clearInterval(iv);displayWifiResults();btn.disabled=false;btn.textContent='START SCAN';statusEl.textContent='COMPLETE - '+FAKE_NETWORKS.length+' networks found';stats.scans++;updateStats();}
   },120);
 }
 function displayWifiResults(){
-  document.getElementById('wifi-results').innerHTML=FAKE_NETWORKS.map(n=>{ const cls=n.status==='secure'?'secure':n.status==='vuln'?'vuln':'weak'; const icons={secure:'🔒',ok:'🔓',weak:'⚠',vuln:'🚨'}; return `<tr><td>${n.ssid}</td><td style="font-size:11px;">${n.bssid}</td><td>${n.ch}</td><td>${n.signal}dBm</td><td class="${cls}">${n.sec}</td><td class="${cls}">${icons[n.status]||''} ${n.status.toUpperCase()}</td></tr>`; }).join('');
+  document.getElementById('wifi-results').innerHTML=FAKE_NETWORKS.map(n=>{
+    const cls=n.status==='secure'?'secure':n.status==='vuln'?'vuln':'weak';
+    const icons={secure:'[SECURE]',ok:'[OK]',weak:'[WEAK]',vuln:'[VULN]'};
+    return '<tr><td>'+n.ssid+'</td><td style="font-size:11px;">'+n.bssid+'</td><td>'+n.ch+'</td><td>'+n.signal+'dBm</td><td class="'+cls+'">'+n.sec+'</td><td class="'+cls+'">'+icons[n.status]+' '+n.status.toUpperCase()+'</td></tr>';
+  }).join('');
 }
 function wpsAudit(){
-  const target=document.getElementById('wps-target').value||'AA:BB:CC:DD:EE:FF'; const out=document.getElementById('wps-output'); out.textContent='';
-  ['[*] Testing WPS on '+target,'[*] Sending probe requests...','[*] WPS version detected: 2.0','[!] WPS is ENABLED — device may be vulnerable','[+] Recommendation: Disable WPS in router settings'].forEach((l,i)=>setTimeout(()=>out.textContent+=l+'\n',i*350));
+  const target=document.getElementById('wps-target').value||'AA:BB:CC:DD:EE:FF';
+  const out=document.getElementById('wps-output');out.textContent='';
+  ['[*] Testing WPS on '+target,'[*] Sending probe requests...','[*] WPS version detected: 2.0','[!] WPS is ENABLED - device may be vulnerable','[+] Recommendation: Disable WPS in router settings'].forEach((l,i)=>setTimeout(()=>out.textContent+=l+'\n',i*350));
 }
 
 // NETWORK TOOLS
 function portScan(){
   const host=document.getElementById('port-host').value||'192.168.1.1';
   const ports=[[21,'ftp'],[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql'],[3389,'rdp'],[8080,'http-proxy'],[5432,'postgresql'],[6379,'redis'],[27017,'mongodb']];
-  const out=document.getElementById('port-output'); out.textContent=`Scanning ${host}...\n\nPORT      STATE  SERVICE\n─────────────────────────\n`;
+  const out=document.getElementById('port-output');
+  out.textContent='Scanning '+host+'...\n\nPORT      STATE  SERVICE\n-------------------------\n';
   const open=ports.filter(()=>Math.random()>0.5);
-  open.forEach((p,i)=>setTimeout(()=>{ out.textContent+=`${String(p[0]).padEnd(9)} open   ${p[1]}\n`; out.scrollTop=out.scrollHeight; },i*80));
-  setTimeout(()=>{ out.textContent+=`\n[+] ${open.length}/${ports.length} ports open.`; stats.scans++;updateStats(); },open.length*80+100);
+  open.forEach((p,i)=>setTimeout(()=>{out.textContent+=String(p[0]).padEnd(9)+' open   '+p[1]+'\n';out.scrollTop=out.scrollHeight;},i*80));
+  setTimeout(()=>{out.textContent+='\n[+] '+open.length+'/'+ports.length+' ports open.';stats.scans++;updateStats();},open.length*80+100);
 }
 function dnsLookup(){
   const host=document.getElementById('lookup-host').value||'example.com';
-  const ip=`${Math.floor(Math.random()*200)+1}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`;
-  document.getElementById('lookup-output').textContent=`Host: ${host}\nIPv4: ${ip}\nIPv6: 2606:2800:220:1:248:1893:25c8:1946\nMX: mail.${host}\nNS: ns1.${host}\nTTL: 3600\nStatus: ACTIVE`;
+  const ip=Math.floor(Math.random()*200+1)+'.'+Math.floor(Math.random()*255)+'.'+Math.floor(Math.random()*255)+'.'+Math.floor(Math.random()*255);
+  document.getElementById('lookup-output').textContent='Host: '+host+'\nIPv4: '+ip+'\nIPv6: 2606:2800:220:1:248:1893:25c8:1946\nMX: mail.'+host+'\nNS: ns1.'+host+'\nTTL: 3600\nStatus: ACTIVE';
 }
 async function hashText(){
-  const text=document.getElementById('hash-input').value; const algo=document.getElementById('hash-algo').value; const out=document.getElementById('hash-output');
+  const text=document.getElementById('hash-input').value;
+  const algo=document.getElementById('hash-algo').value;
+  const out=document.getElementById('hash-output');
   if(!text){out.textContent='Enter text to hash.';return;}
   if(algo==='BASE64'){out.textContent='BASE64: '+btoa(text);return;}
-  if(algo==='MD5'){out.textContent='MD5 (simulated): '+Array.from(text).reduce((a,c)=>((a<<5)-a)+c.charCodeAt(0)|0,0).toString(16).padStart(32,'0').replace('-','');return;}
+  if(algo==='MD5'){out.textContent='MD5 (sim): '+Array.from(text).reduce((a,c)=>((a<<5)-a)+c.charCodeAt(0)|0,0).toString(16).padStart(32,'0').replace('-','');return;}
   const algoMap={'SHA-1':'SHA-1','SHA-256':'SHA-256','SHA-512':'SHA-512'};
   const buf=await crypto.subtle.digest(algoMap[algo],new TextEncoder().encode(text));
   out.textContent=algo+': '+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
@@ -538,40 +586,80 @@ async function hashText(){
 
 // AI ASSISTANT
 async function sendChat(){
-  const input=document.getElementById('chat-input'); const msg=input.value.trim(); if(!msg)return;
-  input.value=''; addChatMsg('user',msg); document.getElementById('ai-typing').style.display='block';
+  const input=document.getElementById('chat-input');
+  const msg=input.value.trim();if(!msg)return;
+  input.value='';addChatMsg('user',msg);
+  document.getElementById('ai-typing').style.display='block';
   stats.ai++;updateStats();
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'You are SANDESH-AI, an expert AI assistant for the Sandesh Ethical Hacking Tools system. You are an expert in cybersecurity, ethical hacking, penetration testing, network security, cryptography, CTF challenges, Linux/Kali Linux, and all technology. Answer educationally and ethically. Be concise but thorough.',messages:[{role:'user',content:msg}]})});
-    const data=await res.json(); const reply=data.content?.[0]?.text||'Connection error.';
-    document.getElementById('ai-typing').style.display='none'; addChatMsg('ai',reply);
-  } catch(e){ document.getElementById('ai-typing').style.display='none'; addChatMsg('ai','⚠ AI connection error: '+e.message); }
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',max_tokens:1000,
+        system:'You are SANDESH-AI, an expert AI assistant for the Sandesh Ethical Hacking Tools system. You are an expert in cybersecurity, ethical hacking, penetration testing, network security, cryptography, CTF challenges, Linux and Kali Linux, and all technology topics. Answer educationally and ethically. Be concise but thorough.',
+        messages:[{role:'user',content:msg}]
+      })
+    });
+    const data=await res.json();
+    const reply=data.content?.[0]?.text||'Connection error.';
+    document.getElementById('ai-typing').style.display='none';
+    addChatMsg('ai',reply);
+  }catch(e){
+    document.getElementById('ai-typing').style.display='none';
+    addChatMsg('ai','AI connection error: '+e.message);
+  }
 }
-function addChatMsg(role,text){ const box=document.getElementById('chat-box'); const div=document.createElement('div'); div.className='chat-msg '+role; div.innerHTML=`<div class="from">${role==='user'?'▸ YOU':'◈ SANDESH-AI'}</div><div class="text">${text.replace(/\n/g,'<br>')}</div>`; box.appendChild(div); box.scrollTop=box.scrollHeight; }
+function addChatMsg(role,text){
+  const box=document.getElementById('chat-box');
+  const div=document.createElement('div');div.className='chat-msg '+role;
+  div.innerHTML='<div class="from">'+(role==='user'?'YOU':'SANDESH-AI v2.0')+'</div><div class="text">'+text.replace(/\n/g,'<br>')+'</div>';
+  box.appendChild(div);box.scrollTop=box.scrollHeight;
+}
 
-// GAME — FIREWALL BREAKER
+// GAME - FIREWALL BREAKER
 let gBoard=[],gRows=8,gCols=10,gMines=12,gFlags=0,gRevealed=0,gTimer=0,gTimerIv=null,gOver=false,gStarted=false;
 const CONFIGS={easy:{rows:6,cols:8,mines:6},medium:{rows:8,cols:10,mines:12},hard:{rows:10,cols:12,mines:22}};
-function initGame(diff){ const c=CONFIGS[diff]||CONFIGS.medium; gRows=c.rows;gCols=c.cols;gMines=c.mines;gFlags=0;gRevealed=0;gOver=false;gStarted=false;clearInterval(gTimerIv);gTimer=0;
-  document.getElementById('g-time').textContent='0s';document.getElementById('g-mines').textContent=gMines;document.getElementById('g-flags').textContent=0;document.getElementById('game-msg').textContent='';
+function initGame(diff){
+  const c=CONFIGS[diff]||CONFIGS.medium;gRows=c.rows;gCols=c.cols;gMines=c.mines;
+  gFlags=0;gRevealed=0;gOver=false;gStarted=false;clearInterval(gTimerIv);gTimer=0;
+  document.getElementById('g-time').textContent='0s';document.getElementById('g-mines').textContent=gMines;
+  document.getElementById('g-flags').textContent=0;document.getElementById('game-msg').textContent='';
   gBoard=Array.from({length:gRows},()=>Array.from({length:gCols},()=>({mine:false,revealed:false,flagged:false,count:0})));
-  let placed=0; while(placed<gMines){const r=Math.floor(Math.random()*gRows);const c2=Math.floor(Math.random()*gCols);if(!gBoard[r][c2].mine){gBoard[r][c2].mine=true;placed++;}}
+  let placed=0;while(placed<gMines){const r=Math.floor(Math.random()*gRows),c2=Math.floor(Math.random()*gCols);if(!gBoard[r][c2].mine){gBoard[r][c2].mine=true;placed++;}}
   for(let r=0;r<gRows;r++)for(let c2=0;c2<gCols;c2++){if(gBoard[r][c2].mine)continue;let cnt=0;for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){const nr=r+dr,nc=c2+dc;if(nr>=0&&nr<gRows&&nc>=0&&nc<gCols&&gBoard[nr][nc].mine)cnt++;}gBoard[r][c2].count=cnt;}
-  renderGame(); }
-function renderGame(){ const grid=document.getElementById('game-grid'); grid.style.gridTemplateColumns=`repeat(${gCols},44px)`; grid.innerHTML='';
-  for(let r=0;r<gRows;r++)for(let c=0;c<gCols;c++){const cell=document.createElement('div');cell.className='game-cell';const d=gBoard[r][c];
+  renderGame();
+}
+function renderGame(){
+  const grid=document.getElementById('game-grid');grid.style.gridTemplateColumns='repeat('+gCols+',44px)';grid.innerHTML='';
+  for(let r=0;r<gRows;r++)for(let c=0;c<gCols;c++){
+    const cell=document.createElement('div');cell.className='game-cell';const d=gBoard[r][c];
     if(d.flagged){cell.textContent='🚩';cell.classList.add('flagged');}
-    else if(d.revealed){cell.classList.add('revealed');if(d.mine){cell.textContent='💥';cell.classList.add('mine');}else if(d.count>0){cell.textContent=d.count;const cols=['','#00ff41','#00eeff','#ff003c','#4444ff','#ff6600','#00aaff','#ff00ff','#aaaaaa'];cell.style.color=cols[d.count]||'#00ff41';}}
-    cell.addEventListener('click',()=>clickCell(r,c));cell.addEventListener('contextmenu',e=>{e.preventDefault();flagCell(r,c);});grid.appendChild(cell);} }
-function clickCell(r,c){ if(gOver||gBoard[r][c].flagged||gBoard[r][c].revealed)return;
+    else if(d.revealed){cell.classList.add('revealed');if(d.mine){cell.textContent='💥';cell.classList.add('mine');}else if(d.count>0){cell.textContent=d.count;const cols=['','#00ff41','#00eeff','#ff003c','#4444ff','#ff6600','#00aaff','#ff00ff','#aaa'];cell.style.color=cols[d.count]||'#00ff41';}}
+    cell.addEventListener('click',()=>clickCell(r,c));cell.addEventListener('contextmenu',e=>{e.preventDefault();flagCell(r,c);});grid.appendChild(cell);
+  }
+}
+function clickCell(r,c){
+  if(gOver||gBoard[r][c].flagged||gBoard[r][c].revealed)return;
   if(!gStarted){gStarted=true;gTimerIv=setInterval(()=>{gTimer++;document.getElementById('g-time').textContent=gTimer+'s';},1000);}
-  if(gBoard[r][c].mine){gBoard[r][c].revealed=true;gOver=true;clearInterval(gTimerIv);for(let i=0;i<gRows;i++)for(let j=0;j<gCols;j++)if(gBoard[i][j].mine)gBoard[i][j].revealed=true;renderGame();document.getElementById('game-msg').style.color='#ff003c';document.getElementById('game-msg').textContent='💥 HONEYPOT TRIGGERED — SYSTEM BREACH DETECTED';return;}
-  floodReveal(r,c);renderGame();checkWin(); }
-function floodReveal(r,c){ if(r<0||r>=gRows||c<0||c>=gCols)return;if(gBoard[r][c].revealed||gBoard[r][c].flagged||gBoard[r][c].mine)return;gBoard[r][c].revealed=true;gRevealed++;if(gBoard[r][c].count===0)for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++)floodReveal(r+dr,c+dc); }
-function flagCell(r,c){ if(gOver||gBoard[r][c].revealed)return;gBoard[r][c].flagged=!gBoard[r][c].flagged;gFlags+=gBoard[r][c].flagged?1:-1;document.getElementById('g-flags').textContent=gFlags;renderGame(); }
-function checkWin(){ if(gRevealed>=gRows*gCols-gMines){gOver=true;clearInterval(gTimerIv);const sc=Math.max(0,1000-gTimer*5+gMines*10);stats.score=Math.max(stats.score,sc);updateStats();document.getElementById('g-score').textContent=sc;document.getElementById('game-msg').style.color='#00ff41';document.getElementById('game-msg').textContent='✅ FIREWALL BREACHED — SCORE: '+sc+' pts';} }
+  if(gBoard[r][c].mine){gBoard[r][c].revealed=true;gOver=true;clearInterval(gTimerIv);for(let i=0;i<gRows;i++)for(let j=0;j<gCols;j++)if(gBoard[i][j].mine)gBoard[i][j].revealed=true;renderGame();document.getElementById('game-msg').style.color='#ff003c';document.getElementById('game-msg').textContent='HONEYPOT TRIGGERED - SYSTEM BREACH DETECTED';return;}
+  floodReveal(r,c);renderGame();checkWin();
+}
+function floodReveal(r,c){if(r<0||r>=gRows||c<0||c>=gCols||gBoard[r][c].revealed||gBoard[r][c].flagged||gBoard[r][c].mine)return;gBoard[r][c].revealed=true;gRevealed++;if(gBoard[r][c].count===0)for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++)floodReveal(r+dr,c+dc);}
+function flagCell(r,c){if(gOver||gBoard[r][c].revealed)return;gBoard[r][c].flagged=!gBoard[r][c].flagged;gFlags+=gBoard[r][c].flagged?1:-1;document.getElementById('g-flags').textContent=gFlags;renderGame();}
+function checkWin(){if(gRevealed>=gRows*gCols-gMines){gOver=true;clearInterval(gTimerIv);const sc=Math.max(0,1000-gTimer*5+gMines*10);stats.score=Math.max(stats.score,sc);updateStats();document.getElementById('g-score').textContent=sc;document.getElementById('game-msg').style.color='#00ff41';document.getElementById('game-msg').textContent='FIREWALL BREACHED - SCORE: '+sc+' pts';}}
 
-window.addEventListener('load',()=>initGame('medium'));
+// AUTO LOGIN ON PAGE LOAD
+window.addEventListener('load',()=>{
+  initGame('medium');
+  if(currentUser){
+    document.getElementById('login-screen').style.display='none';
+    document.getElementById('app').style.display='block';
+    document.getElementById('user-badge').textContent=currentUser;
+    updateStats();
+    startDashboard();
+  }
+});
 </script>
 </body>
-    </html>
+            </html>
