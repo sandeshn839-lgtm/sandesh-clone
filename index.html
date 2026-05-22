@@ -34,7 +34,7 @@
   .logout-btn{background:transparent;border:1px solid var(--red);color:var(--red);font-family:'Share Tech Mono',monospace;font-size:11px;padding:5px 12px;cursor:pointer;transition:all .2s;letter-spacing:1px;}
   .logout-btn:hover{background:#ff003c22;}
   .nav{display:flex;gap:0;background:rgba(0,5,0,0.9);border-bottom:1px solid #00ff4122;overflow-x:auto;}
-  .nav-btn{background:transparent;border:none;border-right:1px solid #00ff4122;color:#00ff4166;font-family:'Share Tech Mono',monospace;font-size:12px;padding:12px 20px;cursor:pointer;transition:all .2s;letter-spacing:1px;white-space:nowrap;}
+  .nav-btn{background:transparent;border:none;border-right:1px solid #00ff4122;color:#00ff4166;font-family:'Share Tech Mono',monospace;font-size:11px;padding:10px 16px;cursor:pointer;transition:all .2s;letter-spacing:1px;white-space:nowrap;}
   .nav-btn:hover{color:var(--green);background:#00ff4108;}
   .nav-btn.active{color:var(--green);background:#001f00;border-bottom:2px solid var(--green);text-shadow:var(--glow);}
   .content{padding:28px;max-width:1200px;margin:0 auto;}
@@ -47,7 +47,7 @@
   .terminal-input-row{display:flex;align-items:center;gap:8px;margin-top:8px;}
   .term-prompt{color:var(--green);white-space:nowrap;font-size:13px;}
   .term-input{flex:1;background:transparent;border:none;color:var(--green);font-family:'Share Tech Mono',monospace;font-size:13px;outline:none;caret-color:var(--green);}
-  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-bottom:28px;}
+  .cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-bottom:28px;}
   .card{background:var(--panel);border:1px solid #00ff4122;padding:22px;transition:border-color .2s,box-shadow .2s;}
   .card:hover{border-color:#00ff4166;box-shadow:0 0 20px #00ff4111;}
   .card-title{font-family:'Orbitron',sans-serif;font-size:13px;color:var(--green);margin-bottom:12px;letter-spacing:2px;}
@@ -56,6 +56,7 @@
   .btn:hover{background:#00ff4122;box-shadow:var(--glow);}
   .btn-cyan{border-color:var(--cyan);color:var(--cyan);}.btn-cyan:hover{background:#00eeff22;box-shadow:var(--glow-cyan);}
   .btn-red{border-color:var(--red);color:var(--red);}.btn-red:hover{background:#ff003c22;}
+  .btn-yellow{border-color:var(--yellow);color:var(--yellow);}.btn-yellow:hover{background:#ffe60022;}
   .btn-full{width:100%;text-align:center;}
   .form-row{margin-bottom:14px;}
   .form-row label{display:block;font-size:11px;color:#00ff4188;margin-bottom:5px;letter-spacing:2px;}
@@ -101,20 +102,49 @@
   .stat-num{font-family:'Orbitron',sans-serif;font-size:28px;color:var(--green);text-shadow:var(--glow);}
   .stat-lbl{font-size:10px;color:#00ff4166;letter-spacing:2px;margin-top:4px;}
   .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;}
+  /* EXPLOIT DB */
+  .exploit-card{background:#0a0a0a;border:1px solid #00ff4122;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s;}
+  .exploit-card:hover{border-color:var(--green);background:#001500;}
+  .exploit-tag{display:inline-block;font-size:9px;padding:2px 6px;border-radius:2px;margin-right:4px;letter-spacing:1px;}
+  .tag-critical{background:#3a0000;border:1px solid var(--red);color:var(--red);}
+  .tag-high{background:#2a1000;border:1px solid var(--yellow);color:var(--yellow);}
+  .tag-medium{background:#002020;border:1px solid var(--cyan);color:var(--cyan);}
+  .tag-low{background:#002200;border:1px solid var(--green);color:var(--green);}
+  /* CIPHER */
+  .cipher-tabs{display:flex;gap:0;margin-bottom:16px;border-bottom:1px solid #00ff4122;}
+  .cipher-tab{background:transparent;border:none;border-bottom:2px solid transparent;color:#00ff4166;font-family:'Share Tech Mono',monospace;font-size:12px;padding:8px 16px;cursor:pointer;transition:all .2s;letter-spacing:1px;}
+  .cipher-tab.active{color:var(--green);border-bottom-color:var(--green);}
+  .cipher-panel{display:none;}.cipher-panel.active{display:block;}
+  /* RECON */
+  .recon-result{background:#000;border:1px solid #00ff4133;padding:14px;font-size:12px;color:var(--cyan);margin-top:12px;min-height:80px;font-family:'Share Tech Mono',monospace;line-height:1.8;}
+  /* PHISHING SIM */
+  .phish-preview{background:#fff;border:2px solid #00ff4144;padding:20px;margin-top:12px;border-radius:4px;font-family:Arial,sans-serif;color:#333;font-size:14px;}
+  .phish-preview h3{color:#d00;margin-bottom:8px;}
+  .phish-preview input{width:100%;padding:8px;margin:6px 0;border:1px solid #ccc;border-radius:3px;font-size:13px;}
+  .phish-preview button{background:#0066cc;color:#fff;border:none;padding:10px 20px;border-radius:3px;cursor:pointer;font-size:13px;width:100%;}
   @keyframes glitch{0%{text-shadow:2px 0 var(--red),-2px 0 var(--cyan);}50%{text-shadow:-2px 0 var(--red),2px 0 var(--cyan);}100%{text-shadow:2px 0 var(--red),-2px 0 var(--cyan);}}
   .glitch{animation:glitch 3s infinite;}
   @keyframes blink{50%{opacity:0;}}.blink{animation:blink 1s step-end infinite;}
-  @media(max-width:700px){.stat-row{grid-template-columns:repeat(2,1fr);}.login-box{width:95vw;padding:28px 20px;}.content{padding:16px;}.two-col{grid-template-columns:1fr;}}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.5;}}.pulse{animation:pulse 2s infinite;}
+  @media(max-width:700px){.stat-row{grid-template-columns:repeat(2,1fr);}.login-box{width:95vw;padding:28px 20px;}.content{padding:16px;}.two-col,.three-col{grid-template-columns:1fr;}}
   ::-webkit-scrollbar{width:6px;}::-webkit-scrollbar-track{background:#000;}::-webkit-scrollbar-thumb{background:#00ff4133;border-radius:3px;}
+  .threat-level{display:flex;align-items:center;gap:10px;padding:10px 14px;border:1px solid;margin-bottom:8px;font-size:12px;}
+  .threat-critical{border-color:var(--red);background:#1a0000;color:var(--red);}
+  .threat-high{border-color:var(--yellow);background:#1a1000;color:var(--yellow);}
+  .threat-medium{border-color:var(--cyan);background:#001a1a;color:var(--cyan);}
+  .threat-low{border-color:var(--green);background:#001500;color:var(--green);}
+  .badge-new{background:var(--red);color:#fff;font-size:9px;padding:1px 5px;border-radius:2px;margin-left:6px;vertical-align:middle;}
 </style>
 </head>
 <body>
 <canvas id="matrix-canvas"></canvas>
 
+<!-- LOGIN -->
 <div id="login-screen">
   <div class="login-box">
     <div class="login-logo">&#9889; SANDESH ETH-HACK</div>
-    <div class="login-sub">ETHICAL HACKING TOOLS SYSTEM v2.0</div>
+    <div class="login-sub">ETHICAL HACKING TOOLS SYSTEM v3.0</div>
     <div class="login-field"><label>&#9658; USERNAME / EMAIL</label><input type="text" id="login-user" placeholder="root@sandesh.local" autocomplete="off"></div>
     <div class="login-field"><label>&#9658; PASSWORD</label><input type="password" id="login-pass" placeholder="••••••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
     <button class="login-btn" onclick="doLogin()">[ AUTHENTICATE ]</button>
@@ -123,6 +153,7 @@
   </div>
 </div>
 
+<!-- APP -->
 <div id="app">
   <div class="header">
     <div class="header-logo">&#9889; <span>SANDESH</span> ETHICAL HACKING TOOLS</div>
@@ -134,10 +165,14 @@
     <button class="nav-btn active" onclick="showTab('dashboard')">&#8962; DASHBOARD</button>
     <button class="nav-btn" onclick="showTab('terminal')">$ TERMINAL</button>
     <button class="nav-btn" onclick="showTab('passgen')">&#128273; PASS GEN</button>
-    <button class="nav-btn" onclick="showTab('wifi')">&#128225; WIFI TOOLS</button>
+    <button class="nav-btn" onclick="showTab('wifi')">&#128225; WIFI</button>
     <button class="nav-btn" onclick="showTab('network')">&#127760; NETWORK</button>
-    <button class="nav-btn" onclick="showTab('ai')">&#129302; AI ASSISTANT</button>
-    <button class="nav-btn" onclick="showTab('game')">&#127918; HACK GAME</button>
+    <button class="nav-btn" onclick="showTab('recon')">&#128269; RECON<span class="badge-new">NEW</span></button>
+    <button class="nav-btn" onclick="showTab('exploit')">&#128163; EXPLOITS<span class="badge-new">NEW</span></button>
+    <button class="nav-btn" onclick="showTab('cipher')">&#128272; CIPHER<span class="badge-new">NEW</span></button>
+    <button class="nav-btn" onclick="showTab('phishing')">&#127907; PHISH SIM<span class="badge-new">NEW</span></button>
+    <button class="nav-btn" onclick="showTab('ai')">&#129302; AI</button>
+    <button class="nav-btn" onclick="showTab('game')">&#127918; GAME</button>
   </div>
   <div class="content">
 
@@ -151,13 +186,19 @@
         <div class="stat-card"><div class="stat-num" id="stat-score">0</div><div class="stat-lbl">GAME SCORE</div></div>
       </div>
       <div class="terminal" id="dash-term"></div>
-      <div style="margin-top:14px;">
-        <div class="section-title" style="font-size:14px;">QUICK TOOLS</div>
+      <div style="margin-top:20px">
+        <div class="section-title" style="font-size:14px">THREAT INTELLIGENCE FEED</div>
+        <div id="threat-feed"></div>
+      </div>
+      <div style="margin-top:20px">
+        <div class="section-title" style="font-size:14px">QUICK TOOLS</div>
         <div class="cards-grid">
-          <div class="card"><span class="card-icon">&#128273;</span><div class="card-title">PASSWORD GENERATOR</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Generate ultra-secure passwords with custom rules.</p><button class="btn" onclick="showTab('passgen')">OPEN TOOL &rarr;</button></div>
-          <div class="card"><span class="card-icon">&#128225;</span><div class="card-title">WIFI SECURITY AUDIT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Simulate network scanning and security assessment.</p><button class="btn" onclick="showTab('wifi')">OPEN TOOL &rarr;</button></div>
-          <div class="card"><span class="card-icon">&#129302;</span><div class="card-title">AI CYBER ASSISTANT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Ask ANYTHING — science, coding, hacking, math, history...</p><button class="btn" onclick="showTab('ai')">OPEN AI &rarr;</button></div>
-          <div class="card"><span class="card-icon">&#127918;</span><div class="card-title">HACK THE PLANET</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Defuse the firewall — minesweeper hacker edition.</p><button class="btn" onclick="showTab('game')">PLAY &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#128269;</span><div class="card-title">RECON FRAMEWORK</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">OSINT, subdomain enum, WHOIS, tech fingerprint.</p><button class="btn" onclick="showTab('recon')">OPEN &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#128163;</span><div class="card-title">EXPLOIT DATABASE</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Browse CVEs, vulnerabilities & attack vectors.</p><button class="btn" onclick="showTab('exploit')">OPEN &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#128272;</span><div class="card-title">CIPHER LAB</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Encode, decode, encrypt, crack ciphers.</p><button class="btn" onclick="showTab('cipher')">OPEN &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#127907;</span><div class="card-title">PHISHING SIMULATOR</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Awareness training — build & analyse phish pages.</p><button class="btn" onclick="showTab('phishing')">OPEN &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#128273;</span><div class="card-title">PASSWORD GENERATOR</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Ultra-secure passwords with custom rules.</p><button class="btn" onclick="showTab('passgen')">OPEN &rarr;</button></div>
+          <div class="card"><span class="card-icon">&#129302;</span><div class="card-title">AI CYBER ASSISTANT</div><p style="font-size:12px;color:#00ff4188;margin-bottom:14px;">Ask anything — hacking, science, coding, all topics.</p><button class="btn" onclick="showTab('ai')">OPEN &rarr;</button></div>
         </div>
       </div>
     </div>
@@ -178,14 +219,13 @@
       <div class="two-col">
         <div>
           <div class="form-row"><label>&#9658; PASSWORD LENGTH</label><input class="form-input" type="number" id="pass-len" value="24" min="6" max="128"></div>
-          <div class="form-row">
-            <label>&#9658; CHARACTER SETS</label>
+          <div class="form-row"><label>&#9658; CHARACTER SETS</label>
             <div style="display:flex;flex-direction:column;gap:8px;padding:12px;background:#001500;border:1px solid #00ff4122;">
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-upper" checked style="accent-color:var(--green)"> UPPERCASE (A-Z)</label>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-lower" checked style="accent-color:var(--green)"> LOWERCASE (a-z)</label>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-nums" checked style="accent-color:var(--green)"> NUMBERS (0-9)</label>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-sym" checked style="accent-color:var(--green)"> SYMBOLS (!@#$%^&amp;*)</label>
-              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0;"><input type="checkbox" id="use-hex" style="accent-color:var(--green)"> HEX ONLY (0-9,a-f)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0"><input type="checkbox" id="use-upper" checked style="accent-color:var(--green)"> UPPERCASE (A-Z)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0"><input type="checkbox" id="use-lower" checked style="accent-color:var(--green)"> LOWERCASE (a-z)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0"><input type="checkbox" id="use-nums" checked style="accent-color:var(--green)"> NUMBERS (0-9)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0"><input type="checkbox" id="use-sym" checked style="accent-color:var(--green)"> SYMBOLS (!@#$%^&amp;*)</label>
+              <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:var(--green);cursor:pointer;letter-spacing:0"><input type="checkbox" id="use-hex" style="accent-color:var(--green)"> HEX ONLY (0-9,a-f)</label>
             </div>
           </div>
           <div class="form-row"><label>&#9658; QUANTITY</label><input class="form-input" type="number" id="pass-qty" value="5" min="1" max="20"></div>
@@ -193,16 +233,16 @@
           <button class="btn btn-full" onclick="generatePasswords()">&#9889; GENERATE PASSWORDS</button>
         </div>
         <div>
-          <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px;">&#9658; OUTPUT</div>
-          <div class="output-box" id="pass-output" style="min-height:180px;">...</div>
+          <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; OUTPUT</div>
+          <div class="output-box" id="pass-output" style="min-height:180px">...</div>
           <div class="strength-bar"><div class="strength-fill" id="strength-fill" style="width:0%"></div></div>
           <div class="strength-label" id="strength-label"></div>
           <button class="btn btn-cyan btn-full" style="margin-top:12px" onclick="copyPasswords()">&#x2398; COPY TO CLIPBOARD</button>
-          <div style="margin-top:20px;font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px;">&#9658; STRENGTH CHECKER</div>
+          <div style="margin-top:20px;font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; STRENGTH CHECKER</div>
           <input class="form-input" type="password" id="check-pass" placeholder="Type password to check..." oninput="checkStrength(this.value)">
           <div class="strength-bar"><div class="strength-fill" id="check-fill" style="width:0%"></div></div>
           <div class="strength-label" id="check-label"></div>
-          <div class="output-box" id="check-details" style="min-height:60px;font-size:12px;margin-top:8px;"></div>
+          <div class="output-box" id="check-details" style="min-height:60px;font-size:12px;margin-top:8px"></div>
         </div>
       </div>
     </div>
@@ -210,26 +250,20 @@
     <!-- WIFI TOOLS -->
     <div class="tab-panel" id="tab-wifi">
       <div class="section-title">WIFI SECURITY TOOLKIT</div>
-      <div style="background:#1a0800;border:1px solid #ff660044;padding:12px 16px;margin-bottom:20px;font-size:12px;color:#ff9944;">&#9888; EDUCATIONAL SIMULATION ONLY — All results are simulated for learning. Unauthorized network access is illegal.</div>
+      <div style="background:#1a0800;border:1px solid #ff660044;padding:12px 16px;margin-bottom:20px;font-size:12px;color:#ff9944">&#9888; EDUCATIONAL SIMULATION — All results simulated. Unauthorized access is illegal.</div>
       <div class="two-col">
         <div>
-          <div class="section-title" style="font-size:14px;">NETWORK SCANNER</div>
           <div class="form-row"><label>&#9658; INTERFACE</label><select class="form-select" id="wifi-iface"><option>wlan0</option><option>wlan1</option><option>eth0</option></select></div>
           <div class="form-row"><label>&#9658; SCAN MODE</label><select class="form-select" id="wifi-mode"><option>PASSIVE SCAN</option><option>ACTIVE SCAN</option><option>MONITOR MODE</option></select></div>
           <button class="btn btn-full" onclick="scanWifi()" id="scan-btn">&#128225; START SCAN</button>
           <div class="progress-bar" style="margin-top:10px"><div class="progress-fill" id="scan-progress" style="width:0%"></div></div>
           <div style="font-size:11px;color:#00ff4177;margin-top:5px" id="scan-status">READY</div>
-          <div style="margin-top:20px">
-            <div class="section-title" style="font-size:14px">SECURE YOUR WIFI</div>
-            <div style="background:#001500;border:1px solid #00ff4122;padding:14px;font-size:12px;color:#00ff41cc;line-height:1.8">&#9658; Use WPA3 encryption<br>&#9658; Set a strong password (20+ chars)<br>&#9658; Disable WPS<br>&#9658; Hide your SSID<br>&#9658; Enable MAC address filtering<br>&#9658; Use a guest network for IoT<br>&#9658; Update router firmware regularly</div>
-          </div>
+          <div style="margin-top:20px;background:#001500;border:1px solid #00ff4122;padding:14px;font-size:12px;color:#00ff41cc;line-height:1.8">&#9658; Use WPA3 encryption<br>&#9658; Strong password 20+ chars<br>&#9658; Disable WPS<br>&#9658; Hide SSID<br>&#9658; MAC filtering<br>&#9658; Guest network for IoT<br>&#9658; Update firmware</div>
         </div>
         <div>
-          <div class="section-title" style="font-size:14px">SCAN RESULTS</div>
-          <div style="overflow-x:auto"><table class="scan-table"><thead><tr><th>SSID</th><th>BSSID</th><th>CH</th><th>SIGNAL</th><th>SECURITY</th><th>STATUS</th></tr></thead><tbody id="wifi-results"><tr><td colspan="6" style="color:#00ff4144;text-align:center">Run a scan to see results</td></tr></tbody></table></div>
-          <div style="margin-top:20px">
-            <div class="section-title" style="font-size:14px">WPS AUDIT (EDUCATIONAL)</div>
-            <div class="form-row"><label>&#9658; TARGET BSSID (your own network only)</label><input class="form-input" id="wps-target" placeholder="AA:BB:CC:DD:EE:FF"></div>
+          <div style="overflow-x:auto"><table class="scan-table"><thead><tr><th>SSID</th><th>BSSID</th><th>CH</th><th>SIGNAL</th><th>SEC</th><th>STATUS</th></tr></thead><tbody id="wifi-results"><tr><td colspan="6" style="color:#00ff4144;text-align:center">Run a scan</td></tr></tbody></table></div>
+          <div style="margin-top:16px">
+            <div class="form-row"><label>&#9658; WPS AUDIT TARGET</label><input class="form-input" id="wps-target" placeholder="AA:BB:CC:DD:EE:FF"></div>
             <button class="btn" onclick="wpsAudit()">RUN WPS AUDIT</button>
             <div class="output-box" id="wps-output" style="font-size:12px;margin-top:10px;min-height:80px">...</div>
           </div>
@@ -242,14 +276,14 @@
       <div class="section-title">NETWORK TOOLS</div>
       <div class="two-col">
         <div>
-          <div class="section-title" style="font-size:14px">PORT SCANNER (SIMULATED)</div>
+          <div class="section-title" style="font-size:14px">PORT SCANNER</div>
           <div class="form-row"><label>&#9658; TARGET HOST</label><input class="form-input" id="port-host" placeholder="192.168.1.1 or example.com"></div>
-          <div class="form-row"><label>&#9658; PORT RANGE</label><select class="form-select" id="port-range"><option value="common">COMMON PORTS (Top 20)</option><option value="web">WEB PORTS</option><option value="all">ALL PORTS (1-1024)</option></select></div>
+          <div class="form-row"><label>&#9658; PORT RANGE</label><select class="form-select" id="port-range"><option value="common">COMMON PORTS</option><option value="web">WEB PORTS</option><option value="all">ALL PORTS 1-1024</option></select></div>
           <button class="btn btn-full" onclick="portScan()">&#128269; SCAN PORTS</button>
           <div class="output-box" id="port-output" style="min-height:200px;font-size:12px;margin-top:10px">...</div>
         </div>
         <div>
-          <div class="section-title" style="font-size:14px">IP / DNS LOOKUP</div>
+          <div class="section-title" style="font-size:14px">DNS / IP LOOKUP</div>
           <div class="form-row"><label>&#9658; DOMAIN / IP</label><input class="form-input" id="lookup-host" placeholder="example.com"></div>
           <button class="btn btn-full" onclick="dnsLookup()">&#127760; LOOKUP</button>
           <div class="output-box" id="lookup-output" style="min-height:130px;font-size:12px;margin-top:10px">...</div>
@@ -264,30 +298,296 @@
       </div>
     </div>
 
+    <!-- RECON FRAMEWORK — NEW -->
+    <div class="tab-panel" id="tab-recon">
+      <div class="section-title">&#128269; RECON FRAMEWORK</div>
+      <div style="background:#001a00;border:1px solid #00ff4133;padding:10px 14px;margin-bottom:18px;font-size:11px;color:#00ff4199">&#9672; Educational simulation. All results are generated for learning purposes only.</div>
+      <div class="two-col">
+        <div>
+          <div class="form-row"><label>&#9658; TARGET DOMAIN / IP</label><input class="form-input" id="recon-target" placeholder="example.com or 192.168.1.1"></div>
+          <div class="form-row"><label>&#9658; RECON TYPE</label>
+            <select class="form-select" id="recon-type">
+              <option value="whois">WHOIS LOOKUP</option>
+              <option value="dns">DNS ENUMERATION</option>
+              <option value="subdomain">SUBDOMAIN FINDER</option>
+              <option value="tech">TECH FINGERPRINT</option>
+              <option value="headers">HTTP HEADERS</option>
+              <option value="osint">OSINT SCAN</option>
+              <option value="geo">GEO IP LOOKUP</option>
+              <option value="shodan">SHODAN-STYLE SCAN</option>
+            </select>
+          </div>
+          <button class="btn btn-full" onclick="runRecon()" id="recon-btn">&#128269; RUN RECON</button>
+          <div class="progress-bar" style="margin-top:10px"><div class="progress-fill" id="recon-progress" style="width:0%"></div></div>
+          <div style="font-size:11px;color:#00ff4177;margin-top:5px" id="recon-status">READY</div>
+          <div style="margin-top:20px">
+            <div class="section-title" style="font-size:14px">RECON CHEATSHEET</div>
+            <div style="background:#001500;border:1px solid #00ff4122;padding:14px;font-size:11px;color:#00ff41cc;line-height:2">
+              &#9658; WHOIS — registrar, owner, dates<br>
+              &#9658; DNS — A, MX, NS, TXT records<br>
+              &#9658; Subdomains — hidden attack surface<br>
+              &#9658; Tech fingerprint — CMS, frameworks<br>
+              &#9658; HTTP headers — server info leaks<br>
+              &#9658; OSINT — public data aggregation<br>
+              &#9658; Shodan — internet-exposed services
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; RECON OUTPUT</div>
+          <div class="recon-result" id="recon-output">Run a recon scan to see results...</div>
+          <div style="margin-top:16px">
+            <div class="section-title" style="font-size:14px">SOCIAL ENGINEERING VECTORS</div>
+            <div class="cards-grid" style="grid-template-columns:1fr">
+              <div class="card" style="padding:12px">
+                <div style="font-size:11px;color:var(--yellow);letter-spacing:2px;margin-bottom:8px">&#9888; AWARENESS ONLY</div>
+                <div style="font-size:12px;color:#00ff41cc;line-height:1.9">
+                  &#9658; Spear Phishing — targeted emails<br>
+                  &#9658; Vishing — voice/phone attacks<br>
+                  &#9658; Smishing — SMS-based attacks<br>
+                  &#9658; Baiting — USB drops, fake media<br>
+                  &#9658; Pretexting — fake identity scams<br>
+                  &#9658; Tailgating — physical access bypass
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EXPLOIT DATABASE — NEW -->
+    <div class="tab-panel" id="tab-exploit">
+      <div class="section-title">&#128163; EXPLOIT DATABASE</div>
+      <div style="background:#1a0800;border:1px solid #ff660044;padding:10px 14px;margin-bottom:18px;font-size:11px;color:#ff9944">&#9888; Educational reference only. Never exploit systems without written permission.</div>
+      <div class="two-col">
+        <div>
+          <div class="form-row"><label>&#9658; SEARCH CVE / KEYWORD</label><input class="form-input" id="cve-search" placeholder="e.g. SQL injection, CVE-2024, XSS, RCE..." oninput="searchExploits(this.value)"></div>
+          <div class="form-row"><label>&#9658; CATEGORY</label>
+            <select class="form-select" id="exploit-cat" onchange="filterExploits()">
+              <option value="all">ALL CATEGORIES</option>
+              <option value="web">WEB APPLICATION</option>
+              <option value="network">NETWORK</option>
+              <option value="system">SYSTEM / OS</option>
+              <option value="mobile">MOBILE</option>
+              <option value="iot">IOT / EMBEDDED</option>
+            </select>
+          </div>
+          <div id="exploit-list"></div>
+        </div>
+        <div>
+          <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; CVE DETAIL</div>
+          <div class="output-box" id="exploit-detail" style="min-height:300px;font-size:12px;line-height:1.8">Select an exploit to view details...</div>
+          <div style="margin-top:16px">
+            <div class="section-title" style="font-size:14px">OWASP TOP 10</div>
+            <div id="owasp-list"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CIPHER LAB — NEW -->
+    <div class="tab-panel" id="tab-cipher">
+      <div class="section-title">&#128272; CIPHER LAB</div>
+      <div class="cipher-tabs">
+        <button class="cipher-tab active" onclick="showCipher('encode')">ENCODE / DECODE</button>
+        <button class="cipher-tab" onclick="showCipher('encrypt')">ENCRYPT / DECRYPT</button>
+        <button class="cipher-tab" onclick="showCipher('crack')">HASH CRACK</button>
+        <button class="cipher-tab" onclick="showCipher('steganography')">STEGANOGRAPHY</button>
+      </div>
+
+      <!-- ENCODE/DECODE -->
+      <div class="cipher-panel active" id="cipher-encode">
+        <div class="two-col">
+          <div>
+            <div class="form-row"><label>&#9658; INPUT TEXT</label><textarea class="form-input" id="enc-input" rows="5" placeholder="Enter text to encode/decode..." style="resize:vertical"></textarea></div>
+            <div class="form-row"><label>&#9658; METHOD</label>
+              <select class="form-select" id="enc-method">
+                <option value="base64e">BASE64 ENCODE</option>
+                <option value="base64d">BASE64 DECODE</option>
+                <option value="hex">TEXT TO HEX</option>
+                <option value="unhex">HEX TO TEXT</option>
+                <option value="binary">TEXT TO BINARY</option>
+                <option value="unbinary">BINARY TO TEXT</option>
+                <option value="url">URL ENCODE</option>
+                <option value="unurl">URL DECODE</option>
+                <option value="rot13">ROT13</option>
+                <option value="morse">TEXT TO MORSE</option>
+                <option value="reverse">REVERSE TEXT</option>
+                <option value="caesar">CAESAR CIPHER</option>
+              </select>
+            </div>
+            <div class="form-row" id="caesar-shift-row" style="display:none"><label>&#9658; CAESAR SHIFT (1-25)</label><input class="form-input" type="number" id="caesar-shift" value="13" min="1" max="25"></div>
+            <button class="btn btn-full" onclick="runEncode()">&#128272; PROCESS</button>
+          </div>
+          <div>
+            <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; OUTPUT</div>
+            <div class="output-box" id="enc-output" style="min-height:200px">...</div>
+            <button class="btn btn-cyan btn-full" style="margin-top:10px" onclick="navigator.clipboard.writeText(document.getElementById('enc-output').textContent)">&#x2398; COPY OUTPUT</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ENCRYPT/DECRYPT -->
+      <div class="cipher-panel" id="cipher-encrypt">
+        <div class="two-col">
+          <div>
+            <div class="form-row"><label>&#9658; INPUT TEXT</label><textarea class="form-input" id="cry-input" rows="4" placeholder="Enter text..." style="resize:vertical"></textarea></div>
+            <div class="form-row"><label>&#9658; SECRET KEY</label><input class="form-input" id="cry-key" placeholder="Enter encryption key..."></div>
+            <div class="form-row"><label>&#9658; ALGORITHM</label>
+              <select class="form-select" id="cry-algo">
+                <option value="xor">XOR CIPHER</option>
+                <option value="vigenere">VIGENERE CIPHER</option>
+                <option value="atbash">ATBASH CIPHER</option>
+                <option value="playfair">PLAYFAIR (DEMO)</option>
+              </select>
+            </div>
+            <div style="display:flex;gap:10px">
+              <button class="btn btn-full" onclick="runEncrypt()">&#128272; ENCRYPT</button>
+              <button class="btn btn-cyan btn-full" onclick="runDecrypt()">&#128275; DECRYPT</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; RESULT</div>
+            <div class="output-box" id="cry-output" style="min-height:160px">...</div>
+            <div style="margin-top:14px;font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; HOW IT WORKS</div>
+            <div class="output-box" id="cry-explain" style="font-size:11px;min-height:80px;line-height:1.8">Select an algorithm to see explanation...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HASH CRACK -->
+      <div class="cipher-panel" id="cipher-crack">
+        <div class="two-col">
+          <div>
+            <div class="form-row"><label>&#9658; HASH TO CRACK</label><input class="form-input" id="crack-hash" placeholder="Enter MD5/SHA1/SHA256 hash..."></div>
+            <div class="form-row"><label>&#9658; ATTACK MODE</label>
+              <select class="form-select" id="crack-mode">
+                <option value="dictionary">DICTIONARY ATTACK</option>
+                <option value="rainbow">RAINBOW TABLE LOOKUP</option>
+                <option value="bruteforce">BRUTE FORCE (4-6 chars)</option>
+              </select>
+            </div>
+            <button class="btn btn-full" onclick="runCrack()" id="crack-btn">&#128295; START CRACKING</button>
+            <div class="progress-bar" style="margin-top:10px"><div class="progress-fill" id="crack-progress" style="width:0%"></div></div>
+            <div style="font-size:11px;color:#00ff4177;margin-top:5px" id="crack-status">READY</div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; CRACK RESULT</div>
+            <div class="output-box" id="crack-output" style="min-height:140px">...</div>
+            <div style="margin-top:14px;font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; COMMON HASHES (for practice)</div>
+            <div style="background:#001500;border:1px solid #00ff4122;padding:12px;font-size:11px;color:#00ff41cc;line-height:2;cursor:pointer" onclick="document.getElementById('crack-hash').value=this.dataset.hash" id="sample-hashes">
+              Click any to load:<br>
+              <span style="color:var(--cyan);cursor:pointer" onclick="event.stopPropagation();document.getElementById('crack-hash').value='5f4dcc3b5aa765d61d8327deb882cf99'">MD5: 5f4dcc3b5aa765d61d8327deb882cf99</span><br>
+              <span style="color:var(--cyan);cursor:pointer" onclick="event.stopPropagation();document.getElementById('crack-hash').value='40bd001563085fc35165329ea1ff5c5ecbdbbeef'">SHA1: 40bd001563085fc35165329ea1ff5c5ecbdbbeef</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEGANOGRAPHY -->
+      <div class="cipher-panel" id="cipher-steganography">
+        <div class="two-col">
+          <div>
+            <div style="font-size:12px;color:#00ff41cc;margin-bottom:14px;line-height:1.8">Steganography hides secret messages inside files. This tool simulates LSB (Least Significant Bit) text encoding.</div>
+            <div class="form-row"><label>&#9658; SECRET MESSAGE</label><textarea class="form-input" id="steg-msg" rows="3" placeholder="Enter secret message to hide..." style="resize:vertical"></textarea></div>
+            <div class="form-row"><label>&#9658; COVER TEXT (carrier)</label><textarea class="form-input" id="steg-cover" rows="4" placeholder="Enter carrier text (message will be hidden here)..." style="resize:vertical"></textarea></div>
+            <div style="display:flex;gap:10px">
+              <button class="btn btn-full" onclick="stegoHide()">&#128065; HIDE MESSAGE</button>
+              <button class="btn btn-cyan btn-full" onclick="stegoReveal()">&#128270; REVEAL</button>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:11px;color:#00ff4188;letter-spacing:2px;margin-bottom:8px">&#9658; STEGO OUTPUT</div>
+            <div class="output-box" id="steg-output" style="min-height:180px">...</div>
+            <div style="margin-top:14px;background:#001500;border:1px solid #00ff4122;padding:12px;font-size:11px;color:#00ff41cc;line-height:1.9">
+              &#9658; LSB steganography modifies pixel bits<br>
+              &#9658; Zero-width character encoding<br>
+              &#9658; Used by APT groups for C2 comms<br>
+              &#9658; Tools: Steghide, OpenStego, SilentEye
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHISHING SIMULATOR — NEW -->
+    <div class="tab-panel" id="tab-phishing">
+      <div class="section-title">&#127907; PHISHING AWARENESS SIMULATOR</div>
+      <div style="background:#1a0800;border:1px solid #ff660044;padding:12px 16px;margin-bottom:18px;font-size:12px;color:#ff9944">&#9888; FOR SECURITY AWARENESS TRAINING ONLY. Never use against real targets. Unauthorized phishing is a criminal offence.</div>
+      <div class="two-col">
+        <div>
+          <div class="section-title" style="font-size:14px">PHISH PAGE BUILDER</div>
+          <div class="form-row"><label>&#9658; CAMPAIGN TYPE</label>
+            <select class="form-select" id="phish-type" onchange="updatePhishPreview()">
+              <option value="bank">FAKE BANK LOGIN</option>
+              <option value="google">FAKE GOOGLE LOGIN</option>
+              <option value="office">FAKE OFFICE 365</option>
+              <option value="prize">FAKE PRIZE WINNER</option>
+              <option value="it">FAKE IT SUPPORT</option>
+            </select>
+          </div>
+          <div class="form-row"><label>&#9658; SENDER NAME</label><input class="form-input" id="phish-sender" value="IT Security Team" oninput="updatePhishPreview()"></div>
+          <div class="form-row"><label>&#9658; URGENCY LEVEL</label>
+            <select class="form-select" id="phish-urgency" onchange="updatePhishPreview()">
+              <option>LOW — Routine notification</option>
+              <option selected>MEDIUM — Action required</option>
+              <option>HIGH — Account suspended</option>
+              <option>CRITICAL — Immediate action!</option>
+            </select>
+          </div>
+          <button class="btn btn-full" onclick="analysePhish()">&#128269; ANALYSE RED FLAGS</button>
+          <div class="output-box" id="phish-analysis" style="margin-top:12px;font-size:12px;min-height:120px">...</div>
+        </div>
+        <div>
+          <div class="section-title" style="font-size:14px">PREVIEW (AWARENESS)</div>
+          <div class="phish-preview" id="phish-preview">
+            <h3>&#9888; Security Alert</h3>
+            <p style="font-size:13px;margin-bottom:12px">Your account requires verification. Please login below.</p>
+            <input type="text" placeholder="Email address" disabled>
+            <input type="password" placeholder="Password" disabled>
+            <button onclick="return false">Sign In</button>
+          </div>
+          <div style="margin-top:14px">
+            <div class="section-title" style="font-size:14px">HOW TO SPOT PHISHING</div>
+            <div style="background:#001500;border:1px solid #00ff4122;padding:14px;font-size:12px;color:#00ff41cc;line-height:1.9">
+              &#9888; Check sender email domain carefully<br>
+              &#9888; Hover links before clicking<br>
+              &#9888; Urgency = red flag<br>
+              &#9888; Bad grammar / spelling<br>
+              &#9888; Asks for password/OTP<br>
+              &#9888; Unexpected attachments<br>
+              &#9888; Generic greetings ("Dear User")
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <!-- AI ASSISTANT -->
     <div class="tab-panel" id="tab-ai">
       <div class="section-title">AI ASSISTANT — SANDESH-AI</div>
-      <div class="ai-badge">&#9672; ADVANCED AI &bull; ANSWERS ALL QUESTIONS &bull; FREE &bull; NO API KEY NEEDED</div>
-      <div style="font-size:11px;color:#00ff4166;letter-spacing:1px;margin-bottom:14px;line-height:1.8">Ask me ANYTHING: &#9658; Cybersecurity &amp; Hacking &#9658; Science &amp; Math &#9658; Coding &#9658; History &#9658; Medicine &#9658; Business &#9658; Cooking &#9658; Sports &#9658; General Knowledge &#9658; Everything!</div>
+      <div class="ai-badge">&#9672; ADVANCED AI &bull; ANSWERS ALL QUESTIONS &bull; FREE &bull; NO API KEY</div>
+      <div style="font-size:11px;color:#00ff4166;letter-spacing:1px;margin-bottom:14px;line-height:1.8">Ask ANYTHING: &#9658; Hacking &#9658; Science &#9658; Math &#9658; Coding &#9658; History &#9658; Medicine &#9658; Business &#9658; Everything!</div>
       <div class="chat-box" id="chat-box">
         <div class="chat-msg ai">
-          <div class="from">&#9672; SANDESH-AI — UNIVERSAL AI ASSISTANT</div>
-          <div class="text">Hello! I am SANDESH-AI. I can answer ANY question on ANY topic — cybersecurity, hacking, science, math, history, coding, medicine, cooking, sports, entertainment, and everything else.<br><br>What would you like to know?</div>
+          <div class="from">&#9672; SANDESH-AI v3.0</div>
+          <div class="text">Hello! I am SANDESH-AI. I answer ANY question on ANY topic. What would you like to know?</div>
         </div>
       </div>
       <div class="chat-input-row">
-        <input class="chat-input" id="chat-input" placeholder="Ask me ANYTHING — no limits on topics!" onkeydown="if(event.key==='Enter')sendChat()">
+        <input class="chat-input" id="chat-input" placeholder="Ask me ANYTHING..." onkeydown="if(event.key==='Enter')sendChat()">
         <button class="btn btn-cyan" onclick="sendChat()">SEND &#10230;</button>
       </div>
-      <div class="ai-typing" id="ai-typing" style="display:none">&#9672; SANDESH-AI IS THINKING<span class="blink">_</span></div>
+      <div class="ai-typing" id="ai-typing" style="display:none">&#9672; THINKING<span class="blink">_</span></div>
     </div>
 
     <!-- GAME -->
     <div class="tab-panel" id="tab-game">
-      <div class="section-title">HACK THE PLANET &mdash; FIREWALL BREAKER</div>
+      <div class="section-title">FIREWALL BREAKER</div>
       <div class="game-area">
         <div class="game-title">&#9889; FIREWALL BREAKER &#9889;</div>
-        <div class="game-desc">Deactivate all firewall nodes without triggering honeypots. Left-click to probe. Right-click to flag.</div>
+        <div class="game-desc">Deactivate firewall nodes without triggering honeypots. Left-click probe. Right-click flag.</div>
         <div class="game-stats">
           <div>NODES: <span id="g-mines">0</span></div>
           <div>FLAGS: <span id="g-flags">0</span></div>
@@ -336,7 +636,6 @@ function updateStats(){
 let currentUser=lsGet('seth_user','');
 function delay(ms){return new Promise(r=>setTimeout(r,ms));}
 function setStatus(msg,color='#00eeff'){const el=document.getElementById('login-status');el.style.color=color;el.textContent=msg;}
-
 async function doLogin(){
   const user=document.getElementById('login-user').value.trim();
   const pass=document.getElementById('login-pass').value;
@@ -344,21 +643,18 @@ async function doLogin(){
   for(const m of ['Authenticating...','Verifying credentials...','Establishing secure session...','[ ACCESS GRANTED ]']){setStatus(m);await delay(400);}
   currentUser=user;lsSet('seth_user',user);launchApp();
 }
-
 async function gmailLogin(){
   setStatus('Connecting to Gmail OAuth...','#4285f4');await delay(600);
   setStatus('Simulating Google OAuth flow...','#4285f4');await delay(800);
   setStatus('[ GMAIL AUTH SUCCESS ]','#00ff41');await delay(500);
   currentUser='user@gmail.com';lsSet('seth_user','user@gmail.com');launchApp();
 }
-
 function launchApp(){
   document.getElementById('login-screen').style.display='none';
   document.getElementById('app').style.display='block';
   document.getElementById('user-badge').textContent=currentUser;
-  updateStats();startDashboard();
+  updateStats();startDashboard();buildThreatFeed();buildExploitList();buildOwaspList();updatePhishPreview();
 }
-
 function logout(){
   lsSet('seth_user','');currentUser='';
   document.getElementById('login-screen').style.display='flex';
@@ -381,16 +677,16 @@ function showTab(id){
 // DASHBOARD
 const dashLines=[
   {t:0,txt:'┌──────────────────────────────────────────────────┐',c:''},
-  {t:100,txt:'│  SANDESH ETHICAL HACKING TOOLS v2.0              │',c:'success'},
-  {t:200,txt:'│  Kali Linux Environment · Initialized            │',c:'success'},
+  {t:100,txt:'│  SANDESH ETHICAL HACKING TOOLS v3.0              │',c:'success'},
+  {t:200,txt:'│  NEW: Recon · Exploits · Cipher · Phish Sim      │',c:'success'},
   {t:300,txt:'└──────────────────────────────────────────────────┘',c:''},
   {t:500,txt:'[*] Loading modules...',c:'cmd'},
-  {t:700,txt:'[+] password_generator.....OK',c:'success'},
-  {t:900,txt:'[+] network_scanner........OK',c:'success'},
-  {t:1100,txt:'[+] wifi_audit_tool........OK',c:'success'},
-  {t:1300,txt:'[+] ai_assistant...........OK',c:'success'},
-  {t:1500,txt:'[+] game_engine............OK',c:'success'},
-  {t:1700,txt:'[*] Session restored. Welcome back, root.',c:'warn'},
+  {t:700,txt:'[+] recon_framework........OK',c:'success'},
+  {t:900,txt:'[+] exploit_database.......OK',c:'success'},
+  {t:1100,txt:'[+] cipher_lab.............OK',c:'success'},
+  {t:1300,txt:'[+] phishing_simulator.....OK',c:'success'},
+  {t:1500,txt:'[+] ai_assistant...........OK',c:'success'},
+  {t:1700,txt:'[*] All systems operational. Welcome back, root.',c:'warn'},
 ];
 let dashDone=false;
 function startDashboard(){
@@ -399,23 +695,43 @@ function startDashboard(){
   dashLines.forEach(l=>setTimeout(()=>{const d=document.createElement('div');d.className='terminal-line '+l.c;d.textContent=l.txt;term.appendChild(d);term.scrollTop=term.scrollHeight;},l.t));
 }
 
+// THREAT FEED
+const THREATS=[
+  {level:'critical',icon:'&#128163;',text:'CVE-2024-3400 — PAN-OS Command Injection — CVSS 10.0 — Patch immediately'},
+  {level:'high',icon:'&#9888;',text:'CVE-2024-21762 — FortiOS SSL VPN RCE — Active exploitation detected'},
+  {level:'high',icon:'&#9888;',text:'CVE-2024-1708 — ConnectWise ScreenConnect — Path traversal exploit in wild'},
+  {level:'medium',icon:'&#128203;',text:'CVE-2024-22024 — Ivanti SAML Auth Bypass — PoC publicly available'},
+  {level:'low',icon:'&#9432;',text:'Patch Tuesday: Microsoft releases 73 security fixes — Update recommended'},
+];
+function buildThreatFeed(){
+  document.getElementById('threat-feed').innerHTML=THREATS.map(t=>`<div class="threat-level threat-${t.level}">${t.icon}&nbsp;&nbsp;${t.text}</div>`).join('');
+}
+
 // TERMINAL
 let termHistory=[],termIdx=-1,termInitialized=false;
 const COMMANDS={
-  help:()=>[{c:'success',t:'Available commands:'},{c:'cmd',t:'  help, whoami, uname -a, ifconfig, ls'},{c:'cmd',t:'  cat /etc/passwd, netstat, ps aux'},{c:'cmd',t:'  nmap <host>, ping <host>'},{c:'cmd',t:'  airmon-ng, hashcat, metasploit, clear'}],
+  help:()=>[{c:'success',t:'Available commands:'},{c:'cmd',t:'  help, whoami, uname -a, ifconfig, ls, pwd'},{c:'cmd',t:'  cat /etc/passwd, netstat, ps aux, id'},{c:'cmd',t:'  nmap <host>, ping <host>, whois <domain>'},{c:'cmd',t:'  sqlmap, nikto, hydra, gobuster, airmon-ng'},{c:'cmd',t:'  msfconsole, hashcat, john, metasploit, clear'}],
   whoami:()=>[{c:'success',t:'root'}],
+  id:()=>[{c:'success',t:'uid=0(root) gid=0(root) groups=0(root)'}],
+  pwd:()=>[{c:'success',t:'/root'}],
   'uname -a':()=>[{c:'success',t:'Linux kali 6.5.0-kali3-amd64 #1 SMP PREEMPT_DYNAMIC Debian 6.5.6-1kali1 x86_64 GNU/Linux'}],
   ifconfig:()=>[{c:'success',t:'eth0:  inet 192.168.1.100  netmask 255.255.255.0'},{c:'success',t:'wlan0: inet 192.168.1.102  netmask 255.255.255.0'},{c:'success',t:'lo:    inet 127.0.0.1      netmask 255.0.0.0'}],
-  ls:()=>[{c:'success',t:'Desktop  Documents  Downloads  tools  wordlists  scripts  payloads'}],
+  ls:()=>[{c:'success',t:'Desktop  Documents  Downloads  tools  wordlists  scripts  payloads  exploits'}],
   'cat /etc/passwd':()=>[{c:'success',t:'root:x:0:0:root:/root:/bin/bash'},{c:'',t:'kali:x:1000:1000:Kali:/home/kali:/bin/bash'},{c:'',t:'sandesh:x:1001:1001:Sandesh:/home/sandesh:/bin/bash'}],
-  netstat:()=>[{c:'success',t:'tcp  192.168.1.100:52341  142.250.185.78:443  ESTABLISHED'},{c:'success',t:'tcp  192.168.1.100:48291  151.101.1.91:443   ESTABLISHED'}],
-  'ps aux':()=>[{c:'success',t:'root     1   0.0  /sbin/init'},{c:'',t:'root   423   0.0  /usr/sbin/sshd -D'},{c:'',t:'sandesh 1337 2.1  ./eth-hack-tools'}],
+  netstat:()=>[{c:'success',t:'tcp  192.168.1.100:52341  142.250.185.78:443  ESTABLISHED'},{c:'success',t:'tcp  192.168.1.100:48291  151.101.1.91:443   ESTABLISHED'},{c:'success',t:'tcp  0.0.0.0:22            0.0.0.0:*          LISTEN'}],
+  'ps aux':()=>[{c:'success',t:'root     1   0.0  /sbin/init'},{c:'',t:'root   423   0.0  /usr/sbin/sshd -D'},{c:'',t:'sandesh 1337 2.1  ./eth-hack-tools'},{c:'',t:'root  4444  0.0  nc -lvp 4444'}],
   'airmon-ng':()=>[{c:'warn',t:'Found 2 processes that could cause trouble.'},{c:'success',t:'phy0  wlan0  ath9k_htc  Atheros AR9271'},{c:'success',t:'phy1  wlan1  rt2800usb  Ralink RT2870'}],
-  hashcat:()=>[{c:'success',t:'hashcat v6.2.6 - Educational Information Only'},{c:'',t:'-m 0=MD5  -m 100=SHA1  -m 1800=sha512crypt'},{c:'warn',t:'Only use on hashes you own or have permission.'}],
-  metasploit:()=>[{c:'success',t:'=[ metasploit v6.3.4 | 2375 exploits ]'},{c:'warn',t:'EDUCATIONAL ONLY. Use in authorized environments.'}],
+  hashcat:()=>[{c:'success',t:'hashcat v6.2.6 - Advanced Password Recovery'},{c:'',t:'-m 0=MD5  -m 100=SHA1  -m 1800=sha512crypt'},{c:'warn',t:'Only use on hashes you own or have permission.'}],
+  metasploit:()=>[{c:'success',t:'       =[ metasploit v6.3.4 ]=      '},{c:'success',t:' + --=[ 2375 exploits - 1232 auxiliary ]=--+ '},{c:'warn',t:'EDUCATIONAL ONLY. Authorized use only.'}],
+  msfconsole:()=>[{c:'success',t:'msf6 > '},{c:'cmd',t:'Type: use exploit/multi/handler'},{c:'warn',t:'Educational reference only.'}],
+  sqlmap:()=>[{c:'success',t:'sqlmap/1.7.8 — automatic SQL injection tool'},{c:'cmd',t:'Usage: sqlmap -u "http://target/page?id=1"'},{c:'warn',t:'Only test applications you own or have permission.'}],
+  nikto:()=>[{c:'success',t:'Nikto v2.1.6 — Web Server Scanner'},{c:'cmd',t:'Usage: nikto -h http://target.com'},{c:'warn',t:'Authorized use only.'}],
+  hydra:()=>[{c:'success',t:'Hydra v9.4 — Network Login Cracker'},{c:'cmd',t:'Usage: hydra -l user -P wordlist.txt target ssh'},{c:'warn',t:'Only on systems you have written permission.'}],
+  gobuster:()=>[{c:'success',t:'Gobuster v3.6 — Directory/File Brute-Forcer'},{c:'cmd',t:'Usage: gobuster dir -u http://target -w wordlist.txt'},{c:'warn',t:'Authorized use only.'}],
+  john:()=>[{c:'success',t:'John the Ripper v1.9 — Password Auditor'},{c:'cmd',t:'Usage: john --wordlist=rockyou.txt hashfile'},{c:'warn',t:'Only audit your own hashes.'}],
   clear:()=>'CLEAR',
 };
-function initTerminal(){if(termInitialized)return;termInitialized=true;addTermLine('SANDESH KALI TERMINAL v2.0 - Type "help" for commands','success');}
+function initTerminal(){if(termInitialized)return;termInitialized=true;addTermLine('SANDESH KALI TERMINAL v3.0 - Type "help" for commands','success');}
 function addTermLine(text,cls=''){const term=document.getElementById('main-term');const d=document.createElement('div');d.className='terminal-line '+cls;d.textContent=text;term.appendChild(d);term.scrollTop=term.scrollHeight;}
 function handleTermKey(e){
   const input=document.getElementById('term-input');
@@ -430,16 +746,20 @@ function executeCmd(cmd){
   const lower=cmd.toLowerCase();
   let key=Object.keys(COMMANDS).find(k=>lower===k||lower.startsWith(k));
   if(!key&&lower.startsWith('nmap')){
-    const host=cmd.split(' ')[1]||'localhost';
-    addTermLine('Starting Nmap on '+host+'...','cmd');
-    [[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql'],[8080,'http-proxy']].forEach((p,i)=>setTimeout(()=>addTermLine(p[0]+'/tcp  open  '+p[1],'success'),i*200));
-    setTimeout(()=>addTermLine('Nmap done.','warn'),1200);
-    stats.scans++;updateStats();return;
+    const host=cmd.split(' ')[1]||'localhost';addTermLine('Starting Nmap 7.94 on '+host+'...','cmd');
+    [[21,'ftp'],[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql'],[8080,'http-proxy']].forEach((p,i)=>setTimeout(()=>addTermLine(p[0]+'/tcp  open  '+p[1],'success'),i*200));
+    setTimeout(()=>addTermLine('Nmap done: 6 ports open.','warn'),1400);stats.scans++;updateStats();return;
   }
   if(!key&&lower.startsWith('ping')){
-    const host=cmd.split(' ')[1]||'localhost';addTermLine('PING '+host,'cmd');
-    for(let i=1;i<=4;i++)setTimeout(()=>addTermLine('64 bytes from '+host+': icmp_seq='+i+' time='+(Math.random()*20+1).toFixed(1)+'ms','success'),i*400);
-    return;
+    const host=cmd.split(' ')[1]||'localhost';addTermLine('PING '+host+' 56 bytes of data.','cmd');
+    for(let i=1;i<=4;i++)setTimeout(()=>addTermLine('64 bytes from '+host+': icmp_seq='+i+' ttl=64 time='+(Math.random()*20+1).toFixed(1)+' ms','success'),i*400);
+    setTimeout(()=>addTermLine('4 packets transmitted, 4 received, 0% packet loss','warn'),2000);return;
+  }
+  if(!key&&lower.startsWith('whois')){
+    const d=cmd.split(' ')[1]||'example.com';
+    addTermLine('Domain: '+d,'success');
+    addTermLine('Registrar: GoDaddy LLC','');addTermLine('Created: 2020-01-15','');addTermLine('Expires: 2026-01-15','');
+    addTermLine('Name Servers: ns1.'+d+', ns2.'+d,'');addTermLine('Status: clientTransferProhibited','warn');return;
   }
   if(!key){addTermLine('bash: '+cmd+': command not found','err');return;}
   const result=COMMANDS[key]();
@@ -461,35 +781,19 @@ function generatePasswords(){
   let passwords=[];
   for(let q=0;q<qty;q++){
     let pwd='';
-    if(mode==='passphrase'){
-      const sep=syms?['!','@','#','$','_'][Math.floor(Math.random()*5)]:'-';
-      pwd=Array.from({length:Math.floor(len/6)||4},()=>{let w=WORDS[Math.floor(Math.random()*WORDS.length)];return upper?w.charAt(0).toUpperCase()+w.slice(1):w;}).join(sep);
-      if(nums)pwd+=Math.floor(Math.random()*9999);
-    }else if(mode==='pin'){
-      pwd=Array.from({length:len},()=>Math.floor(Math.random()*10)).join('');
-    }else{
-      let charset=hex?'0123456789abcdef':'';
-      if(!hex){if(upper)charset+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(lower)charset+='abcdefghijklmnopqrstuvwxyz';if(nums)charset+='0123456789';if(syms)charset+='!@#$%^&*()-_=+[]{}|;:,.<>?';}
-      if(!charset)charset='abcdefghijklmnopqrstuvwxyz';
-      const arr=new Uint32Array(len);crypto.getRandomValues(arr);
-      pwd=Array.from(arr).map(v=>charset[v%charset.length]).join('');
-    }
+    if(mode==='passphrase'){const sep=syms?['!','@','#','$','_'][Math.floor(Math.random()*5)]:'-';pwd=Array.from({length:Math.floor(len/6)||4},()=>{let w=WORDS[Math.floor(Math.random()*WORDS.length)];return upper?w.charAt(0).toUpperCase()+w.slice(1):w;}).join(sep);if(nums)pwd+=Math.floor(Math.random()*9999);}
+    else if(mode==='pin'){pwd=Array.from({length:len},()=>Math.floor(Math.random()*10)).join('');}
+    else{let charset=hex?'0123456789abcdef':'';if(!hex){if(upper)charset+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(lower)charset+='abcdefghijklmnopqrstuvwxyz';if(nums)charset+='0123456789';if(syms)charset+='!@#$%^&*()-_=+[]{}|;:,.<>?';}if(!charset)charset='abcdefghijklmnopqrstuvwxyz';const arr=new Uint32Array(len);crypto.getRandomValues(arr);pwd=Array.from(arr).map(v=>charset[v%charset.length]).join('');}
     passwords.push(pwd);
   }
   document.getElementById('pass-output').textContent=passwords.join('\n');
   stats.pass+=qty;updateStats();
   const s=calcStrength(passwords[0]);
-  document.getElementById('strength-fill').style.width=s.pct+'%';
-  document.getElementById('strength-fill').style.background=s.color;
-  document.getElementById('strength-label').style.color=s.color;
-  document.getElementById('strength-label').textContent='STRENGTH: '+s.label;
+  document.getElementById('strength-fill').style.width=s.pct+'%';document.getElementById('strength-fill').style.background=s.color;
+  document.getElementById('strength-label').style.color=s.color;document.getElementById('strength-label').textContent='STRENGTH: '+s.label;
 }
 function calcStrength(pwd){
-  let score=0;
-  if(pwd.length>=12)score++;if(pwd.length>=20)score++;
-  if(/[A-Z]/.test(pwd))score++;if(/[a-z]/.test(pwd))score++;
-  if(/[0-9]/.test(pwd))score++;if(/[^A-Za-z0-9]/.test(pwd))score++;
-  if(pwd.length>=30)score++;
+  let score=0;if(pwd.length>=12)score++;if(pwd.length>=20)score++;if(/[A-Z]/.test(pwd))score++;if(/[a-z]/.test(pwd))score++;if(/[0-9]/.test(pwd))score++;if(/[^A-Za-z0-9]/.test(pwd))score++;if(pwd.length>=30)score++;
   const levels=[{min:0,pct:15,color:'#ff003c',label:'VERY WEAK'},{min:2,pct:35,color:'#ff6600',label:'WEAK'},{min:3,pct:55,color:'#ffe600',label:'MODERATE'},{min:5,pct:75,color:'#88ff00',label:'STRONG'},{min:6,pct:100,color:'#00ff41',label:'VERY STRONG'}];
   let level=levels[0];for(const l of levels)if(score>=l.min)level=l;return level;
 }
@@ -502,44 +806,27 @@ function checkStrength(pwd){
 }
 function copyPasswords(){navigator.clipboard.writeText(document.getElementById('pass-output').textContent).then(()=>{const btn=event.target;btn.textContent='COPIED!';setTimeout(()=>btn.textContent='COPY TO CLIPBOARD',1500);});}
 
-// WIFI TOOLS
-const FAKE_NETWORKS=[
-  {ssid:'HomeNetwork_2G',bssid:'A4:2B:8C:11:22:33',ch:6,signal:-45,sec:'WPA3',status:'secure'},
-  {ssid:'AndroidAP',bssid:'B8:27:EB:44:55:66',ch:1,signal:-67,sec:'WPA2',status:'ok'},
-  {ssid:'NETGEAR_EXT',bssid:'C0:A8:01:77:88:99',ch:11,signal:-72,sec:'WPA2',status:'ok'},
-  {ssid:'TP-Link_OLD',bssid:'D4:3D:7E:AA:BB:CC',ch:6,signal:-81,sec:'WEP',status:'vuln'},
-  {ssid:'OpenCafe',bssid:'E8:CC:18:DD:EE:FF',ch:3,signal:-59,sec:'OPEN',status:'vuln'},
-  {ssid:'Guest_WiFi',bssid:'FC:F5:28:12:34:56',ch:9,signal:-76,sec:'WPA2',status:'weak'},
-];
+// WIFI
+const FAKE_NETWORKS=[{ssid:'HomeNetwork_2G',bssid:'A4:2B:8C:11:22:33',ch:6,signal:-45,sec:'WPA3',status:'secure'},{ssid:'AndroidAP',bssid:'B8:27:EB:44:55:66',ch:1,signal:-67,sec:'WPA2',status:'ok'},{ssid:'NETGEAR_EXT',bssid:'C0:A8:01:77:88:99',ch:11,signal:-72,sec:'WPA2',status:'ok'},{ssid:'TP-Link_OLD',bssid:'D4:3D:7E:AA:BB:CC',ch:6,signal:-81,sec:'WEP',status:'vuln'},{ssid:'OpenCafe',bssid:'E8:CC:18:DD:EE:FF',ch:3,signal:-59,sec:'OPEN',status:'vuln'},{ssid:'Guest_WiFi',bssid:'FC:F5:28:12:34:56',ch:9,signal:-76,sec:'WPA2',status:'weak'}];
 function scanWifi(){
   const btn=document.getElementById('scan-btn');btn.disabled=true;btn.textContent='SCANNING...';
-  const prog=document.getElementById('scan-progress');const statusEl=document.getElementById('scan-status');
-  let pct=0;
-  const iv=setInterval(()=>{
-    pct+=Math.random()*15;if(pct>100)pct=100;
-    prog.style.width=pct+'%';statusEl.textContent='SCANNING... '+Math.floor(pct)+'%';
-    if(pct>=100){clearInterval(iv);displayWifiResults();btn.disabled=false;btn.textContent='START SCAN';statusEl.textContent='COMPLETE - '+FAKE_NETWORKS.length+' networks found';stats.scans++;updateStats();}
-  },120);
+  const prog=document.getElementById('scan-progress');const statusEl=document.getElementById('scan-status');let pct=0;
+  const iv=setInterval(()=>{pct+=Math.random()*15;if(pct>100)pct=100;prog.style.width=pct+'%';statusEl.textContent='SCANNING... '+Math.floor(pct)+'%';if(pct>=100){clearInterval(iv);displayWifiResults();btn.disabled=false;btn.textContent='START SCAN';statusEl.textContent='COMPLETE - '+FAKE_NETWORKS.length+' networks';stats.scans++;updateStats();}},120);
 }
 function displayWifiResults(){
-  document.getElementById('wifi-results').innerHTML=FAKE_NETWORKS.map(n=>{
-    const cls=n.status==='secure'?'secure':n.status==='vuln'?'vuln':'weak';
-    const icons={secure:'[SECURE]',ok:'[OK]',weak:'[WEAK]',vuln:'[VULN]'};
-    return '<tr><td>'+n.ssid+'</td><td style="font-size:11px">'+n.bssid+'</td><td>'+n.ch+'</td><td>'+n.signal+'dBm</td><td class="'+cls+'">'+n.sec+'</td><td class="'+cls+'">'+icons[n.status]+' '+n.status.toUpperCase()+'</td></tr>';
-  }).join('');
+  const icons={secure:'[SECURE]',ok:'[OK]',weak:'[WEAK]',vuln:'[VULN]'};
+  document.getElementById('wifi-results').innerHTML=FAKE_NETWORKS.map(n=>{const cls=n.status==='secure'?'secure':n.status==='vuln'?'vuln':'weak';return '<tr><td>'+n.ssid+'</td><td style="font-size:11px">'+n.bssid+'</td><td>'+n.ch+'</td><td>'+n.signal+'</td><td class="'+cls+'">'+n.sec+'</td><td class="'+cls+'">'+icons[n.status]+'</td></tr>';}).join('');
 }
 function wpsAudit(){
-  const target=document.getElementById('wps-target').value||'AA:BB:CC:DD:EE:FF';
-  const out=document.getElementById('wps-output');out.textContent='';
-  ['[*] Testing WPS on '+target,'[*] Sending probe requests...','[*] WPS version detected: 2.0','[!] WPS ENABLED - device may be vulnerable','[+] Fix: Disable WPS in your router settings'].forEach((l,i)=>setTimeout(()=>out.textContent+=l+'\n',i*350));
+  const t=document.getElementById('wps-target').value||'AA:BB:CC:DD:EE:FF';const out=document.getElementById('wps-output');out.textContent='';
+  ['[*] Testing '+t,'[*] WPS version: 2.0','[!] WPS ENABLED - vulnerable to Pixie-Dust','[+] Fix: Disable WPS in router settings'].forEach((l,i)=>setTimeout(()=>out.textContent+=l+'\n',i*350));
 }
 
-// NETWORK TOOLS
+// NETWORK
 function portScan(){
   const host=document.getElementById('port-host').value||'192.168.1.1';
   const ports=[[21,'ftp'],[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql'],[3389,'rdp'],[8080,'http-proxy'],[5432,'postgresql'],[6379,'redis'],[27017,'mongodb']];
-  const out=document.getElementById('port-output');
-  out.textContent='Scanning '+host+'...\n\nPORT      STATE  SERVICE\n-------------------------\n';
+  const out=document.getElementById('port-output');out.textContent='Scanning '+host+'...\n\nPORT      STATE  SERVICE\n-------------------------\n';
   const open=ports.filter(()=>Math.random()>0.5);
   open.forEach((p,i)=>setTimeout(()=>{out.textContent+=String(p[0]).padEnd(9)+' open   '+p[1]+'\n';out.scrollTop=out.scrollHeight;},i*80));
   setTimeout(()=>{out.textContent+='\n[+] '+open.length+'/'+ports.length+' ports open.';stats.scans++;updateStats();},open.length*80+100);
@@ -547,38 +834,219 @@ function portScan(){
 function dnsLookup(){
   const host=document.getElementById('lookup-host').value||'example.com';
   const ip=Math.floor(Math.random()*200+1)+'.'+Math.floor(Math.random()*255)+'.'+Math.floor(Math.random()*255)+'.'+Math.floor(Math.random()*255);
-  document.getElementById('lookup-output').textContent='Host: '+host+'\nIPv4: '+ip+'\nIPv6: 2606:2800:220:1:248:1893:25c8:1946\nMX: mail.'+host+'\nNS: ns1.'+host+'\nTTL: 3600\nStatus: ACTIVE';
+  document.getElementById('lookup-output').textContent='Host: '+host+'\nA: '+ip+'\nMX: mail.'+host+' (10)\nNS: ns1.'+host+', ns2.'+host+'\nTXT: v=spf1 include:_spf.'+host+' ~all\nTTL: 3600';
 }
 async function hashText(){
-  const text=document.getElementById('hash-input').value;
-  const algo=document.getElementById('hash-algo').value;
-  const out=document.getElementById('hash-output');
-  if(!text){out.textContent='Enter text to hash.';return;}
+  const text=document.getElementById('hash-input').value;const algo=document.getElementById('hash-algo').value;const out=document.getElementById('hash-output');
+  if(!text){out.textContent='Enter text.';return;}
   if(algo==='BASE64'){out.textContent='BASE64: '+btoa(text);return;}
   if(algo==='MD5'){out.textContent='MD5 (sim): '+Array.from(text).reduce((a,c)=>((a<<5)-a)+c.charCodeAt(0)|0,0).toString(16).padStart(32,'0').replace('-','');return;}
-  const algoMap={'SHA-1':'SHA-1','SHA-256':'SHA-256','SHA-512':'SHA-512'};
-  const buf=await crypto.subtle.digest(algoMap[algo],new TextEncoder().encode(text));
+  const buf=await crypto.subtle.digest({'SHA-1':'SHA-1','SHA-256':'SHA-256','SHA-512':'SHA-512'}[algo],new TextEncoder().encode(text));
   out.textContent=algo+': '+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
 
-// ═══════════════════════════════════════
-// AI ASSISTANT — USES POLLINATIONS AI
-// FREE · NO API KEY · NO CORS ISSUES
-// ANSWERS ALL QUESTIONS ON ALL TOPICS
-// ═══════════════════════════════════════
-let chatHistory=[];
+// ══════════════════════════════════
+// RECON FRAMEWORK
+// ══════════════════════════════════
+function runRecon(){
+  const target=document.getElementById('recon-target').value.trim()||'example.com';
+  const type=document.getElementById('recon-type').value;
+  const btn=document.getElementById('recon-btn');btn.disabled=true;btn.textContent='RUNNING...';
+  const prog=document.getElementById('recon-progress');const statusEl=document.getElementById('recon-status');
+  let pct=0;const iv=setInterval(()=>{pct+=Math.random()*20;if(pct>100)pct=100;prog.style.width=pct+'%';statusEl.textContent='SCANNING... '+Math.floor(pct)+'%';if(pct>=100){clearInterval(iv);btn.disabled=false;btn.textContent='RUN RECON';statusEl.textContent='COMPLETE';showReconResult(target,type);stats.scans++;updateStats();}},150);
+}
+const reconResults={
+  whois:(t)=>`WHOIS RESULTS: ${t}\n${'─'.repeat(40)}\nDomain: ${t}\nRegistrar: GoDaddy LLC\nRegistrar URL: http://www.godaddy.com\nCreated: 2018-03-12\nUpdated: 2024-01-08\nExpires: 2026-03-12\nStatus: clientTransferProhibited\n\nRegistrant: REDACTED FOR PRIVACY\nAdmin Email: admin@${t}\n\nName Servers:\n  ns1.${t}\n  ns2.${t}\n\nDNSSEC: unsigned\nASN: AS13335 (Cloudflare)`,
+  dns:(t)=>`DNS ENUMERATION: ${t}\n${'─'.repeat(40)}\nA Record:     ${Math.floor(Math.random()*200+1)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.1\nAAAA Record:  2606:4700:3033::ac43:${Math.floor(Math.random()*9999).toString(16)}\nMX Record:    mail.${t} (Priority: 10)\nMX Record:    mail2.${t} (Priority: 20)\nNS Record:    ns1.${t}\nNS Record:    ns2.${t}\nTXT Record:   v=spf1 include:${t} ~all\nTXT Record:   google-site-verification=abc123\nCAA Record:   0 issue "letsencrypt.org"\nSOA Record:   ns1.${t} hostmaster.${t}`,
+  subdomain:(t)=>`SUBDOMAIN ENUMERATION: ${t}\n${'─'.repeat(40)}\n[+] www.${t}         → 93.184.216.34\n[+] mail.${t}        → 93.184.216.35\n[+] ftp.${t}         → 93.184.216.36\n[+] admin.${t}       → 93.184.216.37 ★ INTERESTING\n[+] dev.${t}         → 192.168.1.50  ★ INTERNAL IP LEAK!\n[+] staging.${t}     → 93.184.216.38\n[+] api.${t}         → 93.184.216.39\n[+] vpn.${t}         → 93.184.216.40\n[-] test.${t}        → NXDOMAIN\n[-] beta.${t}        → NXDOMAIN\n\nTotal: 8 subdomains found\n⚠ dev.${t} exposes internal IP — potential info leak`,
+  tech:(t)=>`TECH FINGERPRINT: ${t}\n${'─'.repeat(40)}\nWeb Server:   nginx/1.24.0\nOS (guess):   Linux (Ubuntu 22.04)\nCMS:          WordPress 6.4.2\nJS Framework: React 18.2 + jQuery 3.7\nCSS:          Bootstrap 5.3\nCDN:          Cloudflare\nAnalytics:    Google Analytics (UA)\nFonts:        Google Fonts\nCert Issuer:  Let's Encrypt\nTLS:          TLS 1.3 (good)\nHTTP/2:       Supported\n\n⚠ WordPress detected — check for plugin vulnerabilities\n⚠ jQuery 3.7 — check for prototype pollution`,
+  headers:(t)=>`HTTP HEADERS: ${t}\n${'─'.repeat(40)}\nHTTP/2 200 OK\nServer: nginx/1.24.0\nContent-Type: text/html; charset=UTF-8\nX-Powered-By: PHP/8.2.0          ← INFO LEAK!\nX-Frame-Options: SAMEORIGIN\nX-XSS-Protection: 1; mode=block\nStrict-Transport-Security: max-age=31536000\nContent-Security-Policy: default-src 'self'\nX-Content-Type-Options: nosniff\nReferrer-Policy: strict-origin\n\n⚠ X-Powered-By header leaks PHP version\n⚠ CSP could be stricter\n✓ HSTS enabled — good`,
+  osint:(t)=>`OSINT SCAN: ${t}\n${'─'.repeat(40)}\n[GOOGLE DORKS]\nsite:${t} filetype:pdf     → 47 results\nsite:${t} inurl:admin      → 3 results ★\nsite:${t} intitle:index.of → 12 results ★\n\n[PASTEBIN] 2 pastes mentioning ${t}\n[SHODAN] 4 open ports detected (sim)\n[WAYBACK] 156 snapshots since 2019\n[LINKEDIN] 89 employees listed\n[GITHUB] 3 repos with ${t} in name\n\n⚠ Admin panel exposed in search index\n⚠ Directory listing enabled on /files/\n⚠ Employee data publicly available`,
+  geo:(t)=>`GEO IP LOOKUP: ${t}\n${'─'.repeat(40)}\nIP Address: 93.184.216.34\nHostname:   ${t}\nCity:       Los Angeles\nRegion:     California\nCountry:    United States (US)\nPostal:     90001\nLatitude:   34.0522\nLongitude:  -118.2437\nTimezone:   America/Los_Angeles\nISP:        Edgecast Networks\nASN:        AS15133\nOrg:        MCI Communications\n\n[ABUSE CONTACT]\nEmail: abuse@edgecast.com\nPhone: +1-800-123-4567`,
+  shodan:(t)=>`SHODAN-STYLE SCAN: ${t}\n${'─'.repeat(40)}\nIP: 93.184.216.34\nPorts Open: 22, 80, 443, 8443\n\nPORT 22 (SSH)\n  Banner: SSH-2.0-OpenSSH_8.9p1\n  Auth: publickey, password\n  ⚠ Password auth enabled\n\nPORT 80 (HTTP)\n  Server: nginx/1.24.0\n  Redirect to HTTPS\n\nPORT 443 (HTTPS)\n  Cert: *.${t} (Let's Encrypt)\n  TLS: 1.2, 1.3\n  ✓ Valid certificate\n\nPORT 8443 (HTTPS-ALT)\n  Admin panel? ★ INVESTIGATE\n\nVulnerabilities (simulated):\n  CVE-2023-1234 — nginx info disclosure (LOW)\n  CVE-2023-5678 — OpenSSH timing attack (MED)`
+};
+function showReconResult(target,type){
+  document.getElementById('recon-output').textContent=reconResults[type]?reconResults[type](target):'No data available.';
+}
 
+// ══════════════════════════════════
+// EXPLOIT DATABASE
+// ══════════════════════════════════
+const EXPLOITS=[
+  {id:'CVE-2024-3400',title:'PAN-OS Command Injection',cat:'network',severity:'critical',cvss:'10.0',desc:'Zero-day in PAN-OS GlobalProtect gateway. Unauthenticated remote command execution. Exploited by nation-state actors.',mitigation:'Update to PAN-OS 10.2.9-h1 or later. Apply Threat Prevention signature 95187.',refs:'NVD, CISA KEV'},
+  {id:'CVE-2024-21762',title:'FortiOS SSL VPN RCE',cat:'network',severity:'critical',cvss:'9.6',desc:'Out-of-bounds write vulnerability in FortiOS SSL VPN web management interface allows unauthenticated RCE.',mitigation:'Upgrade to FortiOS 7.4.3, 7.2.7, 7.0.14 or 6.4.15.',refs:'Fortiguard Advisory'},
+  {id:'CVE-2023-44487',title:'HTTP/2 Rapid Reset Attack',cat:'network',severity:'high',cvss:'7.5',desc:'Novel DDoS attack vector using HTTP/2 stream cancellation. Allowed record-breaking 398M req/sec attacks.',mitigation:'Update web servers: nginx 1.25.3+, Apache 2.4.58+. Rate limit RST_STREAM frames.',refs:'Cloudflare, Google, AWS blogs'},
+  {id:'CVE-2023-34362',title:'MOVEit Transfer SQL Injection',cat:'web',severity:'critical',cvss:'9.8',desc:'SQL injection in MOVEit Transfer web application. Used by Cl0p ransomware group for mass data theft.',mitigation:'Apply vendor patches immediately. Check for IOCs listed in CISA advisory.',refs:'Progress Software Advisory'},
+  {id:'CVE-2023-20198',title:'Cisco IOS XE Web UI RCE',cat:'network',severity:'critical',cvss:'10.0',desc:'Privilege escalation in Cisco IOS XE web UI. Attackers can create admin accounts and take full control.',mitigation:'Disable HTTP server feature until patched. Apply Cisco Security Advisory patch.',refs:'Cisco PSIRT'},
+  {id:'CVE-2022-30190',title:'Follina MSDT RCE (Word)',cat:'system',severity:'high',cvss:'7.8',desc:'Microsoft Support Diagnostic Tool (MSDT) called from Office documents. Executes arbitrary code with user privileges.',mitigation:'Disable MSDT URL protocol. Apply MS22-034 patch.',refs:'Microsoft MSRC'},
+  {id:'CVE-2021-44228',title:'Log4Shell Log4j RCE',cat:'system',severity:'critical',cvss:'10.0',desc:'JNDI injection in Apache Log4j2. Attacker sends crafted string, server fetches and executes remote code. Most critical vuln in a decade.',mitigation:'Upgrade to Log4j 2.17.1+. Set LOG4J_FORMAT_MSG_NO_LOOKUPS=true.',refs:'Apache, CISA, NVD'},
+  {id:'CVE-2021-34527',title:'PrintNightmare Windows RCE',cat:'system',severity:'critical',cvss:'8.8',desc:'Windows Print Spooler remote code execution and local privilege escalation. Affects all Windows versions.',mitigation:'Disable Print Spooler service if not needed. Apply KB5004945 patch.',refs:'Microsoft MSRC'},
+  {id:'CVE-2020-1472',title:'Zerologon Netlogon EoP',cat:'network',severity:'critical',cvss:'10.0',desc:'Cryptographic flaw in Windows Netlogon allows attacker on network to take over domain controller with zero credentials.',mitigation:'Apply MS20-1472 patch immediately. Enable enforcement mode.',refs:'Secura Research, Microsoft MSRC'},
+  {id:'OWASP-SQLi',title:'SQL Injection',cat:'web',severity:'critical',cvss:'9.0',desc:"Attacker inserts malicious SQL into input fields. Can dump entire database, bypass authentication, execute OS commands. ' OR 1=1-- is classic example.",mitigation:'Use parameterized queries/prepared statements. Input validation. WAF rules.',refs:'OWASP Top 10 A03:2021'},
+  {id:'OWASP-XSS',title:'Cross-Site Scripting (XSS)',cat:'web',severity:'high',cvss:'7.2',desc:'Attacker injects malicious scripts into web pages viewed by other users. Steals cookies, redirects, defaces pages.',mitigation:'Encode all output. Content Security Policy. HttpOnly cookies.',refs:'OWASP Top 10 A03:2021'},
+  {id:'CVE-2024-1234',title:'Android WebView RCE',cat:'mobile',severity:'high',cvss:'8.4',desc:'JavaScript bridge exposure in Android WebView allows malicious web content to call native Java methods and execute arbitrary code.',mitigation:'Update Android. Restrict addJavascriptInterface usage. Use safe browsing.',refs:'Android Security Bulletin'},
+  {id:'CVE-2023-9999',title:'TP-Link Router Backdoor',cat:'iot',severity:'critical',cvss:'9.8',desc:'Hardcoded credentials in TP-Link consumer routers allow unauthenticated admin access over the network.',mitigation:'Update firmware immediately. Change default credentials. Disable remote management.',refs:'CERT/CC Advisory'},
+];
+function buildExploitList(){filterExploits();}
+function filterExploits(){
+  const cat=document.getElementById('exploit-cat').value;
+  const search=(document.getElementById('cve-search').value||'').toLowerCase();
+  const filtered=EXPLOITS.filter(e=>(cat==='all'||e.cat===cat)&&(e.id.toLowerCase().includes(search)||e.title.toLowerCase().includes(search)||e.desc.toLowerCase().includes(search)));
+  document.getElementById('exploit-list').innerHTML=filtered.map(e=>`
+    <div class="exploit-card" onclick="showExploit('${e.id}')">
+      <span class="exploit-tag tag-${e.severity}">${e.severity.toUpperCase()}</span>
+      <span style="font-size:11px;color:#00ff4188">${e.id}</span><br>
+      <span style="font-size:13px;color:var(--green)">${e.title}</span>
+      <span style="float:right;font-size:11px;color:var(--yellow)">CVSS: ${e.cvss}</span>
+    </div>`).join('');
+}
+function searchExploits(v){filterExploits();}
+function showExploit(id){
+  const e=EXPLOITS.find(x=>x.id===id);if(!e)return;
+  document.getElementById('exploit-detail').textContent=`${e.id} — ${e.title}\n${'─'.repeat(45)}\nSeverity: ${e.severity.toUpperCase()}\nCVSS Score: ${e.cvss}/10\nCategory: ${e.cat.toUpperCase()}\n\nDESCRIPTION:\n${e.desc}\n\nMITIGATION:\n${e.mitigation}\n\nREFERENCES:\n${e.refs}\n\n⚠ Educational reference only. Never exploit without permission.`;
+}
+const OWASP=[
+  'A01: Broken Access Control','A02: Cryptographic Failures','A03: Injection (SQLi, XSS)',
+  'A04: Insecure Design','A05: Security Misconfiguration','A06: Vulnerable Components',
+  'A07: Auth Failures','A08: Software Integrity Failures','A09: Logging Failures','A10: SSRF',
+];
+function buildOwaspList(){
+  document.getElementById('owasp-list').innerHTML=OWASP.map((o,i)=>`<div style="padding:6px 10px;border-left:2px solid #00ff4144;margin-bottom:4px;font-size:12px;color:#00ff41cc;cursor:pointer" onmouseover="this.style.borderColor='#00ff41'" onmouseout="this.style.borderColor='#00ff4144'">${o}</div>`).join('');
+}
+
+// ══════════════════════════════════
+// CIPHER LAB
+// ══════════════════════════════════
+function showCipher(id){
+  document.querySelectorAll('.cipher-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.cipher-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('cipher-'+id).classList.add('active');
+  event.target.classList.add('active');
+  document.getElementById('caesar-shift-row').style.display=document.getElementById('enc-method').value==='caesar'?'block':'none';
+}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('enc-method').addEventListener('change',function(){document.getElementById('caesar-shift-row').style.display=this.value==='caesar'?'block':'none';});
+});
+function runEncode(){
+  const text=document.getElementById('enc-input').value;
+  const method=document.getElementById('enc-method').value;
+  let result='';
+  try{
+    if(method==='base64e')result=btoa(unescape(encodeURIComponent(text)));
+    else if(method==='base64d')result=decodeURIComponent(escape(atob(text)));
+    else if(method==='hex')result=Array.from(new TextEncoder().encode(text)).map(b=>b.toString(16).padStart(2,'0')).join(' ');
+    else if(method==='unhex')result=new TextDecoder().decode(new Uint8Array(text.replace(/\s/g,'').match(/.{2}/g).map(h=>parseInt(h,16))));
+    else if(method==='binary')result=Array.from(new TextEncoder().encode(text)).map(b=>b.toString(2).padStart(8,'0')).join(' ');
+    else if(method==='unbinary')result=new TextDecoder().decode(new Uint8Array(text.trim().split(/\s+/).map(b=>parseInt(b,2))));
+    else if(method==='url')result=encodeURIComponent(text);
+    else if(method==='unurl')result=decodeURIComponent(text);
+    else if(method==='rot13')result=text.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode((c.charCodeAt(0)-b+13)%26+b);});
+    else if(method==='morse'){const m={A:'.-',B:'-...',C:'-.-.',D:'-..',E:'.',F:'..-.',G:'--.',H:'....',I:'..',J:'.---',K:'-.-',L:'.-..',M:'--',N:'-.',O:'---',P:'.--.',Q:'--.-',R:'.-.',S:'...',T:'-',U:'..-',V:'...-',W:'.--',X:'-..-',Y:'-.--',Z:'--..',0:'-----',1:'.----',2:'..---',3:'...--',4:'....-',5:'.....',6:'-....',7:'--...',8:'---..',9:'----.',' ':'/'};result=text.toUpperCase().split('').map(c=>m[c]||c).join(' ');}
+    else if(method==='reverse')result=text.split('').reverse().join('');
+    else if(method==='caesar'){const shift=parseInt(document.getElementById('caesar-shift').value)||13;result=text.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode((c.charCodeAt(0)-b+shift)%26+b);});}
+  }catch(e){result='Error: '+e.message;}
+  document.getElementById('enc-output').textContent=result;
+}
+
+function runEncrypt(){
+  const text=document.getElementById('cry-input').value;
+  const key=document.getElementById('cry-key').value||'key';
+  const algo=document.getElementById('cry-algo').value;
+  let result='',explain='';
+  if(algo==='xor'){result=Array.from(text).map((c,i)=>String.fromCharCode(c.charCodeAt(0)^key.charCodeAt(i%key.length))).join('');result='HEX: '+Array.from(result).map(c=>c.charCodeAt(0).toString(16).padStart(2,'0')).join('');explain='XOR Cipher: Each character is XOR-ed with the key cyclically. Simple but effective for obfuscation. Used in many malware samples.';}
+  else if(algo==='vigenere'){result=text.toUpperCase().replace(/[A-Z]/g,(c,i)=>{const k=key.toUpperCase().charCodeAt(i%key.length)-65;return String.fromCharCode((c.charCodeAt(0)-65+k)%26+65);});explain='Vigenère Cipher: Polyalphabetic substitution using a keyword. Much stronger than Caesar. Used historically for secret communications.';}
+  else if(algo==='atbash'){result=text.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode(b+25-(c.charCodeAt(0)-b));});explain='Atbash Cipher: Reverses the alphabet (A↔Z, B↔Y). Ancient Hebrew cipher. Used in Bible code theories.';}
+  else if(algo==='playfair'){result='[Playfair simulation] '+text.split('').reverse().join('');explain='Playfair Cipher: Digraph substitution using a 5x5 key matrix. British military used it in WW1. More complex than simple substitution.';}
+  document.getElementById('cry-output').textContent=result||'Enter text and key to encrypt';
+  document.getElementById('cry-explain').textContent=explain;
+}
+function runDecrypt(){
+  const text=document.getElementById('cry-input').value;
+  const key=document.getElementById('cry-key').value||'key';
+  const algo=document.getElementById('cry-algo').value;
+  let result='';
+  if(algo==='xor'){const bytes=text.replace('HEX: ','').trim().split('').filter((_,i)=>i%2===0||i%2===1);const hex=text.replace('HEX: ','').trim();const chars=hex.match(/.{2}/g)||[];result=chars.map((h,i)=>String.fromCharCode(parseInt(h,16)^key.charCodeAt(i%key.length))).join('');}
+  else if(algo==='vigenere'){result=text.toUpperCase().replace(/[A-Z]/g,(c,i)=>{const k=key.toUpperCase().charCodeAt(i%key.length)-65;return String.fromCharCode((c.charCodeAt(0)-65-k+26)%26+65);});}
+  else if(algo==='atbash'){result=text.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode(b+25-(c.charCodeAt(0)-b));});}
+  else{result='[Decrypt simulation] '+text.split('').reverse().join('');}
+  document.getElementById('cry-output').textContent=result||'Enter ciphertext to decrypt';
+}
+
+// HASH CRACK SIMULATION
+const RAINBOW_TABLE={'5f4dcc3b5aa765d61d8327deb882cf99':'password','e10adc3949ba59abbe56e057f20f883e':'123456','25f9e794323b453885f5181f1b624d0b':'123456789','d8578edf8458ce06fbc5bb76a58c5ca4':'qwerty','827ccb0eea8a706c4c34a16891f84e7b':'12345','5ebe2294ecd0e0f08eab7690d2a6ee69':'secret','40bd001563085fc35165329ea1ff5c5ecbdbbeef':'123','b1b3773a05c0ed0176787a4f1574ff0075f7521e':'iloveyou','aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d':'hello','0d599f0ec05c3bda8c3b8a68c32a1b47':'welcome'};
+const WORDLIST=['password','123456','qwerty','admin','letmein','monkey','1234567','password1','dragon','master','hello','shadow','sunshine','princess','iloveyou','welcome','secret','abc123','pass','login'];
+async function runCrack(){
+  const hash=document.getElementById('crack-hash').value.trim();
+  if(!hash){document.getElementById('crack-output').textContent='Enter a hash to crack.';return;}
+  const btn=document.getElementById('crack-btn');btn.disabled=true;btn.textContent='CRACKING...';
+  const prog=document.getElementById('crack-progress');const statusEl=document.getElementById('crack-status');
+  const mode=document.getElementById('crack-mode').value;
+  document.getElementById('crack-output').textContent='[*] Initializing attack...\n[*] Hash: '+hash+'\n';
+  let pct=0;const iv=setInterval(()=>{pct+=Math.random()*8;if(pct>100)pct=100;prog.style.width=pct+'%';statusEl.textContent='CRACKING... '+Math.floor(pct)+'%';if(pct>=100){clearInterval(iv);btn.disabled=false;btn.textContent='START CRACKING';statusEl.textContent='COMPLETE';finishCrack(hash,mode);}},200);
+}
+async function finishCrack(hash,mode){
+  const out=document.getElementById('crack-output');
+  if(RAINBOW_TABLE[hash.toLowerCase()]){out.textContent+='\n[+] CRACKED! Password: "'+RAINBOW_TABLE[hash.toLowerCase()]+'" (rainbow table hit)\n[!] This password is in common wordlists — very insecure!';return;}
+  if(mode==='dictionary'){for(const w of WORDLIST){const buf=await crypto.subtle.digest('SHA-1',new TextEncoder().encode(w));const h=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');if(h===hash.toLowerCase()||h.substring(0,hash.length)===hash.toLowerCase()){out.textContent+='\n[+] CRACKED! Password: "'+w+'"';return;}}out.textContent+='\n[-] Not found in dictionary. Try larger wordlist (rockyou.txt has 14M passwords).';}
+  else out.textContent+='\n[-] Hash not found in database. Password may be complex or salted.\n[*] Real tools: hashcat, john the ripper\n[*] Wordlists: rockyou.txt, SecLists';
+}
+
+// STEGANOGRAPHY
+function stegoHide(){
+  const msg=document.getElementById('steg-msg').value;
+  const cover=document.getElementById('steg-cover').value;
+  if(!msg||!cover){document.getElementById('steg-output').textContent='Enter both message and cover text.';return;}
+  const binary=Array.from(msg).map(c=>c.charCodeAt(0).toString(2).padStart(8,'0')).join('');
+  const zwChars={0:'\u200B',1:'\u200C'};
+  const hidden=binary.split('').map(b=>zwChars[b]).join('');
+  document.getElementById('steg-output').textContent='[ENCODED TEXT WITH HIDDEN MESSAGE]\n\n'+cover+hidden+'\n\n[INFO]\nMessage: "'+msg+'"\nBinary: '+binary.substring(0,32)+'...\nHidden using zero-width characters (invisible)\nCharacters added: '+hidden.length+'\n\nTip: Copy the output text — it looks normal but contains the secret!';
+}
+function stegoReveal(){
+  const text=document.getElementById('steg-cover').value;
+  const zwMap={'\u200B':'0','\u200C':'1'};
+  const bits=Array.from(text).map(c=>zwMap[c]||'').join('');
+  if(!bits){document.getElementById('steg-output').textContent='No hidden message found in text.';return;}
+  const chars=bits.match(/.{8}/g)||[];
+  const decoded=chars.map(b=>String.fromCharCode(parseInt(b,2))).join('').replace(/\0/g,'');
+  document.getElementById('steg-output').textContent=decoded?'[HIDDEN MESSAGE FOUND]\n\n"'+decoded+'"':('No hidden message detected.\n\nPaste text with hidden zero-width chars to reveal.');
+}
+
+// PHISHING SIMULATOR
+const phishTemplates={
+  bank:{title:'Security Alert — First National Bank',body:'Your online banking access has been temporarily suspended due to suspicious activity. Verify your identity to restore access immediately.',btn:'Verify My Account'},
+  google:{title:'Google Account Security Alert',body:'Someone signed into your Google Account from an unknown device. If this was not you, secure your account now.',btn:'Secure Account'},
+  office:{title:'Microsoft Office 365 — Action Required',body:'Your account storage is 97% full. Your emails will stop delivering in 24 hours unless you upgrade your plan.',btn:'Fix Storage Now'},
+  prize:{title:'Congratulations! You have won a prize!',body:'You have been selected as our lucky winner! Claim your £500 Amazon gift card now. Offer expires in 1 hour.',btn:'Claim Prize Now'},
+  it:{title:'IT Support — Password Expiry Notice',body:'Your network password expires in 2 hours. You will lose access to all company systems. Reset it immediately.',btn:'Reset Password'},
+};
+function updatePhishPreview(){
+  const type=document.getElementById('phish-type').value;
+  const t=phishTemplates[type];
+  if(!t)return;
+  document.getElementById('phish-preview').innerHTML=`<h3 style="color:#d00;margin-bottom:8px">&#9888; ${t.title}</h3><p style="font-size:12px;margin-bottom:12px">${t.body}</p><input type="text" placeholder="Email address" disabled style="width:100%;padding:8px;margin:4px 0;border:1px solid #ccc;border-radius:3px"><input type="password" placeholder="Password" disabled style="width:100%;padding:8px;margin:4px 0;border:1px solid #ccc;border-radius:3px"><button onclick="return false" style="background:#0066cc;color:#fff;border:none;padding:10px;border-radius:3px;width:100%;margin-top:8px;cursor:pointer">${t.btn}</button><p style="font-size:10px;color:#999;margin-top:8px;text-align:center">&#128274; secure-${type}-verify.com</p>`;
+}
+function analysePhish(){
+  const type=document.getElementById('phish-type').value;
+  const urgency=document.getElementById('phish-urgency').value;
+  const sender=document.getElementById('phish-sender').value;
+  const flags=['RED FLAGS DETECTED:','─'.repeat(35),'[!] Fake domain — not official company domain','[!] Requests login credentials via email link','[!] Creates urgency to pressure quick action','[!] Generic call to action button'];
+  if(urgency.includes('HIGH')||urgency.includes('CRITICAL'))flags.push('[!] CRITICAL urgency — classic manipulation tactic');
+  if(type==='prize')flags.push('[!] Prize offers are almost always scams');
+  if(type==='it')flags.push('[!] Real IT never asks for passwords via email');
+  flags.push('','WHAT TO DO:','[✓] Do NOT click links in suspicious emails','[✓] Go directly to website by typing URL','[✓] Call the organisation to verify','[✓] Report to security team / IT','[✓] Forward to spam@example.com');
+  document.getElementById('phish-analysis').textContent=flags.join('\n');
+}
+
+// AI ASSISTANT
+let chatHistory=[];
 async function sendChat(){
   const input=document.getElementById('chat-input');
   const msg=input.value.trim();if(!msg)return;
-  input.value='';
-  addChatMsg('user',msg);
+  input.value='';addChatMsg('user',msg);
   document.getElementById('ai-typing').style.display='block';
   stats.ai++;updateStats();
-
   chatHistory.push({role:'user',content:msg});
   if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);
-
   try{
     const res=await fetch('https://text.pollinations.ai/openai',{
       method:'POST',
@@ -586,55 +1054,40 @@ async function sendChat(){
       body:JSON.stringify({
         model:'openai',
         messages:[
-          {role:'system',content:`You are SANDESH-AI, a powerful advanced AI assistant built into the Sandesh Ethical Hacking Tools system. You are highly intelligent and answer ANY question on ANY topic including: cybersecurity, ethical hacking, penetration testing, CTFs, network security, science, physics, chemistry, biology, astronomy, mathematics, algebra, calculus, statistics, programming, coding in all languages, history, geography, politics, economics, medicine, health, nutrition, law, business, finance, cooking, recipes, sports, games, arts, literature, music, movies, philosophy, psychology, general knowledge, trivia, current events, and absolutely everything else. Always give complete accurate detailed helpful answers. Be friendly and clear. Never refuse a genuine question.`},
+          {role:'system',content:'You are SANDESH-AI, a powerful advanced AI assistant. Answer ANY question on ANY topic — cybersecurity, hacking, science, math, history, coding, medicine, cooking, sports, business, and everything else. Always give complete, helpful, detailed answers. Be friendly and clear.'},
           ...chatHistory
         ],
-        max_tokens:1500,
-        temperature:0.7
+        max_tokens:1500,temperature:0.7
       })
     });
-
-    if(!res.ok)throw new Error('Server error: '+res.status);
+    if(!res.ok)throw new Error('Status '+res.status);
     const data=await res.json();
-    const reply=data.choices?.[0]?.message?.content||'No response received. Please try again.';
+    const reply=data.choices?.[0]?.message?.content||'No response. Please try again.';
     document.getElementById('ai-typing').style.display='none';
     chatHistory.push({role:'assistant',content:reply});
     addChatMsg('ai',reply);
-
   }catch(e){
-    // Fallback to simple GET method if POST fails
     try{
-      const encoded=encodeURIComponent('You are SANDESH-AI, answer all questions helpfully. User asks: '+msg);
-      const res2=await fetch('https://text.pollinations.ai/'+encoded);
-      const reply=await res2.text();
+      const r2=await fetch('https://text.pollinations.ai/'+encodeURIComponent(msg));
+      const reply=await r2.text();
       document.getElementById('ai-typing').style.display='none';
       chatHistory.push({role:'assistant',content:reply});
       addChatMsg('ai',reply);
     }catch(e2){
       document.getElementById('ai-typing').style.display='none';
-      addChatMsg('ai','&#9888; Connection issue. Please check your internet and try again.\n\nError: '+e.message);
+      addChatMsg('ai','Connection error. Check internet and try again.');
     }
   }
 }
-
 function addChatMsg(role,text){
   const box=document.getElementById('chat-box');
-  const div=document.createElement('div');
-  div.className='chat-msg '+role;
-  const formatted=text
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g,'<em>$1</em>')
-    .replace(/`(.*?)`/g,'<code style="background:#002200;padding:1px 4px">$1</code>')
-    .replace(/\n/g,'<br>');
-  div.innerHTML='<div class="from">'+(role==='user'?'&#9658; YOU':'&#9672; SANDESH-AI')+'</div><div class="text">'+formatted+'</div>';
-  box.appendChild(div);
-  box.scrollTop=box.scrollHeight;
+  const div=document.createElement('div');div.className='chat-msg '+role;
+  const fmt=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/`(.*?)`/g,'<code style="background:#002200;padding:1px 4px">$1</code>').replace(/\n/g,'<br>');
+  div.innerHTML='<div class="from">'+(role==='user'?'&#9658; YOU':'&#9672; SANDESH-AI')+'</div><div class="text">'+fmt+'</div>';
+  box.appendChild(div);box.scrollTop=box.scrollHeight;
 }
 
-// GAME — FIREWALL BREAKER
+// GAME
 let gBoard=[],gRows=8,gCols=10,gMines=12,gFlags=0,gRevealed=0,gTimer=0,gTimerIv=null,gOver=false,gStarted=false;
 const CONFIGS={easy:{rows:6,cols:8,mines:6},medium:{rows:8,cols:10,mines:12},hard:{rows:10,cols:12,mines:22}};
 function initGame(diff){
@@ -652,32 +1105,30 @@ function renderGame(){
   for(let r=0;r<gRows;r++)for(let c=0;c<gCols;c++){
     const cell=document.createElement('div');cell.className='game-cell';const d=gBoard[r][c];
     if(d.flagged){cell.textContent='🚩';cell.classList.add('flagged');}
-    else if(d.revealed){cell.classList.add('revealed');if(d.mine){cell.textContent='💥';cell.classList.add('mine');}else if(d.count>0){cell.textContent=d.count;const cols=['','#00ff41','#00eeff','#ff003c','#4444ff','#ff6600','#00aaff','#ff00ff','#aaa'];cell.style.color=cols[d.count]||'#00ff41';}}
-    cell.addEventListener('click',()=>clickCell(r,c));
-    cell.addEventListener('contextmenu',e=>{e.preventDefault();flagCell(r,c);});
-    grid.appendChild(cell);
+    else if(d.revealed){cell.classList.add('revealed');if(d.mine){cell.textContent='💥';cell.classList.add('mine');}else if(d.count>0){cell.textContent=d.count;cell.style.color=['','#00ff41','#00eeff','#ff003c','#4444ff','#ff6600','#00aaff','#ff00ff','#aaa'][d.count]||'#00ff41';}}
+    cell.addEventListener('click',()=>clickCell(r,c));cell.addEventListener('contextmenu',e=>{e.preventDefault();flagCell(r,c);});grid.appendChild(cell);
   }
 }
 function clickCell(r,c){
   if(gOver||gBoard[r][c].flagged||gBoard[r][c].revealed)return;
   if(!gStarted){gStarted=true;gTimerIv=setInterval(()=>{gTimer++;document.getElementById('g-time').textContent=gTimer+'s';},1000);}
-  if(gBoard[r][c].mine){gBoard[r][c].revealed=true;gOver=true;clearInterval(gTimerIv);for(let i=0;i<gRows;i++)for(let j=0;j<gCols;j++)if(gBoard[i][j].mine)gBoard[i][j].revealed=true;renderGame();document.getElementById('game-msg').style.color='#ff003c';document.getElementById('game-msg').textContent='💥 HONEYPOT TRIGGERED — SYSTEM BREACH DETECTED';return;}
+  if(gBoard[r][c].mine){gBoard[r][c].revealed=true;gOver=true;clearInterval(gTimerIv);for(let i=0;i<gRows;i++)for(let j=0;j<gCols;j++)if(gBoard[i][j].mine)gBoard[i][j].revealed=true;renderGame();document.getElementById('game-msg').style.color='#ff003c';document.getElementById('game-msg').textContent='💥 HONEYPOT TRIGGERED — BREACH DETECTED';return;}
   floodReveal(r,c);renderGame();checkWin();
 }
 function floodReveal(r,c){if(r<0||r>=gRows||c<0||c>=gCols||gBoard[r][c].revealed||gBoard[r][c].flagged||gBoard[r][c].mine)return;gBoard[r][c].revealed=true;gRevealed++;if(gBoard[r][c].count===0)for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++)floodReveal(r+dr,c+dc);}
 function flagCell(r,c){if(gOver||gBoard[r][c].revealed)return;gBoard[r][c].flagged=!gBoard[r][c].flagged;gFlags+=gBoard[r][c].flagged?1:-1;document.getElementById('g-flags').textContent=gFlags;renderGame();}
 function checkWin(){if(gRevealed>=gRows*gCols-gMines){gOver=true;clearInterval(gTimerIv);const sc=Math.max(0,1000-gTimer*5+gMines*10);stats.score=Math.max(stats.score,sc);updateStats();document.getElementById('g-score').textContent=sc;document.getElementById('game-msg').style.color='#00ff41';document.getElementById('game-msg').textContent='✅ FIREWALL BREACHED — SCORE: '+sc+' pts';}}
 
-// AUTO LOGIN ON PAGE LOAD
+// AUTO LOGIN
 window.addEventListener('load',()=>{
   initGame('medium');
   if(currentUser){
     document.getElementById('login-screen').style.display='none';
     document.getElementById('app').style.display='block';
     document.getElementById('user-badge').textContent=currentUser;
-    updateStats();startDashboard();
+    updateStats();startDashboard();buildThreatFeed();buildExploitList();buildOwaspList();updatePhishPreview();
   }
 });
 </script>
 </body>
-            </html>
+                                                                               </html>
