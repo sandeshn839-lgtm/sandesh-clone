@@ -1044,21 +1044,22 @@ async function sendChat(){
   chatHistory.push({role:'user',content:msg});
   if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);
   try{
-    const res=await fetch('https://text.pollinations.ai/openai',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'openai',
-        messages:[
-          {role:'system',content:'You are SANDESH-AI, a powerful advanced AI assistant. Answer ANY question on ANY topic — cybersecurity, hacking, science, math, history, coding, medicine, cooking, sports, business, and everything else. Always give complete, helpful, detailed answers. Be friendly and clear.'},
-          ...chatHistory
-        ],
-        max_tokens:1500,temperature:0.7
-      })
-    });
+    const res = await fetch('http://127.0.0.1:5000/ask', {
+
+    method:'POST',
+
+    headers:{
+        'Content-Type':'application/json'
+    },
+
+    body:JSON.stringify({
+        message: msg
+    })
+
+});
     if(!res.ok)throw new Error('Status '+res.status);
     const data=await res.json();
-    const reply=data.choices?.[0]?.message?.content||'No response. Please try again.';
+    const reply = data.reply || 'No response';
     document.getElementById('ai-typing').style.display='none';
     chatHistory.push({role:'assistant',content:reply});
     addChatMsg('ai',reply);
