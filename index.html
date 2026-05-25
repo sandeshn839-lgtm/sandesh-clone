@@ -12,23 +12,19 @@
   #matrix-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:0.13;pointer-events:none;}
   body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,255,65,0.02) 2px,rgba(0,255,65,0.02) 4px);z-index:1;pointer-events:none;}
   #login-screen{position:fixed;inset:0;background:#000;z-index:1000;display:flex;align-items:center;justify-content:center;flex-direction:column;}
-  static const String login = 'LOGIN';
-  static const String username = 'Username';
-  static const String password = 'Password';
-  static const String email = 'Email';
-  static const String confirmPassword = 'Confirm Password';
-  static const String signIn = 'INITIALIZE';
-  static const String signUp = 'CREATE ACCOUNT';
-  static const String forgotPassword = 'Forgot Password?';
-  static const String noAccount = 'No account? Register';
-  static const String hasAccount = 'Has account? Login';
-  .header{background:rgba(0,10,0,0.95);border-bottom:1px solid #00ff4133;padding:14px 28px;display:flex;align-items:center;gap:18px;position:sticky;top:0;z-index:100;backdrop-filter:blur(8px);}
-  .header-logo{font-family:'Orbitron',sans-serif;font-size:16px;font-weight:900;color:var(--green);text-shadow:var(--glow);flex:1;}
-  .header-logo span{color:var(--cyan);}
-  .header-status{font-size:11px;color:#00ff4177;letter-spacing:2px;}
-  .user-badge{background:#001f00;border:1px solid #00ff4144;padding:5px 14px;font-size:12px;color:var(--green);}
-  .logout-btn{background:transparent;border:1px solid var(--red);color:var(--red);font-family:'Share Tech Mono',monospace;font-size:11px;padding:5px 12px;cursor:pointer;transition:all .2s;letter-spacing:1px;}
-  .logout-btn:hover{background:#ff003c22;}
+  .login-box{background:rgba(0,15,0,0.97);border:1px solid var(--green);box-shadow:var(--glow),inset 0 0 40px rgba(0,255,65,0.03);width:420px;padding:40px 36px;position:relative;}
+  .login-box::before{content:'SECURE LOGIN';position:absolute;top:-12px;left:20px;background:#000;padding:0 8px;font-family:'Orbitron',sans-serif;font-size:11px;color:var(--green);letter-spacing:4px;}
+  .login-logo{font-family:'Orbitron',sans-serif;font-size:22px;font-weight:900;color:var(--green);text-align:center;text-shadow:var(--glow);margin-bottom:6px;}
+  .login-sub{text-align:center;font-size:11px;color:#00ff4188;margin-bottom:28px;letter-spacing:3px;}
+  .login-field{margin-bottom:16px;}
+  .login-field label{display:block;font-size:11px;color:#00ff4188;margin-bottom:6px;letter-spacing:2px;}
+  .login-field input{width:100%;background:#001500;border:1px solid #00ff4155;color:var(--green);font-family:'Share Tech Mono',monospace;font-size:14px;padding:10px 14px;outline:none;transition:border-color .2s,box-shadow .2s;}
+  .login-field input:focus{border-color:var(--green);box-shadow:0 0 8px #00ff4144;}
+  .login-btn{width:100%;background:transparent;border:1px solid var(--green);color:var(--green);font-family:'Orbitron',sans-serif;font-size:13px;letter-spacing:4px;padding:12px;cursor:pointer;transition:all .2s;margin-top:8px;text-transform:uppercase;}
+  .login-btn:hover{background:var(--green);color:#000;box-shadow:var(--glow);}
+  .gmail-btn{width:100%;background:transparent;border:1px solid #4285f4;color:#4285f4;font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:2px;padding:11px;cursor:pointer;transition:all .2s;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:10px;}
+  .gmail-btn:hover{background:#4285f422;box-shadow:0 0 10px #4285f444;}
+  .login-status{text-align:center;font-size:12px;color:var(--cyan);margin-top:14px;min-height:18px;letter-spacing:1px;}
   .nav{display:flex;gap:0;background:rgba(0,5,0,0.9);border-bottom:1px solid #00ff4122;overflow-x:auto;}
   .nav-btn{background:transparent;border:none;border-right:1px solid #00ff4122;color:#00ff4166;font-family:'Share Tech Mono',monospace;font-size:11px;padding:10px 16px;cursor:pointer;transition:all .2s;letter-spacing:1px;white-space:nowrap;}
   .nav-btn:hover{color:var(--green);background:#00ff4108;}
