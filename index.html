@@ -1031,56 +1031,117 @@ function analysePhish(){
 
 // AI ASSISTANT
 let chatHistory=[];
+
 async function sendChat(){
+
   const input=document.getElementById('chat-input');
-  const msg=input.value.trim();if(!msg)return;
-  input.value='';addChatMsg('user',msg);
+
+  const msg=input.value.trim();
+
+  if(!msg)return;
+
+  input.value='';
+
+  addChatMsg('user',msg);
+
   document.getElementById('ai-typing').style.display='block';
-  stats.ai++;updateStats();
-  chatHistory.push({role:'user',content:msg});
-  if(chatHistory.length>20)chatHistory=chatHistory.slice(-20);
+
+  stats.ai++;
+
+  updateStats();
+
+  chatHistory.push({
+    role:'user',
+    content:msg
+  });
+
+  if(chatHistory.length>20)
+    chatHistory=chatHistory.slice(-20);
+
   try{
-    const res = await fetch('http://127.0.0.1:5000/ask', {
 
-    method:'POST',
+    const res = await fetch(
+      'http://127.0.0.1:5000/ask',
+      {
 
-    headers:{
-        'Content-Type':'application/json'
-    },
+        method:'POST',
 
-    body:JSON.stringify({
-        message: msg
-    })
+        headers:{
+          'Content-Type':'application/json'
+        },
 
-});
-    if(!res.ok)throw new Error('Status '+res.status);
-    const data=await res.json();
+        body:JSON.stringify({
+          message: msg
+        })
+
+      }
+    );
+
+    if(!res.ok)
+      throw new Error('Status '+res.status);
+
+    const data = await res.json();
+
     const reply = data.reply || 'No response';
+
     document.getElementById('ai-typing').style.display='none';
-    chatHistory.push({role:'assistant',content:reply});
+
+    chatHistory.push({
+      role:'assistant',
+      content:reply
+    });
+
+    addChatMsg('ai',reply);
+
+    // Voice Reply
     const speech = new SpeechSynthesisUtterance(reply);
 
-speech.lang = 'en-US';
+    speech.lang='en-US';
 
-window.speechSynthesis.speak(speech);
-  }catch(e){
+    window.speechSynthesis.speak(speech);
+
+  }
+
+  catch(e){
 
     document.getElementById('ai-typing').style.display='none';
 
     addChatMsg(
-        'ai',
-        'AI server error. Make sure server.py is running.'
+      'ai',
+      'AI server error. Make sure server.py is running.'
     );
 
     console.error(e);
   }
 }
+
 function addChatMsg(role,text){
+
   const box=document.getElementById('chat-box');
-  const div=document.createElement('div');div.className='chat-msg '+role;
-  const fmt=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/`(.*?)`/g,'<code style="background:#002200;padding:1px 4px">$1</code>').replace(/\n/g,'<br>');
-  div.innerHTML='<div class="from">'+(role==='user'?'&#9658; YOU':'&#9672; SANDESH-AI')+'</div><div class="text">'+fmt+'</div>';
-  box.appendChild(div);box.scrollTop=box.scrollHeight;
+
+  const div=document.createElement('div');
+
+  div.className='chat-msg '+role;
+
+  const fmt=text
+  .replace(/&/g,'&amp;')
+  .replace(/</g,'&lt;')
+  .replace(/>/g,'&gt;')
+  .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+  .replace(/`(.*?)`/g,
+  '<code style="background:#002200;padding:1px 4px">$1</code>')
+  .replace(/\n/g,'<br>');
+
+  div.innerHTML=
+  '<div class="from">'+
+  (role==='user'
+  ?'&#9658; YOU'
+  :'&#9672; SANDESH-AI')+
+  '</div><div class="text">'+fmt+'</div>';
+
+  box.appendChild(div);
+
+  box.scrollTop=box.scrollHeight;
 }
 
 // GAME
