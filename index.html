@@ -1030,226 +1030,12 @@ function analysePhish(){
 }
 
 // AI ASSISTANT
-<div id="chat-box"
-style="
-height:320px;
-overflow-y:auto;
-background:#000;
-border:1px solid #00ff00;
-padding:10px;
-margin-bottom:10px;
-border-radius:10px;
-">
-</div>
-
-<div id="ai-typing"
-style="
-display:none;
-color:#00d4ff;
-margin-bottom:10px;
-">
-🤖 SANDESH-AI is typing...
-</div>
-
-<div style="display:flex;gap:10px;flex-wrap:wrap;">
-
-<input
-type="text"
-id="chat-input"
-placeholder="Ask SANDESH-AI..."
-style="
-flex:1;
-padding:12px;
-background:#000;
-color:#00ff00;
-border:1px solid #00ff00;
-border-radius:8px;
-font-family:monospace;
-">
-
-<button
-class="btn-green"
-onclick="sendChat()">
-Send
-</button>
-
-<button
-class="btn-purple"
-onclick="startVoiceInput()">
-🎤 Talk
-</button>
-
-</div>
-
-<br>
-
-<!-- IMAGE SYSTEM -->
-
-<input
-type="file"
-id="image-input"
-accept="image/*"
-style="display:none"
-onchange="previewImage(event)">
-
-<div style="display:flex;gap:10px;flex-wrap:wrap;">
-
-<button
-class="btn-purple"
-onclick="document.getElementById('image-input').click()">
-🖼️ Gallery
-</button>
-
-<button
-class="btn-purple"
-onclick="openCamera()">
-📸 Camera
-</button>
-
-<button
-class="btn-purple"
-onclick="clearChat()">
-🗑️ Clear Chat
-</button>
-
-</div>
-
-<br>
-
-<img
-id="preview"
-style="
-max-width:220px;
-display:none;
-border:2px solid #00ff00;
-border-radius:10px;
-box-shadow:0 0 15px #00ff00;
-">
-
 <script>
 
-let chatHistory=[];
-
-let selectedImage=null;
-
-loadChats();
-
-async function sendChat(){
-
-    const input=document.getElementById('chat-input');
-
-    const msg=input.value.trim();
-
-    if(!msg && !selectedImage) return;
-
-    input.value='';
-
-    addChatMsg('user',msg);
-
-    document.getElementById('ai-typing').style.display='block';
-
-    chatHistory.push({
-        role:'user',
-        content:msg
-    });
-
-    saveChats();
-
-    try{
-
-        const formData=new FormData();
-
-        formData.append('message',msg);
-
-        if(selectedImage){
-            formData.append('image',selectedImage);
-        }
-
-        const res=await fetch(
-            'http://127.0.0.1:5000/ask',
-            {
-                method:'POST',
-                body:formData
-            }
-        );
-
-        if(!res.ok){
-            throw new Error('Status '+res.status);
-        }
-
-        const data=await res.json();
-
-        const reply=data.reply || 'No response';
-
-        document.getElementById('ai-typing').style.display='none';
-
-        addChatMsg('ai',reply);
-
-        chatHistory.push({
-            role:'assistant',
-            content:reply
-        });
-
-        saveChats();
-
-        // AI VOICE REPLY
-
-        const speech=new SpeechSynthesisUtterance(reply);
-
-        speech.lang='en-US';
-
-        speech.rate=1;
-
-        speech.pitch=1;
-
-        window.speechSynthesis.speak(speech);
-
-    }
-
-    catch(e){
-
-        document.getElementById('ai-typing').style.display='none';
-
-        addChatMsg(
-            'ai',
-            'AI server error. Make sure server.py is running.'
-        );
-
-        console.log(e);
-    }
-}
-
-function addChatMsg(role,text){
-
-    const box=document.getElementById('chat-box');
-
-    const div=document.createElement('div');
-
-    div.className='chat-msg '+role;
-
-    const fmt=text
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-    .replace(/`(.*?)`/g,
-    '<code style=\"background:#002200;padding:1px 4px\">$1</code>')
-    .replace(/\n/g,'<br>');
-
-    div.innerHTML=
-    '<div style=\"color:#00d4ff;font-weight:bold;margin-top:10px;\">'+
-    (role==='user'
-    ?'▶ YOU'
-    :'◆ SANDESH-AI')+
-    '</div><div style=\"margin-top:5px;\">'+fmt+'</div>';
-
-    box.appendChild(div);
-
-    box.scrollTop=box.scrollHeight;
-}
+let chatHistory = [];
+let selectedImage = null;
 
 function saveChats(){
-
     localStorage.setItem(
         'sandesh_ai_memory',
         JSON.stringify(chatHistory)
@@ -1258,25 +1044,223 @@ function saveChats(){
 
 function loadChats(){
 
-    const saved=localStorage.getItem(
+    const saved = localStorage.getItem(
         'sandesh_ai_memory'
     );
 
     if(saved){
 
-        chatHistory=JSON.parse(saved);
+        chatHistory = JSON.parse(saved);
 
-        chatHistory.forEach(chat=>{
+        chatHistory.forEach(chat => {
 
             addChatMsg(
-                chat.role==='user'
-                ?'user'
-                :'ai',
-
+                chat.role,
                 chat.content
             );
+
         });
     }
+}
+
+function addChatMsg(role,text){
+
+    const box = document.getElementById('chat-box');
+
+    if(!box) return;
+
+    const div = document.createElement('div');
+
+    div.style.marginTop = '10px';
+
+    div.innerHTML = `
+    <div style="color:#00d4ff;font-weight:bold;">
+        ${role === 'user'
+        ? '▶ YOU'
+        : '◆ SANDESH-AI'}
+    </div>
+
+    <div style="
+        margin-top:5px;
+        color:#00ff00;
+    ">
+        ${text}
+    </div>
+    `;
+
+    box.appendChild(div);
+
+    box.scrollTop = box.scrollHeight;
+}
+
+async function sendChat(){
+
+    const input =
+    document.getElementById('chat-input');
+
+    if(!input) return;
+
+    const msg = input.value.trim();
+
+    if(!msg && !selectedImage) return;
+
+    input.value = '';
+
+    addChatMsg('user',msg);
+
+    document.getElementById(
+        'ai-typing'
+    ).style.display='block';
+
+    try{
+
+        const formData = new FormData();
+
+        formData.append(
+            'message',
+            msg
+        );
+
+        const res = await fetch(
+            'http://127.0.0.1:5000/ask',
+            {
+                method:'POST',
+                body:formData
+            }
+        );
+
+        const data = await res.json();
+
+        document.getElementById(
+            'ai-typing'
+        ).style.display='none';
+
+        const reply =
+        data.reply || 'No response';
+
+        addChatMsg(
+            'ai',
+            reply
+        );
+
+        chatHistory.push({
+            role:'user',
+            content:msg
+        });
+
+        chatHistory.push({
+            role:'ai',
+            content:reply
+        });
+
+        saveChats();
+
+        const speech =
+        new SpeechSynthesisUtterance(
+            reply
+        );
+
+        speech.lang='en-US';
+
+        window.speechSynthesis.speak(
+            speech
+        );
+
+    }
+
+    catch(e){
+
+        document.getElementById(
+            'ai-typing'
+        ).style.display='none';
+
+        addChatMsg(
+            'ai',
+            'Server error'
+        );
+
+        console.log(e);
+    }
+}
+
+function previewImage(event){
+
+    const file = event.target.files[0];
+
+    if(!file) return;
+
+    selectedImage = file;
+
+    const preview =
+    document.getElementById('preview');
+
+    preview.src =
+    URL.createObjectURL(file);
+
+    preview.style.display='block';
+}
+
+async function openCamera(){
+
+    try{
+
+        const stream =
+        await navigator
+        .mediaDevices
+        .getUserMedia({
+            video:true
+        });
+
+        const video =
+        document.createElement('video');
+
+        video.srcObject = stream;
+
+        video.autoplay = true;
+
+        video.style.width='220px';
+
+        video.style.border=
+        '2px solid #00ff00';
+
+        video.style.marginTop='10px';
+
+        document
+        .getElementById('chat-box')
+        .appendChild(video);
+
+    }
+
+    catch(err){
+
+        alert('Camera denied');
+    }
+}
+
+function startVoiceInput(){
+
+    const recognition =
+    new (
+        window.SpeechRecognition ||
+        window.webkitSpeechRecognition
+    )();
+
+    recognition.lang='en-US';
+
+    recognition.start();
+
+    recognition.onresult=function(e){
+
+        const text =
+        e.results[0][0].transcript;
+
+        document
+        .getElementById(
+            'chat-input'
+        ).value = text;
+
+        sendChat();
+    };
 }
 
 function clearChat(){
@@ -1285,103 +1269,17 @@ function clearChat(){
         'sandesh_ai_memory'
     );
 
-    document.getElementById(
+    document
+    .getElementById(
         'chat-box'
     ).innerHTML='';
 
     chatHistory=[];
 }
 
-function previewImage(event){
+window.onload = loadChats;
 
-    const file=event.target.files[0];
-
-    if(!file) return;
-
-    selectedImage=file;
-
-    const preview=document.getElementById(
-        'preview'
-    );
-
-    preview.src=URL.createObjectURL(file);
-
-    preview.style.display='block';
-
-    addChatMsg(
-        'user',
-        '📷 Image Selected: '+file.name
-    );
-}
-
-async function openCamera(){
-
-    try{
-
-        const stream=
-        await navigator.mediaDevices.getUserMedia({
-            video:true
-        });
-
-        const video=document.createElement('video');
-
-        video.srcObject=stream;
-
-        video.autoplay=true;
-
-        video.style.width='250px';
-
-        video.style.border='2px solid #00ff00';
-
-        video.style.borderRadius='10px';
-
-        video.style.marginTop='10px';
-
-        document.getElementById(
-            'chat-box'
-        ).appendChild(video);
-
-    }
-
-    catch(err){
-
-        alert('Camera permission denied');
-
-        console.log(err);
-    }
-}
-
-function startVoiceInput(){
-
-    const recognition =
-    new(window.SpeechRecognition ||
-    window.webkitSpeechRecognition)();
-
-    recognition.lang='en-US';
-
-    recognition.start();
-
-    recognition.onresult=function(event){
-
-        const text=
-        event.results[0][0].transcript;
-
-        document.getElementById(
-            'chat-input'
-        ).value=text;
-
-        sendChat();
-    };
-}
-
-document
-.getElementById('chat-input')
-.addEventListener('keypress',function(e){
-
-    if(e.key==='Enter'){
-        sendChat();
-    }
-});
+</script>        
 // GAME
 let gBoard=[],gRows=8,gCols=10,gMines=12,gFlags=0,gRevealed=0,gTimer=0,gTimerIv=null,gOver=false,gStarted=false;
 const CONFIGS={easy:{rows:6,cols:8,mines:6},medium:{rows:8,cols:10,mines:12},hard:{rows:10,cols:12,mines:22}};
