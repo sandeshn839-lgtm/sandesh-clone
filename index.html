@@ -1058,18 +1058,21 @@ async function sendChat(){
     const reply = data.reply || 'No response';
     document.getElementById('ai-typing').style.display='none';
     chatHistory.push({role:'assistant',content:reply});
-    addChatMsg('ai',reply);
+    const speech = new SpeechSynthesisUtterance(reply);
+
+speech.lang = 'en-US';
+
+window.speechSynthesis.speak(speech);
   }catch(e){
-    try{
-      const r2=await fetch('https://text.pollinations.ai/'+encodeURIComponent(msg));
-      const reply=await r2.text();
-      document.getElementById('ai-typing').style.display='none';
-      chatHistory.push({role:'assistant',content:reply});
-      addChatMsg('ai',reply);
-    }catch(e2){
-      document.getElementById('ai-typing').style.display='none';
-      addChatMsg('ai','Connection error. Check internet and try again.');
-    }
+
+    document.getElementById('ai-typing').style.display='none';
+
+    addChatMsg(
+        'ai',
+        'AI server error. Make sure server.py is running.'
+    );
+
+    console.error(e);
   }
 }
 function addChatMsg(role,text){
