@@ -1029,30 +1029,144 @@ function analysePhish(){
   document.getElementById('phish-analysis').textContent=flags.join('\n');
 }
 
-// AI ASSISTANT
+<!-- ========================= -->
+<!-- AI ASSISTANT FULL SYSTEM -->
+<!-- ========================= -->
+
+<div id="chat-box"
+style="
+height:300px;
+overflow-y:auto;
+background:#000;
+border:1px solid #00ff00;
+padding:10px;
+margin-bottom:10px;
+color:#00ff00;
+border-radius:10px;
+">
+</div>
+
+<div id="ai-typing"
+style="
+display:none;
+color:#00d4ff;
+margin-bottom:10px;
+">
+🤖 SANDESH-AI is typing...
+</div>
+
+<div style="
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-bottom:10px;
+">
+
+<input
+type="text"
+id="chat-input"
+placeholder="Ask SANDESH-AI..."
+style="
+flex:1;
+padding:10px;
+background:#000;
+color:#00ff00;
+border:1px solid #00ff00;
+border-radius:8px;
+font-family:monospace;
+">
+
+<button class="btn-green"
+onclick="sendChat()">
+Send
+</button>
+
+<button class="btn-purple"
+onclick="startVoiceInput()">
+🎤 Talk
+</button>
+
+<button class="btn-purple"
+onclick="openCamera()">
+📸 Camera
+</button>
+
+<button class="btn-purple"
+onclick="clearChat()">
+🗑️ Clear
+</button>
+
+</div>
+
+<!-- IMAGE SYSTEM -->
+
+<input
+type="file"
+id="image-input"
+accept="image/*"
+style="display:none"
+onchange="previewImage(event)">
+
+<button class="btn-purple"
+onclick="document.getElementById('image-input').click()">
+🖼️ Gallery
+</button>
+
+<br><br>
+
+<img
+id="preview"
+style="
+max-width:220px;
+display:none;
+border:2px solid #00ff00;
+border-radius:10px;
+box-shadow:0 0 15px #00ff00;
+">
+
+<!-- ========================= -->
+<!-- JAVASCRIPT -->
+<!-- ========================= -->
+
 <script>
 
 let chatHistory = [];
+
 let selectedImage = null;
 
+// LOAD CHAT MEMORY
+
+window.onload = function(){
+
+    loadChats();
+
+};
+
+// SAVE CHAT
+
 function saveChats(){
+
     localStorage.setItem(
         'sandesh_ai_memory',
         JSON.stringify(chatHistory)
     );
 }
 
+// LOAD CHAT
+
 function loadChats(){
 
-    const saved = localStorage.getItem(
+    const saved =
+    localStorage.getItem(
         'sandesh_ai_memory'
     );
 
     if(saved){
 
-        chatHistory = JSON.parse(saved);
+        chatHistory =
+        JSON.parse(saved);
 
-        chatHistory.forEach(chat => {
+        chatHistory.forEach(chat=>{
 
             addChatMsg(
                 chat.role,
@@ -1063,50 +1177,65 @@ function loadChats(){
     }
 }
 
+// ADD MESSAGE
+
 function addChatMsg(role,text){
 
-    const box = document.getElementById('chat-box');
+    const box =
+    document.getElementById(
+        'chat-box'
+    );
 
-    if(!box) return;
+    const div =
+    document.createElement('div');
 
-    const div = document.createElement('div');
-
-    div.style.marginTop = '10px';
+    div.style.marginTop='10px';
 
     div.innerHTML = `
-    <div style="color:#00d4ff;font-weight:bold;">
-        ${role === 'user'
-        ? '▶ YOU'
-        : '◆ SANDESH-AI'}
+    <div style="
+    color:#00d4ff;
+    font-weight:bold;
+    ">
+    ${role === 'user'
+    ? '▶ YOU'
+    : '◆ SANDESH-AI'}
     </div>
 
     <div style="
-        margin-top:5px;
-        color:#00ff00;
+    margin-top:5px;
+    color:#00ff00;
     ">
-        ${text}
+    ${text}
     </div>
     `;
 
     box.appendChild(div);
 
-    box.scrollTop = box.scrollHeight;
+    box.scrollTop =
+    box.scrollHeight;
 }
+
+// SEND CHAT
 
 async function sendChat(){
 
     const input =
-    document.getElementById('chat-input');
+    document.getElementById(
+        'chat-input'
+    );
 
-    if(!input) return;
+    const msg =
+    input.value.trim();
 
-    const msg = input.value.trim();
+    if(!msg && !selectedImage)
+    return;
 
-    if(!msg && !selectedImage) return;
+    input.value='';
 
-    input.value = '';
-
-    addChatMsg('user',msg);
+    addChatMsg(
+        'user',
+        msg
+    );
 
     document.getElementById(
         'ai-typing'
@@ -1114,14 +1243,24 @@ async function sendChat(){
 
     try{
 
-        const formData = new FormData();
+        const formData =
+        new FormData();
 
         formData.append(
             'message',
             msg
         );
 
-        const res = await fetch(
+        if(selectedImage){
+
+            formData.append(
+                'image',
+                selectedImage
+            );
+        }
+
+        const res =
+        await fetch(
             'http://127.0.0.1:5000/ask',
             {
                 method:'POST',
@@ -1129,19 +1268,23 @@ async function sendChat(){
             }
         );
 
-        const data = await res.json();
+        const data =
+        await res.json();
 
         document.getElementById(
             'ai-typing'
         ).style.display='none';
 
         const reply =
-        data.reply || 'No response';
+        data.reply ||
+        'No response';
 
         addChatMsg(
             'ai',
             reply
         );
+
+        // SAVE HISTORY
 
         chatHistory.push({
             role:'user',
@@ -1155,12 +1298,18 @@ async function sendChat(){
 
         saveChats();
 
+        // AI VOICE
+
         const speech =
         new SpeechSynthesisUtterance(
             reply
         );
 
         speech.lang='en-US';
+
+        speech.rate=1;
+
+        speech.pitch=1;
 
         window.speechSynthesis.speak(
             speech
@@ -1176,66 +1325,14 @@ async function sendChat(){
 
         addChatMsg(
             'ai',
-            'Server error'
+            'Server Error'
         );
 
         console.log(e);
     }
 }
 
-function previewImage(event){
-
-    const file = event.target.files[0];
-
-    if(!file) return;
-
-    selectedImage = file;
-
-    const preview =
-    document.getElementById('preview');
-
-    preview.src =
-    URL.createObjectURL(file);
-
-    preview.style.display='block';
-}
-
-async function openCamera(){
-
-    try{
-
-        const stream =
-        await navigator
-        .mediaDevices
-        .getUserMedia({
-            video:true
-        });
-
-        const video =
-        document.createElement('video');
-
-        video.srcObject = stream;
-
-        video.autoplay = true;
-
-        video.style.width='220px';
-
-        video.style.border=
-        '2px solid #00ff00';
-
-        video.style.marginTop='10px';
-
-        document
-        .getElementById('chat-box')
-        .appendChild(video);
-
-    }
-
-    catch(err){
-
-        alert('Camera denied');
-    }
-}
+// VOICE INPUT
 
 function startVoiceInput(){
 
@@ -1249,13 +1346,14 @@ function startVoiceInput(){
 
     recognition.start();
 
-    recognition.onresult=function(e){
+    recognition.onresult =
+    function(event){
 
         const text =
-        e.results[0][0].transcript;
+        event.results[0][0]
+        .transcript;
 
-        document
-        .getElementById(
+        document.getElementById(
             'chat-input'
         ).value = text;
 
@@ -1263,23 +1361,119 @@ function startVoiceInput(){
     };
 }
 
+// IMAGE PREVIEW
+
+function previewImage(event){
+
+    const file =
+    event.target.files[0];
+
+    if(!file) return;
+
+    selectedImage = file;
+
+    const preview =
+    document.getElementById(
+        'preview'
+    );
+
+    preview.src =
+    URL.createObjectURL(file);
+
+    preview.style.display='block';
+
+    addChatMsg(
+        'user',
+        '📷 Image Selected: '+
+        file.name
+    );
+}
+
+// CAMERA
+
+async function openCamera(){
+
+    try{
+
+        const stream =
+        await navigator
+        .mediaDevices
+        .getUserMedia({
+            video:true
+        });
+
+        const video =
+        document.createElement(
+            'video'
+        );
+
+        video.srcObject =
+        stream;
+
+        video.autoplay = true;
+
+        video.style.width='220px';
+
+        video.style.border=
+        '2px solid #00ff00';
+
+        video.style.borderRadius=
+        '10px';
+
+        video.style.marginTop=
+        '10px';
+
+        document
+        .getElementById(
+            'chat-box'
+        )
+        .appendChild(video);
+
+    }
+
+    catch(err){
+
+        alert(
+            'Camera Permission Denied'
+        );
+
+        console.log(err);
+    }
+}
+
+// CLEAR CHAT
+
 function clearChat(){
 
     localStorage.removeItem(
         'sandesh_ai_memory'
     );
 
-    document
-    .getElementById(
+    document.getElementById(
         'chat-box'
     ).innerHTML='';
 
     chatHistory=[];
 }
 
-window.onload = loadChats;
+// ENTER KEY SEND
 
-</script>        
+document
+.getElementById(
+    'chat-input'
+)
+.addEventListener(
+    'keypress',
+    function(e){
+
+        if(e.key==='Enter'){
+
+            sendChat();
+        }
+    }
+);
+
+</script>
 // GAME
 let gBoard=[],gRows=8,gCols=10,gMines=12,gFlags=0,gRevealed=0,gTimer=0,gTimerIv=null,gOver=false,gStarted=false;
 const CONFIGS={easy:{rows:6,cols:8,mines:6},medium:{rows:8,cols:10,mines:12},hard:{rows:10,cols:12,mines:22}};
