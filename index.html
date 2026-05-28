@@ -1008,11 +1008,12 @@ function buildCTF(){
     <span style="float:right;color:var(--y);font-size:11px">${c.pts}pts</span>
   </div>`).join('');
 }
+function sanitize(str){return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');}
 function openCTF(id){
   activeCTF=CTFS.find(c=>c.id===id);
   document.querySelectorAll('.ctfc').forEach(c=>c.classList.remove('act'));
   const el=document.getElementById('ctfc'+id);if(el)el.classList.add('act');
-  document.getElementById('ctfwork').innerHTML=`<div style="color:var(--c);font-family:'Orbitron',sans-serif;font-size:11px;margin-bottom:8px">[${activeCTF.cat}] ${activeCTF.title} — ${activeCTF.pts}pts</div><div style="color:var(--y);font-size:9px;margin-bottom:10px">Difficulty: ${activeCTF.diff}</div><div style="color:var(--g);line-height:1.8;white-space:pre-wrap">${activeCTF.desc}</div>${ctfSolved.has(id)?'<div style="color:var(--g);margin-top:10px;font-size:11px">✓ SOLVED! '+activeCTF.flag+'</div>':''}`;
+  document.getElementById('ctfwork').innerHTML=`<div style="color:var(--c);font-family:'Orbitron',sans-serif;font-size:11px;margin-bottom:8px">[${sanitize(activeCTF.cat)}] ${sanitize(activeCTF.title)} — ${activeCTF.pts}pts</div><div style="color:var(--y);font-size:9px;margin-bottom:10px">Difficulty: ${sanitize(activeCTF.diff)}</div><div style="color:var(--g);line-height:1.8;white-space:pre-wrap">${sanitize(activeCTF.desc)}</div>${ctfSolved.has(id)?'<div style="color:var(--g);margin-top:10px;font-size:11px">✓ SOLVED! '+sanitize(activeCTF.flag)+'</div>':''}`;
   document.getElementById('ctfans').value='';document.getElementById('ctffb').textContent='';
 }
 function submitCTF(){
