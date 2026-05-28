@@ -1407,27 +1407,52 @@ function checkWin(){if(gRev>=gRows*gCols-gMines){gOver=true;clearInterval(gTIV);
 
 // AUTO LOGIN ON LOAD — FIXED FOR MOBILE
 window.addEventListener('load',()=>{
+
   initGame('medium');
-  if(CU&&CU.length>0){
-    const L=document.getElementById('login');
-    const A=document.getElementById('app');
-    L.style.display='none';
-    L.style.visibility='hidden';
-    L.style.opacity='0';
-    L.style.pointerEvents='none';
-    A.style.display='block';
-    A.style.visibility='visible';
-    A.style.opacity='1';
-    document.getElementById('ub').textContent=CU;
-    updST();
+
+  if(CU && CU.length>0){
+
+    const L =
+    document.getElementById('login');
+
+    const A =
+    document.getElementById('app');
+
+    if(L) L.style.display='none';
+
+    if(A) A.style.display='block';
+
+    const ub =
+    document.getElementById('ub');
+
+    if(ub) ub.textContent=CU;
+
+    if(typeof updST==='function')
+      updST();
+
     setTimeout(()=>{
-      startDash();
-      buildThreats();
-      buildExploits();
-      buildOwasp();
-      buildBreaches();
-      buildCTF();
-      updatePayload();
+
+      if(typeof startDash==='function')
+        startDash();
+
+      if(typeof buildThreats==='function')
+        buildThreats();
+
+      if(typeof buildExploits==='function')
+        buildExploits();
+
+      if(typeof buildOwasp==='function')
+        buildOwasp();
+
+      if(typeof buildBreaches==='function')
+        buildBreaches();
+
+      if(typeof buildCTF==='function')
+        buildCTF();
+
+      if(typeof updatePayload==='function')
+        updatePayload();
+
     },300);
   }
 });
