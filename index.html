@@ -1017,7 +1017,7 @@ function openCTF(id){
   document.getElementById('ctfans').value='';document.getElementById('ctffb').textContent='';
 }
 function submitCTF(){
-  if(!activeCTF){document.getElementById('ctffb').style.color='var(--r)';document.getElementById('ctffb').textContent='Select a challenge first.';return;}
+  if(!activeCTF){document.getElementById('ctffb').style.color='var(--r)';document.getElementById('ctffb').textContent='✓ CORRECT! +'+activeCTF.pts+'pts — '+activeCTF.flag.replace(/</g,'<').replace(/>/g,'>');
   const ans=document.getElementById('ctfans').value.trim();
   const ok=activeCTF.check?activeCTF.check(ans):(ans.toLowerCase()===activeCTF.flag.toLowerCase());
   if(ok){
