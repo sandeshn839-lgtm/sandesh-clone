@@ -985,17 +985,17 @@ function drawNM(){
 // CTF LAB
 const CTFS=[
   {id:1,cat:'CRYPTO',title:'Base64 Secret',pts:50,diff:'EASY',desc:'Decode:\nU2FuZGVzaCBFdGhpY2FsIEhhY2tpbmcgVG9vbHM=',hint:'Use a Base64 decoder.',check:t=>t.toLowerCase().includes('sandesh'),flag:'FLAG{base64_decoded}'},
-  {id:2,cat:'CRYPTO',title:'Caesar Cipher',pts:75,diff:'EASY',desc:'Decrypt (shift 3):\nVhqhvk Hwklfdo Kdflnlqj',hint:'Shift each letter back by 3.',check:t=>t.toLowerCase().includes('sandesh'),flag:'FLAG{Sandesh Ethical}'},
-  {id:3,cat:'WEB',title:'XSS Basic',pts:100,diff:'EASY',desc:'Most basic XSS payload?\nFLAG{payload}',hint:'Script tags + alert.',check:t=>t.includes('script')&&t.includes('alert'),flag:'FLAG{<script>alert(1)</script>}'},
-  {id:4,cat:'WEB',title:'SQL Auth Bypass',pts:125,diff:'MEDIUM',desc:"SQL injection bypass login?\nFLAG{payload}",hint:"OR 1=1 is classic.",check:t=>t.includes("'")&&t.toLowerCase().includes('or'),flag:"FLAG{' OR '1'='1}"},
+  {id:2,cat:'CRYPTO',title:'Caesar Cipher',pts:75,diff:'EASY',desc:'Decrypt (shift 3):\nVhqhvk Hwklfdo Kdflnlqj',hint:'Shift each letter back by 3.',check:t=>t.toLowerCase().includes('sandesh'),flag:'FLAG{Sandesh_Ethical}'},
+  {id:3,cat:'WEB',title:'XSS Basic',pts:100,diff:'EASY',desc:'What does XSS stand for?\nThen what tag is used to run scripts?\nAnswer: FLAG{tag_name}',hint:'Cross Site Scripting uses script tags.',check:t=>t.toLowerCase().includes('script'),flag:'FLAG{script_tag}'},
+  {id:4,cat:'WEB',title:'SQL Auth Bypass',pts:125,diff:'MEDIUM',desc:"What SQL keyword bypasses login?\nExample: admin' [KEYWORD] 1=1--\nFLAG{keyword}",hint:'The keyword means OR in logic.',check:t=>t.toLowerCase().includes('or'),flag:'FLAG{OR_bypass}'},
   {id:5,cat:'FORENSICS',title:'MD5 Crack',pts:150,diff:'MEDIUM',desc:'Crack this MD5:\n5f4dcc3b5aa765d61d8327deb882cf99\nFLAG{plaintext}',hint:'Very common password.',check:t=>t.toLowerCase().includes('password'),flag:'FLAG{password}'},
   {id:6,cat:'NETWORK',title:'Port 22 Service',pts:100,diff:'EASY',desc:'Service on port 22?\nFLAG{service}',hint:'Secure remote login.',check:t=>t.toLowerCase().includes('ssh'),flag:'FLAG{ssh}'},
   {id:7,cat:'CRYPTO',title:'Hex Decode',pts:75,diff:'EASY',desc:'Decode hex:\n48 61 63 6b 65 72',hint:'Convert hex to ASCII.',check:t=>t.toLowerCase().includes('hacker'),flag:'FLAG{Hacker}'},
-  {id:8,cat:'WEB',title:'Path Traversal',pts:150,diff:'MEDIUM',desc:'Path to read /etc/passwd?\nFLAG{path}',hint:'Go up with ..',check:t=>t.includes('..')&&t.includes('etc')&&t.includes('passwd'),flag:'FLAG{../../../etc/passwd}'},
-  {id:9,cat:'NETWORK',title:'Nmap SYN Scan',pts:100,diff:'EASY',desc:'Nmap stealth SYN flag?\nFLAG{flag}',hint:'Capital S with dash.',check:t=>t.includes('-sS')||t.toLowerCase().includes('-ss'),flag:'FLAG{-sS}'},
-  {id:10,cat:'CRYPTO',title:'ROT13',pts:50,diff:'EASY',desc:'Decode ROT13:\nFnaqrfu Unpxre',hint:'Rotate letters by 13.',check:t=>t.toLowerCase().includes('sandesh'),flag:'FLAG{Sandesh Hacker}'},
-  {id:11,cat:'WEB',title:'SSRF AWS',pts:200,diff:'HARD',desc:'AWS metadata URL via SSRF?\nFLAG{url}',hint:'169.254.169.254 magic IP.',check:t=>t.includes('169.254'),flag:'FLAG{http://169.254.169.254/latest/meta-data/}'},
-  {id:12,cat:'FORENSICS',title:'PNG Magic Bytes',pts:175,diff:'MEDIUM',desc:'PNG file magic bytes?\nFLAG{bytes}',hint:'First 8 bytes of PNG.',check:t=>t.includes('89')&&t.toUpperCase().includes('4E47'),flag:'FLAG{89 50 4E 47 0D 0A 1A 0A}'},
+  {id:8,cat:'WEB',title:'Path Traversal',pts:150,diff:'MEDIUM',desc:'Path to read /etc/passwd?\nFLAG{path}',hint:'Go up directories with two dots.',check:t=>t.includes('..')&&t.includes('etc')&&t.includes('passwd'),flag:'FLAG{dot_dot_slash_etc_passwd}'},
+  {id:9,cat:'NETWORK',title:'Nmap SYN Scan',pts:100,diff:'EASY',desc:'Nmap stealth SYN scan flag?\nFLAG{flag}',hint:'Capital S with dash.',check:t=>t.toLowerCase().includes('ss')||t.includes('sS'),flag:'FLAG{-sS}'},
+  {id:10,cat:'CRYPTO',title:'ROT13',pts:50,diff:'EASY',desc:'Decode ROT13:\nFnaqrfu Unpxre',hint:'Rotate letters by 13.',check:t=>t.toLowerCase().includes('sandesh'),flag:'FLAG{Sandesh_Hacker}'},
+  {id:11,cat:'WEB',title:'SSRF AWS',pts:200,diff:'HARD',desc:'AWS metadata IP for SSRF?\nFLAG{ip_address}',hint:'169.254.x.x range.',check:t=>t.includes('169.254'),flag:'FLAG{169.254.169.254}'},
+  {id:12,cat:'FORENSICS',title:'PNG Magic Bytes',pts:175,diff:'MEDIUM',desc:'PNG file first magic byte in hex?\nFLAG{byte}',hint:'Starts with 89.',check:t=>t.includes('89'),flag:'FLAG{89_50_4E_47}'},
 ];
 let ctfScore=0,ctfSolved=new Set(lsG('ctf5_solved',[])),activeCTF=null;
 function buildCTF(){
@@ -1008,23 +1008,35 @@ function buildCTF(){
     <span style="float:right;color:var(--y);font-size:11px">${c.pts}pts</span>
   </div>`).join('');
 }
-function sanitize(str){return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
 function openCTF(id){
   activeCTF=CTFS.find(c=>c.id===id);
   document.querySelectorAll('.ctfc').forEach(c=>c.classList.remove('act'));
   const el=document.getElementById('ctfc'+id);if(el)el.classList.add('act');
-  document.getElementById('ctfwork').innerHTML=`<div style="color:var(--c);font-family:'Orbitron',sans-serif;font-size:11px;margin-bottom:8px">[${sanitize(activeCTF.cat)}] ${sanitize(activeCTF.title)} — ${activeCTF.pts}pts</div><div style="color:var(--y);font-size:9px;margin-bottom:10px">Difficulty: ${sanitize(activeCTF.diff)}</div><div style="color:var(--g);line-height:1.8;white-space:pre-wrap">${sanitize(activeCTF.desc)}</div>${ctfSolved.has(id)?'<div style="color:var(--g);margin-top:10px;font-size:11px">✓ SOLVED! '+sanitize(activeCTF.flag)+'</div>':''}`;
-  document.getElementById('ctfans').value='';document.getElementById('ctffb').textContent='';
+  const solved=ctfSolved.has(id);
+  document.getElementById('ctfwork').innerHTML=
+    '<div style="color:var(--c);font-family:Orbitron,sans-serif;font-size:11px;margin-bottom:8px">['+esc(activeCTF.cat)+'] '+esc(activeCTF.title)+' — '+activeCTF.pts+'pts</div>'+
+    '<div style="color:var(--y);font-size:9px;margin-bottom:10px">Difficulty: '+esc(activeCTF.diff)+'</div>'+
+    '<div style="color:var(--g);line-height:1.8;white-space:pre-wrap">'+esc(activeCTF.desc)+'</div>'+
+    (solved?'<div style="color:var(--g);margin-top:10px;font-size:11px">SOLVED! '+esc(activeCTF.flag)+'</div>':'');
+  document.getElementById('ctfans').value='';
+  document.getElementById('ctffb').textContent='';
 }
+
 function submitCTF(){
-  if(!activeCTF){document.getElementById('ctffb').style.color='var(--r)';document.getElementById('ctffb').textContent='✓ CORRECT! +'+activeCTF.pts+'pts — '+activeCTF.flag.replace(/</g,'<').replace(/>/g,'>');
+  if(!activeCTF){document.getElementById('ctffb').textContent='Select a challenge first.';return;}
   const ans=document.getElementById('ctfans').value.trim();
   const ok=activeCTF.check?activeCTF.check(ans):(ans.toLowerCase()===activeCTF.flag.toLowerCase());
   if(ok){
     if(!ctfSolved.has(activeCTF.id)){ctfSolved.add(activeCTF.id);ctfScore+=activeCTF.pts;ST.c++;ST.g=Math.max(ST.g,ctfScore);lsS('ctf5_solved',[...ctfSolved]);lsS('ctf5_score',ctfScore);updST();}
-    document.getElementById('ctffb').style.color='var(--g)';document.getElementById('ctffb').textContent='✓ CORRECT! +'+activeCTF.pts+'pts — '+activeCTF.flag;buildCTF();openCTF(activeCTF.id);
-  }else{document.getElementById('ctffb').style.color='var(--r)';document.getElementById('ctffb').textContent='✗ Wrong. Click HINT for help.';}
-}
+    document.getElementById('ctffb').style.color='var(--g)';
+    document.getElementById('ctffb').textContent='CORRECT! +'+activeCTF.pts+'pts — '+activeCTF.flag;
+    buildCTF();openCTF(activeCTF.id);
+  }else{
+    document.getElementById('ctffb').style.color='var(--r)';
+    document.getElementById('ctffb').textContent='Wrong. Click HINT for help.';
+  }
 function ctfHint(){
   if(!activeCTF)return;
   document.getElementById('ctffb').style.color='var(--y)';document.getElementById('ctffb').textContent='HINT: '+activeCTF.hint;
