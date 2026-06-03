@@ -240,23 +240,23 @@ body::before{content:'';position:fixed;top:0;left:0;width:100%;height:100%;backg
   <button class="lobtn" onclick="logout()">LOGOUT</button>
 </div>
 <div class="nav">
-  <button class="nb active" onclick="showTab('dash')">&#8962; HOME</button>
+  <button class="nb active" onclick="showTab('dash')" HOME</button>
   <button class="nb" onclick="showTab('term')">$ TERMINAL</button>
-  <button class="nb" onclick="showTab('pass')">&#128273; PASSWORDS</button>
-  <button class="nb" onclick="showTab('recon')">&#128269; RECON</button>
-  <button class="nb" onclick="showTab('scan')">&#128163; VULN SCAN</button>
-  <button class="nb" onclick="showTab('pkt')">&#128225; PACKETS</button>
-  <button class="nb" onclick="showTab('nmap')">&#127760; NET MAP</button>
-  <button class="nb" onclick="showTab('ctf')">&#127942; CTF LAB</button>
-  <button class="nb" onclick="showTab('dark')">&#128565; DARK WEB</button>
-  <button class="nb" onclick="showTab('payload')">&#128296; PAYLOADS</button>
-  <button class="nb" onclick="showTab('iptools')">&#127757; IP TOOLS</button>
-  <button class="nb" onclick="showTab('encode')">&#128272; ENCODER</button>
-  <button class="nb" onclick="showTab('exploit')">&#128163; EXPLOITS</button>
-  <button class="nb" onclick="showTab('wifi')">&#128246; WIFI</button>
-  <button class="nb" onclick="showTab('net')">&#127760; NETWORK</button>
-  <button class="nb" onclick="showTab('ai')">&#129302; AI</button>
-  <button class="nb" onclick="showTab('game')">&#127918; GAME</button>
+  <button class="nb" onclick="showTab('pass')" PASSWORDS</button>
+  <button class="nb" onclick="showTab('recon')" RECON</button>
+  <button class="nb" onclick="showTab('scan')" VULN SCAN</button>
+  <button class="nb" onclick="showTab('pkt')" PACKETS</button>
+  <button class="nb" onclick="showTab('nmap')" NET MAP</button>
+  <button class="nb" onclick="showTab('ctf')" CTF LAB</button>
+  <button class="nb" onclick="showTab('dark')" DARK WEB</button>
+  <button class="nb" onclick="showTab('payload')" PAYLOADS</button>
+  <button class="nb" onclick="showTab('iptools')" IP TOOLS</button>
+  <button class="nb" onclick="showTab('encode')" ENCODER</button>
+  <button class="nb" onclick="showTab('exploit')" EXPLOITS</button>
+  <button class="nb" onclick="showTab('wifi')" WIFI</button>
+  <button class="nb" onclick="showTab('net')" NETWORK</button>
+  <button class="nb" onclick="showTab('ai')" AI</button>
+  <button class="nb" onclick="showTab('game')" GAME</button>
 </div>
 <div class="content">
 """)
@@ -291,21 +291,8 @@ w("""
 <div class="card2" onclick="showTab('exploit')"><span class="ci">&#128163;</span><div class="ct">EXPLOITS</div></div>
 <div class="card2" onclick="showTab('wifi')"><span class="ci">&#128246;</span><div class="ct">WIFI</div></div>
 <div class="card2" onclick="showTab('ai')"><span class="ci">&#129302;</span><div class="ct">AI ASSIST</div></div>
-<div class="card2" onclick="showTab('game')"><span class="ci">&#127918;</span><div class="ct">GAME</div></div>
 </div>
 </div>
-</div>
-</div>
-""")
-
-# TERMINAL
-w("""
-<div class="tp" id="tab-term">
-<div class="stitle">$ KALI LINUX TERMINAL</div>
-<div class="term" id="mt"></div>
-<div class="tinp">
-<span style="color:var(--g);font-size:11px;white-space:nowrap">&#9484;&#9472;(root&#9753;sandesh)<br>&#9492;&#9472;$&nbsp;</span>
-<input class="ti" id="ti" placeholder="type command..." onkeydown="handleTermKey(event)" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off">
 </div>
 </div>
 """)
@@ -668,52 +655,21 @@ w("""
 <div class="g2">
 <div>
 <div class="cbox" id="chatbox">
-<div class="cmsg ai"><div class="from">&#9672; SANDESH-AI</div><div class="text">Hello! I am powered by Claude AI. Ask me ANYTHING about ethical hacking, CTFs, coding, or any topic!</div></div>
+<div class="cmsg ai"><div class="from" SANDESH-AI</div><div class="text">Hello! I am powered by Claude AI. Ask me ANYTHING about ethical hacking, CTFs, coding, or any topic!</div></div>
 </div>
 <div class="cinrow">
 <input class="cinput" id="chatinput" placeholder="Ask anything..." onkeydown="if(event.key==='Enter')sendChat()">
 <button class="btn btnc" onclick="sendChat()">SEND</button>
 </div>
-<div class="aityp" id="aityp" style="display:none">&#9672; THINKING<span class="blink">_</span></div>
+<div class="aityp" id="aityp" style="display:none" THINKING<span class="blink">_</span></div>
 </div>
 <div>
 <div class="stitle" style="font-size:12px">QUICK PROMPTS</div>
 <div style="display:flex;flex-direction:column;gap:6px">
-<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('Explain SQL injection with examples')">&#9658; SQL Injection explained</button>
-<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('What is XSS and how to prevent it?')">&#9658; XSS prevention</button>
-<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('How does a reverse shell work?')">&#9658; Reverse shells</button>
-<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('What are the OWASP Top 10 vulnerabilities?')">&#9658; OWASP Top 10</button>
-<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('Write a Python port scanner')">&#9658; Python port scanner</button>
-<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('Explain buffer overflow vulnerabilities')">&#9658; Buffer overflow</button>
-<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('What is privilege escalation in Linux?')">&#9658; Linux privesc</button>
-<button class="btn btnw" style="text-align:left;font-size:10px" onclick="setPrompt('How does WPA2 WiFi security work?')">&#9658; WiFi security</button>
 </div>
 </div>
 </div>
 </div>
-""")
-
-# GAME
-w("""
-<div class="tp" id="tab-game">
-<div class="stitle">&#127918; FIREWALL BREAKER</div>
-<div style="background:#000;border:1px solid #00ff4133;padding:16px;text-align:center">
-<div style="font-family:'VT323',monospace;font-size:30px;color:var(--g);text-shadow:var(--glow);margin-bottom:6px">&#9889; FIREWALL BREAKER &#9889;</div>
-<div style="color:#00ff4177;font-size:11px;margin-bottom:12px">Left-click probe | Right-click flag</div>
-<div style="display:flex;gap:16px;justify-content:center;font-family:'Orbitron',sans-serif;font-size:11px;margin-bottom:12px;flex-wrap:wrap">
-<div>NODES:<span id="gmines">0</span></div><div>FLAGS:<span id="gflags">0</span></div><div>TIME:<span id="gtime">0s</span></div><div>SCORE:<span id="gscore">0</span></div>
-</div>
-<div id="ggrid" style="display:inline-grid;gap:2px;margin:0 auto 12px"></div>
-<div id="gmsg" style="font-family:'Orbitron',sans-serif;font-size:12px;color:var(--g);margin-bottom:10px;min-height:18px"></div>
-<div style="display:flex;gap:7px;justify-content:center">
-<button class="btn" onclick="initGame('easy')">EASY</button>
-<button class="btn btnc" onclick="initGame('medium')">MEDIUM</button>
-<button class="btn btnr" onclick="initGame('hard')">HARD</button>
-</div>
-</div>
-</div>
-
-</div></div><!-- end content / app -->
 """)
 
 # ═══════════════════════════════════════════════════
@@ -825,7 +781,6 @@ function showTab(id){
   const el=document.getElementById('tab-'+id);if(el)el.classList.add('active');
   document.querySelectorAll('.nb').forEach(b=>{if(b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+id+"'"))b.classList.add('active');});
   if(id==='term')initTerm();
-  if(id==='game')initGame('medium');
   if(id==='nmap')initNMC();
   window.scrollTo(0,0);
 }
@@ -865,45 +820,6 @@ const THREATS=[
   {cls:'tl2',i:'\\u2139',t:'OpenSSL 3.3.0 released — upgrade recommended'},
 ];
 function buildThreats(){document.getElementById('tf').innerHTML=THREATS.map(t=>`<div class="thi ${esc(t.cls)}">${t.i}&nbsp;${esc(t.t)}</div>`).join('');}
-
-// ── TERMINAL ─────────────────────────────────────────────────────────────────
-let TH=[],TI=-1,TINit=false;
-const CMDS={
-  help:()=>[{c:'s',t:'help whoami id uname ifconfig ls netstat ps'},{c:'c',t:'nmap ping whois curl sqlmap nikto'},{c:'c',t:'hydra gobuster hashcat metasploit clear'}],
-  whoami:()=>[{c:'s',t:'root'}],id:()=>[{c:'s',t:'uid=0(root) gid=0(root) groups=0(root)'}],
-  pwd:()=>[{c:'s',t:'/root'}],
-  'uname -a':()=>[{c:'s',t:'Linux kali 6.5.0-kali3-amd64 x86_64 GNU/Linux'}],
-  ifconfig:()=>[{c:'s',t:'eth0: 192.168.1.100  wlan0: 192.168.1.102  tun0: 10.10.14.5(VPN)'}],
-  ls:()=>[{c:'s',t:'Desktop  tools  wordlists  exploits  payloads  reports'}],
-  netstat:()=>[{c:'s',t:'tcp 0.0.0.0:22 LISTEN  tcp 0.0.0.0:4444 LISTEN'}],
-  'ps aux':()=>[{c:'s',t:'root 1 /sbin/init'},{c:'',t:'root 1337 python3 exploit.py'}],
-  sqlmap:()=>[{c:'s',t:'sqlmap/1.7.8'},{c:'c',t:'sqlmap -u "http://target/?id=1" --dbs'},{c:'w',t:'Authorized use only.'}],
-  nikto:()=>[{c:'s',t:'Nikto v2.1.6'},{c:'c',t:'nikto -h http://target.com'},{c:'w',t:'Authorized use only.'}],
-  hydra:()=>[{c:'s',t:'Hydra v9.5'},{c:'c',t:'hydra -l admin -P rockyou.txt ssh://target'},{c:'w',t:'Written permission required.'}],
-  gobuster:()=>[{c:'s',t:'Gobuster v3.6'},{c:'c',t:'gobuster dir -u http://target -w common.txt'}],
-  hashcat:()=>[{c:'s',t:'hashcat v6.2.6'},{c:'c',t:'hashcat -m 0 hash.txt rockyou.txt'}],
-  metasploit:()=>[{c:'s',t:'=[ metasploit v6.3.4 | 2375 exploits ]='},{c:'w',t:'Educational only.'}],
-  clear:()=>'CLR',
-};
-function initTerm(){if(TINit)return;TINit=true;addTL('SANDESH KALI TERMINAL v6.0 — Type "help"','s');}
-function addTL(text,c=''){const el=document.getElementById('mt');if(!el)return;const d=document.createElement('div');d.className='tl'+(c?' tl'+c:'');d.textContent=text;el.appendChild(d);el.scrollTop=el.scrollHeight;}
-function handleTermKey(e){
-  const inp=document.getElementById('ti');
-  if(e.key==='Enter'){const cmd=inp.value.trim();if(!cmd)return;addTL('\\u2514\\u2500$ '+cmd,'c');TH.unshift(cmd);TI=-1;inp.value='';runCmd(cmd);}
-  else if(e.key==='ArrowUp'){if(TI<TH.length-1){TI++;inp.value=TH[TI];}}
-  else if(e.key==='ArrowDown'){if(TI>0){TI--;inp.value=TH[TI];}else{TI=-1;inp.value='';}}
-  else if(e.key==='Tab'){e.preventDefault();const m=Object.keys(CMDS).find(k=>k.startsWith(inp.value));if(m)inp.value=m;}
-}
-function runCmd(cmd){
-  const lo=cmd.toLowerCase();
-  let k=Object.keys(CMDS).find(k=>lo===k||lo.startsWith(k+' '));
-  if(!k&&lo.startsWith('nmap')){const h=cmd.split(' ')[1]||'localhost';addTL('Nmap on '+h+'...','c');[[21,'ftp'],[22,'ssh'],[80,'http'],[443,'https'],[3306,'mysql']].forEach((p,i)=>setTimeout(()=>addTL(p[0]+'/tcp open '+p[1],'s'),i*150));setTimeout(()=>addTL('Nmap done.','w'),900);ST.s++;updST();return;}
-  if(!k&&lo.startsWith('ping')){const h=cmd.split(' ')[1]||'localhost';addTL('PING '+h,'c');for(let i=1;i<=4;i++)setTimeout(()=>addTL('64 bytes from '+h+': icmp_seq='+i+' time='+(Math.random()*15+1).toFixed(1)+'ms','s'),i*300);return;}
-  if(!k&&lo.startsWith('whois')){const d=cmd.split(' ')[1]||'example.com';addTL('Registrar: GoDaddy | NS: ns1.'+d+' | ASN: AS13335','s');return;}
-  if(!k){addTL('bash: '+cmd+': command not found','e');return;}
-  const r=CMDS[k]();if(r==='CLR'){document.getElementById('mt').innerHTML='';return;}
-  r.forEach(l=>addTL(l.t,l.c||''));
-}
 
 // ── PASSWORD GENERATOR ───────────────────────────────────────────────────────
 const WDS=['cyber','hacker','falcon','shield','matrix','ghost','shadow','nexus','storm','viper'];
@@ -1211,38 +1127,6 @@ function addChatMsg(role,text){
   textDiv.innerHTML=text.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\\*\\*(.*?)\\*\\*/g,'<strong>$1</strong>').replace(/`(.*?)`/g,'<code style="background:#002200;padding:1px 4px;color:var(--g)">$1</code>').replace(/\\n/g,'<br>');
   div.appendChild(fromDiv);div.appendChild(textDiv);box.appendChild(div);box.scrollTop=box.scrollHeight;
 }
-
-// ── GAME ─────────────────────────────────────────────────────────────────────
-let gBoard=[],gRows=8,gCols=10,gMines=12,gFlags=0,gRev=0,gTimer=0,gTIV=null,gOver=false,gStart=false;
-const GCFG={easy:{r:6,c:8,m:6},medium:{r:8,c:10,m:12},hard:{r:10,c:12,m:22}};
-function initGame(diff){
-  const cfg=GCFG[diff]||GCFG.medium;gRows=cfg.r;gCols=cfg.c;gMines=cfg.m;
-  gFlags=0;gRev=0;gOver=false;gStart=false;clearInterval(gTIV);gTimer=0;
-  document.getElementById('gtime').textContent='0s';document.getElementById('gmines').textContent=gMines;document.getElementById('gflags').textContent=0;document.getElementById('gmsg').textContent='';
-  gBoard=Array.from({length:gRows},()=>Array.from({length:gCols},()=>({mine:false,rev:false,flag:false,cnt:0})));
-  let placed=0;while(placed<gMines){const r=rnd(gRows),c=rnd(gCols);if(!gBoard[r][c].mine){gBoard[r][c].mine=true;placed++;}}
-  for(let r=0;r<gRows;r++)for(let c=0;c<gCols;c++){if(gBoard[r][c].mine)continue;let cnt=0;for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++){const nr=r+dr,nc=c+dc;if(nr>=0&&nr<gRows&&nc>=0&&nc<gCols&&gBoard[nr][nc].mine)cnt++;}gBoard[r][c].cnt=cnt;}
-  renderGame();
-}
-function renderGame(){
-  const grid=document.getElementById('ggrid');grid.style.gridTemplateColumns='repeat('+gCols+',36px)';grid.innerHTML='';
-  for(let r=0;r<gRows;r++)for(let c=0;c<gCols;c++){
-    const cell=document.createElement('div');cell.className='gcell';const d=gBoard[r][c];
-    if(d.flag){cell.textContent='🚩';cell.classList.add('flag');}
-    else if(d.rev){cell.classList.add('rev');if(d.mine){cell.textContent='💥';cell.classList.add('mine');}else if(d.cnt>0){cell.textContent=d.cnt;cell.style.color=['','#00ff41','#00eeff','#ff003c','#4444ff','#ff6600','#00aaff','#ff00ff','#aaa'][d.cnt]||'#00ff41';}}
-    cell.addEventListener('click',()=>clickCell(r,c));cell.addEventListener('contextmenu',e=>{e.preventDefault();flagCell(r,c);});
-    grid.appendChild(cell);
-  }
-}
-function clickCell(r,c){
-  if(gOver||gBoard[r][c].flag||gBoard[r][c].rev)return;
-  if(!gStart){gStart=true;gTIV=setInterval(()=>{gTimer++;document.getElementById('gtime').textContent=gTimer+'s';},1000);}
-  if(gBoard[r][c].mine){gBoard[r][c].rev=true;gOver=true;clearInterval(gTIV);for(let i=0;i<gRows;i++)for(let j=0;j<gCols;j++)if(gBoard[i][j].mine)gBoard[i][j].rev=true;renderGame();document.getElementById('gmsg').style.color='var(--r)';document.getElementById('gmsg').textContent='💥 HONEYPOT TRIGGERED — GAME OVER';return;}
-  floodRev(r,c);renderGame();checkWin();
-}
-function floodRev(r,c){if(r<0||r>=gRows||c<0||c>=gCols||gBoard[r][c].rev||gBoard[r][c].flag||gBoard[r][c].mine)return;gBoard[r][c].rev=true;gRev++;if(gBoard[r][c].cnt===0)for(let dr=-1;dr<=1;dr++)for(let dc=-1;dc<=1;dc++)floodRev(r+dr,c+dc);}
-function flagCell(r,c){if(gOver||gBoard[r][c].rev)return;gBoard[r][c].flag=!gBoard[r][c].flag;gFlags+=gBoard[r][c].flag?1:-1;document.getElementById('gflags').textContent=gFlags;renderGame();}
-function checkWin(){if(gRev>=gRows*gCols-gMines){gOver=true;clearInterval(gTIV);const sc=Math.max(0,1000-gTimer*5+gMines*10);ST.g=Math.max(ST.g,sc);updST();document.getElementById('gscore').textContent=sc;document.getElementById('gmsg').style.color='var(--g)';document.getElementById('gmsg').textContent='✅ FIREWALL BREACHED — '+sc+' pts';}}
 
 // ── AUTO-LOGIN ────────────────────────────────────────────────────────────────
 window.addEventListener('load',()=>{
