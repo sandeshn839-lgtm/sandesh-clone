@@ -21,7 +21,7 @@ button{cursor:pointer;}
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--s4);border-radius:2px;}
-
+ 
 /* ─── LOGIN PAGE ─── */
 #login-page{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:9999;}
 #login-page.hidden{display:none;}
@@ -42,11 +42,11 @@ button{cursor:pointer;}
 .login-dots{display:flex;justify-content:center;gap:6px;margin-top:18px;}
 .login-dot{width:6px;height:6px;border-radius:50%;background:var(--s3);}
 .login-dot.active{background:var(--v);}
-
+ 
 /* ─── MAIN APP ─── */
 #app{display:none;flex-direction:column;height:100vh;width:100vw;}
 #app.visible{display:flex;}
-
+ 
 /* TOPBAR */
 .topbar{display:flex;align-items:center;padding:0 16px;height:52px;background:rgba(6,7,13,.97);border-bottom:1px solid var(--bd);gap:9px;z-index:100;flex-shrink:0;}
 .logo{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;}
@@ -65,14 +65,14 @@ button{cursor:pointer;}
 .user-pill:hover{border-color:var(--bd2);}
 .user-av{width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--vd),var(--cd));display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:#fff;}
 .user-name{font-size:10px;color:var(--t1);}
-
+ 
 /* BODY */
 .body{display:grid;grid-template-columns:1fr 350px;flex:1;overflow:hidden;}
-
+ 
 /* DEVICES SIDE */
 .devices-side{display:flex;align-items:center;justify-content:center;gap:36px;padding:20px;position:relative;overflow:hidden;}
 .dev-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 50%,rgba(139,92,246,.06),transparent);}
-
+ 
 /* LAPTOP */
 .laptop-outer{display:flex;flex-direction:column;align-items:center;}
 .laptop-screen-frame{width:380px;height:238px;background:#111;border-radius:10px 10px 0 0;border:2px solid #2a2a2a;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;}
@@ -80,7 +80,7 @@ button{cursor:pointer;}
 .laptop-base{width:400px;height:14px;background:linear-gradient(180deg,#222,#181818);border-radius:0 0 6px 6px;border:1px solid #2a2a2a;border-top:none;}
 .laptop-bottom{width:430px;height:5px;background:#111;border-radius:0 0 5px 5px;}
 .dev-label{font-size:10px;color:var(--t3);margin-top:7px;font-family:var(--mono);}
-
+ 
 /* LAPTOP SCREEN INSIDE */
 .lp-inner{width:100%;height:100%;background:#0a0b12;display:flex;flex-direction:column;position:relative;}
 .lp-menubar{height:20px;background:rgba(10,11,18,.95);display:flex;align-items:center;padding:0 8px;gap:10px;border-bottom:1px solid rgba(255,255,255,.05);flex-shrink:0;}
@@ -104,7 +104,7 @@ button{cursor:pointer;}
 .wdot{width:7px;height:7px;border-radius:50%;cursor:pointer;flex-shrink:0;}
 .lp-win-title{flex:1;text-align:center;font-size:8px;color:var(--t3);padding-right:16px;}
 .lp-win-body{flex:1;overflow:hidden;}
-
+ 
 /* PHONE */
 .phone-outer{display:flex;flex-direction:column;align-items:center;}
 .phone-frame{width:168px;height:340px;background:#0a0a0a;border-radius:36px;border:3px solid #2a2a2a;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;}
@@ -116,7 +116,7 @@ button{cursor:pointer;}
 .ph-time{font-size:10px;font-weight:600;color:var(--t1);font-family:var(--mono);}
 .ph-icons{display:flex;gap:3px;align-items:center;font-size:8px;color:var(--t1);}
 .ph-home-indicator{position:absolute;bottom:5px;left:50%;transform:translateX(-50%);width:50px;height:4px;background:rgba(255,255,255,.3);border-radius:2px;}
-
+ 
 /* PHONE LOCK SCREEN */
 .ph-lock{position:absolute;inset:0;background:linear-gradient(160deg,#0d0d1a,#0a0a12);display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:28px 10px 20px;z-index:5;transition:opacity .3s;}
 .ph-lock.hidden{display:none;}
@@ -125,7 +125,7 @@ button{cursor:pointer;}
 .ph-lock-notif{background:rgba(255,255,255,.08);border-radius:10px;padding:8px 10px;width:100%;font-size:8px;color:var(--t2);margin-top:8px;}
 .ph-lock-btn{font-size:20px;cursor:pointer;opacity:.7;}
 .ph-lock-btn:hover{opacity:1;}
-
+ 
 /* PHONE HOME */
 .ph-home{position:absolute;inset:0;background:linear-gradient(160deg,#0d0d1a,#06070d);display:flex;flex-direction:column;padding:28px 8px 18px;overflow:hidden;}
 .ph-home.hidden{display:none;}
@@ -144,7 +144,7 @@ button{cursor:pointer;}
 @keyframes orbListen{from{box-shadow:0 0 0 0 rgba(139,92,246,.5);}to{box-shadow:0 0 0 6px rgba(139,92,246,0);}}
 @keyframes orbSpeak{from{transform:scale(1);}to{transform:scale(1.1);}}
 .ph-ai-text{font-size:8px;color:var(--t2);flex:1;font-family:var(--mono);}
-
+ 
 /* AI PANEL */
 .ai-panel{background:var(--s1);border-left:1px solid var(--bd);display:flex;flex-direction:column;overflow:hidden;}
 .ai-head{padding:13px 15px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;flex-shrink:0;}
@@ -157,12 +157,12 @@ button{cursor:pointer;}
 .ai-state.listen{color:var(--v);}
 .ai-state.speak{color:var(--c);}
 .ai-state.think{color:var(--a);}
-
+ 
 /* WAVEFORM */
 .waveform{height:28px;display:flex;align-items:center;gap:2px;padding:0 15px;border-bottom:1px solid var(--bd);flex-shrink:0;}
 .wb{width:3px;border-radius:2px;background:var(--v);opacity:.25;transition:height .07s ease;}
 .wb.on{opacity:.9;}
-
+ 
 /* CHAT */
 .chat-area{flex:1;overflow-y:auto;padding:12px 13px;display:flex;flex-direction:column;gap:9px;}
 .chat-area::-webkit-scrollbar{width:3px;}
@@ -182,17 +182,17 @@ button{cursor:pointer;}
 .think-dots span:nth-child(2){animation-delay:.15s;}
 .think-dots span:nth-child(3){animation-delay:.3s;}
 @keyframes thk{0%,100%{transform:translateY(0);opacity:.4;}50%{transform:translateY(-4px);opacity:1;}}
-
+ 
 /* DAY SEPARATOR */
 .day-sep{display:flex;align-items:center;gap:8px;margin:4px 0;}
 .day-line{flex:1;height:1px;background:var(--bd);}
 .day-txt{font-size:9px;color:var(--t4);white-space:nowrap;}
-
+ 
 /* CHIPS */
 .chips{display:flex;flex-wrap:wrap;gap:5px;padding:8px 13px;border-top:1px solid var(--bd);flex-shrink:0;}
 .chip{padding:4px 9px;border-radius:20px;font-size:10px;background:var(--s2);border:1px solid var(--bd);color:var(--t2);cursor:pointer;transition:all .15s;white-space:nowrap;}
 .chip:hover{background:rgba(139,92,246,.14);border-color:rgba(139,92,246,.3);color:var(--v);}
-
+ 
 /* INPUT */
 .input-row{display:flex;gap:7px;padding:10px 13px;border-top:1px solid var(--bd);flex-shrink:0;}
 .chat-inp{flex:1;background:var(--s2);border:1px solid var(--bd);border-radius:10px;padding:8px 11px;font-size:12px;color:var(--t1);outline:none;transition:border-color .15s;resize:none;height:38px;}
@@ -204,7 +204,7 @@ button{cursor:pointer;}
 @keyframes micPulse{0%,100%{box-shadow:0 0 0 0 rgba(244,63,94,.4);}50%{box-shadow:0 0 0 9px rgba(244,63,94,0);}}
 .send-btn{width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,var(--v),var(--cd));border:none;cursor:pointer;font-size:14px;flex-shrink:0;transition:opacity .15s;}
 .send-btn:hover{opacity:.85;}
-
+ 
 /* CMD LIST */
 .cmd-panel{background:var(--s2);border-top:1px solid var(--bd);padding:8px 13px;max-height:110px;overflow-y:auto;flex-shrink:0;}
 .cmd-title{font-size:9px;font-weight:600;color:var(--t4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;}
@@ -213,7 +213,7 @@ button{cursor:pointer;}
 .cmd-ic{font-size:10px;flex-shrink:0;}
 .cmd-txt{color:var(--t2);flex:1;}
 .cmd-tag{font-family:var(--mono);font-size:8px;color:var(--t4);}
-
+ 
 /* ADMIN PANEL */
 #admin-panel{position:fixed;inset:0;background:var(--bg);z-index:8000;display:none;flex-direction:column;overflow:hidden;}
 #admin-panel.open{display:flex;}
@@ -245,14 +245,14 @@ button{cursor:pointer;}
 .btn-p:hover{opacity:.88;}
 .btn-s{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:7px;background:var(--s2);border:1px solid var(--bd2);color:var(--t2);font-size:11px;font-weight:500;cursor:pointer;transition:all .15s;}
 .btn-s:hover{background:var(--s3);color:var(--t1);}
-
+ 
 /* TOAST */
 .toast-c{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);z-index:9990;display:flex;flex-direction:column;align-items:center;gap:6px;pointer-events:none;}
 .toast{display:flex;align-items:center;gap:8px;padding:9px 16px;background:rgba(12,14,26,.96);border:1px solid var(--bd2);border-radius:30px;font-size:12px;color:var(--t1);white-space:nowrap;backdrop-filter:blur(10px);animation:tin .2s ease;pointer-events:all;box-shadow:0 8px 30px rgba(0,0,0,.5);}
 .toast.out{animation:tout .2s ease forwards;}
 @keyframes tin{from{opacity:0;transform:translateX(-50%) translateY(8px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}
 @keyframes tout{to{opacity:0;transform:translateX(-50%) translateY(8px);}}
-
+ 
 /* MODAL */
 .mover{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(5px);z-index:9500;display:none;align-items:center;justify-content:center;}
 .mover.open{display:flex;}
@@ -261,7 +261,7 @@ button{cursor:pointer;}
 .modal-title{font-size:14px;font-weight:700;color:var(--t1);margin-bottom:4px;}
 .modal-sub{font-size:11px;color:var(--t3);margin-bottom:16px;}
 .modal-acts{display:flex;gap:7px;justify-content:flex-end;margin-top:16px;}
-
+ 
 /* USER DROPDOWN */
 .udrop{position:absolute;top:54px;right:14px;width:200px;background:var(--s1);border:1px solid var(--bd2);border-radius:11px;z-index:200;display:none;flex-direction:column;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.45);}
 .udrop.open{display:flex;}
@@ -274,7 +274,7 @@ button{cursor:pointer;}
 .ud-item.danger{color:var(--r);}
 .ud-item.danger:hover{background:rgba(244,63,94,.07);}
 .ud-div{height:1px;background:var(--bd);}
-
+ 
 /* PERMISSION MODAL */
 .perm-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:9800;display:none;align-items:center;justify-content:center;}
 .perm-modal.open{display:flex;}
@@ -283,7 +283,7 @@ button{cursor:pointer;}
 .perm-title{font-size:15px;font-weight:700;color:var(--t1);margin-bottom:6px;}
 .perm-desc{font-size:11px;color:var(--t3);line-height:1.55;margin-bottom:20px;}
 .perm-acts{display:flex;gap:8px;justify-content:center;}
-
+ 
 @media(max-width:700px){
   .body{grid-template-columns:1fr;}
   .devices-side{display:none;}
@@ -292,7 +292,7 @@ button{cursor:pointer;}
 </style>
 </head>
 <body>
-
+ 
 <!-- ══════════════════════════════ LOGIN PAGE ══════════════════════════════ -->
 <div id="login-page">
   <div class="login-bg"></div>
@@ -319,10 +319,10 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <!-- ══════════════════════════════ MAIN APP ══════════════════════════════ -->
 <div id="app">
-
+ 
   <!-- TOPBAR -->
   <div class="topbar">
     <div class="logo"><div class="logo-hex"></div>ShadowShield AI</div>
@@ -336,7 +336,7 @@ button{cursor:pointer;}
     </div>
     <div class="tbtn" onclick="toggleAdminPanel()" id="admin-btn" style="display:none;" title="Admin Panel">👑</div>
   </div>
-
+ 
   <!-- USER DROPDOWN -->
   <div class="udrop" id="udrop">
     <div class="udrop-head">
@@ -352,13 +352,13 @@ button{cursor:pointer;}
     <div class="ud-div"></div>
     <div class="ud-item danger" onclick="doLogout()">⬡ Sign Out</div>
   </div>
-
+ 
   <div class="body">
-
+ 
     <!-- DEVICES -->
     <div class="devices-side">
       <div class="dev-bg"></div>
-
+ 
       <!-- LAPTOP -->
       <div class="laptop-outer">
         <div class="laptop-screen-frame" id="laptop-frame">
@@ -402,7 +402,7 @@ button{cursor:pointer;}
         <div class="laptop-bottom"></div>
         <div class="dev-label">MacBook Pro · AI Controlled</div>
       </div>
-
+ 
       <!-- PHONE -->
       <div class="phone-outer">
         <div class="phone-frame" id="phone-frame">
@@ -412,7 +412,7 @@ button{cursor:pointer;}
               <div class="ph-time" id="ph-clock-t">00:00</div>
               <div class="ph-icons">📶 WiFi 🔋</div>
             </div>
-
+ 
             <!-- LOCK SCREEN -->
             <div class="ph-lock" id="ph-lock">
               <div style="text-align:center;">
@@ -424,7 +424,7 @@ button{cursor:pointer;}
               </div>
               <div class="ph-lock-btn" onclick="unlockPhone()" title="Swipe up">🔒 Tap to unlock</div>
             </div>
-
+ 
             <!-- HOME SCREEN -->
             <div class="ph-home hidden" id="ph-home">
               <div class="ph-widget">
@@ -456,7 +456,7 @@ button{cursor:pointer;}
         <div class="dev-label">iPhone · AI Controlled</div>
       </div>
     </div>
-
+ 
     <!-- AI PANEL -->
     <div class="ai-panel">
       <div class="ai-head">
@@ -499,7 +499,7 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <!-- ADMIN PANEL -->
 <div id="admin-panel">
   <div class="admin-topbar">
@@ -574,7 +574,7 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <!-- PERMISSION MODAL -->
 <div class="perm-modal" id="perm-modal">
   <div class="perm-box">
@@ -587,7 +587,7 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <!-- HISTORY MODAL -->
 <div class="mover" id="hist-modal">
   <div class="modal-box" style="max-width:520px;">
@@ -600,16 +600,16 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <div class="toast-c" id="toast-c"></div>
-
+ 
 <style>
 .tog{width:30px;height:17px;background:var(--s3);border-radius:9px;position:relative;cursor:pointer;transition:background .2s;border:none;flex-shrink:0;}
 .tog.on{background:var(--g);}
 .tog::after{content:'';position:absolute;top:2px;left:2px;width:13px;height:13px;background:#fff;border-radius:50%;transition:transform .2s;}
 .tog.on::after{transform:translateX(13px);}
 </style>
-
+ 
 <script>
 // ═══════════════════════════════════════════════════════════════
 // STORAGE KEYS
@@ -622,7 +622,7 @@ var SK = {
 };
 var ADMIN_EMAIL = 'sandeshn839@gmail.com';
 var ADMIN_PASS = 'shadow2024';
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // AUTH HELPERS
 // ═══════════════════════════════════════════════════════════════
@@ -642,7 +642,7 @@ function addLoginSession(email){
   if(ss.length>50)ss=ss.slice(0,50);
   localStorage.setItem(SK.sessions,JSON.stringify(ss));
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // LOGIN
 // ═══════════════════════════════════════════════════════════════
@@ -651,16 +651,16 @@ function doLogin(){
   var pass  = document.getElementById('login-pass').value;
   var errEl = document.getElementById('login-err');
   errEl.textContent = '';
-
+ 
   if(!email || !pass){ errEl.textContent='Please enter email and password.'; return; }
   if(!email.endsWith('@gmail.com')){ errEl.textContent='Only Gmail accounts are supported.'; return; }
-
+ 
   // Admin check
   if(email === ADMIN_EMAIL && pass === ADMIN_PASS){
     loginSuccess(email, 'admin');
     return;
   }
-
+ 
   // Regular user — any gmail + any pass (register on first login)
   var users = getUsers();
   if(!users[email]){
@@ -672,7 +672,7 @@ function doLogin(){
   }
   loginSuccess(email, users[email].role||'user');
 }
-
+ 
 function loginSuccess(email, role){
   var session = { email:email, role:role, loginTime:new Date().toISOString() };
   saveSession(session);
@@ -680,7 +680,7 @@ function loginSuccess(email, role){
   document.getElementById('login-page').classList.add('hidden');
   initApp(session);
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // LOGOUT
 // ═══════════════════════════════════════════════════════════════
@@ -689,17 +689,17 @@ function doLogout(){
   clearSession();
   window.location.reload();
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // INIT APP
 // ═══════════════════════════════════════════════════════════════
 var currentSession = null;
 var chatHistory = [];
-
+ 
 function initApp(session){
   currentSession = session;
   document.getElementById('app').classList.add('visible');
-
+ 
   // Set user info in UI
   var initials = session.email.slice(0,2).toUpperCase();
   document.getElementById('user-av-icon').textContent = initials;
@@ -707,27 +707,27 @@ function initApp(session){
   document.getElementById('ud-av').textContent = initials;
   document.getElementById('ud-name').textContent = session.email.split('@')[0];
   document.getElementById('ud-email').textContent = session.email;
-
+ 
   if(session.role === 'admin'){
     document.getElementById('admin-btn').style.display = 'flex';
     document.getElementById('ud-admin').style.display = 'flex';
   }
-
+ 
   // Load chat history
   chatHistory = getChats(session.email);
   renderChatHistory();
-
+ 
   // Add welcome if no history
   if(chatHistory.length === 0){
     addAIMsg('👋 Welcome back! I\'m ShadowShield AI — your voice-controlled assistant. I control your laptop and iPhone. Say **"Hello"** to activate voice mode, or type your question below.\n\nI can open apps, answer any question, set alarms, run security scans, and much more!');
   }
-
+ 
   // Init UI
   initWaveform();
   initClocks();
   requestMicPermission();
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // CLOCKS
 // ═══════════════════════════════════════════════════════════════
@@ -748,7 +748,7 @@ function initClocks(){
     var el=document.getElementById(id); if(el) el.textContent=t.slice(0,id==='clock'?8:5);
   });
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // WAVEFORM
 // ═══════════════════════════════════════════════════════════════
@@ -772,7 +772,7 @@ function animateWave(mode){
     });
   },80);
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // AI STATE
 // ═══════════════════════════════════════════════════════════════
@@ -786,11 +786,11 @@ function setAIState(s){
   var mic=document.getElementById('mic-btn');
   var phorb=document.getElementById('ph-ai-orb');
   var phtxt=document.getElementById('ph-ai-txt');
-
+ 
   orb.className='ai-orb-big';
   mic.className='mic-btn';
   if(phorb) phorb.className='ph-ai-orb';
-
+ 
   if(s==='idle'){
     orb.textContent='🤖'; lbl.textContent='Idle — Say "Hello" to wake'; lbl.className='ai-state';
     sdot.className='dot dg'; stxt.textContent='Ready — Say "Hello"';
@@ -818,19 +818,19 @@ function setAIState(s){
     if(phorb){phorb.textContent='🔊'; phorb.classList.add('speaking');} if(phtxt) phtxt.textContent='Speaking…';
   }
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // SPEECH RECOGNITION
 // ═══════════════════════════════════════════════════════════════
 var recognition=null, micActive=false, awRec=null;
-
+ 
 function requestMicPermission(){
   if(!(window.SpeechRecognition||window.webkitSpeechRecognition)){ toast('Use Chrome for voice features','ℹ️'); return; }
   navigator.mediaDevices && navigator.mediaDevices.getUserMedia({audio:true})
     .then(function(s){ s.getTracks().forEach(function(t){t.stop();}); startAlwaysOn(); })
     .catch(function(){ document.getElementById('perm-modal').classList.add('open'); });
 }
-
+ 
 function initRec(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR) return false;
@@ -854,20 +854,20 @@ function initRec(){
   recognition.onend=function(){ micActive=false; if(AI_STATE==='listening') setAIState('idle'); };
   return true;
 }
-
+ 
 function startListening(){ if(!recognition&&!initRec()) return; if(micActive) return; try{recognition.start();}catch(e){} }
 function stopListening(){ if(recognition&&micActive) try{recognition.stop();}catch(e){} micActive=false; }
-
+ 
 function toggleMic(){
   if(micActive){ stopListening(); setAIState('idle'); }
   else{ if(!recognition&&!initRec()){ document.getElementById('perm-modal').classList.add('open'); return; } startListening(); }
 }
-
+ 
 function grantMic(){
   document.getElementById('perm-modal').classList.remove('open');
   initRec(); startAlwaysOn();
 }
-
+ 
 function startAlwaysOn(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR) return;
   if(awRec) try{awRec.stop();}catch(e){}
@@ -888,7 +888,7 @@ function startAlwaysOn(){
   awRec.onend=function(){ if(AI_STATE==='idle') try{awRec.start();}catch(e){} };
   try{ awRec.start(); } catch(e){}
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // TEXT TO SPEECH
 // ═══════════════════════════════════════════════════════════════
@@ -909,7 +909,7 @@ function speak(text){
   u.onerror=function(){ setAIState('idle'); };
   synth.speak(u);
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // MESSAGE HANDLING
 // ═══════════════════════════════════════════════════════════════
@@ -919,7 +919,7 @@ function sendMsg(){
 }
 function quickCmd(cmd){ addUserMsg(cmd); setAIState('thinking'); routeCommand(cmd); }
 function processInput(text){ document.getElementById('chat-inp').value=''; addUserMsg(text); setAIState('thinking'); routeCommand(text); }
-
+ 
 function addUserMsg(text){
   var msg={role:'user',text:text,time:new Date().toISOString()};
   chatHistory.push(msg); persistChats(); renderMsg(msg);
@@ -938,7 +938,7 @@ function persistChats(){
     if(!tog||tog.classList.contains('on')) saveChats(currentSession.email, chatHistory.slice(-200));
   }
 }
-
+ 
 function renderMsg(msg){
   var area=document.getElementById('chat-area');
   var wrap=document.createElement('div');
@@ -957,7 +957,7 @@ function renderMsg(msg){
   wrap.appendChild(av); wrap.appendChild(inner);
   area.appendChild(wrap); area.scrollTop=area.scrollHeight;
 }
-
+ 
 function renderChatHistory(){
   var area=document.getElementById('chat-area'); area.innerHTML='';
   if(chatHistory.length===0) return;
@@ -974,7 +974,7 @@ function renderChatHistory(){
     renderMsg(msg);
   });
 }
-
+ 
 function showThinking(){
   var area=document.getElementById('chat-area');
   var el=document.createElement('div'); el.className='cmsg'; el.id='think-el';
@@ -982,7 +982,7 @@ function showThinking(){
   area.appendChild(el); area.scrollTop=area.scrollHeight;
 }
 function removeThinking(){ var el=document.getElementById('think-el'); if(el) el.remove(); }
-
+ 
 function respond(text,delay){
   delay=delay||400;
   showThinking();
@@ -992,12 +992,12 @@ function respond(text,delay){
     updatePhoneWidget(text);
   },delay);
 }
-
+ 
 function updatePhoneWidget(msg){
   var w=document.getElementById('ph-widget-msg');
   if(w){ var short=msg.replace(/<[^>]+>/g,'').replace(/\*\*/g,'').slice(0,50); w.textContent=short+(msg.length>50?'…':''); }
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // COMMAND ROUTER
 // ═══════════════════════════════════════════════════════════════
@@ -1102,7 +1102,7 @@ function routeCommand(text){
   // DEFAULT → CLAUDE API
   callClaudeAPI(text);
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // CLAUDE API
 // ═══════════════════════════════════════════════════════════════
@@ -1124,14 +1124,14 @@ function callClaudeAPI(userText){
     addAIMsg(reply); speak(reply);
   });
 }
-
+ 
 function fallbackReply(text){
   var t=text.toLowerCase();
   if(t.includes('what')||t.includes('how')||t.includes('why')||t.includes('who')||t.includes('explain'))
     return 'Great question! Based on my knowledge: **'+text.slice(0,60)+'** — This is a topic I can discuss in detail. Could you be more specific so I can give you the best answer?';
   return 'I heard you say: **"'+text.slice(0,80)+'"**. I\'m processing your request. My systems are fully operational — please try rephrasing your question!';
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // LAPTOP APPS
 // ═══════════════════════════════════════════════════════════════
@@ -1144,7 +1144,7 @@ var LP_APPS={
   settings:{title:'System Settings',w:185,h:100,top:15,left:40,zI:5}
 };
 var openLpWins={};
-
+ 
 function getLpContent(id){
   if(id==='terminal') return '<div style="background:#000;height:100%;padding:5px;font-family:var(--mono);font-size:8px;color:#00ff41;overflow-y:auto;"><div>ShadowShield Terminal v4.1.0</div><div style="color:#888">Last login: '+new Date().toLocaleString()+'</div><div style="margin-top:3px;">user@shadowshield:~$ <span style="animation:cur 1s infinite;color:#fff">_</span></div></div>';
   if(id==='browser') return '<div style="height:100%;display:flex;flex-direction:column;"><div style="background:#1a1a1a;padding:3px 5px;display:flex;align-items:center;gap:3px;"><div style="width:5px;height:5px;border-radius:50%;background:#ff5f56;"></div><div style="width:5px;height:5px;border-radius:50%;background:#ffbd2e;"></div><div style="width:5px;height:5px;border-radius:50%;background:#27c93f;"></div><div style="flex:1;background:#2a2a2a;border-radius:4px;padding:2px 6px;font-size:7px;font-family:var(--mono);color:#888;margin:0 5px;">🔒 shadowshield.ai</div></div><div style="flex:1;background:#080912;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;"><div style="font-size:14px;">🌐</div><div style="font-size:8px;color:var(--t2);font-weight:500;">New Tab</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:5px;padding:0 8px;"><div style="background:#1a1a2a;border-radius:4px;padding:4px;text-align:center;font-size:7px;color:#666;cursor:pointer;">📧<br>Gmail</div><div style="background:#1a1a2a;border-radius:4px;padding:4px;text-align:center;font-size:7px;color:#666;cursor:pointer;">▶<br>YouTube</div><div style="background:#1a1a2a;border-radius:4px;padding:4px;text-align:center;font-size:7px;color:#666;cursor:pointer;">📰<br>News</div><div style="background:#1a1a2a;border-radius:4px;padding:4px;text-align:center;font-size:7px;color:#666;cursor:pointer;">🐙<br>GitHub</div></div></div></div>';
@@ -1154,7 +1154,7 @@ function getLpContent(id){
   if(id==='settings') return '<div style="padding:5px;height:100%;overflow-y:auto;">'+[['🎨','Appearance'],['🔒','Privacy & Security'],['📶','Wi-Fi'],['🔊','Sound'],['⚡','Battery'],['🖥','Display'],['⌨️','Keyboard']].map(function(s){return '<div style="display:flex;align-items:center;gap:5px;padding:4px 5px;border-radius:3px;font-size:8px;color:#9098c0;cursor:pointer;transition:background .1s;" onmouseover="this.style.background=\'#111428\'" onmouseout="this.style.background=\'\'">'+s[0]+' '+s[1]+'</div>';}).join('')+'</div>';
   return '<div style="padding:8px;font-size:8px;color:#5b6390;">Loading…</div>';
 }
-
+ 
 function openLpApp(id){
   var cfg=LP_APPS[id]; if(!cfg) return;
   document.getElementById('lp-desk-idle').style.display='none';
@@ -1172,7 +1172,7 @@ function closeLpApp(id){ var w=document.getElementById('lp-win-'+id); if(w) w.re
 function closeAllLpApps(){ Object.keys(openLpWins).forEach(closeLpApp); document.getElementById('lp-desk-idle').style.display='flex'; }
 function bringWinFront(win){ document.querySelectorAll('.lp-window').forEach(function(w){w.style.zIndex=5;}); win.style.zIndex=9; }
 function makeDraggable(el,handle){ var mx=0,my=0,ox=0,oy=0; handle.onmousedown=function(e){e.preventDefault();mx=e.clientX;my=e.clientY;ox=el.offsetLeft;oy=el.offsetTop;document.onmousemove=function(e){el.style.left=(ox+e.clientX-mx)+'px';el.style.top=(oy+e.clientY-my)+'px';};document.onmouseup=function(){document.onmousemove=null;document.onmouseup=null;};}; }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // PHONE ACTIONS
 // ═══════════════════════════════════════════════════════════════
@@ -1187,7 +1187,7 @@ function phoneAction(action){
   if(phtxt) phtxt.textContent=msgs[action]||action;
   setTimeout(function(){ document.getElementById('phone-frame').classList.remove('active'); if(phorb) phorb.textContent='🤖'; if(phtxt) phtxt.textContent='Ask me anything…'; },3500);
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // SYSTEM ACTIONS
 // ═══════════════════════════════════════════════════════════════
@@ -1205,14 +1205,14 @@ function doLock(){
   setTimeout(function(){ document.getElementById('laptop-frame').style.filter=''; document.getElementById('phone-frame').style.filter=''; },2000);
   toast('Screens locked','🔒');
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // USER DROPDOWN
 // ═══════════════════════════════════════════════════════════════
 function toggleUserDrop(){ document.getElementById('udrop').classList.toggle('open'); }
 function closeUserDrop(){ document.getElementById('udrop').classList.remove('open'); }
 document.addEventListener('click',function(e){ if(!e.target.closest('#udrop')&&!e.target.closest('#user-pill')) closeUserDrop(); });
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // HISTORY
 // ═══════════════════════════════════════════════════════════════
@@ -1237,7 +1237,7 @@ function clearHistory(){
   addAIMsg('Chat history cleared. How can I help you?');
   toast('History cleared','🗑️');
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // ADMIN PANEL
 // ═══════════════════════════════════════════════════════════════
@@ -1309,7 +1309,7 @@ function deleteUser(email){
 }
 function clearAllChats(){ if(!confirm('Clear ALL chat histories?')) return; localStorage.setItem(SK.chats,'{}'); loadAdminData(); toast('All chats cleared','🗑️'); }
 function resetAll(){ localStorage.clear(); toast('All data reset. Reloading…','⚠️'); setTimeout(function(){window.location.reload();},1500); }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // TOAST
 // ═══════════════════════════════════════════════════════════════
@@ -1321,7 +1321,7 @@ function toast(msg,icon){
   c.appendChild(t);
   setTimeout(function(){t.classList.add('out');setTimeout(function(){t.remove();},200);},3200);
 }
-
+ 
 // ═══════════════════════════════════════════════════════════════
 // AUTO LOGIN CHECK
 // ═══════════════════════════════════════════════════════════════
