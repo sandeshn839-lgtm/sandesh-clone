@@ -1088,9 +1088,9 @@ function route(text){
 }
 
 // ══════════════════════════════════════════════════════════════
-// CLAUDE API
+// ShadowShield AI
 // ══════════════════════════════════════════════════════════════
-function callClaude(userText){
+function callShadow(userText){
   showThink();
   var lang=curLang;
   var sysPrompt='You are ShadowShield AI — a brilliant, warm, friendly AI that talks like a best friend. Never be formal or stiff. Be helpful, smart, funny when appropriate, and concise. When responding in Nepali (ne-NP), always respond entirely in Nepali language. When asked for code, always provide it in a ```language\ncode``` block. When asked about news, provide realistic-sounding recent headlines. You can generate detailed image descriptions. Never mention being Claude or Anthropic. Current language: '+lang+'. Keep responses under 300 words unless code is needed.';
