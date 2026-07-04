@@ -1120,11 +1120,18 @@ function callAI(text,imgBase64){
    body: JSON.stringify({
     message: text})
 })
-  .then(r=>r.json())
-  .then(d=>{
-    var reply=d.content&&d.content[0]?d.content[0].text:fallback(text);
-    addAIMsg(reply); speakTTS(reply);
-  })
+ .then(response => response.json())
+.then(data => {
+    var reply = data.reply;
+    addAIMsg(reply);
+    speakTTS(reply);
+})
+.catch(error => {
+    console.error(error);
+    var reply = "Connection to AI server failed.";
+    addAIMsg(reply);
+    speakTTS(reply);
+});
   .catch(()=>{
     var reply=fallback(text);
     addAIMsg(reply); speakTTS(reply);
