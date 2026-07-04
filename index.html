@@ -1117,8 +1117,9 @@ function callAI(text,imgBase64){
  fetch("https://shadowshield-api-production.up.railway.app/ask", {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,system:sys,messages})
-  })
+   body: JSON.stringify({
+    message: text
+})
   .then(r=>r.json())
   .then(d=>{
     var reply=d.content&&d.content[0]?d.content[0].text:fallback(text);
