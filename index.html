@@ -1114,7 +1114,7 @@ function callAI(text,imgBase64){
     messages=[{role:'user',content:text}];
   }
  
-  fetch('https://api.anthropic.com/v1/messages',{
+ fetch("https://shadowshield-api-production.up.railway.app/ask", {
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:1200,system:sys,messages})
