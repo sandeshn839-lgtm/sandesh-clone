@@ -31,11 +31,10 @@ def ask_ai():
                 'reply': 'No message received.'
             })
 
-        url = (
-            "https://generativelanguage.googleapis.com/"
-            f"v1beta/models/gemini-1.5-flash:generateContent?key={API_KEY}"
-        )
-
+       url = (
+    "https://generativelanguage.googleapis.com/"
+    f"v1beta/models/gemini-2.5-flash:generateContent?key={API_KEY}"
+)
         payload = {
 
             "contents": [
