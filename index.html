@@ -21,7 +21,7 @@ button{cursor:pointer;}
 ::-webkit-scrollbar{width:3px;height:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:rgba(0,212,255,0.2);border-radius:2px;}
-
+ 
 /* HUD */
 #hud{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;}
 .hud-grid{position:absolute;inset:0;
@@ -51,7 +51,7 @@ button{cursor:pointer;}
 .hc-bl{bottom:10px;left:10px;transform:scaleY(-1);}.hc-br{bottom:10px;right:10px;transform:scale(-1);}
 .hscan{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(0,212,255,0.35),transparent);animation:scan 9s linear infinite;opacity:.25;}
 @keyframes scan{0%{top:-1px}100%{top:100%}}
-
+ 
 /* LOGIN */
 #login-page{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9999;}
 #login-page.hidden{display:none;}
@@ -84,7 +84,7 @@ button{cursor:pointer;}
   font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;text-decoration:none;border:1px solid;}
 .l-fb{background:rgba(24,119,242,0.12);border-color:rgba(24,119,242,0.35);color:#4e9af1;}
 .l-fb:hover{background:rgba(24,119,242,0.22);}
-
+ 
 /* PAYMENT */
 #pay-page{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:9998;}
 #pay-page.hidden{display:none;}
@@ -109,11 +109,11 @@ button{cursor:pointer;}
 .pskip{font-size:11px;color:var(--t3);margin-top:12px;cursor:pointer;text-decoration:underline;}
 .pskip:hover{color:var(--t2);}
 .p-social{display:flex;justify-content:center;gap:14px;margin-top:14px;padding-top:12px;border-top:1px solid var(--bd);}
-
+ 
 /* MAIN APP */
 #app{display:none;width:100vw;height:100vh;position:relative;z-index:1;}
 #app.visible{display:flex;}
-
+ 
 /* SIDEBAR */
 .sidebar{width:256px;min-width:256px;background:rgba(0,6,18,0.98);border-right:1px solid var(--bd);
   display:flex;flex-direction:column;height:100vh;overflow:hidden;flex-shrink:0;
@@ -150,7 +150,7 @@ button{cursor:pointer;}
   padding:5px 8px;font-size:11px;color:var(--t1);outline:none;cursor:pointer;}
 .lang-sel:focus{border-color:var(--c2);}
 .lang-sel option{background:#000820;}
-
+ 
 /* Voice selector */
 .sb-voice{padding:8px 12px;border-top:1px solid var(--bd);display:flex;align-items:center;gap:8px;flex-shrink:0;}
 .voice-lbl{font-size:10px;color:var(--t3);flex-shrink:0;}
@@ -158,7 +158,7 @@ button{cursor:pointer;}
   padding:5px 8px;font-size:11px;color:var(--t1);outline:none;cursor:pointer;}
 .voice-sel:focus{border-color:var(--c2);}
 .voice-sel option{background:#000820;}
-
+ 
 /* User area */
 .sb-user-wrap{position:relative;flex-shrink:0;}
 .udrop{position:absolute;bottom:100%;left:0;right:0;
@@ -181,7 +181,7 @@ button{cursor:pointer;}
 .sb-uname{font-size:12px;font-weight:600;color:var(--t1);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .sb-uplan{font-size:10px;color:var(--t3);}
 .sb-more{font-size:16px;color:var(--t3);margin-left:auto;}
-
+ 
 /* MAIN AREA */
 .main-area{flex:1;display:flex;flex-direction:column;height:100vh;overflow:hidden;position:relative;}
 .topbar{display:flex;align-items:center;padding:0 18px;height:52px;
@@ -201,7 +201,7 @@ button{cursor:pointer;}
 .sd-a{background:var(--a);box-shadow:0 0 5px var(--a);}
 @keyframes dpulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 #tb-clock{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:70px;text-align:right;}
-
+ 
 /* CHAT */
 .chat-wrap{flex:1;overflow-y:auto;padding:22px 20px;position:relative;}
 .chat-wrap::-webkit-scrollbar{width:3px;}
@@ -215,7 +215,7 @@ button{cursor:pointer;}
 .wlc-title{font-family:var(--orb);font-size:30px;font-weight:800;letter-spacing:.18em;
   background:linear-gradient(135deg,var(--c),var(--b));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px;}
 .wlc-sub{font-size:13px;color:var(--t3);max-width:420px;line-height:1.7;margin-bottom:26px;}
-
+ 
 /* Messages */
 .msg-w{display:flex;gap:11px;align-items:flex-start;animation:msgin .22s ease;}
 @keyframes msgin{from{opacity:0;transform:translateY(7px);}to{opacity:1;transform:none;}}
@@ -244,7 +244,7 @@ button{cursor:pointer;}
 .day-sep{display:flex;align-items:center;gap:10px;margin:4px 0;}
 .day-line{flex:1;height:1px;background:var(--bd);}
 .day-txt{font-size:9px;color:var(--t4);font-family:var(--mono);}
-
+ 
 /* INPUT */
 .inp-section{padding:10px 18px 14px;background:rgba(0,4,14,0.95);border-top:1px solid var(--bd);flex-shrink:0;backdrop-filter:blur(14px);}
 #img-prev-wrap{padding:4px 4px 6px;display:none;align-items:center;gap:8px;}
@@ -279,7 +279,7 @@ button{cursor:pointer;}
   background:rgba(0,212,255,0.1);border:1px solid var(--c2);border-radius:20px;
   font-size:11px;color:var(--c);font-family:var(--mono);z-index:50;display:none;}
 .wake-pill.show{display:block;animation:msgin .3s ease;}
-
+ 
 /* Camera */
 .cam-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);
   z-index:8000;display:none;align-items:center;justify-content:center;}
@@ -293,7 +293,7 @@ button{cursor:pointer;}
 .cbtn-cap:hover{opacity:.88;}
 .cbtn-cls{background:transparent;border:1px solid var(--bd2);color:var(--t2);}
 .cbtn-cls:hover{border-color:var(--r);color:var(--r);}
-
+ 
 /* Permission modal */
 .perm{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);
   z-index:9800;display:none;align-items:center;justify-content:center;}
@@ -304,7 +304,7 @@ button{cursor:pointer;}
 .perm-t{font-family:var(--orb);font-size:14px;color:var(--c);margin-bottom:8px;letter-spacing:.1em;}
 .perm-d{font-size:11px;color:var(--t3);line-height:1.65;margin-bottom:22px;}
 .perm-acts{display:flex;gap:9px;justify-content:center;}
-
+ 
 /* ADMIN PANEL */
 #admin{position:fixed;inset:0;background:var(--bg);z-index:7000;display:none;flex-direction:column;}
 #admin.open{display:flex;}
@@ -337,7 +337,7 @@ button{cursor:pointer;}
   padding:7px 11px;font-size:12px;color:var(--t1);outline:none;flex:1;min-width:160px;}
 .add-inp:focus{border-color:var(--c2);}
 .add-inp::placeholder{color:var(--t4);}
-
+ 
 /* Buttons */
 .btn-p{display:inline-flex;align-items:center;gap:5px;padding:8px 16px;border-radius:7px;
   background:linear-gradient(135deg,rgba(0,212,255,0.18),rgba(0,80,255,0.14));
@@ -347,7 +347,7 @@ button{cursor:pointer;}
   background:rgba(0,14,34,0.85);border:1px solid var(--bd2);color:var(--t2);
   font-size:12px;font-weight:500;cursor:pointer;transition:all .15s;}
 .btn-s:hover{background:rgba(0,20,45,.9);color:var(--t1);}
-
+ 
 /* Toast */
 .toast-c{position:fixed;bottom:18px;right:18px;z-index:9990;display:flex;flex-direction:column;gap:6px;pointer-events:none;align-items:flex-end;}
 .toast{display:flex;align-items:center;gap:8px;padding:9px 16px;
@@ -357,12 +357,15 @@ button{cursor:pointer;}
 .toast.out{animation:tout .2s ease forwards;}
 @keyframes tin{from{opacity:0;transform:translateX(10px);}to{opacity:1;transform:none;}}
 @keyframes tout{to{opacity:0;transform:translateX(10px);}}
-
+ 
 /* PASSWORD DISPLAY */
 .pass-box{background:rgba(0,212,255,0.06);border:1px solid var(--bd2);border-radius:10px;
   padding:14px 16px;margin-top:14px;font-family:var(--mono);font-size:13px;color:var(--c);
   text-align:center;letter-spacing:.1em;}
-
+ 
+.sec-field{margin-bottom:14px;max-width:360px;}
+.sec-lbl{font-size:10px;font-weight:600;color:var(--c2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;display:block;}
+ 
 @media(max-width:700px){
   .sidebar{display:none;}
   .sidebar.mob-open{display:flex;position:fixed;inset:0 auto 0 0;z-index:100;width:256px;}
@@ -370,7 +373,7 @@ button{cursor:pointer;}
 </style>
 </head>
 <body>
-
+ 
 <!-- HUD BG -->
 <div id="hud">
   <div class="hud-grid"></div>
@@ -389,7 +392,7 @@ button{cursor:pointer;}
   <div class="hcorner hc-br"></div>
   <div class="hscan"></div>
 </div>
-
+ 
 <!-- LOGIN -->
 <div id="login-page">
   <div class="lcard">
@@ -415,15 +418,15 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <!-- PAYMENT -->
 <div id="pay-page" class="hidden">
   <div class="pcard">
     <div class="pcard-ico">⬡</div>
     <div class="pcard-title">HEXA AI PREMIUM</div>
-    <div class="pcard-price">₹50</div>
+    <div class="pcard-price">₹100</div>
     <div class="pcard-period">per month · Unlimited Access</div>
-    <div class="pupi">📲 UPI ID: <strong>hexaai@upi</strong> &nbsp;|&nbsp; Amount: ₹50<br><small style="color:var(--t3);">Send to Facebook: Sandesh Neupane for confirmation</small></div>
+    <div class="pupi">📲 UPI ID: <strong>hexaai@upi</strong> &nbsp;|&nbsp; Amount: ₹100<br><small style="color:var(--t3);">Send to Facebook: Sandesh Neupane for confirmation</small></div>
     <div class="pfeats">
       <div class="pfeat"><span class="pfeat-ic">✦</span>Unlimited voice commands in 12 languages</div>
       <div class="pfeat"><span class="pfeat-ic">✦</span>AI image generation</div>
@@ -441,10 +444,10 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <!-- WAKE PILL -->
 <div class="wake-pill" id="wake-pill">⬡ Hey Hexa — Listening…</div>
-
+ 
 <!-- MIC PERMISSION -->
 <div class="perm" id="perm-modal">
   <div class="perm-box">
@@ -457,7 +460,7 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <!-- CAMERA -->
 <div class="cam-modal" id="cam-modal">
   <div class="cam-box">
@@ -470,7 +473,7 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <!-- ADMIN PANEL -->
 <div id="admin">
   <div class="adm-top">
@@ -487,7 +490,7 @@ button{cursor:pointer;}
       <div class="an" onclick="setTab('adduser',this)">➕ Add User</div>
       <div class="an" onclick="setTab('chats',this)">💬 All Chats</div>
       <div class="an" onclick="setTab('sessions',this)">🔑 Sessions</div>
-      <div class="an" onclick="setTab('password',this)">🔐 Password</div>
+      <div class="an" onclick="setTab('settings',this)">⚙️ Settings</div>
     </div>
     <div class="adm-cnt">
       <div class="atab active" id="atab-overview">
@@ -499,8 +502,8 @@ button{cursor:pointer;}
         </div>
       </div>
       <div class="atab" id="atab-users">
-        <div class="at-h">Registered Users</div><div class="at-s">All accounts with access control</div>
-        <table class="dtbl"><thead><tr><th>Email</th><th>Role</th><th>Plan</th><th>Msgs</th><th>Access</th><th>Action</th></tr></thead><tbody id="adm-users"></tbody></table>
+        <div class="at-h">Registered Users</div><div class="at-s">All accounts with access control — change role, ban/unban, or grant access</div>
+        <table class="dtbl"><thead><tr><th>Email</th><th>Role</th><th>Plan</th><th>Msgs</th><th>Status</th><th>Actions</th></tr></thead><tbody id="adm-users"></tbody></table>
       </div>
       <div class="atab" id="atab-adduser">
         <div class="at-h">Add / Manage Access</div>
@@ -509,14 +512,14 @@ button{cursor:pointer;}
           <input class="add-inp" id="add-email" type="email" placeholder="user@gmail.com">
           <select class="add-inp" id="add-role" style="flex:0;min-width:120px;">
             <option value="free">Free Access</option>
-            <option value="paid">Paid (₹50)</option>
+            <option value="paid">Paid (₹100)</option>
             <option value="admin">Admin</option>
           </select>
           <button class="btn-p" onclick="adminAddUser()">➕ Add User</button>
         </div>
         <div style="font-size:11px;color:var(--t3);margin-top:8px;line-height:1.6;">
           ⬡ <strong style="color:var(--c2);">Free</strong> — Full access, no payment required<br>
-          ⬡ <strong style="color:var(--c2);">Paid</strong> — Must pay ₹50/month to activate<br>
+          ⬡ <strong style="color:var(--c2);">Paid</strong> — ₹100/month to activate<br>
           ⬡ <strong style="color:var(--c2);">Admin</strong> — Full access + admin panel
         </div>
         <div id="add-result" style="margin-top:14px;font-size:12px;color:var(--g);"></div>
@@ -530,23 +533,41 @@ button{cursor:pointer;}
         <div class="at-h">Login Sessions</div><div class="at-s">Access log</div>
         <table class="dtbl"><thead><tr><th>Email</th><th>Time</th><th>Status</th></tr></thead><tbody id="adm-sessions"></tbody></table>
       </div>
-      <div class="atab" id="atab-password">
-        <div class="at-h">System Password</div>
-        <div class="at-s">Master admin password for Hexa AI</div>
-        <div class="pass-box">
-          🔐 Admin Password: <strong>HEXA@2025#SS</strong>
+      <div class="atab" id="atab-settings">
+        <div class="at-h">Settings &amp; Security</div>
+        <div class="at-s">Manage admin password and platform security</div>
+ 
+        <div style="background:rgba(0,14,34,.85);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:16px;max-width:420px;">
+          <div style="font-size:12px;font-weight:600;color:var(--t1);margin-bottom:12px;">🔐 Change Admin Password</div>
+          <div class="sec-field">
+            <label class="sec-lbl">Current Password</label>
+            <input class="add-inp" id="cp-old" type="password" placeholder="Current password" style="width:100%;">
+          </div>
+          <div class="sec-field">
+            <label class="sec-lbl">New Password</label>
+            <input class="add-inp" id="cp-new" type="password" placeholder="New password (min 6 chars)" style="width:100%;">
+          </div>
+          <button class="btn-p" onclick="changeAdminPassword()">⬡ Update Password</button>
+          <div id="cp-result" style="margin-top:10px;font-size:11px;"></div>
         </div>
-        <div style="margin-top:12px;font-size:11px;color:var(--t3);line-height:1.7;">
-          ⬡ Admin Gmail: <span style="color:var(--c);">sandeshn839@gmail.com</span><br>
-          ⬡ Admin Password: <span style="color:var(--c);">HEXA@2025#SS</span><br>
-          ⬡ Free Emails: sandesh99998@gmail.com, sandeshn839@gmail.com<br>
-          ⬡ Payment: ₹50/month for all other users
+ 
+        <div style="background:rgba(0,14,34,.85);border:1px solid var(--bd);border-radius:10px;padding:16px;max-width:420px;">
+          <div style="font-size:12px;font-weight:600;color:var(--t1);margin-bottom:10px;">🛡️ Account Info</div>
+          <div style="font-size:11px;color:var(--t3);line-height:1.8;">
+            ⬡ Admin Gmail: <span style="color:var(--c);">sandeshn839@gmail.com</span><br>
+            ⬡ Current Password: <span id="cur-pass-display" style="color:var(--c);font-family:var(--mono);"></span><br>
+            ⬡ Free Emails: sandesh99998@gmail.com, sandeshn839@gmail.com<br>
+            ⬡ Subscription Price: ₹100/month
+          </div>
+          <div style="font-size:10px;color:var(--t4);margin-top:12px;line-height:1.6;">
+            Note: since this app has no real server-side auth, the password is stored locally in this browser. For real security, move login/payment verification to your Railway backend.
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
+ 
 <!-- MAIN APP -->
 <div id="app">
   <div class="sidebar" id="sidebar">
@@ -603,7 +624,7 @@ button{cursor:pointer;}
       </div>
     </div>
   </div>
-
+ 
   <div class="main-area">
     <div class="topbar">
       <button class="tb-hbtn" onclick="toggleSB()">☰</button>
@@ -651,9 +672,9 @@ button{cursor:pointer;}
     </div>
   </div>
 </div>
-
+ 
 <div class="toast-c" id="toast-c"></div>
-
+ 
 <script>
 // ══════════════════════════════════════════════
 // CONFIG
@@ -661,10 +682,11 @@ button{cursor:pointer;}
 var API_URL = 'https://shadowshield-api-production.up.railway.app/ask';
 var FREE_EMAILS = ['sandesh99998@gmail.com','sandeshn839@gmail.com'];
 var ADMIN_EMAILS = ['sandeshn839@gmail.com'];
-var ADMIN_PASS = 'HEXA@2025#SS';
-var SK = {sess:'hx_s',users:'hx_u',payments:'hx_p',sessions:'hx_ls'};
+var DEFAULT_ADMIN_PASS = 'HEXA@2025#SS';
+var SUB_PRICE = 100; // rupees per month
+var SK = {sess:'hx_s',users:'hx_u',payments:'hx_p',sessions:'hx_ls',adminpass:'hx_ap'};
 var CHAT_KEY = function(e){ return 'hx_c_'+e; };
-
+ 
 var selectedLang = 'en-US';
 var voicePref = 'female';
 var currentSession = null;
@@ -676,7 +698,10 @@ var waveIv = null;
 var micActive = false;
 var recognition = null;
 var awRec = null;
-
+ 
+function getAdminPass(){ return localStorage.getItem(SK.adminpass) || DEFAULT_ADMIN_PASS; }
+function setAdminPass(p){ localStorage.setItem(SK.adminpass, p); }
+ 
 var APP_MAP = {
   youtube:'https://youtube.com',facebook:'https://facebook.com',instagram:'https://instagram.com',
   twitter:'https://twitter.com',x:'https://x.com',google:'https://google.com',
@@ -697,7 +722,7 @@ var APP_MAP = {
   airbnb:'https://airbnb.com',uber:'https://uber.com',notion:'https://notion.so',
   figma:'https://figma.com',canva:'https://canva.com',
 };
-
+ 
 var TZ_MAP = {
   'kathmandu':'Asia/Kathmandu','nepal':'Asia/Kathmandu',
   'new york':'America/New_York','newyork':'America/New_York','nyc':'America/New_York',
@@ -724,13 +749,13 @@ var TZ_MAP = {
   'hong kong':'Asia/Hong_Kong','manila':'Asia/Manila',
   'jakarta':'Asia/Jakarta','kuala lumpur':'Asia/Kuala_Lumpur',
 };
-
+ 
 var LANG_NAMES = {
   'en-US':'English','ne-NP':'Nepali','hi-IN':'Hindi','zh-CN':'Chinese',
   'ja-JP':'Japanese','ko-KR':'Korean','es-ES':'Spanish','fr-FR':'French',
   'de-DE':'German','ar-SA':'Arabic','pt-BR':'Portuguese','ru-RU':'Russian'
 };
-
+ 
 // ══════════════════════════════════════════════
 // STORAGE
 // ══════════════════════════════════════════════
@@ -747,7 +772,7 @@ function getLogSess(){return gLS(SK.sessions,[]);}
 function addLogSess(e){var s=getLogSess();s.unshift({email:e,time:new Date().toISOString()});if(s.length>80)s=s.slice(0,80);sLS(SK.sessions,s);}
 function getUserChats(email){return gLS(CHAT_KEY(email),{});}
 function saveUserChats(email,data){sLS(CHAT_KEY(email),data);}
-
+ 
 // ══════════════════════════════════════════════
 // LOGIN
 // ══════════════════════════════════════════════
@@ -758,11 +783,15 @@ function doLogin(){
   err.textContent = '';
   if(!email||!pass){err.textContent='Please enter email and password.';return;}
   if(!email.includes('@')){err.textContent='Enter a valid email.';return;}
-
+ 
   // Admin check
-  if(ADMIN_EMAILS.includes(email) && pass===ADMIN_PASS){loginOK(email,'admin');return;}
-
+  if(ADMIN_EMAILS.includes(email) && pass===getAdminPass()){loginOK(email,'admin');return;}
+ 
   var users = getUsers();
+ 
+  // Banned check
+  if(users[email] && users[email].banned){err.textContent='This account has been suspended.';return;}
+ 
   // Check if admin added this user with specific access
   if(users[email]){
     if(users[email].pass && users[email].pass !== pass){err.textContent='Incorrect password.';return;}
@@ -770,35 +799,35 @@ function doLogin(){
     saveUsers(users);
   } else {
     // New user — register
-    users[email]={email,pass,role:'user',access:'pending',created:new Date().toISOString(),messages:0};
+    users[email]={email,pass,role:'user',access:'pending',created:new Date().toISOString(),messages:0,banned:false};
     saveUsers(users);
   }
-
+ 
   // Free emails bypass payment
   if(FREE_EMAILS.includes(email)){loginOK(email, ADMIN_EMAILS.includes(email)?'admin':(users[email].role||'user'));return;}
-
+ 
   // Check admin-granted access
   if(users[email] && users[email].access === 'free'){loginOK(email,users[email].role||'user');return;}
-
+ 
   // Payment check
   var payments = getPayments();
   if(payments[email] && payments[email].active){loginOK(email,users[email].role||'user');return;}
-
+ 
   // Show payment page
   currentSession = {email, role:users[email].role||'user', loginTime:new Date().toISOString()};
   document.getElementById('login-page').classList.add('hidden');
   document.getElementById('pay-page').classList.remove('hidden');
 }
-
+ 
 function confirmPayment(){
   if(!currentSession)return;
   var payments=getPayments();
-  payments[currentSession.email]={active:true,date:new Date().toISOString()};
+  payments[currentSession.email]={active:true,date:new Date().toISOString(),amount:SUB_PRICE};
   savePayments(payments);
   document.getElementById('pay-page').classList.add('hidden');
   loginOK(currentSession.email, currentSession.role);
 }
-
+ 
 function skipPayment(){
   var code=prompt('Enter activation code:');
   if(!code)return;
@@ -808,7 +837,7 @@ function skipPayment(){
     toast('Invalid activation code','⚠️');
   }
 }
-
+ 
 function loginOK(email,role){
   var sess={email,role,loginTime:new Date().toISOString()};
   saveSession(sess); addLogSess(email);
@@ -816,9 +845,9 @@ function loginOK(email,role){
   document.getElementById('pay-page').classList.add('hidden');
   initApp(sess);
 }
-
+ 
 function doLogout(){clearSess();window.location.reload();}
-
+ 
 // ══════════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════════
@@ -836,7 +865,7 @@ function initApp(sess){
   startClock();
   requestMic();
 }
-
+ 
 // ══════════════════════════════════════════════
 // CHATS
 // ══════════════════════════════════════════════
@@ -847,7 +876,7 @@ function loadChats(){
   else newChat();
   renderSB();
 }
-
+ 
 function newChat(){
   var id='c'+Date.now();
   chatSessions[id]={id,title:'New Chat',msgs:[],created:Date.now()};
@@ -856,7 +885,7 @@ function newChat(){
   renderSB();
   document.getElementById('chat-area').innerHTML='<div class="welcome"><div class="wlc-hex">⬡</div><div class="wlc-title">HEXA AI</div><div class="wlc-sub">Ask anything! Say <strong style="color:var(--c)">Hey Hexa</strong> for instant voice answers — no app needed.</div></div>';
 }
-
+ 
 function loadChat(id){
   currentChatId=id;
   var chat=chatSessions[id]; if(!chat)return;
@@ -869,9 +898,9 @@ function loadChat(id){
   renderSB();
   document.getElementById('chat-wrap').scrollTop=99999;
 }
-
+ 
 function saveChats(){saveUserChats(currentSession.email,chatSessions);}
-
+ 
 function renderSB(){
   var el=document.getElementById('sb-chats'); el.innerHTML='';
   var keys=Object.keys(chatSessions).sort((a,b)=>chatSessions[b].created-chatSessions[a].created);
@@ -887,29 +916,29 @@ function renderSB(){
     el.appendChild(div);
   });
 }
-
+ 
 function delChat(id){
   if(!confirm('Delete this chat?'))return;
   delete chatSessions[id];saveChats();
   var keys=Object.keys(chatSessions);
   if(keys.length>0)loadChat(keys[0]);else newChat();
 }
-
+ 
 function hEsc(s){return String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
+ 
 // ══════════════════════════════════════════════
 // CLOCK
 // ══════════════════════════════════════════════
 function startClock(){
   setInterval(()=>{var el=document.getElementById('tb-clock');if(el)el.textContent=new Date().toLocaleTimeString();},1000);
 }
-
+ 
 function setStatus(txt,cls){
   var dot=document.getElementById('s-dot'),stxt=document.getElementById('s-txt');
   if(dot)dot.className='sdot '+(cls||'sd-g');
   if(stxt)stxt.textContent=txt;
 }
-
+ 
 // ══════════════════════════════════════════════
 // MESSAGES
 // ══════════════════════════════════════════════
@@ -924,10 +953,10 @@ function sendMsg(){
   setStatus('⬡ Thinking…','sd-a');
   routeCmd(txt,imgToSend);
 }
-
+ 
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMsg();}}
 function autoH(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,150)+'px';}
-
+ 
 function addUserMsg(text){
   var wl=document.getElementById('welcome');if(wl)wl.remove();
   var msg={role:'user',text,time:new Date().toISOString()};
@@ -937,7 +966,7 @@ function addUserMsg(text){
     renderSB();
   }
 }
-
+ 
 function addAIMsg(text,imgUrl){
   var msg={role:'ai',text,time:new Date().toISOString(),imgUrl};
   pushMsg(msg); removeThink(); renderMsg(msg);
@@ -948,13 +977,13 @@ function addAIMsg(text,imgUrl){
     saveUsers(users);
   }
 }
-
+ 
 function pushMsg(msg){
   if(!currentChatId||!chatSessions[currentChatId])return;
   chatSessions[currentChatId].msgs.push(msg);
   saveChats();
 }
-
+ 
 function renderMsg(msg){
   var area=document.getElementById('chat-area');
   var wrap=document.createElement('div');
@@ -985,7 +1014,7 @@ function renderMsg(msg){
   area.appendChild(wrap);
   document.getElementById('chat-wrap').scrollTop=99999;
 }
-
+ 
 function showThink(){
   var area=document.getElementById('chat-area');
   if(document.getElementById('thk'))return;
@@ -994,26 +1023,26 @@ function showThink(){
   area.appendChild(el); document.getElementById('chat-wrap').scrollTop=99999;
 }
 function removeThink(){var e=document.getElementById('thk');if(e)e.remove();}
-
+ 
 function respond(text,delay,imgUrl){
   delay=delay||500;
   showThink();
   setTimeout(()=>{addAIMsg(text,imgUrl);speakTTS(text);},delay);
 }
-
+ 
 // ══════════════════════════════════════════════
 // COMMAND ROUTER
 // ══════════════════════════════════════════════
 function routeCmd(text,imgBase64){
   if(!text&&imgBase64){callAI('Describe and analyze this image in detail.',imgBase64);return;}
   var t=text.toLowerCase().trim();
-
+ 
   // HELLO / WAKE
   if(!t||t==='hello'||t==='hi'||t==='hey'||t==='hey hexa'||t==='hexa'||t.includes('wake up')){
     var gs=["Hey! What's up? 😊","I'm here! What do you need? ⬡","Hexa online! What can I do? 🔥","Yeah? I'm listening! ✨"];
     respond(gs[Math.floor(Math.random()*gs.length)]);return;
   }
-
+ 
   // OPEN APP
   var openRx=t.match(/(?:open|launch|go to|show|take me to|navigate to|visit)\s+(.+)/i);
   if(openRx){
@@ -1026,7 +1055,7 @@ function routeCmd(text,imgBase64){
       respond('⬡ Opening **'+appRaw+'.com** in new tab! 🌐');return;
     }
   }
-
+ 
   // PLAY YOUTUBE
   var playRx=t.match(/play\s+(.+?)(?:\s+on\s+(?:youtube|spotify))?$/i);
   if(playRx&&(t.includes('youtube')||t.includes('spotify')||t.includes('song')||t.includes('music')||(t.startsWith('play ')))){
@@ -1040,14 +1069,14 @@ function routeCmd(text,imgBase64){
     }
     return;
   }
-
+ 
   // SEARCH
   if(t.match(/^(search|google)\s+/)||t.includes('search for ')||t.includes('look up ')){
     var sq=text.replace(/^(search|google)\s+(for\s+)?/i,'').replace(/look\s+up\s+/i,'').trim();
     window.open('https://google.com/search?q='+encodeURIComponent(sq),'_blank');
     respond('🔍 Searching **"'+sq+'"** on Google!');return;
   }
-
+ 
   // TIME IN PLACE
   var timeRx=t.match(/(?:time\s+in|time\s+at|what(?:'s|\s+is)\s+the\s+time\s+in|current\s+time\s+in|what\s+time\s+is\s+it\s+in)\s+(.+)/i);
   if(timeRx){
@@ -1066,19 +1095,53 @@ function routeCmd(text,imgBase64){
     var now=new Date();
     respond('🕐 **'+now.toLocaleTimeString()+'**\n📅 **'+now.toDateString()+'**');return;
   }
-
+ 
   // DATE
   if(t.match(/what.*date|today.*date|what.*day.*today|current\s+date/)){
     respond('📅 Today is **'+new Date().toDateString()+'**');return;
   }
-
+ 
   // BATTERY
   if(t.includes('battery')){
     if(navigator.getBattery){navigator.getBattery().then(b=>respond('🔋 **'+(b.level*100).toFixed(0)+'%** · '+(b.charging?'⚡ Charging':'Not charging')));}
     else respond('🔋 Check your system tray for battery info!');
     return;
   }
-
+ 
+  // FULLSCREEN
+  if(t.match(/full\s*screen/)){
+    if(t.includes('exit')||t.includes('off')||t.includes('close')){
+      if(document.fullscreenElement)document.exitFullscreen();
+      respond('🖥️ Exited fullscreen.');
+    } else {
+      document.documentElement.requestFullscreen().catch(()=>{});
+      respond('🖥️ Entering fullscreen!');
+    }
+    return;
+  }
+ 
+  // COPY TO CLIPBOARD
+  var copyRx=t.match(/^copy\s+(.+)/i);
+  if(copyRx){
+    navigator.clipboard.writeText(copyRx[1]).then(()=>respond('📋 Copied to your clipboard!')).catch(()=>respond('⚠️ Clipboard access denied by browser.'));
+    return;
+  }
+ 
+  // NOTIFICATION
+  var notifRx=t.match(/(?:notify me|remind me|send a notification)\s*(?:that|to)?\s*(.*)/i);
+  if(notifRx){
+    if(Notification && Notification.permission==='granted'){
+      new Notification('⬡ Hexa Reminder',{body:notifRx[1]||'Reminder!'});
+      respond('🔔 Notification sent!');
+    } else if(Notification && Notification.permission!=='denied'){
+      Notification.requestPermission().then(p=>{
+        if(p==='granted'){new Notification('⬡ Hexa Reminder',{body:notifRx[1]||'Reminder!'});respond('🔔 Notification sent!');}
+        else respond('⚠️ Notification permission denied.');
+      });
+    } else respond('⚠️ Notifications are blocked in your browser settings.');
+    return;
+  }
+ 
   // IMAGE GENERATION
   var genRx=t.match(/(?:generate|create|draw|make|design|paint|show\s+me)\s+(?:a\s+|an\s+)?(?:image|photo|picture|art|drawing|illustration|painting|wallpaper|poster)\s+(?:of\s+)?(.+)/i);
   if(genRx){generateImg(genRx[1].trim());return;}
@@ -1086,7 +1149,7 @@ function routeCmd(text,imgBase64){
     var gp=text.replace(/^(generate|draw me|create an? image of?|make an? image of?|make an? photo of?)\s*/i,'').trim();
     generateImg(gp||'beautiful digital art');return;
   }
-
+ 
   // MATH
   var ms=t.replace(/(?:calculate|compute|what(?:'s|\s+is)|solve|evaluate|equals)/gi,'')
     .replace(/x\b/g,'*').replace(/×/g,'*').replace(/÷/g,'/')
@@ -1096,17 +1159,17 @@ function routeCmd(text,imgBase64){
   if(/^[\d\s\+\-\*\/\.\(\)\^%]+$/.test(ms)&&ms.replace(/\s/g,'').length>1){
     try{var res=Function('"use strict";return('+ms+')')();if(typeof res==='number'&&isFinite(res)){respond('🧮 **'+ms.trim()+' = '+res+'**');return;}}catch(e){}
   }
-
+ 
   // JOKE
   if(t.match(/joke|funny|laugh|humor|comedy|make me laugh/)){callAI('Tell me a genuinely funny, clever, original joke. Be creative, witty, use wordplay!',null);return;}
-
+ 
   // NEWS
   if(t.match(/news|what.*happening|latest news|breaking/)){
     window.open('https://news.google.com','_blank');
     callAI('Give a brief engaging summary of major current world news topics. Be informative and conversational.',null);return;
   }
-
-  // OS CONTROLS
+ 
+  // OS CONTROLS (informational only — browsers cannot directly execute these)
   if(t.match(/lock.*screen|screen.*lock/)){respond('🔒 **Windows**: Win+L &nbsp;|&nbsp; **Mac**: Cmd+Ctrl+Q &nbsp;|&nbsp; **Phone**: Power button 😊');return;}
   if(t.match(/volume\s*up|louder|increase\s*volume/)){respond('🔊 Volume up! Use your **keyboard volume keys** ↑');return;}
   if(t.match(/volume\s*down|quieter|lower\s*volume/)){respond('🔉 Volume down! Use your **keyboard volume keys** ↓');return;}
@@ -1116,21 +1179,21 @@ function routeCmd(text,imgBase64){
   if(t.match(/bluetooth/)){respond('🔵 **Bluetooth**: Check system settings.\n**Windows**: Win+I → Devices\n**Mac**: System Preferences → Bluetooth');return;}
   if(t.match(/shutdown|shut\s*down|power\s*off/)){respond('⚠️ To shut down:\n**Windows**: Start → Power → Shut down\n**Mac**: Apple menu → Shut Down');return;}
   if(t.match(/restart|reboot/)){respond('🔄 To restart:\n**Windows**: Start → Power → Restart\n**Mac**: Apple menu → Restart');return;}
-
+ 
   // WHO ARE YOU
   if(t.match(/who are you|what are you|your name|introduce yourself/)){
-    respond('⬡ I\'m **Hexa** — your personal AI bestie! 😎\n\n• **Open** any app or website instantly\n• **Generate** images\n• **Write code** in any language\n• **Answer** anything you ask\n• **Tell** world times, news, infinite jokes\n• **Solve** maths instantly\n• **Control** your OS shortcuts\n• **Understand** 12 languages\n\nJust say "Hey Hexa" — I\'ll always answer! 🚀');return;
+    respond('⬡ I\'m **Hexa** — your personal AI bestie! 😎\n\n• **Open** any app or website instantly\n• **Generate** images\n• **Write code** in any language\n• **Answer** anything you ask\n• **Tell** world times, news, infinite jokes\n• **Solve** maths instantly\n• **Control** your OS shortcuts, clipboard &amp; notifications\n• **Understand** 12 languages\n\nJust say "Hey Hexa" — I\'ll always answer! 🚀');return;
   }
-
+ 
   // HOW ARE YOU
   if(t.match(/how are you|how.*doing|you okay|you good/)){
     respond('Absolutely amazing, thanks for asking! 😊✨ All systems perfect. Ready to help you! What\'s on your mind?');return;
   }
-
+ 
   // DEFAULT → AI
   callAI(text,imgBase64);
 }
-
+ 
 // ══════════════════════════════════════════════
 // AI API — Railway Backend
 // ══════════════════════════════════════════════
@@ -1138,15 +1201,15 @@ function callAI(text,imgBase64){
   showThink();
   setStatus('⬡ Thinking…','sd-a');
   var langName=LANG_NAMES[selectedLang]||'English';
-
+ 
   // Build system context to inject into message
   var sysCtx='[SYSTEM: You are Hexa, a brilliant personal AI assistant. Talk like a genuine best friend — warm, fun, casual, supportive. Respond in '+langName+'. Never mention any AI company, model, or brand. Never say you are an AI. Be concise but complete. Use **bold** for key info. For code use triple backticks. Expert in all programming languages. Max 200 words unless writing code.]';
-
+ 
   var payload = {
     message: sysCtx + '\n\n' + (text||'Describe this image.'),
     lang: selectedLang
   };
-
+ 
   fetch(API_URL, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -1162,7 +1225,7 @@ function callAI(text,imgBase64){
     addAIMsg(reply); speakTTS(reply);
   });
 }
-
+ 
 function fallback(text){
   var t=(text||'').toLowerCase();
   if(t.match(/joke|funny/)) return "Why do programmers prefer dark mode? Because **light attracts bugs!** 🐛😂";
@@ -1170,7 +1233,7 @@ function fallback(text){
   if(t.match(/what|how|why|who/)) return "Great question! Let me think… My connection hiccupped, try again in a sec! 🔄";
   return "I'm here! ⬡ Connection blipped — try again in a moment, I've got you! 😊";
 }
-
+ 
 // ══════════════════════════════════════════════
 // IMAGE GENERATION
 // ══════════════════════════════════════════════
@@ -1185,7 +1248,7 @@ function generateImg(prompt){
   img.src=url;
   setTimeout(()=>{if(document.getElementById('thk')){addAIMsg('🎨 Generating **"'+prompt+'"** — loading now ⬡',url);speakTTS('Generating your image, please wait.');}},5000);
 }
-
+ 
 // ══════════════════════════════════════════════
 // SPEECH RECOGNITION — Always-On "Hey Hexa"
 // ══════════════════════════════════════════════
@@ -1195,7 +1258,7 @@ function requestMic(){
     .then(s=>{s.getTracks().forEach(t=>t.stop());startAlwaysOn();})
     .catch(()=>document.getElementById('perm-modal').classList.add('open'));
 }
-
+ 
 function initRec(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR)return false;
@@ -1219,9 +1282,9 @@ function initRec(){
   recognition.onend=()=>{micActive=false;animVB(false);resetMicBtn();if(!awRec)setStatus('Ready','sd-g');};
   return true;
 }
-
+ 
 function resetMicBtn(){var b=document.getElementById('mic-btn');b.textContent='🎤';b.classList.remove('listening');}
-
+ 
 function startListen(){
   if(!recognition&&!initRec())return;
   if(micActive)return;
@@ -1234,7 +1297,7 @@ function toggleMic(){
   if(micActive)stopListen();
   else{if(!recognition&&!initRec()){document.getElementById('perm-modal').classList.add('open');return;}startListen();}
 }
-
+ 
 function processVoice(text){
   document.getElementById('chat-inp').value='';
   // Remove wake word prefix if present
@@ -1242,9 +1305,9 @@ function processVoice(text){
   if(!text){setStatus('🎤 Listening…','sd-c');startListen();return;}
   addUserMsg(text); setStatus('⬡ Thinking…','sd-a'); routeCmd(text,null);
 }
-
+ 
 function grantMic(){document.getElementById('perm-modal').classList.remove('open');initRec();startAlwaysOn();}
-
+ 
 // Always-on wake word detection — answers immediately without opening any app
 function startAlwaysOn(){
   var SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;
@@ -1280,19 +1343,19 @@ function startAlwaysOn(){
   awRec.onend=()=>{if(!micActive)setTimeout(()=>{try{awRec.start();}catch(e){}},600);};
   try{awRec.start();}catch(e){}
 }
-
+ 
 function animVB(on){
   var bars=document.querySelectorAll('.vb');
   if(waveIv)clearInterval(waveIv);
   if(!on){bars.forEach(b=>{b.style.height='4px';b.classList.remove('on');});return;}
   waveIv=setInterval(()=>bars.forEach(b=>{b.style.height=(3+Math.random()*15)+'px';b.classList.add('on');}),80);
 }
-
+ 
 // ══════════════════════════════════════════════
 // TEXT TO SPEECH — Voice selector
 // ══════════════════════════════════════════════
 var synth=window.speechSynthesis;
-
+ 
 function speakTTS(text){
   if(!synth)return;
   synth.cancel();
@@ -1315,9 +1378,9 @@ function speakTTS(text){
   u.onerror=()=>setStatus('Ready','sd-g');
   synth.speak(u);
 }
-
+ 
 if(synth)synth.onvoiceschanged=()=>synth.getVoices();
-
+ 
 function changeLang(lang){
   selectedLang=lang;
   if(recognition)recognition.lang=lang;
@@ -1325,12 +1388,12 @@ function changeLang(lang){
   var sel=document.getElementById('lang-sel');
   toast(sel.options[sel.selectedIndex].text.split('(')[0].trim(),'🌐');
 }
-
+ 
 function changeVoice(v){
   voicePref=v;
   toast('Voice: '+(v==='female'?'Female 👩':v==='male'?'Male 👨':'Auto 🤖'),'🎙');
 }
-
+ 
 // ══════════════════════════════════════════════
 // CAMERA
 // ══════════════════════════════════════════════
@@ -1372,7 +1435,7 @@ function removeImg(){
   document.getElementById('img-prev').src='';
   document.getElementById('img-prev-wrap').classList.remove('show');
 }
-
+ 
 // ══════════════════════════════════════════════
 // SIDEBAR / UI
 // ══════════════════════════════════════════════
@@ -1381,7 +1444,7 @@ function toggleSB(){sbOpen=!sbOpen;document.getElementById('sidebar').classList.
 function toggleUD(){document.getElementById('udrop').classList.toggle('open');}
 function closeUD(){document.getElementById('udrop').classList.remove('open');}
 document.addEventListener('click',e=>{if(!e.target.closest('#sb-user-row')&&!e.target.closest('#udrop'))closeUD();});
-
+ 
 function clearChat(){
   if(!currentChatId||!chatSessions[currentChatId])return;
   if(!confirm('Clear this chat?'))return;
@@ -1390,7 +1453,7 @@ function clearChat(){
   document.getElementById('chat-area').innerHTML='<div class="welcome"><div class="wlc-hex">⬡</div><div class="wlc-title">HEXA AI</div><div class="wlc-sub">Chat cleared! What can I help you with? 😊</div></div>';
   renderSB();toast('Chat cleared','🗑️');
 }
-
+ 
 // ══════════════════════════════════════════════
 // ADMIN PANEL
 // ══════════════════════════════════════════════
@@ -1399,30 +1462,30 @@ function toggleAdmin(){
   var p=document.getElementById('admin');p.classList.toggle('open');
   if(p.classList.contains('open'))loadAdminData();
 }
-
+ 
 function setTab(id,el){
   document.querySelectorAll('.atab').forEach(t=>t.classList.remove('active'));
   document.getElementById('atab-'+id).classList.add('active');
   document.querySelectorAll('.an').forEach(i=>i.classList.remove('active'));
   el.classList.add('active');
 }
-
+ 
 function adminAddUser(){
   var email=document.getElementById('add-email').value.trim().toLowerCase();
   var role=document.getElementById('add-role').value;
   var res=document.getElementById('add-result');
   if(!email||!email.includes('@')){res.style.color='var(--r)';res.textContent='⚠️ Enter a valid email.';return;}
   var users=getUsers();
-  if(!users[email])users[email]={email,pass:'',role:'user',created:new Date().toISOString(),messages:0};
+  if(!users[email])users[email]={email,pass:'',role:'user',created:new Date().toISOString(),messages:0,banned:false};
   if(role==='free'){users[email].access='free';users[email].role='user';}
-  else if(role==='paid'){var p=getPayments();p[email]={active:true,date:new Date().toISOString()};savePayments(p);}
+  else if(role==='paid'){var p=getPayments();p[email]={active:true,date:new Date().toISOString(),amount:SUB_PRICE};savePayments(p);}
   else if(role==='admin'){users[email].role='admin';users[email].access='free';}
   saveUsers(users);
   res.style.color='var(--g)';res.textContent='✅ User '+email+' added with '+role+' access!';
   document.getElementById('add-email').value='';
   setTimeout(()=>loadAdminData(),500);
 }
-
+ 
 function loadAdminData(){
   var users=getUsers(),sessions=getLogSess(),payments=getPayments();
   var totalMsgs=Object.values(users).reduce((s,u)=>s+(u.messages||0),0);
@@ -1432,7 +1495,7 @@ function loadAdminData(){
     {v:sessions.length,l:'Sessions'},
     {v:Object.keys(payments).length,l:'Paid Users'}
   ].map(s=>'<div class="astat"><div class="astat-v">'+s.v+'</div><div class="astat-l">'+s.l+'</div></div>').join('');
-
+ 
   // Activity
   var act=document.getElementById('adm-activity');act.innerHTML='';
   sessions.slice(0,6).forEach(s=>{
@@ -1441,25 +1504,31 @@ function loadAdminData(){
     d.innerHTML='<span style="color:var(--t2)">'+s.email+'</span><span style="color:var(--t3);font-family:var(--mono);">'+new Date(s.time).toLocaleString()+'</span>';
     act.appendChild(d);
   });
-
+ 
   // Users
   var tb=document.getElementById('adm-users');tb.innerHTML='';
   // Admin row
-  tb.innerHTML='<tr><td style="color:var(--c)">'+ADMIN_EMAILS[0]+'</td><td>admin</td><td style="color:var(--g)">Free ∞</td><td>—</td><td style="color:var(--g)">✅</td><td></td></tr>';
+  tb.innerHTML='<tr><td style="color:var(--c)">'+ADMIN_EMAILS[0]+'</td><td>admin</td><td style="color:var(--g)">Free ∞</td><td>—</td><td style="color:var(--g)">✅ Active</td><td>—</td></tr>';
   Object.values(users).forEach(u=>{
     var isFree=FREE_EMAILS.includes(u.email),paid=payments[u.email]&&payments[u.email].active,adminGranted=u.access==='free';
-    var planTxt=isFree?'Free ∞':adminGranted?'Admin Free':paid?'Paid ₹50':'Unpaid';
+    var planTxt=isFree?'Free ∞':adminGranted?'Admin Free':paid?'Paid ₹'+SUB_PRICE:'Unpaid';
     var planColor=isFree||adminGranted||paid?'var(--g)':'var(--r)';
-    var access=isFree||adminGranted||paid?'✅':'❌';
+    var statusTxt=u.banned?'🚫 Banned':(isFree||adminGranted||paid?'✅ Active':'⏳ Pending');
+    var statusColor=u.banned?'var(--r)':(isFree||adminGranted||paid?'var(--g)':'var(--a)');
+    var roleOpts=['user','admin'].map(r=>'<option value="'+r+'"'+(u.role===r?' selected':'')+'>'+r+'</option>').join('');
     var tr=document.createElement('tr');
-    tr.innerHTML='<td>'+u.email+'</td><td>'+u.role+'</td><td style="color:'+planColor+'">'+planTxt+'</td><td>'+
-      (u.messages||0)+'</td><td style="color:'+planColor+'">'+access+'</td><td style="display:flex;gap:4px;">'
+    tr.innerHTML='<td>'+u.email+'</td>'
+      +'<td><select class="add-inp" style="padding:3px 6px;font-size:10px;min-width:0;" onchange="changeUserRole(\''+u.email+'\',this.value)">'+roleOpts+'</select></td>'
+      +'<td style="color:'+planColor+'">'+planTxt+'</td><td>'+(u.messages||0)+'</td>'
+      +'<td style="color:'+statusColor+'">'+statusTxt+'</td>'
+      +'<td style="display:flex;gap:4px;flex-wrap:wrap;">'
       +'<button onclick="grantFreeAccess(\''+u.email+'\')" style="padding:2px 7px;border-radius:4px;font-size:9px;border:1px solid rgba(0,212,255,.3);color:var(--c);cursor:pointer;background:transparent;">Free</button>'
+      +'<button onclick="toggleBan(\''+u.email+'\')" style="padding:2px 7px;border-radius:4px;font-size:9px;border:1px solid rgba(255,119,0,.4);color:var(--a);cursor:pointer;background:transparent;">'+(u.banned?'Unban':'Ban')+'</button>'
       +'<button onclick="delUser(\''+u.email+'\')" style="padding:2px 7px;border-radius:4px;font-size:9px;border:1px solid rgba(255,34,85,.3);color:var(--r);cursor:pointer;background:transparent;">Del</button>'
       +'</td>';
     tb.appendChild(tr);
   });
-
+ 
   // Chats
   var cw=document.getElementById('adm-chats-wrap');cw.innerHTML='';
   var allEmails=Object.keys(users).concat(ADMIN_EMAILS);
@@ -1476,7 +1545,7 @@ function loadAdminData(){
     });
     cw.appendChild(div);
   });
-
+ 
   // Sessions
   var stb=document.getElementById('adm-sessions');stb.innerHTML='';
   sessions.slice(0,25).forEach(s=>{
@@ -1484,8 +1553,31 @@ function loadAdminData(){
     tr.innerHTML='<td>'+s.email+'</td><td style="font-size:10px;color:var(--t3);">'+new Date(s.time).toLocaleString()+'</td><td style="color:var(--g);font-size:11px;">● Active</td>';
     stb.appendChild(tr);
   });
+ 
+  // Settings tab
+  var pd=document.getElementById('cur-pass-display');
+  if(pd)pd.textContent=getAdminPass();
 }
-
+ 
+function changeUserRole(email,role){
+  var users=getUsers();
+  if(!users[email])return;
+  users[email].role=role;
+  if(role==='admin')users[email].access='free';
+  saveUsers(users);
+  toast('Role updated: '+email+' → '+role,'👥');
+  loadAdminData();
+}
+ 
+function toggleBan(email){
+  var users=getUsers();
+  if(!users[email])return;
+  users[email].banned=!users[email].banned;
+  saveUsers(users);
+  toast(users[email].banned?('Banned '+email):('Unbanned '+email),users[email].banned?'🚫':'✅');
+  loadAdminData();
+}
+ 
 function grantFreeAccess(email){
   var users=getUsers();
   if(users[email]){users[email].access='free';saveUsers(users);toast('Free access granted to '+email,'✅');loadAdminData();}
@@ -1503,7 +1595,19 @@ function clearAllChats(){
   ADMIN_EMAILS.forEach(e=>localStorage.removeItem(CHAT_KEY(e)));
   loadAdminData();toast('All chats cleared','🗑️');
 }
-
+ 
+function changeAdminPassword(){
+  var oldP=document.getElementById('cp-old').value;
+  var newP=document.getElementById('cp-new').value;
+  var res=document.getElementById('cp-result');
+  if(oldP!==getAdminPass()){res.style.color='var(--r)';res.textContent='⚠️ Current password is incorrect.';return;}
+  if(!newP||newP.length<6){res.style.color='var(--r)';res.textContent='⚠️ New password must be at least 6 characters.';return;}
+  setAdminPass(newP);
+  res.style.color='var(--g)';res.textContent='✅ Password updated! Use it next time you log in.';
+  document.getElementById('cp-old').value='';document.getElementById('cp-new').value='';
+  loadAdminData();
+}
+ 
 // ══════════════════════════════════════════════
 // TOAST
 // ══════════════════════════════════════════════
@@ -1515,13 +1619,16 @@ function toast(msg,icon){
   c.appendChild(t);
   setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),200);},3200);
 }
-
+ 
 // ══════════════════════════════════════════════
 // BOOT
 // ══════════════════════════════════════════════
 window.addEventListener('DOMContentLoaded',()=>{
   var sess=getSession();
   if(sess&&sess.email){
+    // enforce ban check on reload
+    var users=getUsers();
+    if(users[sess.email]&&users[sess.email].banned){clearSess();return;}
     document.getElementById('login-page').classList.add('hidden');
     initApp(sess);
     return;
