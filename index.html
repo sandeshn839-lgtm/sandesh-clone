@@ -199,6 +199,8 @@ button{cursor:pointer;}
 .sd-g{background:var(--g);box-shadow:0 0 5px var(--g);}
 .sd-c{background:var(--c);box-shadow:0 0 5px var(--c);}
 .sd-a{background:var(--a);box-shadow:0 0 5px var(--a);}
+.sd-ok{background:var(--g);box-shadow:0 0 5px var(--g);}
+.sd-bad{background:var(--r);box-shadow:0 0 5px var(--r);}
 @keyframes dpulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 #tb-clock{font-family:var(--mono);font-size:10px;color:var(--t3);min-width:70px;text-align:right;}
  
@@ -366,6 +368,26 @@ button{cursor:pointer;}
 .sec-field{margin-bottom:14px;max-width:360px;}
 .sec-lbl{font-size:10px;font-weight:600;color:var(--c2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:5px;display:block;}
  
+/* Admin panel v2 additions */
+.adm-card{background:rgba(0,14,34,.85);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:16px;max-width:460px;}
+.adm-card-title{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
+.adm-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd);font-size:12px;color:var(--t2);}
+.adm-row:last-child{border-bottom:none;}
+.tgl{position:relative;width:38px;height:21px;flex-shrink:0;}
+.tgl input{opacity:0;width:0;height:0;}
+.tgl-slider{position:absolute;cursor:pointer;inset:0;background:rgba(255,255,255,.1);border:1px solid var(--bd2);border-radius:20px;transition:.2s;}
+.tgl-slider::before{content:'';position:absolute;height:15px;width:15px;left:2px;top:2px;background:var(--t3);border-radius:50%;transition:.2s;}
+.tgl input:checked + .tgl-slider{background:rgba(0,212,255,.25);border-color:var(--c2);}
+.tgl input:checked + .tgl-slider::before{transform:translateX(17px);background:var(--c);box-shadow:0 0 6px var(--c);}
+.stat-pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-family:var(--mono);padding:3px 10px;border-radius:20px;border:1px solid;}
+.sp-on{color:var(--g);border-color:rgba(0,255,136,.35);background:rgba(0,255,136,.06);}
+.sp-off{color:var(--r);border-color:rgba(255,34,85,.35);background:rgba(255,34,85,.06);}
+.color-sw{width:28px;height:28px;border-radius:7px;border:1px solid var(--bd2);cursor:pointer;padding:0;background:none;}
+.mask-inp{font-family:var(--mono);letter-spacing:.15em;}
+.adm-note{font-size:10px;color:var(--t4);margin-top:10px;line-height:1.6;}
+.mini-tbl{width:100%;font-size:11px;}
+.mini-tbl td{padding:5px 0;color:var(--t2);border-bottom:1px solid var(--bd);}
+ 
 @media(max-width:700px){
   .sidebar{display:none;}
   .sidebar.mob-open{display:flex;position:fixed;inset:0 auto 0 0;z-index:100;width:256px;}
@@ -485,25 +507,69 @@ button{cursor:pointer;}
   </div>
   <div class="adm-body">
     <div class="adm-nav">
-      <div class="an active" onclick="setTab('overview',this)">📊 Overview</div>
+      <div class="an active" onclick="setTab('overview',this)">📊 Dashboard</div>
+      <div class="an" onclick="setTab('backend',this)">🔑 Backend</div>
       <div class="an" onclick="setTab('users',this)">👥 Users</div>
       <div class="an" onclick="setTab('adduser',this)">➕ Add User</div>
       <div class="an" onclick="setTab('chats',this)">💬 All Chats</div>
-      <div class="an" onclick="setTab('sessions',this)">🔑 Sessions</div>
-      <div class="an" onclick="setTab('settings',this)">⚙️ Settings</div>
+      <div class="an" onclick="setTab('sessions',this)">🕘 Sessions</div>
+      <div class="an" onclick="setTab('appearance',this)">🎨 Appearance</div>
+      <div class="an" onclick="setTab('advanced',this)">🛠 Advanced</div>
+      <div class="an" onclick="setTab('aimgmt',this)">🤖 AI Management</div>
+      <div class="an" onclick="setTab('security',this)">🛡 Security</div>
     </div>
     <div class="adm-cnt">
       <div class="atab active" id="atab-overview">
-        <div class="at-h">System Overview</div><div class="at-s">Live stats</div>
+        <div class="at-h">📊 Dashboard</div><div class="at-s">Live platform stats</div>
         <div class="sg" id="adm-stats"></div>
+        <div class="sg" id="adm-stats2"></div>
         <div style="background:rgba(0,14,34,.85);border:1px solid var(--bd);border-radius:10px;padding:14px;">
           <div style="font-size:12px;font-weight:600;color:var(--t1);margin-bottom:10px;">Recent Logins</div>
           <div id="adm-activity"></div>
         </div>
       </div>
+ 
+      <div class="atab" id="atab-backend">
+        <div class="at-h">🔑 Backend Settings</div><div class="at-s">Railway backend connection &amp; configuration</div>
+        <div class="adm-card">
+          <div class="adm-card-title">📡 Connection Status</div>
+          <div class="adm-row"><span>Status</span><span id="be-status" class="stat-pill sp-off">● Checking…</span></div>
+          <div class="adm-row"><span>Last checked</span><span id="be-lastcheck" style="font-family:var(--mono);font-size:10px;">—</span></div>
+          <div class="adm-row"><span>Response time</span><span id="be-latency" style="font-family:var(--mono);font-size:10px;">—</span></div>
+          <button class="btn-p" style="margin-top:12px;width:100%;justify-content:center;" onclick="testBackendConnection()">⬡ Test Backend Connection</button>
+        </div>
+        <div class="adm-card">
+          <div class="adm-card-title">⚙️ Configuration</div>
+          <div class="sec-field">
+            <label class="sec-lbl">Backend URL</label>
+            <input class="add-inp" id="cfg-apiurl" style="width:100%;" value="">
+          </div>
+          <div class="sec-field">
+            <label class="sec-lbl">AI Model</label>
+            <select class="add-inp" id="cfg-model" style="width:100%;">
+              <option value="default">Default (backend-selected)</option>
+              <option value="hexa-friendly">Hexa Friendly</option>
+              <option value="hexa-pro">Hexa Pro</option>
+              <option value="hexa-dev">Hexa Developer</option>
+            </select>
+          </div>
+          <div class="sec-field">
+            <label class="sec-lbl">API Timeout (seconds)</label>
+            <input class="add-inp" id="cfg-timeout" type="number" min="5" max="120" style="width:100%;">
+          </div>
+          <button class="btn-p" onclick="saveBackendConfig()">💾 Save Configuration</button>
+          <div id="be-cfg-result" style="margin-top:10px;font-size:11px;"></div>
+        </div>
+        <div class="adm-note">Test Connection sends a lightweight ping to your Railway <code style="background:rgba(0,212,255,.09);padding:1px 5px;border-radius:4px;">/ask</code> endpoint and measures round-trip time. Railway free-tier services can "sleep" when idle — the first ping after inactivity may take a few seconds while it wakes up.</div>
+      </div>
       <div class="atab" id="atab-users">
-        <div class="at-h">Registered Users</div><div class="at-s">All accounts with access control — change role, ban/unban, or grant access</div>
+        <div class="at-h">👥 User Management</div><div class="at-s">All accounts with access control — change role, block/unblock, or grant access</div>
+        <div class="sg" id="adm-user-stats" style="grid-template-columns:repeat(3,1fr);"></div>
         <table class="dtbl"><thead><tr><th>Email</th><th>Role</th><th>Plan</th><th>Msgs</th><th>Status</th><th>Actions</th></tr></thead><tbody id="adm-users"></tbody></table>
+        <div class="adm-card" style="margin-top:18px;max-width:100%;">
+          <div class="adm-card-title">💬 User Feedback</div>
+          <div id="adm-feedback"><div style="font-size:11px;color:var(--t4);">No feedback submitted yet.</div></div>
+        </div>
       </div>
       <div class="atab" id="atab-adduser">
         <div class="at-h">Add / Manage Access</div>
@@ -533,12 +599,105 @@ button{cursor:pointer;}
         <div class="at-h">Login Sessions</div><div class="at-s">Access log</div>
         <table class="dtbl"><thead><tr><th>Email</th><th>Time</th><th>Status</th></tr></thead><tbody id="adm-sessions"></tbody></table>
       </div>
-      <div class="atab" id="atab-settings">
-        <div class="at-h">Settings &amp; Security</div>
-        <div class="at-s">Manage admin password and platform security</div>
+      <div class="atab" id="atab-appearance">
+        <div class="at-h">🎨 Appearance</div><div class="at-s">Customize how Hexa AI looks for everyone</div>
+        <div class="adm-card">
+          <div class="sec-field">
+            <label class="sec-lbl">Theme</label>
+            <select class="add-inp" id="ap-theme" style="width:100%;">
+              <option value="dark">Dark (default)</option>
+              <option value="midnight">Midnight Blue</option>
+              <option value="cyber">Cyber Green</option>
+            </select>
+          </div>
+          <div class="sec-field">
+            <label class="sec-lbl">Accent Color</label>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <input type="color" id="ap-accent" class="color-sw" value="#00d4ff">
+              <span style="font-size:11px;color:var(--t3);">Applies to buttons, highlights &amp; the Hexa logo</span>
+            </div>
+          </div>
+          <div class="sec-field">
+            <label class="sec-lbl">Font Size</label>
+            <select class="add-inp" id="ap-fontsize" style="width:100%;">
+              <option value="13">Small</option>
+              <option value="14" selected>Medium (default)</option>
+              <option value="16">Large</option>
+            </select>
+          </div>
+          <div class="adm-row">
+            <span>Enable Animations</span>
+            <label class="tgl"><input type="checkbox" id="ap-anim" checked><span class="tgl-slider"></span></label>
+          </div>
+          <div class="sec-field" style="margin-top:10px;">
+            <label class="sec-lbl">Background Image URL</label>
+            <input class="add-inp" id="ap-bgimg" placeholder="https://example.com/bg.jpg" style="width:100%;">
+          </div>
+          <button class="btn-p" style="margin-top:10px;" onclick="saveAppearance()">💾 Save Appearance</button>
+          <button class="btn-s" style="margin-top:10px;" onclick="resetAppearance()">↺ Reset to Default</button>
+          <div id="ap-result" style="margin-top:10px;font-size:11px;"></div>
+        </div>
+      </div>
  
-        <div style="background:rgba(0,14,34,.85);border:1px solid var(--bd);border-radius:10px;padding:16px;margin-bottom:16px;max-width:420px;">
-          <div style="font-size:12px;font-weight:600;color:var(--t1);margin-bottom:12px;">🔐 Change Admin Password</div>
+      <div class="atab" id="atab-advanced">
+        <div class="at-h">🛠 Advanced</div><div class="at-s">Maintenance, caching &amp; diagnostics</div>
+        <div class="adm-card">
+          <div class="adm-row">
+            <span>🔄 Wake / Ping Backend</span>
+            <button class="btn-s" onclick="testBackendConnection()">Ping Now</button>
+          </div>
+          <div class="adm-row">
+            <span>🚧 Maintenance Mode <small style="color:var(--t4);">(blocks non-admin logins)</small></span>
+            <label class="tgl"><input type="checkbox" id="adv-maint" onchange="toggleMaintenance(this.checked)"><span class="tgl-slider"></span></label>
+          </div>
+          <div class="adm-row">
+            <span>🧹 Clear Local Cache</span>
+            <button class="btn-s" onclick="clearCache()">Clear</button>
+          </div>
+          <div class="adm-row">
+            <span>🐞 Debug Mode <small style="color:var(--t4);">(verbose console logs)</small></span>
+            <label class="tgl"><input type="checkbox" id="adv-debug" onchange="toggleDebug(this.checked)"><span class="tgl-slider"></span></label>
+          </div>
+          <div class="adm-row">
+            <span>📤 Export Settings</span>
+            <button class="btn-s" onclick="exportSettings()">Export</button>
+          </div>
+          <div class="adm-row">
+            <span>📥 Import Settings</span>
+            <button class="btn-s" onclick="document.getElementById('imp-file').click()">Import</button>
+            <input type="file" id="imp-file" accept="application/json" style="display:none;" onchange="importSettings(event)">
+          </div>
+        </div>
+        <div class="adm-note">"Restart backend" would require your Railway project's API key and isn't something a public web page should be able to trigger for security reasons — use the <a href="https://railway.app" target="_blank" style="color:var(--c);">Railway dashboard</a> for a real restart. "Wake/Ping" simply calls your <code style="background:rgba(0,212,255,.09);padding:1px 5px;border-radius:4px;">/ask</code> endpoint to wake it if it's sleeping.</div>
+      </div>
+ 
+      <div class="atab" id="atab-aimgmt">
+        <div class="at-h">🤖 AI Management</div><div class="at-s">Configure how Hexa presents itself</div>
+        <div class="adm-card">
+          <div class="sec-field">
+            <label class="sec-lbl">AI Name</label>
+            <input class="add-inp" id="ai-name" placeholder="Hexa AI" style="width:100%;">
+          </div>
+          <div class="sec-field">
+            <label class="sec-lbl">Personality</label>
+            <select class="add-inp" id="ai-personality" style="width:100%;">
+              <option value="friendly">😊 Friendly — warm, casual bestie</option>
+              <option value="professional">💼 Professional — concise &amp; formal</option>
+              <option value="cybersecurity">🛡 Cybersecurity — sharp, security-focused</option>
+              <option value="developer">👨‍💻 Developer — technical, code-first</option>
+            </select>
+          </div>
+          <button class="btn-p" onclick="saveAIConfig()">💾 Save AI Config</button>
+          <div id="ai-cfg-result" style="margin-top:10px;font-size:11px;"></div>
+        </div>
+        <div class="adm-note">These settings adjust the system prompt sent to your Railway backend on every message, and update the branding shown in the app UI.</div>
+      </div>
+ 
+      <div class="atab" id="atab-security">
+        <div class="at-h">🛡 Security</div><div class="at-s">Admin authentication &amp; platform hardening</div>
+ 
+        <div class="adm-card">
+          <div class="adm-card-title">🔐 Change Admin Password</div>
           <div class="sec-field">
             <label class="sec-lbl">Current Password</label>
             <input class="add-inp" id="cp-old" type="password" placeholder="Current password" style="width:100%;">
@@ -551,17 +710,49 @@ button{cursor:pointer;}
           <div id="cp-result" style="margin-top:10px;font-size:11px;"></div>
         </div>
  
-        <div style="background:rgba(0,14,34,.85);border:1px solid var(--bd);border-radius:10px;padding:16px;max-width:420px;">
-          <div style="font-size:12px;font-weight:600;color:var(--t1);margin-bottom:10px;">🛡️ Account Info</div>
-          <div style="font-size:11px;color:var(--t3);line-height:1.8;">
-            ⬡ Admin Gmail: <span style="color:var(--c);">sandeshn839@gmail.com</span><br>
-            ⬡ Current Password: <span id="cur-pass-display" style="color:var(--c);font-family:var(--mono);"></span><br>
-            ⬡ Free Emails: sandesh99998@gmail.com, sandeshn839@gmail.com<br>
-            ⬡ Subscription Price: ₹100/month
+        <div class="adm-card">
+          <div class="adm-card-title">📜 Login History</div>
+          <table class="mini-tbl" id="sec-loginhist"></table>
+        </div>
+ 
+        <div class="adm-card">
+          <div class="adm-card-title">📱 Two-Factor Authentication (2FA)</div>
+          <div class="adm-row">
+            <span>Require 2FA code on admin login</span>
+            <label class="tgl"><input type="checkbox" id="sec-2fa" onchange="toggle2FA(this.checked)"><span class="tgl-slider"></span></label>
           </div>
-          <div style="font-size:10px;color:var(--t4);margin-top:12px;line-height:1.6;">
-            Note: since this app has no real server-side auth, the password is stored locally in this browser. For real security, move login/payment verification to your Railway backend.
+          <div class="adm-note">This generates a one-time code shown on-device at login. Since this is a fully client-side app with no email/SMS server, it's a local demo layer, not real multi-channel 2FA — don't rely on it as your only protection.</div>
+        </div>
+ 
+        <div class="adm-card">
+          <div class="adm-card-title">🔑 API Key Management</div>
+          <div class="sec-field">
+            <label class="sec-lbl">Backend API Key (stored locally, masked)</label>
+            <input class="add-inp mask-inp" id="sec-apikey" type="password" placeholder="•••••••••••••••••" style="width:100%;">
           </div>
+          <button class="btn-p" onclick="saveApiKey()">💾 Save Key</button>
+          <button class="btn-s" onclick="revealApiKey()">👁 Reveal</button>
+          <div id="sec-apikey-result" style="margin-top:10px;font-size:11px;"></div>
+          <div class="adm-note">Keys are stored only in this browser's local storage — they are never sent anywhere except attached as a header on requests to your backend. For production use, keep real secret keys server-side only.</div>
+        </div>
+ 
+        <div class="adm-card">
+          <div class="adm-card-title">🚦 Rate Limiting</div>
+          <div class="sec-field">
+            <label class="sec-lbl">Max messages per minute (per user)</label>
+            <input class="add-inp" id="sec-ratelimit" type="number" min="1" max="120" style="width:100%;">
+          </div>
+          <button class="btn-p" onclick="saveRateLimit()">💾 Save</button>
+        </div>
+ 
+        <div class="adm-card">
+          <div class="adm-card-title">🌐 IP Whitelist <small style="color:var(--t4);font-weight:400;">(optional)</small></div>
+          <div class="sec-field">
+            <label class="sec-lbl">Allowed IPs (one per line, leave empty to allow all)</label>
+            <textarea class="add-inp" id="sec-ipwl" rows="3" style="width:100%;resize:vertical;"></textarea>
+          </div>
+          <button class="btn-p" onclick="saveIPWhitelist()">💾 Save Whitelist</button>
+          <div class="adm-note">Client-side IP checks can be bypassed by anyone who disables JavaScript — this is a convenience filter, not real access control. For actual enforcement, restrict IPs at your Railway service or a firewall/CDN in front of it.</div>
         </div>
       </div>
     </div>
@@ -611,6 +802,7 @@ button{cursor:pointer;}
       <div class="udrop" id="udrop">
         <div class="ud-item" id="ud-admin" style="display:none;" onclick="closeUD();toggleAdmin();">👑 Admin Panel</div>
         <div class="ud-item" onclick="closeUD();clearChat();">🗑️ Clear This Chat</div>
+        <div class="ud-item" onclick="closeUD();sendFeedback();">💬 Send Feedback</div>
         <div class="ud-divider"></div>
         <div class="ud-item danger" onclick="doLogout()">⬡ Sign Out</div>
       </div>
@@ -684,8 +876,27 @@ var FREE_EMAILS = ['sandesh99998@gmail.com','sandeshn839@gmail.com'];
 var ADMIN_EMAILS = ['sandeshn839@gmail.com'];
 var DEFAULT_ADMIN_PASS = 'HEXA@2025#SS';
 var SUB_PRICE = 100; // rupees per month
-var SK = {sess:'hx_s',users:'hx_u',payments:'hx_p',sessions:'hx_ls',adminpass:'hx_ap'};
+var SK = {sess:'hx_s',users:'hx_u',payments:'hx_p',sessions:'hx_ls',adminpass:'hx_ap',
+  backendcfg:'hx_becfg',appearance:'hx_appearance',advanced:'hx_advanced',aicfg:'hx_aicfg',
+  security:'hx_security',feedback:'hx_feedback',metrics:'hx_metrics'};
 var CHAT_KEY = function(e){ return 'hx_c_'+e; };
+ 
+// ── Config defaults ──
+function getBackendCfg(){return gLS(SK.backendcfg,{apiUrl:API_URL,model:'default',timeout:20});}
+function saveBackendCfgLS(c){sLS(SK.backendcfg,c);}
+function getAppearance(){return gLS(SK.appearance,{theme:'dark',accent:'#00d4ff',fontSize:14,animations:true,bgImage:''});}
+function saveAppearanceLS(c){sLS(SK.appearance,c);}
+function getAdvanced(){return gLS(SK.advanced,{maintenance:false,debug:false});}
+function saveAdvancedLS(c){sLS(SK.advanced,c);}
+function getAICfg(){return gLS(SK.aicfg,{name:'Hexa AI',personality:'friendly'});}
+function saveAICfgLS(c){sLS(SK.aicfg,c);}
+function getSecurityCfg(){return gLS(SK.security,{twofa:false,apiKey:'',rateLimit:20,ipWhitelist:''});}
+function saveSecurityCfgLS(c){sLS(SK.security,c);}
+function getFeedback(){return gLS(SK.feedback,[]);}
+function saveFeedback(f){sLS(SK.feedback,f);}
+function getMetrics(){return gLS(SK.metrics,[]);}
+function saveMetrics(m){if(m.length>300)m=m.slice(-300);sLS(SK.metrics,m);}
+function logMetric(entry){var m=getMetrics();m.push(entry);saveMetrics(m);}
  
 var selectedLang = 'en-US';
 var voicePref = 'female';
@@ -785,9 +996,21 @@ function doLogin(){
   if(!email.includes('@')){err.textContent='Enter a valid email.';return;}
  
   // Admin check
-  if(ADMIN_EMAILS.includes(email) && pass===getAdminPass()){loginOK(email,'admin');return;}
+  if(ADMIN_EMAILS.includes(email) && pass===getAdminPass()){
+    var sec=getSecurityCfg();
+    if(sec.twofa){
+      var code=String(Math.floor(100000+Math.random()*900000));
+      alert('🔐 Your 2FA code is: '+code+'\n\n(Shown locally since this app has no email/SMS backend.)');
+      var entered=prompt('Enter the 6-digit 2FA code shown above:');
+      if(entered!==code){err.textContent='Incorrect 2FA code.';return;}
+    }
+    loginOK(email,'admin');return;
+  }
  
   var users = getUsers();
+ 
+  // Maintenance mode — block non-admins
+  if(getAdvanced().maintenance){err.textContent='⚠️ Hexa AI is under maintenance. Please check back soon.';return;}
  
   // Banned check
   if(users[email] && users[email].banned){err.textContent='This account has been suspended.';return;}
@@ -1197,41 +1420,103 @@ function routeCmd(text,imgBase64){
 // ══════════════════════════════════════════════
 // AI API — Railway Backend
 // ══════════════════════════════════════════════
-function callAI(text,imgBase64){
-  showThink();
-  setStatus('⬡ Thinking…','sd-a');
-  var langName=LANG_NAMES[selectedLang]||'English';
+function hideThink(){removeThink();}
  
-  // Build system context to inject into message
-  var sysCtx='[SYSTEM: You are Hexa, a brilliant personal AI assistant. Talk like a genuine best friend — warm, fun, casual, supportive. Respond in '+langName+'. Never mention any AI company, model, or brand. Never say you are an AI. Be concise but complete. Use **bold** for key info. For code use triple backticks. Expert in all programming languages. Max 200 words unless writing code.]';
- 
-  var payload = {
-    message: sysCtx + '\n\n' + (text||'Describe this image.'),
-    lang: selectedLang
-  };
- 
-  fetch(API_URL, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(payload)
-  })
-  .then(r => r.json())
-  .then(d => {
-    var reply = d.response || d.reply || d.answer || d.text || d.content || fallback(text);
-    addAIMsg(reply); speakTTS(reply);
-  })
-  .catch(() => {
-    var reply = fallback(text);
-    addAIMsg(reply); speakTTS(reply);
-  });
+function personalityLine(p){
+  switch(p){
+    case 'professional': return 'Talk in a professional, concise, courteous tone. Avoid slang and emoji.';
+    case 'cybersecurity': return 'Talk like a sharp cybersecurity expert — precise, security-conscious, alert to risk, but still approachable.';
+    case 'developer': return 'Talk like a senior developer — technical, code-first, pragmatic, uses correct terminology.';
+    default: return 'Talk like a genuine best friend — warm, fun, casual, supportive.';
+  }
 }
  
-function fallback(text){
-  var t=(text||'').toLowerCase();
-  if(t.match(/joke|funny/)) return "Why do programmers prefer dark mode? Because **light attracts bugs!** 🐛😂";
-  if(t.match(/hello|hi|hey/)) return "Hey bestie! 👋 I'm right here! What do you need?";
-  if(t.match(/what|how|why|who/)) return "Great question! Let me think… My connection hiccupped, try again in a sec! 🔄";
-  return "I'm here! ⬡ Connection blipped — try again in a moment, I've got you! 😊";
+function rateLimitOk(){
+  var sec=getSecurityCfg();
+  var limit=sec.rateLimit||20;
+  var key='hx_rl_'+(currentSession?currentSession.email:'anon');
+  var now=Date.now();
+  var log=gLS(key,[]).filter(t=>now-t<60000);
+  if(log.length>=limit)return false;
+  log.push(now); sLS(key,log);
+  return true;
+}
+ 
+async function callAI(message, image = null) {
+  if(!rateLimitOk()){
+    hideThink();
+    setStatus('Rate limited','sd-bad');
+    addAIMsg('⏳ You\'re sending messages too fast. Please wait a moment and try again.');
+    return;
+  }
+ 
+  showThink();
+  setStatus('Thinking...', 'sd-a');
+ 
+  var cfg = getBackendCfg();
+  var aiCfg = getAICfg();
+  var sec = getSecurityCfg();
+  var langName = LANG_NAMES[selectedLang] || 'English';
+  var apiUrl = cfg.apiUrl || API_URL;
+  var timeoutMs = (cfg.timeout || 20) * 1000;
+ 
+  var sysCtx = '[SYSTEM: You are '+(aiCfg.name||'Hexa AI')+', a brilliant personal AI assistant. '
+    + personalityLine(aiCfg.personality) + ' Respond in '+langName+'. Never mention any AI company, model, or brand. '
+    + 'Never say you are an AI. Be concise but complete. Use **bold** for key info. For code use triple backticks. '
+    + 'Expert in all programming languages. Max 200 words unless writing code.]';
+ 
+  var fullMessage = sysCtx + '\n\n' + (message || 'Describe this image.');
+ 
+  var controller = new AbortController();
+  var timeoutId = setTimeout(() => controller.abort(), timeoutMs);
+  var startTime = performance.now();
+ 
+  try {
+    var headers = { 'Content-Type': 'application/json' };
+    if (sec.apiKey) headers['Authorization'] = 'Bearer ' + sec.apiKey;
+ 
+    var res = await fetch(apiUrl, {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        message: fullMessage,
+        image: image,
+        lang: selectedLang,
+        model: cfg.model && cfg.model !== 'default' ? cfg.model : undefined
+      }),
+      signal: controller.signal
+    });
+ 
+    clearTimeout(timeoutId);
+    var elapsed = Math.round(performance.now() - startTime);
+ 
+    if (!res.ok) throw new Error('Server responded with status ' + res.status);
+ 
+    var data = await res.json();
+    var reply = data.reply ?? data.response ?? data.answer ?? data.text ?? data.content;
+ 
+    if (!reply || typeof reply !== 'string' || !reply.trim()) {
+      throw new Error('Empty or invalid response from server');
+    }
+ 
+    logMetric({t:Date.now(), ok:true, ms:elapsed});
+    hideThink();
+    setStatus('Ready', 'sd-ok');
+    if(getAdvanced().debug) console.log('[Hexa debug] callAI success', {elapsed, apiUrl, model:cfg.model});
+ 
+    addAIMsg(reply);
+    speakTTS(reply);
+ 
+  } catch (err) {
+    clearTimeout(timeoutId);
+    var elapsed2 = Math.round(performance.now() - startTime);
+    logMetric({t:Date.now(), ok:false, ms:elapsed2});
+    if(getAdvanced().debug) console.error('[Hexa debug] callAI error', err);
+ 
+    hideThink();
+    setStatus('Offline', 'sd-bad');
+    addAIMsg('⚠️ Cannot connect to Hexa AI server.');
+  }
 }
  
 // ══════════════════════════════════════════════
@@ -1445,6 +1730,16 @@ function toggleUD(){document.getElementById('udrop').classList.toggle('open');}
 function closeUD(){document.getElementById('udrop').classList.remove('open');}
 document.addEventListener('click',e=>{if(!e.target.closest('#sb-user-row')&&!e.target.closest('#udrop'))closeUD();});
  
+function sendFeedback(){
+  if(!currentSession)return;
+  var text=prompt('We\'d love your feedback! What\'s on your mind?');
+  if(!text||!text.trim())return;
+  var fb=getFeedback();
+  fb.push({email:currentSession.email,text:text.trim(),time:new Date().toISOString()});
+  saveFeedback(fb);
+  toast('Thanks for your feedback! 💬','✅');
+}
+ 
 function clearChat(){
   if(!currentChatId||!chatSessions[currentChatId])return;
   if(!confirm('Clear this chat?'))return;
@@ -1460,7 +1755,10 @@ function clearChat(){
 function toggleAdmin(){
   if(!currentSession||!ADMIN_EMAILS.includes(currentSession.email)){toast('Admin only','🚫');return;}
   var p=document.getElementById('admin');p.classList.toggle('open');
-  if(p.classList.contains('open'))loadAdminData();
+  if(p.classList.contains('open')){
+    loadAdminData();
+    testBackendConnection();
+  }
 }
  
 function setTab(id,el){
@@ -1554,9 +1852,69 @@ function loadAdminData(){
     stb.appendChild(tr);
   });
  
+  // Dashboard extra stats
+  var metrics=getMetrics();
+  var today=new Date().toDateString();
+  var msgsToday=metrics.length ? metrics.filter(m=>new Date(m.t).toDateString()===today).length : 0;
+  var reqsToday=msgsToday;
+  var errCount=metrics.filter(m=>!m.ok).length;
+  var okMetrics=metrics.filter(m=>m.ok);
+  var avgMs=okMetrics.length ? Math.round(okMetrics.reduce((s,m)=>s+m.ms,0)/okMetrics.length) : 0;
+  var uptime = metrics.length ? Math.round((okMetrics.length/metrics.length)*100) : 100;
+  var totalChatsCount=0;
+  Object.keys(users).concat(ADMIN_EMAILS).forEach(email=>{
+    var d=getUserChats(email); totalChatsCount+=Object.keys(d||{}).length;
+  });
+  var s2=document.getElementById('adm-stats2');
+  if(s2){
+    s2.innerHTML=[
+      {v:totalChatsCount,l:'Total Chats'},
+      {v:msgsToday,l:'Messages Today'},
+      {v:avgMs+'ms',l:'Avg Response Time'},
+      {v:uptime+'%',l:'Backend Uptime'},
+      {v:errCount,l:'Error Count'},
+      {v:reqsToday,l:'API Requests Today'}
+    ].map(s=>'<div class="astat"><div class="astat-v" style="font-size:18px;">'+s.v+'</div><div class="astat-l">'+s.l+'</div></div>').join('');
+  }
+ 
+  // User management extra stats
+  var todayStr=new Date().toDateString();
+  var activeToday=[...new Set(sessions.filter(s=>new Date(s.time).toDateString()===todayStr).map(s=>s.email))].length;
+  var us=document.getElementById('adm-user-stats');
+  if(us){
+    us.innerHTML=[
+      {v:Object.keys(users).length+1,l:'Total Users'},
+      {v:activeToday,l:'Active Today'},
+      {v:Object.values(users).filter(u=>u.banned).length,l:'Blocked Users'}
+    ].map(s=>'<div class="astat"><div class="astat-v" style="font-size:18px;">'+s.v+'</div><div class="astat-l">'+s.l+'</div></div>').join('');
+  }
+ 
+  // Feedback
+  var fbWrap=document.getElementById('adm-feedback');
+  if(fbWrap){
+    var fb=getFeedback();
+    if(!fb.length){ fbWrap.innerHTML='<div style="font-size:11px;color:var(--t4);">No feedback submitted yet.</div>'; }
+    else{
+      fbWrap.innerHTML=fb.slice().reverse().slice(0,20).map(f=>
+        '<div style="padding:8px 10px;background:rgba(0,212,255,.04);border-radius:6px;margin-bottom:6px;font-size:11px;">'
+        +'<div style="color:var(--c);font-weight:600;margin-bottom:3px;">'+hEsc(f.email)+' <span style="color:var(--t4);font-weight:400;">'+new Date(f.time).toLocaleString()+'</span></div>'
+        +'<div style="color:var(--t2);">'+hEsc(f.text)+'</div></div>'
+      ).join('');
+    }
+  }
+ 
+  // Security — login history
+  var lh=document.getElementById('sec-loginhist');
+  if(lh){
+    lh.innerHTML=sessions.slice(0,10).map(s=>'<tr><td>'+hEsc(s.email)+'</td><td style="text-align:right;color:var(--t3);">'+new Date(s.time).toLocaleString()+'</td></tr>').join('')
+      || '<tr><td style="color:var(--t4);">No login history yet.</td></tr>';
+  }
+ 
   // Settings tab
   var pd=document.getElementById('cur-pass-display');
   if(pd)pd.textContent=getAdminPass();
+ 
+  populateAdminForms();
 }
  
 function changeUserRole(email,role){
@@ -1609,6 +1967,232 @@ function changeAdminPassword(){
 }
  
 // ══════════════════════════════════════════════
+// ADMIN — BACKEND SETTINGS
+// ══════════════════════════════════════════════
+async function testBackendConnection(){
+  var statusEl=document.getElementById('be-status');
+  var lastEl=document.getElementById('be-lastcheck');
+  var latEl=document.getElementById('be-latency');
+  if(statusEl){statusEl.className='stat-pill sp-off';statusEl.textContent='● Checking…';}
+  var cfg=getBackendCfg();
+  var start=performance.now();
+  var controller=new AbortController();
+  var tid=setTimeout(()=>controller.abort(),(cfg.timeout||20)*1000);
+  try{
+    var res=await fetch(cfg.apiUrl||API_URL,{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({message:'ping',lang:selectedLang}),
+      signal:controller.signal
+    });
+    clearTimeout(tid);
+    var ms=Math.round(performance.now()-start);
+    var ok=res.ok;
+    if(statusEl){statusEl.className='stat-pill '+(ok?'sp-on':'sp-off');statusEl.textContent=ok?'● Online':'● Error '+res.status;}
+    if(latEl)latEl.textContent=ms+'ms';
+    if(lastEl)lastEl.textContent=new Date().toLocaleTimeString();
+    logMetric({t:Date.now(),ok:ok,ms:ms});
+    toast(ok?'Backend is online! ('+ms+'ms)':'Backend responded with an error.',ok?'✅':'⚠️');
+  }catch(e){
+    clearTimeout(tid);
+    var ms2=Math.round(performance.now()-start);
+    if(statusEl){statusEl.className='stat-pill sp-off';statusEl.textContent='● Offline';}
+    if(latEl)latEl.textContent='—';
+    if(lastEl)lastEl.textContent=new Date().toLocaleTimeString();
+    logMetric({t:Date.now(),ok:false,ms:ms2});
+    toast('Could not reach the backend.','🚫');
+  }
+  loadAdminData();
+}
+ 
+function saveBackendConfig(){
+  var cfg={
+    apiUrl:document.getElementById('cfg-apiurl').value.trim()||API_URL,
+    model:document.getElementById('cfg-model').value,
+    timeout:parseInt(document.getElementById('cfg-timeout').value,10)||20
+  };
+  saveBackendCfgLS(cfg);
+  var res=document.getElementById('be-cfg-result');
+  res.style.color='var(--g)';res.textContent='✅ Backend configuration saved.';
+  toast('Backend config saved','💾');
+}
+ 
+// ══════════════════════════════════════════════
+// ADMIN — APPEARANCE
+// ══════════════════════════════════════════════
+function applyAppearance(){
+  var ap=getAppearance();
+  document.documentElement.style.setProperty('--c',ap.accent);
+  var b=shadeColor(ap.accent,-25);
+  document.documentElement.style.setProperty('--b',b);
+  document.documentElement.style.setProperty('--c2',shadeColor(ap.accent,-15));
+  document.body.style.fontSize=(ap.fontSize||14)+'px';
+  document.body.style.setProperty('--anim-state',ap.animations?'running':'paused');
+  var styleTag=document.getElementById('hx-anim-toggle');
+  if(!styleTag){styleTag=document.createElement('style');styleTag.id='hx-anim-toggle';document.head.appendChild(styleTag);}
+  styleTag.textContent = ap.animations ? '' : '*{animation-duration:0.001s!important;animation-delay:0s!important;transition-duration:0.001s!important;}';
+  var bgTag=document.getElementById('hx-bg-style');
+  if(!bgTag){bgTag=document.createElement('style');bgTag.id='hx-bg-style';document.head.appendChild(bgTag);}
+  bgTag.textContent = ap.bgImage ? ('#hud{background-image:url("'+ap.bgImage.replace(/"/g,'')+'");background-size:cover;background-position:center;}') : '';
+}
+function shadeColor(hex,percent){
+  try{
+    var f=parseInt(hex.slice(1),16),t=percent<0?0:255,p=Math.abs(percent)/100;
+    var R=f>>16,G=f>>8&0x00FF,B=f&0x0000FF;
+    var nr=Math.round((t-R)*p)+R, ng=Math.round((t-G)*p)+G, nb=Math.round((t-B)*p)+B;
+    return '#'+(0x1000000+nr*0x10000+ng*0x100+nb).toString(16).slice(1);
+  }catch(e){return hex;}
+}
+function saveAppearance(){
+  var ap={
+    theme:document.getElementById('ap-theme').value,
+    accent:document.getElementById('ap-accent').value,
+    fontSize:parseInt(document.getElementById('ap-fontsize').value,10)||14,
+    animations:document.getElementById('ap-anim').checked,
+    bgImage:document.getElementById('ap-bgimg').value.trim()
+  };
+  saveAppearanceLS(ap); applyAppearance();
+  var res=document.getElementById('ap-result');
+  res.style.color='var(--g)';res.textContent='✅ Appearance saved for all users.';
+  toast('Appearance updated','🎨');
+}
+function resetAppearance(){
+  saveAppearanceLS({theme:'dark',accent:'#00d4ff',fontSize:14,animations:true,bgImage:''});
+  applyAppearance();
+  populateAdminForms();
+  toast('Appearance reset to default','↺');
+}
+ 
+// ══════════════════════════════════════════════
+// ADMIN — ADVANCED
+// ══════════════════════════════════════════════
+function toggleMaintenance(on){
+  var adv=getAdvanced(); adv.maintenance=on; saveAdvancedLS(adv);
+  toast(on?'Maintenance mode ON — non-admin logins blocked':'Maintenance mode OFF',on?'🚧':'✅');
+}
+function toggleDebug(on){
+  var adv=getAdvanced(); adv.debug=on; saveAdvancedLS(adv);
+  toast('Debug mode '+(on?'enabled':'disabled'),'🐞');
+}
+function clearCache(){
+  if(!confirm('Clear local cache (rate-limit counters, metrics, cached config)? Users, chats and payments are kept.'))return;
+  Object.keys(localStorage).forEach(k=>{ if(k.startsWith('hx_rl_')||k===SK.metrics) localStorage.removeItem(k); });
+  toast('Cache cleared','🧹');
+  loadAdminData();
+}
+function exportSettings(){
+  var bundle={
+    backend:getBackendCfg(), appearance:getAppearance(), advanced:getAdvanced(),
+    ai:getAICfg(), security:{...getSecurityCfg(),apiKey:getSecurityCfg().apiKey?'[hidden]':''},
+    users:getUsers(), payments:getPayments()
+  };
+  var blob=new Blob([JSON.stringify(bundle,null,2)],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='hexa-ai-settings.json'; a.click();
+  toast('Settings exported','📤');
+}
+function importSettings(e){
+  var file=e.target.files[0]; if(!file)return;
+  var reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      var bundle=JSON.parse(ev.target.result);
+      if(bundle.backend)saveBackendCfgLS(bundle.backend);
+      if(bundle.appearance)saveAppearanceLS(bundle.appearance);
+      if(bundle.advanced)saveAdvancedLS(bundle.advanced);
+      if(bundle.ai)saveAICfgLS(bundle.ai);
+      if(bundle.users)saveUsers(bundle.users);
+      if(bundle.payments)savePayments(bundle.payments);
+      applyAppearance(); populateAdminForms(); loadAdminData();
+      toast('Settings imported successfully','📥');
+    }catch(err){ toast('Invalid settings file','⚠️'); }
+  };
+  reader.readAsText(file); e.target.value='';
+}
+ 
+// ══════════════════════════════════════════════
+// ADMIN — AI MANAGEMENT
+// ══════════════════════════════════════════════
+function saveAIConfig(){
+  var cfg={
+    name:document.getElementById('ai-name').value.trim()||'Hexa AI',
+    personality:document.getElementById('ai-personality').value
+  };
+  saveAICfgLS(cfg);
+  document.querySelectorAll('.sb-brand, .lbrand, .wlc-title').forEach(el=>el.textContent=cfg.name.toUpperCase());
+  var res=document.getElementById('ai-cfg-result');
+  res.style.color='var(--g)';res.textContent='✅ AI configuration saved.';
+  toast('AI config saved','🤖');
+}
+ 
+// ══════════════════════════════════════════════
+// ADMIN — SECURITY
+// ══════════════════════════════════════════════
+function toggle2FA(on){
+  var sec=getSecurityCfg(); sec.twofa=on; saveSecurityCfgLS(sec);
+  toast('2FA '+(on?'enabled':'disabled')+' for admin login','📱');
+}
+function saveApiKey(){
+  var key=document.getElementById('sec-apikey').value.trim();
+  var sec=getSecurityCfg(); sec.apiKey=key; saveSecurityCfgLS(sec);
+  document.getElementById('sec-apikey').value= key ? '•'.repeat(Math.min(key.length,20)) : '';
+  var res=document.getElementById('sec-apikey-result');
+  res.style.color='var(--g)';res.textContent=key?'✅ API key saved (hidden).':'Key cleared.';
+  toast('API key updated','🔑');
+}
+function revealApiKey(){
+  var sec=getSecurityCfg();
+  if(!sec.apiKey){toast('No API key saved','⚠️');return;}
+  alert('Backend API Key:\n\n'+sec.apiKey);
+}
+function saveRateLimit(){
+  var v=parseInt(document.getElementById('sec-ratelimit').value,10)||20;
+  var sec=getSecurityCfg(); sec.rateLimit=v; saveSecurityCfgLS(sec);
+  toast('Rate limit set to '+v+'/min','🚦');
+}
+function saveIPWhitelist(){
+  var v=document.getElementById('sec-ipwl').value.trim();
+  var sec=getSecurityCfg(); sec.ipWhitelist=v; saveSecurityCfgLS(sec);
+  toast('IP whitelist saved','🌐');
+}
+ 
+// ══════════════════════════════════════════════
+// ADMIN — populate form fields with saved config
+// ══════════════════════════════════════════════
+function populateAdminForms(){
+  var be=getBackendCfg();
+  if(document.getElementById('cfg-apiurl')){
+    document.getElementById('cfg-apiurl').value=be.apiUrl||API_URL;
+    document.getElementById('cfg-model').value=be.model||'default';
+    document.getElementById('cfg-timeout').value=be.timeout||20;
+  }
+  var ap=getAppearance();
+  if(document.getElementById('ap-theme')){
+    document.getElementById('ap-theme').value=ap.theme||'dark';
+    document.getElementById('ap-accent').value=ap.accent||'#00d4ff';
+    document.getElementById('ap-fontsize').value=ap.fontSize||14;
+    document.getElementById('ap-anim').checked=ap.animations!==false;
+    document.getElementById('ap-bgimg').value=ap.bgImage||'';
+  }
+  var adv=getAdvanced();
+  if(document.getElementById('adv-maint')){
+    document.getElementById('adv-maint').checked=!!adv.maintenance;
+    document.getElementById('adv-debug').checked=!!adv.debug;
+  }
+  var ai=getAICfg();
+  if(document.getElementById('ai-name')){
+    document.getElementById('ai-name').value=ai.name||'Hexa AI';
+    document.getElementById('ai-personality').value=ai.personality||'friendly';
+  }
+  var sec=getSecurityCfg();
+  if(document.getElementById('sec-2fa')){
+    document.getElementById('sec-2fa').checked=!!sec.twofa;
+    document.getElementById('sec-apikey').value=sec.apiKey?('•'.repeat(Math.min(sec.apiKey.length,20))):'';
+    document.getElementById('sec-ratelimit').value=sec.rateLimit||20;
+    document.getElementById('sec-ipwl').value=sec.ipWhitelist||'';
+  }
+}
+ 
+// ══════════════════════════════════════════════
 // TOAST
 // ══════════════════════════════════════════════
 function toast(msg,icon){
@@ -1623,7 +2207,16 @@ function toast(msg,icon){
 // ══════════════════════════════════════════════
 // BOOT
 // ══════════════════════════════════════════════
+function applyBranding(){
+  var ai=getAICfg();
+  var name=(ai.name||'Hexa AI').toUpperCase();
+  document.querySelectorAll('.sb-brand, .lbrand, .wlc-title').forEach(el=>el.textContent=name);
+  document.title=ai.name||'Hexa AI';
+}
+ 
 window.addEventListener('DOMContentLoaded',()=>{
+  applyAppearance();
+  applyBranding();
   var sess=getSession();
   if(sess&&sess.email){
     // enforce ban check on reload
@@ -1638,4 +2231,3 @@ window.addEventListener('DOMContentLoaded',()=>{
 </script>
 </body>
 </html>
- 
