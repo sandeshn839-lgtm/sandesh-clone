@@ -1195,67 +1195,43 @@ function routeCmd(text,imgBase64){
 }
  
 // ══════════════════════════════════════════════
-// Hexa AI — Railway Backend API
+// AI API — Railway Backend
 // ══════════════════════════════════════════════
-
-const API_URL = "https://shadowshield-api-production.up.railway.app/ask";
-
-async function callAI(text, imgBase64 = null) {
-
-    showThink();
-    setStatus("⬡ Thinking...", "sd-a");
-
-    const payload = {
-        message: text,
-        image: imgBase64,
-        lang: selectedLang
-    };
-
-    try {
-
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
-
-        if (!response.ok) {
-            throw new Error("Backend Error");
-        }
-
-        const data = await response.json();
-
-        const reply =
-            data.reply ||
-            data.response ||
-            data.answer ||
-            data.text ||
-            data.content ||
-            "Sorry, I couldn't understand.";
-
-        hideThink();
-        setStatus("⬡ Ready", "sd-ok");
-
-        addAIMsg(reply);
-        speakTTS(reply);
-
-    } catch (error) {
-
-        console.error(error);
-
-        hideThink();
-        setStatus("⬡ Offline", "sd-bad");
-
-        const reply =
-            "⚠️ Sorry, I can't connect to the Hexa AI server right now. Please try again in a moment.";
-
-        addAIMsg(reply);
-        speakTTS(reply);
-
-    }
-
+function callAI(text,imgBase64){
+  showThink();
+  setStatus('⬡ Thinking…','sd-a');
+  var langName=LANG_NAMES[selectedLang]||'English';
+ 
+  // Build system context to inject into message
+  var sysCtx='[SYSTEM: You are Hexa, a brilliant personal AI assistant. Talk like a genuine best friend — warm, fun, casual, supportive. Respond in '+langName+'. Never mention any AI company, model, or brand. Never say you are an AI. Be concise but complete. Use **bold** for key info. For code use triple backticks. Expert in all programming languages. Max 200 words unless writing code.]';
+ 
+  var payload = {
+    message: sysCtx + '\n\n' + (text||'Describe this image.'),
+    lang: selectedLang
+  };
+ 
+  fetch(API_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  })
+  .then(r => r.json())
+  .then(d => {
+    var reply = d.response || d.reply || d.answer || d.text || d.content || fallback(text);
+    addAIMsg(reply); speakTTS(reply);
+  })
+  .catch(() => {
+    var reply = fallback(text);
+    addAIMsg(reply); speakTTS(reply);
+  });
+}
+ 
+function fallback(text){
+  var t=(text||'').toLowerCase();
+  if(t.match(/joke|funny/)) return "Why do programmers prefer dark mode? Because **light attracts bugs!** 🐛😂";
+  if(t.match(/hello|hi|hey/)) return "Hey bestie! 👋 I'm right here! What do you need?";
+  if(t.match(/what|how|why|who/)) return "Great question! Let me think… My connection hiccupped, try again in a sec! 🔄";
+  return "I'm here! ⬡ Connection blipped — try again in a moment, I've got you! 😊";
 }
  
 // ══════════════════════════════════════════════
@@ -1662,3 +1638,4 @@ window.addEventListener('DOMContentLoaded',()=>{
 </script>
 </body>
 </html>
+ 
