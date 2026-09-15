@@ -786,7 +786,7 @@ button{cursor:pointer;}
           <button class="btn-p" onclick="saveBackendConfig()">💾 Save Configuration</button>
           <div id="be-cfg-result" style="margin-top:10px;font-size:11px;"></div>
         </div>
-        <div class="adm-note">Test Connection sends a lightweight ping to your Railway <code style="background:rgba(0,212,255,.09);padding:1px 5px;border-radius:4px;">/ask</code> endpoint and measures round-trip time. Railway free-tier services can "sleep" when idle — the first ping after inactivity may take a few seconds while it wakes up.</div>
+        <div class="adm-note">Test Connection sends a lightweight ping to your Railway <code style="background:rgba(0,212,255,.09);padding:1px 5px;border-radius:4px;">/api/chat</code> endpoint and measures round-trip time. Railway free-tier services can "sleep" when idle — the first ping after inactivity may take a few seconds while it wakes up.</div>
       </div>
       <div class="atab" id="atab-users">
         <div class="at-h">👥 User Management</div><div class="at-s">All accounts with access control — change role, block/unblock, or grant access</div>
@@ -894,7 +894,7 @@ button{cursor:pointer;}
             <input type="file" id="imp-file" accept="application/json" style="display:none;" onchange="importSettings(event)">
           </div>
         </div>
-        <div class="adm-note">"Restart backend" would require your Railway project's API key and isn't something a public web page should be able to trigger for security reasons — use the <a href="https://railway.app" target="_blank" style="color:var(--c);">Railway dashboard</a> for a real restart. "Wake/Ping" simply calls your <code style="background:rgba(0,212,255,.09);padding:1px 5px;border-radius:4px;">/ask</code> endpoint to wake it if it's sleeping.</div>
+        <div class="adm-note">"Restart backend" would require your Railway project's API key and isn't something a public web page should be able to trigger for security reasons — use the <a href="https://railway.app" target="_blank" style="color:var(--c);">Railway dashboard</a> for a real restart. "Wake/Ping" simply calls your <code style="background:rgba(0,212,255,.09);padding:1px 5px;border-radius:4px;">/api/chat</code> endpoint to wake it if it's sleeping.</div>
       </div>
  
       <div class="atab" id="atab-aimgmt">
@@ -1097,7 +1097,7 @@ button{cursor:pointer;}
 // ══════════════════════════════════════════════
 // CONFIG
 // ══════════════════════════════════════════════
-var API_URL = 'https://shadowshield-api-production.up.railway.app/ask';
+var API_URL = 'https://web-production-5edf5.up.railway.app/api/chat';
 var FREE_EMAILS = ['sandesh99998@gmail.com','sandeshn839@gmail.com'];
 var ADMIN_EMAILS = ['sandeshn839@gmail.com'];
 var DEFAULT_ADMIN_PASS = 'HEXA@2025#SS';
@@ -1106,6 +1106,66 @@ var SK = {sess:'hx_s',users:'hx_u',payments:'hx_p',sessions:'hx_ls',adminpass:'h
   backendcfg:'hx_becfg',appearance:'hx_appearance',advanced:'hx_advanced',aicfg:'hx_aicfg',
   security:'hx_security',feedback:'hx_feedback',metrics:'hx_metrics'};
 var CHAT_KEY = function(e){ return 'hx_c_'+e; };
+ 
+// Bootstrap credentials used ONLY to obtain a session JWT from this
+// backend's own /api/auth/login (per backend/state.py & backend/api/chat.py's
+// auth_required("user") requirement on /api/chat). This is NOT the Gemini
+// key and grants no more access than self-registering at the same public
+// endpoint would already allow. The real secret (AI_API_KEY) stays
+// exclusively in Railway environment variables — see chat.py's _ai_reply().
+var BACKEND_SVC_USER = 'hexa_frontend_svc';
+var BACKEND_SVC_PASS = 'Hexa-Frontend-Bridge-2025!';
+var backendAuthToken = null;
+var backendAuthTokenExp = 0;
+ 
+function backendOrigin(apiUrl){
+  try{ return new URL(apiUrl).origin; }catch(e){ return 'https://web-production-5edf5.up.railway.app'; }
+}
+ 
+async function backendLogin(origin, creds){
+  try{
+    var res = await fetch(origin + '/api/auth/login', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(creds)
+    });
+    if(!res.ok) return null;
+    var data = await res.json();
+    return data.token || null;
+  }catch(e){ return null; }
+}
+ 
+async function backendRegister(origin, creds){
+  try{
+    await fetch(origin + '/api/auth/register', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(creds)
+    });
+  }catch(e){ /* ignore — 409 "already exists" is expected on repeat calls */ }
+}
+ 
+// Obtains (and caches) a JWT from THIS backend's /api/auth routes.
+// Matches auth.py: register needs username>=3 chars & password>=8 chars,
+// login returns {token, token_type, username}.
+async function ensureBackendToken(apiUrl){
+  var now = Date.now();
+  if(backendAuthToken && now < backendAuthTokenExp - 30000) return backendAuthToken;
+  var origin = backendOrigin(apiUrl);
+  var creds = {username:BACKEND_SVC_USER, password:BACKEND_SVC_PASS};
+  var token = await backendLogin(origin, creds);
+  if(!token){
+    await backendRegister(origin, creds);
+    token = await backendLogin(origin, creds);
+  }
+  if(token){
+    backendAuthToken = token;
+    backendAuthTokenExp = Date.now() + 55*60*1000; // JWT_EXP_SECONDS default is 3600s
+  } else if(getAdvanced().debug){
+    console.error('[Hexa debug] Could not obtain backend auth token from', origin);
+  }
+  return token;
+}
  
 // ── Config defaults ──
 function getBackendCfg(){return gLS(SK.backendcfg,{apiUrl:API_URL,model:'default',timeout:20});}
@@ -1746,7 +1806,6 @@ async function callAI(message, image = null) {
  
   var cfg = getBackendCfg();
   var aiCfg = getAICfg();
-  var sec = getSecurityCfg();
   var langName = LANG_NAMES[selectedLang] || 'English';
   var apiUrl = cfg.apiUrl || API_URL;
   var timeoutMs = (cfg.timeout || 20) * 1000;
@@ -1763,24 +1822,28 @@ async function callAI(message, image = null) {
   var startTime = performance.now();
  
   try {
-    var headers = { 'Content-Type': 'application/json' };
-    if (sec.apiKey) headers['Authorization'] = 'Bearer ' + sec.apiKey;
+    var token = await ensureBackendToken(apiUrl);
+    if (!token) throw new Error('Could not authenticate with backend (/api/auth/login failed)');
  
+    // NOTE: the Security tab's "Backend API Key" field is intentionally NOT
+    // sent here — /api/chat authenticates with the JWT above, not that field.
+    var headers = { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token };
+ 
+    // /api/chat (backend/api/chat.py legacy_chat) only reads {"message": "..."} —
+    // it has no image/lang/model parameters, so only "message" is sent.
     var res = await fetch(apiUrl, {
       method: 'POST',
       headers: headers,
-      body: JSON.stringify({
-        message: fullMessage,
-        image: image,
-        lang: selectedLang,
-        model: cfg.model && cfg.model !== 'default' ? cfg.model : undefined
-      }),
+      body: JSON.stringify({ message: fullMessage }),
       signal: controller.signal
     });
  
     clearTimeout(timeoutId);
     var elapsed = Math.round(performance.now() - startTime);
  
+    if (res.status === 401) {
+      backendAuthToken = null; // token expired/invalid — force re-auth next time
+    }
     if (!res.ok) throw new Error('Server responded with status ' + res.status);
  
     var data = await res.json();
@@ -1793,7 +1856,7 @@ async function callAI(message, image = null) {
     logMetric({t:Date.now(), ok:true, ms:elapsed});
     hideThink();
     setStatus('Ready', 'sd-ok');
-    if(getAdvanced().debug) console.log('[Hexa debug] callAI success', {elapsed, apiUrl, model:cfg.model});
+    if(getAdvanced().debug) console.log('[Hexa debug] callAI success', {elapsed, apiUrl});
  
     addAIMsg(reply);
     speakTTS(reply);
@@ -2266,19 +2329,23 @@ async function testBackendConnection(){
   var latEl=document.getElementById('be-latency');
   if(statusEl){statusEl.className='stat-pill sp-off';statusEl.textContent='● Checking…';}
   var cfg=getBackendCfg();
+  var apiUrl = cfg.apiUrl||API_URL;
   var start=performance.now();
   var controller=new AbortController();
   var tid=setTimeout(()=>controller.abort(),(cfg.timeout||20)*1000);
   try{
-    var res=await fetch(cfg.apiUrl||API_URL,{
+    var token = await ensureBackendToken(apiUrl);
+    if(!token) throw new Error('auth failed');
+    var res=await fetch(apiUrl,{
       method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({message:'ping',lang:selectedLang}),
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},
+      body:JSON.stringify({message:'ping'}),
       signal:controller.signal
     });
     clearTimeout(tid);
     var ms=Math.round(performance.now()-start);
     var ok=res.ok;
+    if(res.status===401) backendAuthToken=null;
     if(statusEl){statusEl.className='stat-pill '+(ok?'sp-on':'sp-off');statusEl.textContent=ok?'● Online':'● Error '+res.status;}
     if(latEl)latEl.textContent=ms+'ms';
     if(lastEl)lastEl.textContent=new Date().toLocaleTimeString();
@@ -2527,4 +2594,3 @@ window.addEventListener('DOMContentLoaded',()=>{
 </script>
 </body>
 </html>
- 
