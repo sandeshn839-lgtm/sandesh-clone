@@ -18,7 +18,6 @@ button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
 @keyframes cw{to{transform:rotate(360deg)}}@keyframes ccw{to{transform:rotate(-360deg)}}@keyframes pl{50%{transform:scale(1.12)}}
 .hc{position:absolute;width:55px;height:55px;opacity:.35}.hc:before,.hc:after{content:'';position:absolute;background:var(--c)}.hc:before{width:100%;height:1px}.hc:after{width:1px;height:100%}
 .tl{top:10px;left:10px}.tr{top:10px;right:10px;transform:scaleX(-1)}.bl{bottom:10px;left:10px;transform:scaleY(-1)}.br{bottom:10px;right:10px;transform:scale(-1)}
-/* login */
 #login{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;z-index:99;background:radial-gradient(circle at 50% 30%,#1b3a52,#050d18 70%)}
 .lc{width:360px;max-width:92vw;border-radius:22px;padding:56px 26px 24px;position:relative;background:rgba(10,22,36,.5);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.08);box-shadow:0 25px 70px rgba(0,10,25,.55)}
 .ltab{position:absolute;top:0;left:50%;transform:translateX(-50%);background:rgba(224,224,214,.92);color:#1b2530;font-family:var(--orb);font-weight:600;padding:9px 34px 11px;border-radius:0 0 14px 14px}
@@ -26,7 +25,6 @@ button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
 .lb{width:100%;padding:13px;background:rgba(240,240,235,.94);border:0;border-radius:24px;color:#182028;font-weight:600}
 .lr{display:flex;justify-content:space-between;font-size:11px;margin:2px 4px 14px;color:rgba(255,255,255,.85)}.lr button{background:none;border:0;font-size:11px}
 .lerr{font-size:11px;color:#ff9494;text-align:center;margin-top:10px;min-height:14px}.lreg{text-align:center;font-size:11.5px;margin-top:14px;color:rgba(255,255,255,.85)}.lreg b{text-decoration:underline;cursor:pointer}
-/* app */
 #app{display:none;height:100vh;position:relative;z-index:1;margin:auto;overflow:hidden}#app.vis{display:flex}
 .sb{width:256px;min-width:256px;background:rgba(0,6,18,.98);border-right:1px solid var(--bd);display:flex;flex-direction:column;height:100%;overflow:hidden;transition:.25s}.sb.col{width:0;min-width:0}
 .sbh{padding:13px 12px 11px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px}
@@ -75,6 +73,8 @@ textarea.in{resize:vertical}.g2{display:grid;grid-template-columns:repeat(auto-f
 iframe{width:100%;height:340px;background:#fff;border:0;border-radius:10px;margin-top:10px}pre.out{background:rgba(0,4,14,.92);border:1px solid var(--bd);border-radius:10px;padding:12px;max-height:420px;overflow:auto;font-size:12px;white-space:pre-wrap;font-family:var(--mono);color:#a8d8ea}
 #modal{position:fixed;inset:0;background:rgba(0,0,0,.8);backdrop-filter:blur(8px);z-index:150;display:none;align-items:center;justify-content:center;padding:12px}#modal.on{display:flex}
 #mb{background:rgba(0,8,22,.99);border:1px solid var(--bd2);border-radius:16px;padding:20px;width:640px;max-width:100%;max-height:90vh;overflow-y:auto}
+#cam{position:fixed;inset:0;background:rgba(0,0,0,.85);backdrop-filter:blur(10px);z-index:160;display:none;align-items:center;justify-content:center}#cam.on{display:flex}
+.cb{background:rgba(0,8,22,.99);border:1px solid var(--bd2);border-radius:16px;padding:20px;max-width:520px;width:95%}#cv{width:100%;border-radius:9px;background:#000;border:1px solid var(--bd)}
 table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;border-bottom:1px solid var(--bd);text-align:left;color:var(--t2)}.box{border-top:1px solid var(--bd);margin-top:14px;padding-top:10px}
 #toasts{position:fixed;bottom:18px;right:18px;z-index:200;display:flex;flex-direction:column;gap:6px}#toasts div{background:rgba(0,8,22,.97);border:1px solid var(--bd2);border-radius:10px;padding:9px 16px;font-size:12px}
 .mob #app{max-width:420px;height:min(100vh,860px);border:1px solid var(--bd2);border-radius:22px}.mob .sb{position:absolute;z-index:30;transform:translateX(-100%);width:256px;min-width:256px}.mob .sb.open{transform:none}
@@ -95,7 +95,7 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
  <div class="ncb" onclick="newChat()"><i>+</i>New Chat</div>
  <div class="nav"><a onclick="tab('image')">🎨 Image Generation</a><a onclick="tab('video')">🎬 Text to Video</a><a onclick="tab('code')">💻 Website / Code Generator</a><a onclick="tab('social')">📲 Social &amp; App Launcher</a></div>
  <div class="sec">Recents</div><div class="chats" id="clist"></div>
- <div class="row"><span>🌐</span><select id="lang" onchange="lang=this.value;toast(this.selectedOptions[0].text)"></select></div>
+ <div class="row"><span>🌐</span><select id="lang" onchange="changeLang(this.value)"></select></div>
  <div class="row"><span>🎙</span><select id="voice" onchange="gender=this.value;toast('Voice: '+this.selectedOptions[0].text)"><option value="female">Female Voice</option><option value="male">Male Voice</option></select></div>
  <div class="uw"><div class="udrop" id="udrop"></div><div class="user" id="urow" onclick="tud(event)"><div class="av" id="av"></div><div><div id="un"></div><div id="up"></div></div><span class="more">⋮</span></div></div>
 </aside>
@@ -104,10 +104,10 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
 
  <div class="vw on" id="v-chat"><div id="cw"><div id="msgs"></div></div>
   <div class="inp"><div id="ipv" style="display:none;align-items:center;gap:8px;padding:0 4px 6px;max-width:840px;margin:0 auto"><img id="ipi" style="max-height:60px;border-radius:6px"><span style="font-size:10px;color:var(--t3)">Photo attached</span><span style="cursor:pointer;color:var(--r);font-size:17px" onclick="rmImg()">×</span></div>
-   <div class="ib"><button class="ia" title="Attach image" onclick="$('f1').click()">📎</button><button class="ia" title="Camera" onclick="$('f2').click()">📷</button>
+   <div class="ib"><button class="ia" title="Attach image" onclick="$('f1').click()">📎</button><button class="ia" title="Camera" onclick="openCam()">📷</button>
     <textarea id="inp" rows="1" placeholder='Ask anything… "open YouTube", generate image of sunset, write Python code…' onkeydown="if(event.key=='Enter'&&!event.shiftKey){event.preventDefault();send()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,150)+'px'"></textarea>
     <div class="vb" id="vb"><i></i><i></i><i></i><i></i><i></i><i></i></div><button class="mic" id="mic" onclick="mic()" title="Voice">🎤</button><button class="snd" onclick="send()">➤</button></div>
-   <input type="file" id="f1" accept="image/*" hidden onchange="pick(event)"><input type="file" id="f2" accept="image/*" capture="environment" hidden onchange="pick(event)">
+   <input type="file" id="f1" accept="image/*" hidden onchange="pick(event)">
    <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages</div></div></div>
 
  <div class="vw" id="v-image"><h3>🎨 FREE IMAGE GENERATION (24/7)</h3><textarea class="in" id="ip" rows="2" placeholder="Describe the image…"></textarea>
@@ -130,22 +130,27 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
   <div style="font-size:11px;color:var(--t3)">Instagram has no web send link: the message is copied and Instagram Direct opens so you can paste it.</div>
   <div class="box"><span class="lab">Quick launch</span><div class="fl" id="apps"></div></div></div>
 </div></div>
+
+<div id="cam"><div class="cb"><h3>⬡ CAMERA</h3><video id="cv" autoplay playsinline muted></video><canvas id="cc" style="display:none"></canvas>
+ <div class="fl" style="justify-content:center"><button class="btn" onclick="snap()">📸 Capture &amp; Ask</button><button class="btn bs" onclick="closeCam()">Close</button></div></div></div>
 <div id="modal" onclick="if(event.target==this)this.classList.remove('on')"><div id="mb"></div></div><div id="toasts"></div>
 
 <script>
 const $=i=>document.getElementById(i),L=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},W=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const ADMINS=['sandeshn839@gmail.com','sandesh99998@gmail.com'];
 const LANGS={'en-US':'English','ne-NP':'नेपाली (Nepali)','hi-IN':'हिंदी (Hindi)','bn-BD':'বাংলা (Bengali)','ur-PK':'اردو (Urdu)','es-ES':'Español','fr-FR':'Français','de-DE':'Deutsch','it-IT':'Italiano','pt-BR':'Português','ru-RU':'Русский','ja-JP':'日本語','zh-CN':'中文','ko-KR':'한국어','ar-SA':'العربية','tr-TR':'Türkçe','id-ID':'Indonesia','th-TH':'ไทย','vi-VN':'Tiếng Việt','nl-NL':'Nederlands','pl-PL':'Polski','sw-KE':'Kiswahili'};
+const LNAME={'en-US':'English','ne-NP':'Nepali','hi-IN':'Hindi','bn-BD':'Bengali','ur-PK':'Urdu','es-ES':'Spanish','fr-FR':'French','de-DE':'German','it-IT':'Italian','pt-BR':'Portuguese','ru-RU':'Russian','ja-JP':'Japanese','zh-CN':'Chinese (Simplified)','ko-KR':'Korean','ar-SA':'Arabic','tr-TR':'Turkish','id-ID':'Indonesian','th-TH':'Thai','vi-VN':'Vietnamese','nl-NL':'Dutch','pl-PL':'Polish','sw-KE':'Swahili'};
 const APPS={youtube:'youtube.com',gmail:'mail.google.com',google:'google.com',facebook:'facebook.com',instagram:'instagram.com',github:'github.com',netflix:'netflix.com',spotify:'open.spotify.com',whatsapp:'web.whatsapp.com',maps:'maps.google.com',x:'x.com',linkedin:'linkedin.com'};
 const PROV={groq:{n:'Groq',u:'https://api.groq.com/openai/v1/chat/completions',m:'llama-3.3-70b-versatile'},openai:{n:'OpenAI',u:'https://api.openai.com/v1/chat/completions',m:'gpt-4o-mini'},gemini:{n:'Gemini',m:'gemini-2.0-flash'},claude:{n:'Claude',u:'https://api.anthropic.com/v1/messages',m:'claude-sonnet-4-5'}};
-let me=null,chats={},cid=null,lang='en-US',gender='female',rec=null,vT=null,vbT=null,lastCode='',busy=false,isReg=false,img=null;
+const EL_F='21m00Tcm4TlvDq8ikWAM',EL_M='pNInz6obpgDQGcFmaJgB'; // ElevenLabs premade voices: Rachel / Adam
+let me=null,chats={},cid=null,lang='en-US',gender='female',rec=null,vT=null,vbT=null,lastCode='',busy=false,isReg=false,img=null,cs=null,au=null;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const G=()=>L('hx_g',{maint:false,note:''}),P=()=>L('hx_p_'+me,{prov:'free',keys:{},speak:true,name:'Hexa AI'}),isAdmin=e=>ADMINS.includes(e);
+const G=()=>L('hx_g',{maint:false,note:''}),P=()=>L('hx_p_'+me,{prov:'free',keys:{},speak:true,name:'Hexa AI',el:{}}),isAdmin=e=>ADMINS.includes(e);
 const log=m=>{const a=L('hx_log',[]);a.unshift({t:Date.now(),u:me||'-',m});W('hx_log',a.slice(0,200))};
-const toast=m=>{const d=document.createElement('div');d.textContent=m;$('toasts').appendChild(d);setTimeout(()=>d.remove(),3200)};
+const toast=m=>{const d=document.createElement('div');d.textContent=m;$('toasts').appendChild(d);setTimeout(()=>d.remove(),3500)};
 function setS(t,c,core){$('st').textContent=t;$('dot').className='dot '+(c||'');$('core').dataset.s=core||'idle'}
 
-/* ---- AI core HUD (generated) ---- */
+/* ---- AI core HUD ---- */
 (function(){const P=(r,d)=>[300+r*Math.cos(d*Math.PI/180),300+r*Math.sin(d*Math.PI/180)],A=(r,a,b)=>{const p=P(r,a),q=P(r,b);return`M${p[0].toFixed(1)} ${p[1].toFixed(1)}A${r} ${r} 0 0 1 ${q[0].toFixed(1)} ${q[1].toFixed(1)}`};
 let t='',s='',g='';for(let i=0;i<48;i++){const a=i*7.5,b=i%4==0,p=P(218,a),q=P(b?232:226,a);t+=`<line x1="${p[0]}" y1="${p[1]}" x2="${q[0]}" y2="${q[1]}" stroke="#00d4ff" stroke-width="${b?2:1.5}" opacity="${b?.65:.28}"/>`}
 for(let k=0;k<6;k++)s+=`<path d="${A(232,k*5,k*5+5)}" fill="none" stroke="#00d4ff" stroke-linecap="round" stroke-width="${5-k*.6}" opacity="${.95-k*.17}" filter="url(#gl)"/>`;
@@ -175,25 +180,33 @@ function switchTo(e){if(G().maint&&!isAdmin(e))return toast('Maintenance mode');
 function enter(email){me=email;const a=L('hx_accts',[]);if(!a.includes(email))a.push(email);W('hx_accts',a);W('hx_cur',email);
  const s=L('hx_sess',[]);s.unshift({u:email,t:Date.now(),ua:navigator.userAgent.slice(0,60)});W('hx_sess',s.slice(0,100));log('login');
  $('login').style.display='none';$('app').classList.add('vis');initApp()}
-function logout(){log('logout');const a=L('hx_accts',[]).filter(e=>e!==me);W('hx_accts',a);localStorage.removeItem('hx_cur');speechSynthesis.cancel();closeUD();
+function logout(){log('logout');const a=L('hx_accts',[]).filter(e=>e!==me);W('hx_accts',a);localStorage.removeItem('hx_cur');stopSpeak();closeUD();
  if(a.length)return enter(a[0]);me=null;$('app').classList.remove('vis');showAuth()}
 
 /* ---- APP SHELL ---- */
 function initApp(){const p=P();chats=L('hx_c_'+me,{});$('av').textContent=me.slice(0,2).toUpperCase();$('un').textContent=me.split('@')[0];$('up').textContent=isAdmin(me)?'Admin ∞':'Free ∞';$('brand').textContent=p.name.replace(' AI','').toUpperCase();
  const k=Object.keys(chats).sort((a,b)=>chats[b].t-chats[a].t);k.length?openChat(k[0]):newChat();if(G().note)toast('📢 '+G().note)}
-function tab(n){document.querySelectorAll('.vw').forEach(v=>v.classList.toggle('on',v.id=='v-'+n));if($('app').parentNode.classList.contains('mob'))$('sb').classList.remove('open')}
+function tab(n){document.querySelectorAll('.vw').forEach(v=>v.classList.toggle('on',v.id=='v-'+n));if(document.body.classList.contains('mob'))$('sb').classList.remove('open')}
 function tsb(){document.body.classList.contains('mob')?$('sb').classList.toggle('open'):$('sb').classList.toggle('col')}
 function vp(){const m=document.body.classList.toggle('mob');$('sb').classList.remove('open','col');closeUD();toast(m?'Mobile viewport':'Laptop viewport')}
 function tud(e){e.stopPropagation();const d=$('udrop');if(d.classList.contains('open'))return closeUD();
  const o=L('hx_accts',[]).filter(x=>x!==me);
- d.innerHTML=`<div class="ud" onclick="closeUD();openSettings()">⚙ Settings &amp; API Keys</div>${isAdmin(me)?'<div class="ud" onclick="closeUD();openAdmin()">👑 Admin Panel</div>':''}${o.map(x=>`<div class="ud" onclick="closeUD();switchTo('${esc(x)}')">↔ ${esc(x)}</div>`).join('')}<div class="ud" onclick="closeUD();showAuth()">＋ Add / switch account</div><div class="ud" onclick="vp()">${document.body.classList.contains('mob')?'💻 Laptop viewport':'📱 Mobile viewport'}</div><div class="ud" onclick="closeUD();clearChat()">🗑️ Clear This Chat</div><div class="ud dg" onclick="logout()">⬡ Sign Out</div>`;d.classList.add('open')}
+ d.innerHTML=`<div class="ud" onclick="closeUD();openSettings()">⚙ Settings, API Keys &amp; ElevenLabs</div>${isAdmin(me)?'<div class="ud" onclick="closeUD();openAdmin()">👑 Admin Panel</div>':''}${o.map(x=>`<div class="ud" onclick="closeUD();switchTo('${esc(x)}')">↔ ${esc(x)}</div>`).join('')}<div class="ud" onclick="closeUD();showAuth()">＋ Add / switch account</div><div class="ud" onclick="vp()">${document.body.classList.contains('mob')?'💻 Laptop viewport':'📱 Mobile viewport'}</div><div class="ud" onclick="closeUD();clearChat()">🗑️ Clear This Chat</div><div class="ud dg" onclick="logout()">⬡ Sign Out</div>`;d.classList.add('open')}
 const closeUD=()=>$('udrop').classList.remove('open');document.addEventListener('click',e=>{if(!e.target.closest('#udrop'))closeUD()});
 setInterval(()=>$('clk').textContent=new Date().toLocaleTimeString(),1000);
+
+/* ---- LANGUAGE: AI replies + speaks in the selected language ---- */
+async function changeLang(v){
+ lang=v;if(rec){try{rec.stop()}catch(e){}}toast('🌐 '+LNAME[v]);if(busy||!me)return;
+ busy=true;setS('Thinking…','a','thinking');
+ try{const out=await ask([{role:'user',content:`Greet me warmly in one short sentence and tell me you will now speak ${LNAME[lang]}.`}],sysP());tab('chat');addMsg('assistant',out,false);speak(out)}
+ catch(e){setS('Ready')}
+ busy=false;if($('st').textContent.startsWith('Think'))setS('Ready')}
 
 /* ---- CHATS ---- */
 const saveC=()=>W('hx_c_'+me,chats);
 function newChat(){cid='c'+Date.now();chats[cid]={title:'New Chat',t:Date.now(),msgs:[]};saveC();openChat(cid)}
-function welcome(){$('msgs').innerHTML='<div class="wl"><div class="wh">⬡</div><div class="wt">HEXA AI</div><div class="ws">Your intelligent bestie. Ask anything, talk with 🎤, generate images, write code, open apps. Try <b style="color:var(--c)">"open YouTube"</b>.</div></div>'}
+function welcome(){$('msgs').innerHTML='<div class="wl"><div class="wh">⬡</div><div class="wt">HEXA AI</div><div class="ws">Your intelligent bestie. Ask anything, talk with 🎤, point the 📷 camera at something, generate images, write code, open apps. Try <b style="color:var(--c)">"open YouTube"</b>.</div></div>'}
 function openChat(id){cid=id;const c=chats[id];$('msgs').innerHTML='';c.msgs.length?c.msgs.forEach(m=>addMsg(m.role,m.content,false)):welcome();renderList();tab('chat')}
 function renderList(){const el=$('clist');el.innerHTML='';Object.entries(chats).sort((a,b)=>b[1].t-a[1].t).forEach(([id,c])=>{const d=document.createElement('div');d.className='si'+(id==cid?' act':'');d.innerHTML=`<span>💬 ${esc(c.title)}</span><span>🗑</span>`;d.onclick=()=>openChat(id);d.lastChild.onclick=e=>{e.stopPropagation();delete chats[id];saveC();const k=Object.keys(chats);k.length?openChat(k[0]):newChat()};el.appendChild(d)})}
 function clearChat(){if(!confirm('Clear this chat?'))return;chats[cid].msgs=[];chats[cid].title='New Chat';saveC();openChat(cid)}
@@ -209,17 +222,19 @@ function addMsg(role,text,store=true,think){
 async function ask(msgs,sys,prov,key,im){
  const p=P();prov=prov||p.prov;key=key||p.keys[prov];const H={'Content-Type':'application/json'};
  const J=async r=>{const j=await r.json().catch(()=>({}));if(!r.ok)throw Error((j.error&&(j.error.message||j.error))||'HTTP '+r.status);return j};
- if(!key||prov=='free')return(await J(await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:H,body:JSON.stringify({model:'openai',messages:[{role:'system',content:sys},...msgs]})}))).choices[0].message.content;
- const c=PROV[prov],last=msgs.length-1,mt=im?im.split(';')[0].slice(5):'',b64=im?im.split(',')[1]:'';
+ const last=msgs.length-1,mt=im?im.split(';')[0].slice(5):'',b64=im?im.split(',')[1]:'';
+ const oa=(m,i)=>i==last&&im?{role:m.role,content:[{type:'text',text:m.content},{type:'image_url',image_url:{url:im}}]}:m;
+ if(!key||prov=='free')return(await J(await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:H,body:JSON.stringify({model:'openai',messages:[{role:'system',content:sys},...msgs.map(oa)]})}))).choices[0].message.content;
+ const c=PROV[prov];
  if(prov=='gemini'){const j=await J(await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${c.m}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:H,body:JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:msgs.map((m,i)=>({role:m.role=='assistant'?'model':'user',parts:i==last&&im?[{text:m.content},{inline_data:{mime_type:mt,data:b64}}]:[{text:m.content}]}))})}));return j.candidates[0].content.parts.map(x=>x.text).join('')}
  if(prov=='claude'){const j=await J(await fetch(c.u,{method:'POST',headers:{...H,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:c.m,max_tokens:4096,system:sys,messages:msgs.map((m,i)=>i==last&&im?{role:m.role,content:[{type:'image',source:{type:'base64',media_type:mt,data:b64}},{type:'text',text:m.content}]}:m)})}));return j.content.map(x=>x.text||'').join('')}
- const j=await J(await fetch(c.u,{method:'POST',headers:{...H,Authorization:'Bearer '+key},body:JSON.stringify({model:c.m,messages:[{role:'system',content:sys},...msgs.map((m,i)=>i==last&&im&&prov=='openai'?{role:m.role,content:[{type:'text',text:m.content},{type:'image_url',image_url:{url:im}}]}:m)]})}));return j.choices[0].message.content}
-const sysP=()=>`You are ${P().name}, a brilliant, warm, friendly AI assistant. Reply in ${LANGS[lang]}. Be concise and clear; use **bold** for key points and fenced code blocks for code.`;
+ const j=await J(await fetch(c.u,{method:'POST',headers:{...H,Authorization:'Bearer '+key},body:JSON.stringify({model:c.m,messages:[{role:'system',content:sys},...msgs.map((m,i)=>prov=='openai'?oa(m,i):m)]})}));return j.choices[0].message.content}
+const sysP=()=>`You are ${P().name}, a brilliant, warm, friendly AI assistant. IMPORTANT: Reply ONLY in ${LNAME[lang]} (use its native script), even if the user writes in another language, unless they explicitly ask for a different language. Never mix languages. Be concise and clear; use **bold** for key points and fenced code blocks for code.`;
 function pick(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{img=ev.target.result;$('ipi').src=img;$('ipv').style.display='flex';toast('Image attached')};r.readAsDataURL(f);e.target.value=''}
 function rmImg(){img=null;$('ipv').style.display='none'}
 async function send(){
  const t=$('inp').value.trim();if((!t&&!img)||busy)return;const im=img;$('inp').value='';$('inp').style.height='';rmImg();tab('chat');
- addMsg('user',(im?'📎 [image] ':'')+(t||'Describe this image in detail.'));
+ addMsg('user',(im?'📷 ':'')+(t||'What do you see in this photo? Describe it in detail.'));
  const o=t.toLowerCase().match(/^(?:open|launch|go to)\s+([\w ]+)$/);
  if(o){const k=o[1].trim(),u=APPS[k]||(/^\w+$/.test(k)?k+'.com':null);if(u){window.open('https://'+u,'_blank');return reply('⬡ Opening **'+k+'** 🚀')}}
  const gi=t.match(/^(?:generate|create|draw|make)\s+(?:an?\s+)?(?:image|picture|photo)\s+(?:of\s+)?(.+)/i);if(gi){$('ip').value=gi[1];tab('image');return genImg()}
@@ -229,17 +244,38 @@ async function send(){
  busy=false;if($('st').textContent!='Error')setS('Ready')}
 function reply(t){addMsg('assistant',t);if(P().speak)speak(t)}
 
-/* ---- VOICE ---- */
+/* ---- CAMERA ---- */
+function openCam(){if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return toast('Camera needs HTTPS and a supported browser');
+ navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false}).then(s=>{cs=s;$('cv').srcObject=s;$('cam').classList.add('on')}).catch(()=>toast('Camera access denied'))}
+function closeCam(){if(cs)cs.getTracks().forEach(t=>t.stop());cs=null;$('cv').srcObject=null;$('cam').classList.remove('on')}
+function snap(){const v=$('cv'),c=$('cc');if(!v.videoWidth)return toast('Camera not ready yet');const w=Math.min(v.videoWidth,1024),h=Math.round(v.videoHeight*w/v.videoWidth);c.width=w;c.height=h;c.getContext('2d').drawImage(v,0,0,w,h);
+ img=c.toDataURL('image/jpeg',.82);$('ipi').src=img;$('ipv').style.display='flex';closeCam();send()}
+
+/* ---- VOICE OUT: ElevenLabs (if key saved) → browser voice fallback ---- */
+function stopSpeak(){if(window.speechSynthesis)speechSynthesis.cancel();if(au){au.onended=au.onerror=null;au.pause();au=null}}
 function pickVoice(){const v=speechSynthesis.getVoices(),b=lang.split('-')[0],ls=v.filter(x=>x.lang.toLowerCase().replace('_','-').startsWith(b));
  const f=/female|woman|samantha|zira|karen|victoria|susan|aria|jenny|heera|kalpana|allison|ava/i,m=/\bmale\b|david|daniel|alex|mark|guy|ravi|fred/i;
  return(gender=='female'?ls.find(x=>f.test(x.name)):ls.find(x=>m.test(x.name)&&!/female/i.test(x.name)))||ls[0]||null}
-function speak(t,force){if(!window.speechSynthesis||(!force&&!P().speak))return;speechSynthesis.cancel();
- const u=new SpeechSynthesisUtterance(t.replace(/```[\s\S]*?```/g,' code block ').replace(/[*`#_]/g,'').slice(0,600));u.lang=lang;const v=pickVoice();if(v)u.voice=v;u.pitch=gender=='female'?1.15:.8;
+async function speak(t,force){
+ if(!force&&!(me&&P().speak))return;stopSpeak();
+ const clean=t.replace(/```[\s\S]*?```/g,' code block ').replace(/[*`#_]/g,'').replace(/\s+/g,' ').trim().slice(0,700);if(!clean)return;
+ const el=(me&&P().el)||{};
+ if(el.key){
+  try{setS('Speaking…','c','speaking');
+   const id=gender=='female'?(el.f||EL_F):(el.m||EL_M);
+   const r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(id)}?output_format=mp3_44100_128`,{method:'POST',headers:{'xi-api-key':el.key,'Content-Type':'application/json',Accept:'audio/mpeg'},body:JSON.stringify({text:clean,model_id:el.model||'eleven_multilingual_v2',voice_settings:{stability:.5,similarity_boost:.75}})});
+   if(!r.ok){const j=await r.json().catch(()=>({}));throw Error((j.detail&&(j.detail.message||j.detail))||'HTTP '+r.status)}
+   const url=URL.createObjectURL(await r.blob());stopSpeak();au=new Audio(url);au.onended=au.onerror=()=>{setS('Ready');URL.revokeObjectURL(url)};await au.play();return}
+  catch(e){toast('ElevenLabs: '+e.message+' — using browser voice');setS('Ready')}}
+ if(!window.speechSynthesis)return;
+ const u=new SpeechSynthesisUtterance(clean);u.lang=lang;const v=pickVoice();if(v)u.voice=v;u.pitch=gender=='female'?1.15:.8;
  u.onstart=()=>setS('Speaking…','c','speaking');u.onend=u.onerror=()=>setS('Ready');speechSynthesis.speak(u)}
 if(window.speechSynthesis)speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();
+
+/* ---- VOICE IN ---- */
 function vbars(on){clearInterval(vbT);const b=document.querySelectorAll('#vb i');if(!on)return b.forEach(x=>{x.style.height='4px';x.style.opacity=.25});vbT=setInterval(()=>b.forEach(x=>{x.style.height=(3+Math.random()*15)+'px';x.style.opacity=.9}),80)}
 function mic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast('Voice input needs Chrome, Edge or Safari');
- if(rec){rec.stop();return}rec=new SR();rec.lang=lang;rec.interimResults=true;
+ if(rec){rec.stop();return}stopSpeak();rec=new SR();rec.lang=lang;rec.interimResults=true;
  rec.onresult=e=>{$('inp').value=[...e.results].map(r=>r[0].transcript).join('')};rec.onerror=e=>toast('Mic: '+e.error);
  rec.onend=()=>{rec=null;$('mic').classList.remove('on');vbars(0);setS('Ready');if($('inp').value.trim())send()};
  rec.start();$('mic').classList.add('on');vbars(1);setS('🎤 Listening…','c','listening')}
@@ -259,7 +295,7 @@ function togVid(){const b=$('vbox'),f=[...b.querySelectorAll('img')];if(!f.lengt
 /* ---- CODE GENERATOR ---- */
 const FM={html:['HTML, CSS and JavaScript — ONE self-contained index.html with inline <style> and <script>','html'],react:['React — ONE self-contained HTML file loading React 18 and Babel standalone through UMD script tags','html'],tailwind:['HTML with Tailwind CSS via the CDN script — ONE self-contained file','html'],py:['Python 3 — one runnable script','py'],node:['Node.js — one runnable script (plus package.json in a second block if needed)','js']};
 async function genCode(){const p=$('cpt').value.trim();if(!p)return toast('Describe what to build');const f=FM[$('cfm').value];setS('💻 Coding…','a','thinking');$('cout').textContent='Generating…';$('cprev').innerHTML='';
- try{const o=await ask([{role:'user',content:p}],`You are a world-class senior engineer and designer. Build a COMPLETE, polished, responsive, bug-free, production-ready solution in ${f[0]}. No placeholders, no TODOs, no omitted sections. Put the full code in a fenced code block, then give at most 3 lines of run instructions.`);
+ try{const o=await ask([{role:'user',content:p}],`You are a world-class senior engineer and designer. Build a COMPLETE, polished, responsive, bug-free, production-ready solution in ${f[0]}. No placeholders, no TODOs, no omitted sections. Put the full code in a fenced code block, then give at most 3 lines of run instructions in ${LNAME[lang]}.`);
  const bl=[...o.matchAll(/```[\w+-]*\n([\s\S]*?)```/g)].map(m=>m[1]);lastCode=bl.sort((a,b)=>b.length-a.length)[0]||o;$('cout').textContent=o;if(f[1]=='html')prev()}catch(e){$('cout').textContent='⚠️ '+e.message}setS('Ready')}
 const cpy=()=>lastCode?navigator.clipboard.writeText(lastCode).then(()=>toast('Copied')):toast('Nothing to copy');
 function dl(){if(!lastCode)return toast('Nothing to download');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([lastCode]));a.download='hexa-output.'+FM[$('cfm').value][1];a.click()}
@@ -267,7 +303,7 @@ function prev(){if(!/<html|<!doctype|<body|<div/i.test(lastCode))return toast('P
 
 /* ---- SOCIAL ---- */
 async function polish(){const t=$('smg').value.trim();if(!t)return toast('Write a message first');setS('✨ Formatting…','a','thinking');
- try{$('smg').value=await ask([{role:'user',content:t}],`Rewrite the user's text as a clear, friendly, well-formatted chat message in ${LANGS[lang]} with light emoji. Output ONLY the message.`)}catch(e){toast(e.message)}setS('Ready')}
+ try{$('smg').value=await ask([{role:'user',content:t}],`Rewrite the user's text as a clear, friendly, well-formatted chat message in ${LNAME[lang]} with light emoji. Output ONLY the message.`)}catch(e){toast(e.message)}setS('Ready')}
 function sh(k){const m=$('smg').value.trim(),e=encodeURIComponent(m),ph=$('sph').value.replace(/\D/g,'');if(!m)return toast('Write a message first');
  if(k=='ig'){navigator.clipboard.writeText(m).then(()=>toast('Copied — paste it in Instagram'));window.open('https://www.instagram.com/direct/inbox/','_blank')}
  else window.open({wa:`https://wa.me/${ph}?text=${e}`,tg:`https://t.me/share/url?url=%20&text=${e}`,x:`https://twitter.com/intent/tweet?text=${e}`,mail:`mailto:?body=${e}`}[k],'_blank')}
@@ -275,29 +311,38 @@ $('apps').innerHTML=Object.entries(APPS).map(([k,u])=>`<button class="btn bs" on
 
 /* ---- SETTINGS ---- */
 const modal=h=>{$('mb').innerHTML=h;$('modal').classList.add('on')};
-function openSettings(){const p=P();modal(`<h3>⚙ SETTINGS &amp; API KEYS</h3>
+function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <label class="lab">AI provider</label><select id="sp" onchange="spc()"><option value="free">Free (no key needed)</option>${Object.entries(PROV).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('')}</select>
  <label class="lab">Your own API key (saved in this browser only)</label><input class="in" id="sk" type="password" placeholder="Paste key">
  <div class="fl"><button class="btn bs" onclick="testKey()">✔ Test key</button><button class="btn" onclick="saveKey()">💾 Save</button><button class="btn bs" onclick="saveKey(1)">Remove key</button></div><div id="sres" style="font-size:12px"></div>
- <label class="lab">Assistant name</label><input class="in" id="sn" value="${esc(p.name)}">
+ <div class="box"><h3>🔊 ELEVENLABS VOICE</h3>
+ <label class="lab">ElevenLabs API key</label><input class="in" id="ek" type="password" placeholder="sk_…" value="${esc(el.key||'')}">
+ <label class="lab">Model</label><select id="em2"><option value="eleven_multilingual_v2">Multilingual v2 (29 languages, stable)</option><option value="eleven_v3">v3 (70+ languages incl. Nepali, Bengali, Urdu, Swahili)</option></select>
+ <label class="lab">Female voice ID (optional)</label><input class="in" id="ef" value="${esc(el.f||'')}" placeholder="default: Rachel">
+ <label class="lab">Male voice ID (optional)</label><input class="in" id="emv" value="${esc(el.m||'')}" placeholder="default: Adam">
+ <div class="fl"><button class="btn" onclick="saveEL()">💾 Save voice</button><button class="btn bs" onclick="testEL()">▶ Test voice</button><button class="btn bs" onclick="saveEL(1)">Remove key</button></div></div>
+ <div class="box"><label class="lab">Assistant name</label><input class="in" id="sn" value="${esc(p.name)}">
  <label class="lab"><input type="checkbox" id="ss" ${p.speak?'checked':''}> Speak replies aloud automatically</label>
- <button class="btn" style="margin-top:10px" onclick="saveGen()">Save preferences</button>
- <div style="font-size:11px;color:var(--t3);margin-top:12px;line-height:1.6">Keys stay in this browser's localStorage and are sent only to the provider you choose. Anyone using this browser profile could read them — use restricted keys.</div>`);$('sp').value=p.prov;spc()}
+ <button class="btn" style="margin-top:10px" onclick="saveGen()">Save preferences</button></div>
+ <div style="font-size:11px;color:var(--t3);margin-top:12px;line-height:1.6">Keys stay in this browser's localStorage and are sent only to the provider you choose. Anyone using this browser profile could read them — use restricted keys.</div>`);
+ $('sp').value=p.prov;$('em2').value=el.model||'eleven_multilingual_v2';spc()}
 function spc(){const v=$('sp').value;$('sk').value=P().keys[v]||'';$('sk').disabled=v=='free'}
 async function testKey(){const v=$('sp').value,k=$('sk').value.trim(),r=$('sres');if(v=='free'){r.textContent='✅ Free provider needs no key.';return}if(!k){r.textContent='⚠️ Paste a key first.';return}r.textContent='Testing…';
  try{await ask([{role:'user',content:'Reply with the single word OK'}],'Reply with OK',v,k);r.textContent='✅ Key is valid.';r.style.color='var(--g)'}catch(e){r.textContent='❌ '+e.message;r.style.color='var(--r)'}}
 function saveKey(rm){const p=P(),v=$('sp').value;if(v!='free'){if(rm){delete p.keys[v];$('sk').value=''}else p.keys[v]=$('sk').value.trim()}p.prov=v;W('hx_p_'+me,p);log((rm?'removed':'saved')+' key '+v);toast(rm?'Key removed':'Saved ✔')}
+function saveEL(rm){const p=P();p.el=rm?{}:{key:$('ek').value.trim(),model:$('em2').value,f:$('ef').value.trim(),m:$('emv').value.trim()};if(rm)$('ek').value='';W('hx_p_'+me,p);log(rm?'removed elevenlabs key':'saved elevenlabs');toast(rm?'ElevenLabs removed':'ElevenLabs voice saved ✔')}
+function testEL(){saveEL();const l={'en-US':'Hello! This is your Hexa voice.','ne-NP':'नमस्ते! म तपाईंको हेक्सा आवाज हुँ।','hi-IN':'नमस्ते! मैं आपकी हेक्सा आवाज़ हूँ।','es-ES':'¡Hola! Soy tu voz de Hexa.','fr-FR':'Bonjour ! Voici ta voix Hexa.','ja-JP':'こんにちは！ヘキサの声です。','ar-SA':'مرحبا! هذا صوتك من هيكسا.'};speak(l[lang]||l['en-US'],true)}
 function saveGen(){const p=P();p.name=$('sn').value.trim()||'Hexa AI';p.speak=$('ss').checked;W('hx_p_'+me,p);$('brand').textContent=p.name.replace(' AI','').toUpperCase();toast('Preferences saved')}
 
-/* ---- ADMIN (UI gate only — see notes) ---- */
+/* ---- ADMIN (UI gate only) ---- */
 function openAdmin(){
  if(!me||!isAdmin(me))return modal('<h3>⛔ ACCESS DENIED</h3><p style="font-size:13px;color:var(--t2)">This panel is restricted to authorised administrator accounts.</p>');
  const U=L('hx_users',{}),g=G(),acc=L('hx_accts',[]);
- modal(`<h3>👑 ADMIN PANEL</h3><div class="box"><b>Users &amp; API keys</b><table><tr><th>Email</th><th>Keys</th><th></th></tr>${Object.keys(U).map(e=>{const k=L('hx_p_'+e,{keys:{}}).keys;return`<tr><td>${esc(e)}${isAdmin(e)?' 👑':''}</td><td>${Object.entries(k).filter(x=>x[1]).map(([n,v])=>n+':'+esc(v.slice(0,4))+'•••').join(' ')||'—'}</td><td><button class="btn bs" style="padding:2px 8px" onclick="admKeys('${esc(e)}')">Clear keys</button> ${isAdmin(e)?'':`<button class="btn bs" style="padding:2px 8px;color:var(--r)" onclick="admDel('${esc(e)}')">Delete</button>`}</td></tr>`}).join('')||'<tr><td>No users</td></tr>'}</table></div>
+ modal(`<h3>👑 ADMIN PANEL</h3><div class="box"><b>Users &amp; API keys</b><table><tr><th>Email</th><th>Keys</th><th></th></tr>${Object.keys(U).map(e=>{const k=L('hx_p_'+e,{keys:{}}).keys||{};return`<tr><td>${esc(e)}${isAdmin(e)?' 👑':''}</td><td>${Object.entries(k).filter(x=>x[1]).map(([n,v])=>n+':'+esc(v.slice(0,4))+'•••').join(' ')||'—'}</td><td><button class="btn bs" style="padding:2px 8px" onclick="admKeys('${esc(e)}')">Clear keys</button> ${isAdmin(e)?'':`<button class="btn bs" style="padding:2px 8px;color:var(--r)" onclick="admDel('${esc(e)}')">Delete</button>`}</td></tr>`}).join('')||'<tr><td>No users</td></tr>'}</table></div>
  <div class="box"><b>Active sessions on this device</b><div style="font-size:12px;margin:6px 0;color:var(--t2)">${acc.map(esc).join(', ')||'—'}</div><table>${L('hx_sess',[]).slice(0,10).map(s=>`<tr><td>${esc(s.u)}</td><td>${new Date(s.t).toLocaleString()}</td><td>${esc(s.ua.slice(0,30))}</td></tr>`).join('')}</table></div>
  <div class="box"><b>Global settings</b><label class="lab"><input type="checkbox" id="gm" ${g.maint?'checked':''}> Maintenance mode (blocks non-admin logins)</label><label class="lab">Announcement shown on login</label><input class="in" id="gn" value="${esc(g.note)}"><button class="btn" style="margin-top:10px" onclick="admSave()">Save</button></div>
  <div class="box"><b>System logs</b><table>${L('hx_log',[]).slice(0,25).map(l=>`<tr><td>${new Date(l.t).toLocaleTimeString()}</td><td>${esc(l.u)}</td><td>${esc(l.m)}</td></tr>`).join('')||'<tr><td>No logs</td></tr>'}</table><button class="btn bs" style="margin-top:8px" onclick="localStorage.removeItem('hx_log');openAdmin()">Clear logs</button></div>`)}
-function admKeys(e){if(!isAdmin(me))return;const p=L('hx_p_'+e,{});p.keys={};W('hx_p_'+e,p);log('admin cleared keys '+e);openAdmin()}
+function admKeys(e){if(!isAdmin(me))return;const p=L('hx_p_'+e,{});p.keys={};p.el={};W('hx_p_'+e,p);log('admin cleared keys '+e);openAdmin()}
 function admDel(e){if(!isAdmin(me)||!confirm('Delete '+e+'?'))return;const U=L('hx_users',{});delete U[e];W('hx_users',U);['hx_c_','hx_p_'].forEach(p=>localStorage.removeItem(p+e));W('hx_accts',L('hx_accts',[]).filter(x=>x!==e));log('admin deleted '+e);openAdmin()}
 function admSave(){if(!isAdmin(me))return;W('hx_g',{maint:$('gm').checked,note:$('gn').value.trim()});log('admin saved global settings');toast('Saved')}
 
