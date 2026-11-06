@@ -150,6 +150,8 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
 const $=i=>document.getElementById(i),L=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},W=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const ADMINS=['sandeshn839@gmail.com','sandesh99998@gmail.com'];
 const GOOGLE_CLIENT_ID=''; // optional: paste your Google OAuth Web Client ID for REAL Google sign-in; empty = simulated Gmail sign-in
+/* Cloudflare Worker backend — used ONLY for the Groq and Google Gemini providers (text messages only). No API keys are stored here: keys come from the user's own Settings. */
+const CLOUDFLARE_API='https://curly-flower-2791.sandeshn839.workers.dev/api/chat';
 const LANGS={'en-US':'English','ne-NP':'नेपाली (Nepali)','hi-IN':'हिंदी (Hindi)','bn-BD':'বাংলা (Bengali)','ur-PK':'اردو (Urdu)','es-ES':'Español','fr-FR':'Français','de-DE':'Deutsch','it-IT':'Italiano','pt-BR':'Português','ru-RU':'Русский','ja-JP':'日本語','zh-CN':'中文','ko-KR':'한국어','ar-SA':'العربية','tr-TR':'Türkçe','id-ID':'Indonesia','th-TH':'ไทย','vi-VN':'Tiếng Việt','nl-NL':'Nederlands','pl-PL':'Polski','sw-KE':'Kiswahili'};
 const LNAME={'en-US':'English','ne-NP':'Nepali','hi-IN':'Hindi','bn-BD':'Bengali','ur-PK':'Urdu','es-ES':'Spanish','fr-FR':'French','de-DE':'German','it-IT':'Italian','pt-BR':'Portuguese','ru-RU':'Russian','ja-JP':'Japanese','zh-CN':'Chinese (Simplified)','ko-KR':'Korean','ar-SA':'Arabic','tr-TR':'Turkish','id-ID':'Indonesian','th-TH':'Thai','vi-VN':'Vietnamese','nl-NL':'Dutch','pl-PL':'Polish','sw-KE':'Swahili'};
 const APPS={youtube:'youtube.com',gmail:'mail.google.com',google:'google.com',facebook:'facebook.com',instagram:'instagram.com',github:'github.com',netflix:'netflix.com',spotify:'open.spotify.com',whatsapp:'web.whatsapp.com',maps:'maps.google.com',x:'x.com',linkedin:'linkedin.com'};
@@ -257,6 +259,29 @@ async function ask(msgs,sys,prov,key,im){
  const oa=(m,i)=>i==last&&im?{role:m.role,content:[{type:'text',text:m.content},{type:'image_url',image_url:{url:im}}]}:m;
  if(!key||prov=='free')return(await J(await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:H,body:JSON.stringify({model:'openai',messages:[{role:'system',content:sys},...h.map(oa)]})}))).choices[0].message.content;
  const c=PROV[prov];if(!c)throw Error('Unknown provider: '+prov);
+ /* Cloudflare Worker transport (Groq + Gemini only, text only). Always resolves or throws; 60s timeout so loading never hangs. */
+ const viaCF=async(pv,k,model,messages)=>{
+  const ac=new AbortController(),to=setTimeout(()=>ac.abort(),60000);let r;
+  try{r=await fetch(CLOUDFLARE_API,{method:'POST',headers:H,body:JSON.stringify({provider:pv,apiKey:k,model:model,messages:messages}),signal:ac.signal})}
+  catch(e){throw Error(e&&e.name=='AbortError'?'Cloudflare Worker timed out after 60 seconds. Please try again.':'Cannot reach the Cloudflare Worker (connection failure or CORS blocked). Check your internet, the Worker URL, and that the Worker sends CORS headers for your site.')}
+  finally{clearTimeout(to)}
+  const j=await r.json().catch(()=>null);
+  if(!j)throw Error('Cloudflare Worker returned a non-JSON response (HTTP '+r.status+').');
+  if(!r.ok||j.success===false){
+   const e=j.error,raw=String((e&&(e.message||(typeof e=='string'?e:JSON.stringify(e))))||j.message||j.details||('HTTP '+r.status)),er=new Error(raw);
+   if(r.status==401||r.status==403||/api[ _-]?key|unauthori[sz]ed|permission denied|invalid.*(key|token)|API_KEY_INVALID/i.test(raw))er.message='Invalid API key for '+PROV[pv].n+'. Re-check it in Settings. ('+raw+')';
+   else if(r.status==404||/model.*(not found|does not exist|not supported|decommission|deprecated|unavailable)|not found.*model|unsupported model/i.test(raw)){er.unsupportedModel=true;er.message='Unsupported or unavailable model "'+model+'" for '+PROV[pv].n+'. Update the model name in the PROV table. ('+raw+')'}
+   else if(r.status==429)er.message=PROV[pv].n+' rate limit or quota reached. Wait a moment and retry. ('+raw+')';
+   else er.message=PROV[pv].n+' API error via Cloudflare: '+raw;
+   throw er}
+  const t=typeof j.text=='string'?j.text.trim():'';if(!t)throw Error('Empty AI response from '+PROV[pv].n+'.');return t};
+ /* Groq always, Gemini when no image → Cloudflare. Gemini + image keeps the existing direct implementation below (Worker is text-only). */
+ if(prov=='groq'||(prov=='gemini'&&!im)){
+  const models=Array.isArray(c.m)?c.m:[c.m],cm=[{role:'system',content:sys},...h];let le;
+  for(let i=0;i<models.length;i++){
+   try{return await viaCF(prov,key,models[i],cm)}
+   catch(e){le=e;if(e.unsupportedModel&&i<models.length-1)continue;throw e}}
+  throw le||Error('No model configured for '+c.n)}
  if(prov=='gemini'){
   const body=JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:h.map((m,i)=>({role:m.role=='assistant'?'model':'user',parts:i==last&&im?[{text:m.content},{inline_data:{mime_type:mt,data:b64}}]:[{text:m.content}]}))});
   let err;for(const m of c.m){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:H,body});
@@ -264,7 +289,7 @@ async function ask(msgs,sys,prov,key,im){
    const j=await J(r);const t=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(x=>x.text||'').join('');if(!t)throw Error(j.promptFeedback?'Blocked: '+(j.promptFeedback.blockReason||'safety'):'Empty response');return t}
   throw err}
  if(prov=='claude'){const j=await J(await fetch(c.u,{method:'POST',headers:{...H,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:c.m,max_tokens:4096,system:sys,messages:h.map((m,i)=>i==last&&im?{role:m.role,content:[{type:'image',source:{type:'base64',media_type:mt,data:b64}},{type:'text',text:m.content}]}:m)})}));return j.content.map(x=>x.text||'').join('')}
- /* groq + openai (Bearer token, OpenAI-compatible) — groq has no image input, so only openai gets image parts */
+ /* openai (Bearer token, OpenAI-compatible) — only openai gets image parts; groq is handled above via Cloudflare */
  const j=await J(await fetch(c.u,{method:'POST',headers:{...H,Authorization:'Bearer '+key},body:JSON.stringify({model:c.m,messages:[{role:'system',content:sys},...h.map((m,i)=>prov=='openai'?oa(m,i):m)]})}));return j.choices[0].message.content}
 const sysP=()=>`You are ${P().name}, a brilliant, warm, friendly AI assistant. You remember everything said earlier in this conversation and use it. IMPORTANT: Reply ONLY in ${LNAME[lang]} (use its native script), even if the user writes in another language, unless they explicitly ask for a different language. Never mix languages. Be concise and clear; use **bold** for key points and fenced code blocks for code.`;
 function pick(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{img=ev.target.result;$('ipi').src=img;$('ipv').style.display='flex';toast('Image attached')};r.readAsDataURL(f);e.target.value=''}
@@ -397,4 +422,3 @@ theme(L('hx_theme',0));
 if(innerWidth<768)document.body.classList.add('mob');
 const cur=L('hx_cur',null);if(cur&&L('hx_users',{})[cur]){me=cur;$('login').style.display='none';$('app').classList.add('vis');initApp()}else showAuth();
 </script></body></html>
- 
