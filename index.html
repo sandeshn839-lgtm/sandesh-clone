@@ -71,7 +71,7 @@ select,.in{background:var(--pn2);border:1px solid var(--bd);border-radius:7px;pa
 .mic{width:36px;height:36px;background:rgba(var(--rgb),.1);border:1px solid var(--bd2);border-radius:50%;color:var(--c)}.mic.on{background:rgba(255,34,85,.18);border-color:var(--r);color:var(--r)}
 .snd{width:36px;height:36px;background:linear-gradient(135deg,var(--c),var(--b));border:0;border-radius:9px;color:#000;font-weight:700}
 .hint{text-align:center;font-size:10px;color:var(--t4);margin-top:7px;font-family:var(--mono)}
-.btn{padding:8px 16px;border-radius:7px;background:linear-gradient(135deg,rgba(var(--rgb),.2),rgba(var(--rgb2),.16));border:1px solid var(--c2);color:var(--c);font-size:12px;font-weight:500}.btn:hover{background:rgba(var(--rgb),.3)}.bs{background:var(--pn2);border-color:var(--bd2);color:var(--t2)}
+.btn{padding:8px 16px;border-radius:7px;background:linear-gradient(135deg,rgba(var(--rgb),.2),rgba(var(--rgb2),.16));border:1px solid var(--c2);color:var(--c);font-size:12px;font-weight:500}.btn:hover{background:rgba(var(--rgb),.3)}.btn:disabled{opacity:.5;cursor:wait}.bs{background:var(--pn2);border-color:var(--bd2);color:var(--t2)}
 .fl{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}h3{font-family:var(--orb);font-size:14px;color:var(--c);letter-spacing:.1em;margin-bottom:12px}.lab{font-size:10px;color:var(--c2);text-transform:uppercase;letter-spacing:.08em;margin:10px 0 4px;display:block}
 textarea.in{resize:vertical}.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}.g2 img{width:100%;border-radius:10px;border:1px solid var(--bd2);display:block}
 .ld{padding:34px 10px;text-align:center;color:var(--t3);font-size:12px;border:1px dashed var(--bd2);border-radius:10px}
@@ -151,18 +151,24 @@ const $=i=>document.getElementById(i),L=(k,d)=>{try{return JSON.parse(localStora
 const ADMINS=['sandeshn839@gmail.com','sandesh99998@gmail.com'];
 const GOOGLE_CLIENT_ID=''; // optional: paste your Google OAuth Web Client ID for REAL Google sign-in; empty = simulated Gmail sign-in
 /* Cloudflare Worker backend — used ONLY for the Groq and Google Gemini providers (text messages only). No API keys are stored here: keys come from the user's own Settings. */
-const CLOUDFLARE_API='https://curly-flower-2791.sandeshn839.workers.dev/api/chat';
+const CLOUDFLARE_BASE = 'https://curly-flower-2791.sandeshn839.workers.dev';
+const CLOUDFLARE_API = CLOUDFLARE_BASE + '/api/chat';
 const LANGS={'en-US':'English','ne-NP':'नेपाली (Nepali)','hi-IN':'हिंदी (Hindi)','bn-BD':'বাংলা (Bengali)','ur-PK':'اردو (Urdu)','es-ES':'Español','fr-FR':'Français','de-DE':'Deutsch','it-IT':'Italiano','pt-BR':'Português','ru-RU':'Русский','ja-JP':'日本語','zh-CN':'中文','ko-KR':'한국어','ar-SA':'العربية','tr-TR':'Türkçe','id-ID':'Indonesia','th-TH':'ไทย','vi-VN':'Tiếng Việt','nl-NL':'Nederlands','pl-PL':'Polski','sw-KE':'Kiswahili'};
 const LNAME={'en-US':'English','ne-NP':'Nepali','hi-IN':'Hindi','bn-BD':'Bengali','ur-PK':'Urdu','es-ES':'Spanish','fr-FR':'French','de-DE':'German','it-IT':'Italian','pt-BR':'Portuguese','ru-RU':'Russian','ja-JP':'Japanese','zh-CN':'Chinese (Simplified)','ko-KR':'Korean','ar-SA':'Arabic','tr-TR':'Turkish','id-ID':'Indonesian','th-TH':'Thai','vi-VN':'Vietnamese','nl-NL':'Dutch','pl-PL':'Polish','sw-KE':'Swahili'};
 const APPS={youtube:'youtube.com',gmail:'mail.google.com',google:'google.com',facebook:'facebook.com',instagram:'instagram.com',github:'github.com',netflix:'netflix.com',spotify:'open.spotify.com',whatsapp:'web.whatsapp.com',maps:'maps.google.com',x:'x.com',linkedin:'linkedin.com'};
-/* provider → endpoint map (dropdown values must match these keys) */
-const PROV={groq:{n:'Groq',u:'https://api.groq.com/openai/v1/chat/completions',m:'llama-3.3-70b-versatile'},openai:{n:'OpenAI',u:'https://api.openai.com/v1/chat/completions',m:'gpt-4o-mini'},gemini:{n:'Google Gemini',m:['gemini-1.5-flash','gemini-2.0-flash']},claude:{n:'Claude',u:'https://api.anthropic.com/v1/messages',m:'claude-sonnet-4-5'}};
+/* provider → endpoint map (dropdown values must match these keys).
+   Groq models verified against https://console.groq.com/docs/models (production: openai/gpt-oss-120b, openai/gpt-oss-20b).
+   llama-3.3-70b-versatile is no longer offered as a default. Array order = default first, then automatic fallback.
+   Groq chat completions endpoint (called by the Worker): https://api.groq.com/openai/v1/chat/completions */
+const PROV={groq:{n:'Groq',u:'https://api.groq.com/openai/v1/chat/completions',m:['openai/gpt-oss-120b','openai/gpt-oss-20b']},openai:{n:'OpenAI',u:'https://api.openai.com/v1/chat/completions',m:'gpt-4o-mini'},gemini:{n:'Google Gemini',m:['gemini-2.5-flash','gemini-2.0-flash','gemini-2.5-flash-lite']},claude:{n:'Claude',u:'https://api.anthropic.com/v1/messages',m:'claude-sonnet-4-5'}};
 /* 15 UI themes: name, accent, secondary, background */
 const TH=[['Cyberpunk Cyan','#00d4ff','#0055ee','#000510'],['Holographic Purple','#c77dff','#7b2ff7','#0a0414'],['Matrix Green','#00ff66','#008f3a','#000a04'],['Midnight Obsidian','#9aa7bd','#3d4a63','#05060a'],['Neon Sunset','#ff6b35','#ff2e93','#12040a'],['Deep Space Blue','#4d8dff','#1b2fd1','#02061a'],['Golden Titanium','#f5c542','#a87a10','#0e0a02'],['Emerald Frost','#3dffc4','#0a9b8a','#01100e'],['Crimson Plasma','#ff2255','#a3002b','#12020a'],['Arctic Ice','#a8e6ff','#4aa3df','#04101a'],['Vaporwave Pink','#ff71ce','#01cdfe','#100420'],['Solar Flare','#ffb000','#ff4500','#120600'],['Electric Violet','#8a5cff','#ff00e5','#07021a'],['Monolith Dark','#e6e6e6','#777777','#000000'],['Royal Amethyst','#b57bff','#5b2a9e','#0d0418']];
 const EL_F='21m00Tcm4TlvDq8ikWAM',EL_M='pNInz6obpgDQGcFmaJgB';
-let me=null,chats={},chatHistory=[],cid=null,lang='en-US',gender='female',rec=null,vT=null,vbT=null,lastCode='',busy=false,isReg=false,img=null,cs=null,au=null;
+let me=null,chats={},chatHistory=[],cid=null,lang='en-US',gender='female',rec=null,vT=null,vbT=null,lastCode='',busy=false,isReg=false,img=null,cs=null,au=null,lastModel='';
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const G=()=>L('hx_g',{maint:false,note:''}),P=()=>L('hx_p_'+me,{prov:'free',keys:{},speak:true,name:'Hexa AI',el:{},theme:L('hx_theme',0)}),isAdmin=e=>ADMINS.includes(e);
+const G=()=>L('hx_g',{maint:false,note:''}),P=()=>L('hx_p_'+me,{prov:'free',keys:{},models:{},speak:true,name:'Hexa AI',el:{},theme:L('hx_theme',0)}),isAdmin=e=>ADMINS.includes(e);
+/* model list for a provider: selected model first (only if it is still in the supported list), then the remaining models as fallbacks */
+const MS=(pv,sel)=>{const c=PROV[pv],a=Array.isArray(c.m)?c.m:[c.m],s=sel||((me&&P().models)||{})[pv];return s&&a.includes(s)?[s,...a.filter(x=>x!==s)]:a};
 const log=m=>{const a=L('hx_log',[]);a.unshift({t:Date.now(),u:me||'-',m});W('hx_log',a.slice(0,200))};
 const toast=m=>{const d=document.createElement('div');d.textContent=m;$('toasts').appendChild(d);setTimeout(()=>d.remove(),3800)};
 function setS(t,c,core){$('st').textContent=t;$('dot').className='dot '+(c||'');$('core').dataset.s=core||'idle'}
@@ -250,8 +256,8 @@ function addMsg(role,text,store=true,think){
  
 /* ---- AI ---- */
 const cleanKey=k=>String(k||'').trim().replace(/^["']+|["']+$/g,'').replace(/\s+/g,'');
-async function ask(msgs,sys,prov,key,im){
- const p=P();prov=prov||p.prov;key=cleanKey(key||p.keys[prov]);const H={'Content-Type':'application/json'};
+async function ask(msgs,sys,prov,key,im,model){
+ const p=P();prov=prov||p.prov;key=cleanKey(key||(p.keys||{})[prov]);const H={'Content-Type':'application/json'};lastModel='';
  const J=async r=>{const j=await r.json().catch(()=>({}));if(!r.ok){const e=j.error;throw Error((e&&(e.message||(typeof e=='string'?e:JSON.stringify(e))))||(j.message)||'HTTP '+r.status)}return j};
  /* build a clean alternating history that always starts with a user turn */
  let h=msgs.filter(m=>m.content).map(m=>({role:m.role=='assistant'?'assistant':'user',content:String(m.content)}));while(h.length&&h[0].role!='user')h.shift();
@@ -259,38 +265,39 @@ async function ask(msgs,sys,prov,key,im){
  const oa=(m,i)=>i==last&&im?{role:m.role,content:[{type:'text',text:m.content},{type:'image_url',image_url:{url:im}}]}:m;
  if(!key||prov=='free')return(await J(await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:H,body:JSON.stringify({model:'openai',messages:[{role:'system',content:sys},...h.map(oa)]})}))).choices[0].message.content;
  const c=PROV[prov];if(!c)throw Error('Unknown provider: '+prov);
- /* Cloudflare Worker transport (Groq + Gemini only, text only). Always resolves or throws; 60s timeout so loading never hangs. */
+ /* Cloudflare Worker transport (Groq + Gemini only, text only). POST {provider,apiKey,model,messages} → reads data.text. Always resolves or throws; 60s timeout so loading never hangs. */
  const viaCF=async(pv,k,model,messages)=>{
   const ac=new AbortController(),to=setTimeout(()=>ac.abort(),60000);let r;
   try{r=await fetch(CLOUDFLARE_API,{method:'POST',headers:H,body:JSON.stringify({provider:pv,apiKey:k,model:model,messages:messages}),signal:ac.signal})}
-  catch(e){throw Error(e&&e.name=='AbortError'?'Cloudflare Worker timed out after 60 seconds. Please try again.':'Cannot reach the Cloudflare Worker (connection failure or CORS blocked). Check your internet, the Worker URL, and that the Worker sends CORS headers for your site.')}
+  catch(e){throw Error(e&&e.name=='AbortError'?'Cloudflare Worker timed out after 60 seconds. Please try again.':'Cannot reach the Cloudflare Worker (connection failure or CORS blocked). Check your internet, the Worker URL ('+CLOUDFLARE_API+'), and that the Worker sends CORS headers for your site.')}
   finally{clearTimeout(to)}
   const j=await r.json().catch(()=>null);
   if(!j)throw Error('Cloudflare Worker returned a non-JSON response (HTTP '+r.status+').');
   if(!r.ok||j.success===false){
    const e=j.error,raw=String((e&&(e.message||(typeof e=='string'?e:JSON.stringify(e))))||j.message||j.details||('HTTP '+r.status)),er=new Error(raw);
-   if(r.status==401||r.status==403||/api[ _-]?key|unauthori[sz]ed|permission denied|invalid.*(key|token)|API_KEY_INVALID/i.test(raw))er.message='Invalid API key for '+PROV[pv].n+'. Re-check it in Settings. ('+raw+')';
-   else if(r.status==404||/model.*(not found|does not exist|not supported|decommission|deprecated|unavailable)|not found.*model|unsupported model/i.test(raw)){er.unsupportedModel=true;er.message='Unsupported or unavailable model "'+model+'" for '+PROV[pv].n+'. Update the model name in the PROV table. ('+raw+')'}
+   if(r.status==404||/model_not_found|model_decommissioned|model_terminated|model.*(not found|does not exist|not supported|decommission|deprecated|unavailable|retired)|not found.*model|unsupported model/i.test(raw)){er.unsupportedModel=true;er.message='Unsupported or unavailable model "'+model+'" for '+PROV[pv].n+'. ('+raw+')'}
+   else if(r.status==401||r.status==403||/api[ _-]?key|unauthori[sz]ed|permission denied|invalid.*(key|token)|API_KEY_INVALID/i.test(raw))er.message='API key rejected by '+PROV[pv].n+' (HTTP '+r.status+'): '+raw;
    else if(r.status==429)er.message=PROV[pv].n+' rate limit or quota reached. Wait a moment and retry. ('+raw+')';
-   else er.message=PROV[pv].n+' API error via Cloudflare: '+raw;
+   else er.message=PROV[pv].n+' API error via Cloudflare (HTTP '+r.status+'): '+raw;
    throw er}
-  const t=typeof j.text=='string'?j.text.trim():'';if(!t)throw Error('Empty AI response from '+PROV[pv].n+'.');return t};
- /* Groq always, Gemini when no image → Cloudflare. Gemini + image keeps the existing direct implementation below (Worker is text-only). */
+  const t=typeof j.text=='string'?j.text.trim():'';if(!t)throw Error('Empty AI response from '+PROV[pv].n+' (the Worker returned no "text" field).');return t};
+ /* Groq always, Gemini when no image → Cloudflare. Gemini + image keeps the direct implementation below (Worker is text-only). */
+ if(prov=='groq'&&im)throw Error('Groq (via the Cloudflare Worker) is text-only. Remove the photo, or switch to Gemini, OpenAI, Claude or Free for image questions.');
  if(prov=='groq'||(prov=='gemini'&&!im)){
-  const models=Array.isArray(c.m)?c.m:[c.m],cm=[{role:'system',content:sys},...h];let le;
+  const models=MS(prov,model),cm=[{role:'system',content:sys},...h];let le;
   for(let i=0;i<models.length;i++){
-   try{return await viaCF(prov,key,models[i],cm)}
+   try{const t=await viaCF(prov,key,models[i],cm);lastModel=models[i];return t}
    catch(e){le=e;if(e.unsupportedModel&&i<models.length-1)continue;throw e}}
   throw le||Error('No model configured for '+c.n)}
  if(prov=='gemini'){
   const body=JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:h.map((m,i)=>({role:m.role=='assistant'?'model':'user',parts:i==last&&im?[{text:m.content},{inline_data:{mime_type:mt,data:b64}}]:[{text:m.content}]}))});
-  let err;for(const m of c.m){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:H,body});
+  let err;for(const m of MS(prov,model)){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:H,body});
    if(r.status==404){err=Error('Model '+m+' not available');continue}
-   const j=await J(r);const t=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(x=>x.text||'').join('');if(!t)throw Error(j.promptFeedback?'Blocked: '+(j.promptFeedback.blockReason||'safety'):'Empty response');return t}
+   const j=await J(r);const t=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(x=>x.text||'').join('');if(!t)throw Error(j.promptFeedback?'Blocked: '+(j.promptFeedback.blockReason||'safety'):'Empty response');lastModel=m;return t}
   throw err}
- if(prov=='claude'){const j=await J(await fetch(c.u,{method:'POST',headers:{...H,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:c.m,max_tokens:4096,system:sys,messages:h.map((m,i)=>i==last&&im?{role:m.role,content:[{type:'image',source:{type:'base64',media_type:mt,data:b64}},{type:'text',text:m.content}]}:m)})}));return j.content.map(x=>x.text||'').join('')}
+ if(prov=='claude'){const j=await J(await fetch(c.u,{method:'POST',headers:{...H,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:c.m,max_tokens:4096,system:sys,messages:h.map((m,i)=>i==last&&im?{role:m.role,content:[{type:'image',source:{type:'base64',media_type:mt,data:b64}},{type:'text',text:m.content}]}:m)})}));lastModel=c.m;return j.content.map(x=>x.text||'').join('')}
  /* openai (Bearer token, OpenAI-compatible) — only openai gets image parts; groq is handled above via Cloudflare */
- const j=await J(await fetch(c.u,{method:'POST',headers:{...H,Authorization:'Bearer '+key},body:JSON.stringify({model:c.m,messages:[{role:'system',content:sys},...h.map((m,i)=>prov=='openai'?oa(m,i):m)]})}));return j.choices[0].message.content}
+ const j=await J(await fetch(c.u,{method:'POST',headers:{...H,Authorization:'Bearer '+key},body:JSON.stringify({model:c.m,messages:[{role:'system',content:sys},...h.map((m,i)=>prov=='openai'?oa(m,i):m)]})}));lastModel=c.m;return j.choices[0].message.content}
 const sysP=()=>`You are ${P().name}, a brilliant, warm, friendly AI assistant. You remember everything said earlier in this conversation and use it. IMPORTANT: Reply ONLY in ${LNAME[lang]} (use its native script), even if the user writes in another language, unless they explicitly ask for a different language. Never mix languages. Be concise and clear; use **bold** for key points and fenced code blocks for code.`;
 function pick(e){const f=e.target.files[0];if(!f)return;const r=new FileReader();r.onload=ev=>{img=ev.target.result;$('ipi').src=img;$('ipv').style.display='flex';toast('Image attached')};r.readAsDataURL(f);e.target.value=''}
 function rmImg(){img=null;$('ipv').style.display='none'}
@@ -379,8 +386,9 @@ const modal=h=>{$('mb').innerHTML=h;$('modal').classList.add('on')};
 function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <b style="font-size:12px">🎨 UI Theme System (15)</b><div class="themes" style="margin:8px 0 4px">${TH.map((t,i)=>`<button class="th${i==p.theme?' on':''}" onclick="theme(${i},1)"><i style="background:linear-gradient(135deg,${t[1]},${t[2]})"></i>${i+1}. ${t[0]}</button>`).join('')}</div>
  <div class="box"><label class="lab">AI provider</label><select id="sp" onchange="spc()"><option value="free">Free (no key needed)</option>${Object.entries(PROV).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('')}</select>
- <label class="lab">Your own API key (saved in this browser only)</label><input class="in" id="sk" type="password" placeholder="Paste key (Gemini: AIza… · Groq: gsk_…)">
- <div class="fl"><button class="btn bs" onclick="testKey()">✔ Test key</button><button class="btn" onclick="saveKey()">💾 Save</button><button class="btn bs" onclick="saveKey(1)">Remove key</button></div><div id="sres" style="font-size:12px"></div></div>
+ <div id="smw" style="display:none"><label class="lab">Model (Groq / Gemini run through your Cloudflare Worker)</label><select id="sm"></select></div>
+ <label class="lab">Your own API key (saved in this browser only)</label><input class="in" id="sk" type="password" placeholder="Paste your API key">
+ <div class="fl"><button class="btn bs" id="tkb" onclick="testKey()">✔ Test key</button><button class="btn" onclick="saveKey()">💾 Save</button><button class="btn bs" onclick="saveKey(1)">Remove key</button></div><div id="sres" style="font-size:12px"></div></div>
  <div class="box"><h3>🔊 ELEVENLABS VOICE</h3>
  <label class="lab">ElevenLabs API key</label><input class="in" id="ek" type="password" placeholder="sk_…" value="${esc(el.key||'')}">
  <label class="lab">Model</label><select id="em2"><option value="eleven_multilingual_v2">Multilingual v2 (29 languages, stable)</option><option value="eleven_v3">v3 (70+ languages incl. Nepali, Bengali, Urdu, Swahili)</option></select>
@@ -390,16 +398,21 @@ function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <div class="box"><label class="lab">Assistant name</label><input class="in" id="sn" value="${esc(p.name)}">
  <label class="lab"><input type="checkbox" id="ss" ${p.speak?'checked':''}> Speak replies aloud automatically</label>
  <button class="btn" style="margin-top:10px" onclick="saveGen()">Save preferences</button></div>
- <div style="font-size:11px;color:var(--t3);margin-top:12px;line-height:1.6">Keys stay in this browser's localStorage and are sent only to the provider you choose. Anyone using this browser profile could read them — use restricted keys.</div>`);
+ <div style="font-size:11px;color:var(--t3);margin-top:12px;line-height:1.6">Keys stay in this browser's localStorage and are sent only to the provider you choose (Groq and Gemini text requests pass through your Cloudflare Worker). Anyone using this browser profile could read them — use restricted keys.</div>`);
  $('sp').value=p.prov;$('em2').value=el.model||'eleven_multilingual_v2';spc()}
-function spc(){const v=$('sp').value;$('sk').value=P().keys[v]||'';$('sk').disabled=v=='free'}
-async function testKey(){const v=$('sp').value,k=cleanKey($('sk').value),r=$('sres');r.style.color='var(--t2)';
- if(v=='free'){r.textContent='✅ Free provider needs no key.';return}if(!k){r.textContent='⚠️ Paste a key first.';return}
- if(v=='gemini'&&!/^AIza/.test(k)){r.textContent='⚠️ Gemini keys start with "AIza" — get one at aistudio.google.com/apikey';r.style.color='var(--a)';return}
- if(v=='groq'&&!/^gsk_/.test(k)){r.textContent='⚠️ Groq keys start with "gsk_" — get one at console.groq.com/keys';r.style.color='var(--a)';return}
- r.textContent='Testing '+PROV[v].n+'…';
- try{const o=await ask([{role:'user',content:'Reply with the single word OK'}],'Reply with OK',v,k);r.textContent='✅ Key is valid. Reply: '+String(o).slice(0,40);r.style.color='var(--g)'}catch(e){r.textContent='❌ '+e.message;r.style.color='var(--r)'}}
-function saveKey(rm){const p=P(),v=$('sp').value;if(v!='free'){if(rm){delete p.keys[v];$('sk').value=''}else p.keys[v]=cleanKey($('sk').value)}p.prov=rm&&v!='free'?'free':v;W('hx_p_'+me,p);log((rm?'removed':'saved')+' key '+v);toast(rm?'Key removed':'Saved ✔')}
+/* provider change: load saved key and (for Groq / Gemini) the model dropdown */
+function spc(){const v=$('sp').value,c=PROV[v],w=$('smw');$('sk').value=(P().keys||{})[v]||'';$('sk').disabled=v=='free';$('sres').textContent='';
+ if(c&&Array.isArray(c.m)){w.style.display='';$('sm').innerHTML=c.m.map(x=>`<option value="${esc(x)}">${esc(x)}${x==c.m[0]?' (default)':''}</option>`).join('');$('sm').value=MS(v)[0]}else w.style.display='none'}
+/* A success message is shown ONLY after a real API request returns a reply. No key-prefix checks: Cloudflare Worker / provider validate the key. */
+async function testKey(){const v=$('sp').value,k=cleanKey($('sk').value),r=$('sres'),b=$('tkb');r.style.color='var(--t2)';
+ if(v=='free'){r.textContent='Free provider needs no key. Send a chat message to test it.';return}if(!k){r.textContent='⚠️ Paste a key first.';return}
+ const model=$('smw').style.display!='none'?$('sm').value:undefined;
+ r.textContent='Testing '+PROV[v].n+(PROV[v].m&&Array.isArray(PROV[v].m)?' via Cloudflare':'')+'…';b.disabled=true;
+ try{const o=await ask([{role:'user',content:'Reply with the single word OK'}],'Reply with OK',v,k,null,model);r.textContent='✅ Real API request succeeded'+(lastModel?' (model: '+lastModel+')':'')+'. Reply: '+String(o).slice(0,40);r.style.color='var(--g)'}
+ catch(e){r.textContent='❌ '+e.message;r.style.color='var(--r)'}b.disabled=false}
+function saveKey(rm){const p=P(),v=$('sp').value;p.keys=p.keys||{};p.models=p.models||{};
+ if(v!='free'){if(rm){delete p.keys[v];$('sk').value=''}else{p.keys[v]=cleanKey($('sk').value);if($('smw').style.display!='none')p.models[v]=$('sm').value}}
+ p.prov=rm&&v!='free'?'free':v;W('hx_p_'+me,p);log((rm?'removed':'saved')+' key '+v);toast(rm?'Key removed':'Saved ✔')}
 function saveEL(rm){const p=P();p.el=rm?{}:{key:$('ek').value.trim(),model:$('em2').value,f:$('ef').value.trim(),m:$('emv').value.trim()};if(rm)$('ek').value='';W('hx_p_'+me,p);log(rm?'removed elevenlabs key':'saved elevenlabs');toast(rm?'ElevenLabs removed':'ElevenLabs voice saved ✔')}
 function testEL(){saveEL();const l={'en-US':'Hello! This is your Hexa voice.','ne-NP':'नमस्ते! म तपाईंको हेक्सा आवाज हुँ।','hi-IN':'नमस्ते! मैं आपकी हेक्सा आवाज़ हूँ।','es-ES':'¡Hola! Soy tu voz de Hexa.','fr-FR':'Bonjour ! Voici ta voix Hexa.','ja-JP':'こんにちは！ヘキサの声です。','ar-SA':'مرحبا! هذا صوتك من هيكسا.'};speak(l[lang]||l['en-US'],true)}
 function saveGen(){const p=P();p.name=$('sn').value.trim()||'Hexa AI';p.speak=$('ss').checked;W('hx_p_'+me,p);$('brand').textContent=p.name.replace(' AI','').toUpperCase();toast('Preferences saved')}
