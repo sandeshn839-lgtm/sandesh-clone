@@ -175,10 +175,10 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
     <textarea id="inp" rows="1" placeholder='Ask anything… "open YouTube", generate image of sunset, write Python code…' onkeydown="if(event.key=='Enter'&&!event.shiftKey){event.preventDefault();send()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,150)+'px'"></textarea>
     <div class="vb" id="vb"><i></i><i></i><i></i><i></i><i></i><i></i></div><button class="mic" id="mic" onclick="mic()" title="Voice">🎤</button><button class="snd" onclick="send()">➤</button></div>
    <input type="file" id="f1" accept="image/*" hidden onchange="pick(event)">
-   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v7 live background</div></div></div>
+   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v9 Gemini AQ keys</div></div></div>
  
  <div class="vw" id="v-image"><h3>🎨 FREE IMAGE GENERATION (24/7)</h3><textarea class="in" id="ip" rows="2" placeholder="Describe the image…"></textarea>
-  <div class="fl"><select class="in" id="isz" style="width:auto"><option value="1024x1024">Square</option><option value="768x1344">Portrait</option><option value="1344x768">Landscape</option></select><select class="in" id="iprov" style="width:auto"><option value="free">Free (Pollinations)</option><option value="openai">OpenAI · gpt-image-1</option><option value="openai3">OpenAI · DALL·E 3</option><option value="gemini">Google Gemini image</option></select><select class="in" id="imd" style="width:auto"><option>flux</option><option>turbo</option></select><button class="btn" onclick="genImg()">⬡ Generate</button></div><div class="g2" id="igrid"></div></div>
+  <div class="fl"><select class="in" id="isz" style="width:auto"><option value="1024x1024">Square</option><option value="768x1344">Portrait</option><option value="1344x768">Landscape</option></select><select class="in" id="iprov" style="width:auto"><option value="auto">Auto · use my API key</option><option value="free">Free (Pollinations)</option><option value="openai">OpenAI · gpt-image-1</option><option value="openai3">OpenAI · DALL·E 3</option><option value="gemini">Google Gemini image</option></select><select class="in" id="imd" style="width:auto"><option>flux</option><option>turbo</option></select><button class="btn" onclick="genImg()">⬡ Generate</button></div><div class="g2" id="igrid"></div></div>
  
  <div class="vw" id="v-video"><h3>🎬 TEXT TO VIDEO</h3><textarea class="in" id="vpt" rows="2" placeholder="Describe the scene…"></textarea>
   <div class="fl"><select class="in" id="vfr" style="width:auto"><option value="4">4 frames</option><option value="6">6 frames</option><option value="8">8 frames</option></select><button class="btn" onclick="genVid()">⬡ Generate</button><button class="btn bs" onclick="togVid()">⏯ Play / Pause</button></div>
@@ -229,7 +229,7 @@ const LANGS={'en-US':'English','ne-NP':'नेपाली (Nepali)','hi-IN':'�
 const LNAME={'en-US':'English','ne-NP':'Nepali','hi-IN':'Hindi','bn-BD':'Bengali','ur-PK':'Urdu','es-ES':'Spanish','fr-FR':'French','de-DE':'German','it-IT':'Italian','pt-BR':'Portuguese','ru-RU':'Russian','ja-JP':'Japanese','zh-CN':'Chinese (Simplified)','ko-KR':'Korean','ar-SA':'Arabic','tr-TR':'Turkish','id-ID':'Indonesian','th-TH':'Thai','vi-VN':'Vietnamese','nl-NL':'Dutch','pl-PL':'Polish','sw-KE':'Swahili'};
 const APPS={youtube:'youtube.com',gmail:'mail.google.com',google:'google.com',facebook:'facebook.com',instagram:'instagram.com',github:'github.com',netflix:'netflix.com',spotify:'open.spotify.com',whatsapp:'web.whatsapp.com',maps:'maps.google.com',x:'x.com',linkedin:'linkedin.com'};
 /* provider → endpoint map (dropdown values must match these keys) */
-const PROV={groq:{n:'Groq',u:'https://api.groq.com/openai/v1/chat/completions',m:'llama-3.3-70b-versatile'},openai:{n:'OpenAI (ChatGPT)',u:'https://api.openai.com/v1/chat/completions',m:'gpt-4o-mini'},gemini:{n:'Google Gemini',m:['gemini-1.5-flash','gemini-2.0-flash']},claude:{n:'Claude',u:'https://api.anthropic.com/v1/messages',m:'claude-sonnet-4-5'}};
+const PROV={groq:{n:'Groq',u:'https://api.groq.com/openai/v1/chat/completions',m:'llama-3.3-70b-versatile'},openai:{n:'OpenAI (ChatGPT)',u:'https://api.openai.com/v1/chat/completions',m:'gpt-4o-mini'},gemini:{n:'Google Gemini',m:['gemini-2.5-flash','gemini-2.0-flash']},claude:{n:'Claude',u:'https://api.anthropic.com/v1/messages',m:'claude-sonnet-4-5'}};
 /* 15 UI themes: name, accent, secondary, background */
 const TH=[['Cyberpunk Cyan','#00d4ff','#0055ee','#000510'],['Holographic Purple','#c77dff','#7b2ff7','#0a0414'],['Matrix Green','#00ff66','#008f3a','#000a04'],['Midnight Obsidian','#9aa7bd','#3d4a63','#05060a'],['Neon Sunset','#ff6b35','#ff2e93','#12040a'],['Deep Space Blue','#4d8dff','#1b2fd1','#02061a'],['Golden Titanium','#f5c542','#a87a10','#0e0a02'],['Emerald Frost','#3dffc4','#0a9b8a','#01100e'],['Crimson Plasma','#ff2255','#a3002b','#12020a'],['Arctic Ice','#a8e6ff','#4aa3df','#04101a'],['Vaporwave Pink','#ff71ce','#01cdfe','#100420'],['Solar Flare','#ffb000','#ff4500','#120600'],['Electric Violet','#8a5cff','#ff00e5','#07021a'],['Monolith Dark','#e6e6e6','#777777','#000000'],['Royal Amethyst','#b57bff','#5b2a9e','#0d0418']];
 const EL_F='21m00Tcm4TlvDq8ikWAM',EL_M='pNInz6obpgDQGcFmaJgB';
@@ -360,7 +360,7 @@ async function ask(msgs,sys,prov,key,im){
   throw le||Error('No model configured for '+c.n)}
  if(prov=='gemini'){
   const body=JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:h.map((m,i)=>({role:m.role=='assistant'?'model':'user',parts:i==last&&im?[{text:m.content},{inline_data:{mime_type:mt,data:b64}}]:[{text:m.content}]}))});
-  let err;for(const m of c.m){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:H,body});
+  let err;for(const m of c.m){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{...H,'x-goog-api-key':key},body});
    if(r.status==404){err=Error('Model '+m+' not available');continue}
    const j=await J(r);const t=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(x=>x.text||'').join('');if(!t)throw Error(j.promptFeedback?'Blocked: '+(j.promptFeedback.blockReason||'safety'):'Empty response');return t}
   throw err}
@@ -421,7 +421,7 @@ function mic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition
 /* ---- IMAGE (Pollinations, auto-retry with fallback model) ---- */
 const iu=(p,w,h,m,s)=>`https://image.pollinations.ai/prompt/${encodeURIComponent(p)}?width=${w}&height=${h}&model=${m}&seed=${s}&nologo=true`;
 function loadImg(p,w,h,models,seed,ok,fail,n=0){const i=new Image(),u=iu(p,w,h,models[n],seed+n);i.referrerPolicy='no-referrer';i.onload=()=>ok(i,u);i.onerror=()=>n<models.length-1?loadImg(p,w,h,models,seed,ok,fail,n+1):fail();i.src=u}
-function genImg(){if(!need('image'))return;const p=$('ip').value.trim();if(!p)return toast('Describe an image first');{const pv=$('iprov').value;if(pv!='free')return genImgAPI(p,pv)}const[w,h]=$('isz').value.split('x'),m=$('imd').value,ms=[m,m=='flux'?'turbo':'flux','turbo'];
+function genImg(){if(!need('image'))return;const p=$('ip').value.trim();if(!p)return toast('Describe an image first');{let pv=$('iprov').value;if(pv=='auto'){const cp=P().prov;pv=(cp=='openai'||cp=='gemini')&&cleanKey(P().keys[cp])?cp:'free'}if(pv!='free')return genImgAPI(p,pv)}const[w,h]=$('isz').value.split('x'),m=$('imd').value,ms=[m,m=='flux'?'turbo':'flux','turbo'];
  const d=document.createElement('div');d.innerHTML='<div class="ld">⬡ Generating image…<div class="pbar"><i style="width:60%"></i></div></div>';$('igrid').prepend(d);setS('🎨 Generating…','a','thinking');tab('image');
  loadImg(p,w,h,ms,Math.floor(Math.random()*1e6),(i,u)=>{d.innerHTML='';d.appendChild(i);d.insertAdjacentHTML('beforeend',`<a class="btn bs" style="display:block;text-align:center;margin-top:6px;text-decoration:none" href="${u}" target="_blank" rel="noopener">Open / Save</a>`);setS('Ready')},()=>{d.innerHTML='<div class="ld">⚠️ Generation failed. Check your connection and try again.</div>';setS('Ready')})}
  
@@ -430,14 +430,15 @@ async function genImgAPI(p,pv){const gem=pv=='gemini',key=cleanKey(P().keys[gem?
  if(!key)return toast('Add your '+(gem?'Gemini':'OpenAI')+' API key in ⋮ → Settings first');
  const sz=$('isz').value,d=document.createElement('div');d.innerHTML='<div class="ld">⬡ Generating with '+(gem?'Gemini':'OpenAI')+'…<div class="pbar"><i style="width:60%"></i></div></div>';$('igrid').prepend(d);setS('🎨 Generating…','a','thinking');
  try{let src;
-  if(gem){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p+(sz=='768x1344'?'. Portrait orientation.':sz=='1344x768'?'. Landscape orientation.':'')}]}],generationConfig:{responseModalities:['TEXT','IMAGE']}})});
+  if(gem){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({contents:[{parts:[{text:p+(sz=='768x1344'?'. Portrait orientation.':sz=='1344x768'?'. Landscape orientation.':'')}]}],generationConfig:{responseModalities:['TEXT','IMAGE']}})});
    const j=await r.json().catch(()=>({}));if(!r.ok)throw Error((j.error&&j.error.message)||'HTTP '+r.status);
    const pt=(((j.candidates||[])[0]||{}).content||{}).parts||[],it=pt.find(x=>x.inlineData||x.inline_data);if(!it)throw Error('Gemini returned no image (blocked by safety rules, or image generation is not enabled for your key).');
    const id=it.inlineData||it.inline_data;src='data:'+(id.mimeType||id.mime_type||'image/png')+';base64,'+id.data}
-  else{const g=pv=='openai',size=sz=='1024x1024'?'1024x1024':sz=='768x1344'?(g?'1024x1536':'1024x1792'):(g?'1536x1024':'1792x1024'),body={model:g?'gpt-image-1':'dall-e-3',prompt:p,size:size,n:1};if(!g)body.response_format='b64_json';
+  else{let err,it;for(const g of(pv=='openai3'?[false]:[true,false])){const size=sz=='1024x1024'?'1024x1024':sz=='768x1344'?(g?'1024x1536':'1024x1792'):(g?'1536x1024':'1792x1024'),body={model:g?'gpt-image-1':'dall-e-3',prompt:p,size:size,n:1};if(!g)body.response_format='b64_json';
    const r=await fetch('https://api.openai.com/v1/images/generations',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},body:JSON.stringify(body)});
-   const j=await r.json().catch(()=>({}));if(!r.ok)throw Error((j.error&&j.error.message)||'HTTP '+r.status);
-   const it=j.data&&j.data[0];if(!it)throw Error('OpenAI returned no image');src=it.b64_json?'data:image/png;base64,'+it.b64_json:it.url}
+   const j=await r.json().catch(()=>({}));if(!r.ok){err=err||Error((j.error&&j.error.message)||'HTTP '+r.status);continue}
+   it=j.data&&j.data[0];if(it)break}
+   if(!it)throw err||Error('OpenAI returned no image');src=it.b64_json?'data:image/png;base64,'+it.b64_json:it.url}
   const i=new Image();i.onload=()=>{d.innerHTML='';d.appendChild(i);d.insertAdjacentHTML('beforeend','<a class="btn bs" style="display:block;text-align:center;margin-top:6px;text-decoration:none" href="'+src+'" download="hexa-image.png" target="_blank" rel="noopener">Download</a>')};i.onerror=()=>{d.innerHTML='<div class="ld">⚠️ The image could not be displayed.</div>'};i.src=src}
  catch(e){d.innerHTML='<div class="ld">⚠️ '+esc(e.message)+'</div>'}
  setS('Ready')}
@@ -472,7 +473,7 @@ const modal=h=>{$('mb').innerHTML=h;$('modal').classList.add('on')};
 function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <b style="font-size:12px">🎨 UI Theme System (15)</b><div class="themes" style="margin:8px 0 4px">${TH.map((t,i)=>`<button class="th${i==p.theme?' on':''}" onclick="theme(${i},1)"><i style="background:linear-gradient(135deg,${t[1]},${t[2]})"></i>${i+1}. ${t[0]}</button>`).join('')}</div>
  <div class="box"><label class="lab">AI provider</label><select id="sp" onchange="spc()"><option value="free">Free (no key needed)</option>${Object.entries(PROV).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('')}</select>
- <label class="lab">Your own API key (saved in this browser only)</label><input class="in" id="sk" type="password" placeholder="Paste key (Gemini: AIza… · Groq: gsk_… · OpenAI: sk-…)"><label class="lab">Model name (optional — empty = default)</label><input class="in" id="smo" placeholder="e.g. gpt-4o · gpt-4.1-mini · gemini-2.5-flash">
+ <label class="lab">Your own API key (saved in this browser only)</label><input class="in" id="sk" type="password" placeholder="Paste key (Gemini: AQ.… or AIza… · Groq: gsk_… · OpenAI: sk-…)"><label class="lab">Model</label><select id="smp" onchange="$('smo').value=this.value"></select><input class="in" id="smo" style="margin-top:6px" placeholder="…or type any model name (empty = default)"><div id="scap" style="font-size:11px;color:var(--t2);line-height:1.8;margin-top:8px"></div>
  <div class="fl"><button class="btn bs" onclick="testKey()">✔ Test key</button><button class="btn" onclick="saveKey()">💾 Save</button><button class="btn bs" onclick="saveKey(1)">Remove key</button></div><div id="sres" style="font-size:12px"></div></div>
  <div class="box"><h3>🔊 ELEVENLABS VOICE</h3>
  <label class="lab">ElevenLabs API key</label><input class="in" id="ek" type="password" placeholder="sk_…" value="${esc(el.key||'')}">
@@ -486,10 +487,14 @@ function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <button class="btn" style="margin-top:10px" onclick="saveGen()">Save preferences</button></div>
  <div style="font-size:11px;color:var(--t3);margin-top:12px;line-height:1.6">Keys stay in this browser's localStorage and are sent only to the provider you choose. Anyone using this browser profile could read them — use restricted keys.</div>`);
  $('sp').value=p.prov;$('em2').value=el.model||'eleven_multilingual_v2';$('sbg').value=p.bg||'zen';spc()}
-function spc(){const v=$('sp').value;$('sk').value=P().keys[v]||'';$('sk').disabled=v=='free';$('smo').value=(P().models||{})[v]||'';$('smo').disabled=v=='free'}
+const MODELS={gemini:['gemini-2.5-flash','gemini-2.5-pro','gemini-2.5-flash-lite','gemini-2.0-flash'],openai:['gpt-4o-mini','gpt-4o','gpt-4.1','gpt-4.1-mini','o4-mini'],groq:['llama-3.3-70b-versatile','llama-3.1-8b-instant','meta-llama/llama-4-scout-17b-16e-instruct'],claude:['claude-sonnet-4-5','claude-haiku-4-5','claude-opus-4-1']};
+const CAPS={free:'💬 Chat ✅ · 🎨 Photos ✅ (free generator) · 💻 Website code ✅',gemini:'💬 Chat ✅ · 🎨 Photos ✅ (Gemini image) · 💻 Website code ✅',openai:'💬 Chat ✅ · 🎨 Photos ✅ (gpt-image-1 / DALL·E 3) · 💻 Website code ✅',groq:'💬 Chat ✅ · 💻 Website code ✅ · 🎨 Photos use the free generator (Groq has no image model)',claude:'💬 Chat ✅ · 💻 Website code ✅ · 🎨 Photos use the free generator (Claude has no image model)'};
+function spc(){const v=$('sp').value,mo=(P().models||{})[v]||'',ml=MODELS[v]||[];$('sk').value=P().keys[v]||'';$('sk').disabled=v=='free';$('smo').value=mo;$('smo').disabled=$('smp').disabled=v=='free';
+ $('smp').innerHTML='<option value="">Default model</option>'+ml.map(m=>`<option value="${m}">${m}</option>`).join('');$('smp').value=ml.includes(mo)?mo:'';
+ $('scap').textContent='One key, everything — '+(CAPS[v]||'')}
 async function testKey(){const v=$('sp').value,k=cleanKey($('sk').value),r=$('sres');r.style.color='var(--t2)';
  if(v=='free'){r.textContent='✅ Free provider needs no key.';return}if(!k){r.textContent='⚠️ Paste a key first.';return}
- if(v=='gemini'&&!/^AIza/.test(k)){r.textContent='⚠️ Gemini keys start with "AIza" — get one at aistudio.google.com/apikey';r.style.color='var(--a)';return}
+ if(v=='gemini'&&!/^(AIza|AQ\.)/.test(k)){r.textContent='⚠️ Gemini keys start with "AQ." or "AIza" — get one at aistudio.google.com/apikey';r.style.color='var(--a)';return}
  if(v=='groq'&&!/^gsk_/.test(k)){r.textContent='⚠️ Groq keys start with "gsk_" — get one at console.groq.com/keys';r.style.color='var(--a)';return}
  r.textContent='Testing '+PROV[v].n+'…';
  try{const o=await ask([{role:'user',content:'Reply with the single word OK'}],'Reply with OK',v,k);r.textContent='✅ Key is valid. Reply: '+String(o).slice(0,40);r.style.color='var(--g)'}catch(e){r.textContent='❌ '+e.message;r.style.color='var(--r)'}}
