@@ -175,7 +175,7 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
     <textarea id="inp" rows="1" placeholder='Ask anything… "open YouTube", search the news, write Python code…' onkeydown="if(event.key=='Enter'&&!event.shiftKey){event.preventDefault();send()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,150)+'px'"></textarea>
     <div class="vb" id="vb"><i></i><i></i><i></i><i></i><i></i><i></i></div><button class="mic" id="mic" onclick="mic()" title="Voice">🎤</button><button class="snd" onclick="send()">➤</button></div>
    <input type="file" id="f1" accept="image/*" hidden onchange="pick(event)">
-   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v13 Hindi · ElevenLabs</div></div></div>
+   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v14 smart memory</div></div></div>
  
  <div class="vw" id="v-code"><h3>💻 WEBSITE &amp; CODE GENERATOR</h3><textarea class="in" id="cpt" rows="3" placeholder="e.g. A dark portfolio website with hero, project grid, contact form and smooth animations"></textarea>
   <div class="fl"><select class="in" id="cprov" style="width:auto"><option value="">AI: current (Settings)</option><option value="groq">Groq</option><option value="openai">OpenAI (ChatGPT)</option><option value="gemini">Google Gemini</option><option value="claude">Claude</option></select><select class="in" id="cfm" style="width:auto"><option value="html">HTML + CSS + JS</option><option value="react">React (single-file HTML)</option><option value="tailwind">Tailwind site</option><option value="web3d">🧊 3D Website (Three.js) ⭐</option><option value="py">Python</option><option value="node">Node.js</option></select>
@@ -305,12 +305,12 @@ async function changeLang(v){
  busy=false;if($('st').textContent.startsWith('Think'))setS('Ready')}
  
 /* ---- CHATS (chatHistory = persistent memory of the open chat) ---- */
-const saveC=()=>W('hx_c_'+me,chats);
+const saveC=()=>{try{W('hx_c_'+me,chats);saveC.w=0}catch(e){if(!saveC.w){saveC.w=1;toast('⚠️ Browser storage is full — new messages stay on screen but may not be saved. Delete old chats to free space.')}}};
 function newChat(){cid='c'+Date.now();chats[cid]={title:'New Chat',t:Date.now(),msgs:[]};saveC();openChat(cid)}
 function welcome(){$('msgs').innerHTML='<div class="wl"><div class="wh">⬡</div><div class="wt">HEXA AI</div>'+(me&&isBoss(me)?'<div class="ws" style="color:var(--c);font-weight:600;margin-bottom:10px">👑 Welcome back, Boss — creator of HEXA.</div>':'')+'<div class="ws">Your intelligent bestie. Ask anything, talk with 🎤, point the 📷 camera at something, write code, open apps. Try <b style="color:var(--c)">"open YouTube"</b>.</div></div>'}
 function openChat(id){cid=id;const c=chats[id];chatHistory=c.msgs;$('msgs').innerHTML='';chatHistory.length?chatHistory.forEach(m=>addMsg(m.role,m.content,false)):welcome();renderList();tab('chat')}
 function renderList(){const el=$('clist');el.innerHTML='';Object.entries(chats).sort((a,b)=>b[1].t-a[1].t).forEach(([id,c])=>{const d=document.createElement('div');d.className='si'+(id==cid?' act':'');d.innerHTML=`<span>💬 ${esc(c.title)}</span><span>🗑</span>`;d.onclick=()=>openChat(id);d.lastChild.onclick=e=>{e.stopPropagation();delete chats[id];saveC();const k=Object.keys(chats);k.length?openChat(k[0]):newChat()};el.appendChild(d)})}
-function clearChat(){if(!confirm('Clear this chat?'))return;chats[cid].msgs=[];chats[cid].title='New Chat';saveC();openChat(cid)}
+function clearChat(){if(!confirm('Clear this chat?'))return;chats[cid].msgs=[];chats[cid].sum=null;chats[cid].title='New Chat';saveC();openChat(cid)}
 function md(t){return t.split('```').map((s,i)=>i%2?`<pre><code>${esc(s.replace(/^[\w+-]*\n/,''))}</code></pre>`:esc(s).replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer" style="color:var(--c);text-decoration:underline">$1</a>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>')).join('')}
 function addMsg(role,text,store=true,think){
  const w=document.createElement('div'),u=role=='user';w.className='mw'+(u?' u':'');
@@ -368,21 +368,21 @@ async function ask(msgs,sys,prov,key,im,web){
  const j=await J(await fetch(c.u,{method:'POST',headers:{...H,Authorization:'Bearer '+key},body:JSON.stringify({model:c.m,messages:[{role:'system',content:sys},...h.map((m,i)=>prov=='openai'?oa(m,i):m)]})}));return j.choices[0].message.content}
 const sysP=()=>`You are ${P().name}, a brilliant, warm, friendly AI assistant. You remember everything said earlier in this conversation and use it. IMPORTANT: Reply ONLY in ${LNAME[lang]} (use its native script), even if the user writes in another language, unless they explicitly ask for a different language. Never mix languages. Be concise and clear; use **bold** for key points and fenced code blocks for code.${bossLine()}
 CURRENT DATE & TIME (exact, from the user's device clock): ${nowStr()}. Use it for any question about the time, date, day or "today". For anything that may have changed recently, say if you are unsure and suggest a live web search.`;
-function pick(e){const f=e.target.files[0];e.target.value='';if(!f)return;if(!upOK())return;const r=new FileReader();r.onload=ev=>shrink(ev.target.result,1280,d=>{img=d;$('ipi').src=d;$('ipv').style.display='flex';toast('Image attached'+upNote())});r.onerror=()=>toast('Could not read the image');r.readAsDataURL(f)}
+function pick(e){const f=e.target.files[0];e.target.value='';if(!f)return;const r=new FileReader();r.onload=ev=>shrink(ev.target.result,1280,d=>{img=d;$('ipi').src=d;$('ipv').style.display='flex';toast('Image attached')});r.onerror=()=>toast('Could not read the image');r.readAsDataURL(f)}
 function rmImg(){img=null;$('ipv').style.display='none'}
 async function send(){
- const t=$('inp').value.trim();if((!t&&!img)||busy)return;const im=img;if(im&&!useUp()){rmImg();return}$('inp').value='';$('inp').style.height='';rmImg();tab('chat');
+ const t=$('inp').value.trim();if((!t&&!img)||busy)return;const im=img;$('inp').value='';$('inp').style.height='';rmImg();tab('chat');
  addMsg('user',(im?'📷 ':'')+(t||'What do you see in this photo? Describe it in detail.'));
  if(!im&&browserCmd(t))return;
   let wq=null;if(!im){const sm=t.match(/^(?:hexa[, ]+)?(?:search|look ?up|google|research|find out|найди|поищи|खोजो|ढूंढो)\s+(?:the\s+)?(?:web|internet|online)?\s*(?:for|about)?\s*(.+)$/i);if(sm)wq=sm[1].trim();else if(P().web||needsWeb(t))wq=t}
  busy=true;setS(wq?'🔎 Searching the web…':'Thinking…','a','thinking');const th=addMsg('assistant','',false,true);
- try{let out=await ask(chatHistory.slice(-30),sysP(),null,null,im,wq);th.remove();if(wq)out+='\n\n🔎 [Open live Google results](https://www.google.com/search?q='+encodeURIComponent(wq)+')';addMsg('assistant',out);if(P().speak)speak(out.split('\n\n**Sources:**')[0])}
+ try{let out=await askCtx(im,wq);th.remove();if(wq)out+='\n\n🔎 [Open live Google results](https://www.google.com/search?q='+encodeURIComponent(wq)+')';addMsg('assistant',out);if(P().speak)speak(out.split('\n\n**Sources:**')[0])}
  catch(e){th.remove();addMsg('assistant','⚠️ '+e.message+'\n\nCheck your key in ⋮ → Settings, or switch to the Free provider.');log('ai error: '+e.message);setS('Error','r')}
  busy=false;if($('st').textContent!='Error')rdy();if(hfPend){const q=hfPend;hfPend=null;hfRun(q)}}
 function reply(t){addMsg('assistant',t);if(P().speak)speak(t)}
  
 /* ---- CAMERA ---- */
-function openCam(){if(!upOK())return;if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return toast('Camera needs HTTPS and a supported browser');
+function openCam(){if(!navigator.mediaDevices||!navigator.mediaDevices.getUserMedia)return toast('Camera needs HTTPS and a supported browser');
  navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'},audio:false}).then(s=>{cs=s;$('cv').srcObject=s;$('cam').classList.add('on')}).catch(()=>toast('Camera access denied'))}
 function closeCam(){if(cs)cs.getTracks().forEach(t=>t.stop());cs=null;$('cv').srcObject=null;$('cam').classList.remove('on')}
 function snap(){const v=$('cv'),c=$('cc');if(!v.videoWidth)return toast('Camera not ready yet');const w=Math.min(v.videoWidth,1024),h=Math.round(v.videoHeight*w/v.videoWidth);c.width=w;c.height=h;c.getContext('2d').drawImage(v,0,0,w,h);
@@ -513,26 +513,20 @@ function saveGen(){const p=P();p.name=$('sn').value.trim()||'Hexa AI';p.speak=$(
  
 /* ---- MEMBERSHIP ($1/month) + free limits ---- */
 const PAYMENT_LINK=''; // paste your Stripe / PayPal $1-per-month Payment Link here (public link only, never a secret key)
-const PRICE='$1',FREE_PHOTOS=2;
-const FEATS={code3d:'🧊 3D website code generator',uploads:'📎 Unlimited photo uploads in chat'};
-const DEF_PERMS={code3d:1,uploads:1};
+const PRICE='$1';
+const FEATS={code3d:'🧊 3D website code generator'};
+const DEF_PERMS={code3d:1};
 const M=()=>L('hx_mem',{}),perms=()=>Object.assign({},DEF_PERMS,G().perms||{});
 function isMember(e){e=e||me;if(!e)return false;if(isAdmin(e))return true;const m=M()[e];return !!(m&&m.exp>Date.now())}
 const planTag=()=>isBoss(me)?'👑 Boss · ':isAdmin(me)?'👑 Admin · ':isMember()?'⭐ Member · ':'Free · ';
 function need(f){if(!perms()[f]||isMember())return true;openMember('🔒 '+FEATS[f]+' is a members-only feature.');return false}
-const dayKey=()=>new Date().toISOString().slice(0,10);
-const upU=()=>{const u=L('hx_up_'+me,{});return u.d==dayKey()?(u.n||0):0};
-const upLim=()=>perms().uploads&&!isMember();
-const upNote=()=>upLim()?' ('+Math.max(0,FREE_PHOTOS-upU())+' free left today)':'';
-function upOK(){if(!upLim()||upU()<FREE_PHOTOS)return true;openMember('You used your '+FREE_PHOTOS+' free photo uploads today. Members get unlimited uploads.');return false}
-function useUp(){if(!upOK())return false;if(upLim())W('hx_up_'+me,{d:dayKey(),n:upU()+1});return true}
 function shrink(src,mx,cb){const i=new Image();i.onload=()=>{const s=Math.min(1,mx/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(i.width*s));c.height=Math.max(1,Math.round(i.height*s));const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(i,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.85))};i.onerror=()=>toast('Unsupported image file');i.src=src}
 /* conversation memory: the recent transcript is also placed in the system prompt so every provider "remembers" */
-function memSys(sys,h){if(h.length<2)return sys;const t=h.slice(0,-1).slice(-20).map(m=>(m.role=='user'?'USER: ':'YOU: ')+m.content.slice(0,600)).join('\n');return sys+'\n\nCONVERSATION MEMORY (earlier turns of this same chat — you DO remember them; if the user asks what they said or asked earlier, answer from this transcript and never say you forgot or cannot remember):\n'+t}
+function memSys(sys,h){if(h.length<2)return sys;return sys+'\n\nMEMORY: the earlier messages of this chat are included in the conversation (older parts as a summary in this prompt). You DO remember them — if the user asks what they said or asked earlier, answer from them and never say you forgot or cannot remember.'}
 function openMember(msg){const m=M()[me]||{},on=isMember(),pr=perms();
  modal(`<h3>⭐ HEXA MEMBERSHIP</h3>${msg?`<p style="font-size:12px;color:var(--a);margin-bottom:10px">${esc(msg)}</p>`:''}
  <div style="font-size:30px;font-family:var(--orb);color:var(--c)">${PRICE}<span style="font-size:12px;color:var(--t3)"> / month</span></div>
- <div style="font-size:12px;color:var(--t2);line-height:2;margin:10px 0">${Object.entries(FEATS).filter(([k])=>pr[k]).map(([k,v])=>'✅ '+v).join('<br>')||'All features are currently free.'}<br><span style="color:var(--t3)">Free plan: ${FREE_PHOTOS} photo uploads per day.</span></div>
+ <div style="font-size:12px;color:var(--t2);line-height:2;margin:10px 0">${Object.entries(FEATS).filter(([k])=>pr[k]).map(([k,v])=>'✅ '+v).join('<br>')||'All features are currently free.'}</div>
  ${on?`<div style="color:var(--g);font-size:13px">${isAdmin(me)?'👑 Admin — full access':'✅ Active until '+new Date(m.exp).toLocaleDateString()}</div>`:`<div class="fl"><button class="btn" onclick="payNow()">💳 Pay ${PRICE} / month</button><button class="btn bs" onclick="payDone()">I have paid — notify admin</button></div>${m.pend?'<div style="font-size:11px;color:var(--a)">⏳ Activation request sent — waiting for admin approval.</div>':''}`}`)}
 const ADMIN_EMAIL='sandeshn839@gmail.com',ADMIN_WHATSAPP=''; // optional: admin WhatsApp number with country code, digits only, e.g. 9779800000000
 function openPay(){$('modal').classList.remove('on');if(!me)return;tab('pay');ptab('share');$('pref').value='';$('psent').classList.remove('on');
@@ -557,7 +551,7 @@ function openAdmin(){
  const plan=e=>isBoss(e)?'👑 Boss (creator)':isAdmin(e)?'👑 Admin':(mm[e]&&mm[e].exp>Date.now())?'⭐ Member<br><span style="color:var(--t3)">until '+new Date(mm[e].exp).toLocaleDateString()+'</span>':(mm[e]&&mm[e].pend)?'<span style="color:var(--a)">⏳ Pending approval'+(mm[e].ref?'<br>Ref: '+esc(mm[e].ref):'')+'<br>'+new Date(mm[e].pend).toLocaleString()+'</span>':'Free';
  const rows=Object.keys(U).map(e=>{const k=L('hx_p_'+e,{keys:{}}).keys||{},nc=Object.keys(L('hx_c_'+e,{})).length,q=esc(e);return`<tr><td>${q}${U[e].g?' (G)':''}${U[e].blocked?' <span style="color:var(--r)">⛔ blocked</span>':''}<br><span style="color:var(--t4)">${nc} chats · joined ${U[e].t?new Date(U[e].t).toLocaleDateString():'—'}</span></td><td>${plan(e)}</td><td>${Object.entries(k).filter(x=>x[1]).map(([n,v])=>n+':'+esc(v.slice(0,4))+'•••').join(' ')||'—'}</td><td>${isAdmin(e)?'—':`<button class="btn bs" style="padding:2px 8px" onclick="admGrant('${q}')">+30d ⭐</button> <button class="btn bs" style="padding:2px 8px" onclick="admRev('${q}')">Set Free</button> <button class="btn bs" style="padding:2px 8px" onclick="admBlock('${q}')">${U[e].blocked?'Unblock':'Block'}</button> <button class="btn bs" style="padding:2px 8px" onclick="admKeys('${q}')">Clear keys</button> <button class="btn bs" style="padding:2px 8px;color:var(--r)" onclick="admDel('${q}')">Delete</button>`}</td></tr>`}).join('')||'<tr><td>No users</td></tr>';
  modal(`<h3>👑 ADMIN PANEL</h3><div class="box"><b>👥 User management (${Object.keys(U).length})</b><div style="overflow-x:auto;margin-top:6px"><table><tr><th>User</th><th>Plan</th><th>Keys</th><th>Actions</th></tr>${rows}</table></div></div>
- <div class="box"><b>⭐ Membership access permissions (${PRICE}/month)</b><div style="font-size:11px;color:var(--t3);margin:4px 0">Ticked = only members and admins can use it. Unticked = free for everyone.</div>${Object.entries(FEATS).map(([k,v])=>`<label class="lab" style="text-transform:none;font-size:12px;color:var(--t2)"><input type="checkbox" ${pr[k]?'checked':''} onchange="admPerm('${k}',this.checked)"> ${v}</label>`).join('')}<div style="font-size:11px;color:var(--t3);margin-top:6px">Free plan: ${FREE_PHOTOS} photo uploads per day in chat.</div></div>
+ <div class="box"><b>⭐ Membership access permissions (${PRICE}/month)</b><div style="font-size:11px;color:var(--t3);margin:4px 0">Ticked = only members and admins can use it. Unticked = free for everyone.</div>${Object.entries(FEATS).map(([k,v])=>`<label class="lab" style="text-transform:none;font-size:12px;color:var(--t2)"><input type="checkbox" ${pr[k]?'checked':''} onchange="admPerm('${k}',this.checked)"> ${v}</label>`).join('')}</div>
  <div class="box"><b>Active sessions on this device</b><div style="font-size:12px;margin:6px 0;color:var(--t2)">${acc.map(esc).join(', ')||'—'}</div><table>${L('hx_sess',[]).slice(0,10).map(s=>`<tr><td>${esc(s.u)}</td><td>${new Date(s.t).toLocaleString()}</td><td>${esc(s.ua.slice(0,30))}</td></tr>`).join('')}</table></div>
  <div class="box"><b>Global settings</b><label class="lab"><input type="checkbox" id="gm" ${g.maint?'checked':''}> Maintenance mode (blocks non-admin logins)</label><label class="lab">Announcement shown on login</label><input class="in" id="gn" value="${esc(g.note)}"><button class="btn" style="margin-top:10px" onclick="admSave()">Save</button></div>
  <div class="box"><b>System logs</b><table>${L('hx_log',[]).slice(0,25).map(l=>`<tr><td>${new Date(l.t).toLocaleTimeString()}</td><td>${esc(l.u)}</td><td>${esc(l.m)}</td></tr>`).join('')||'<tr><td>No logs</td></tr>'}</table><button class="btn bs" style="margin-top:8px" onclick="localStorage.removeItem('hx_log');openAdmin()">Clear logs</button></div>`)}
@@ -635,6 +629,38 @@ let pendLM=null;
 const loginMethod=e=>L('hx_lmm',{})[e||me]||'password';
 function openWho(){const m=loginMethod(),role=isBoss(me)?'👑 Boss — creator of HEXA':isAdmin(me)?'👑 Admin':isMember()?'⭐ Member':'Free';
  modal(`<h3>🔐 YOU ARE LOGGED IN</h3><div style="font-size:13px;line-height:2.1"><b>Email:</b> ${esc(me)}<br><b>Role:</b> ${role}<br><b>Login method:</b> ${m=='boss'?'✅ Boss password':m=='demo'?'Gmail shortcut':'Email &amp; password'}</div>`)}
+ 
+/* ---- SMART CONTEXT: full history stays saved; each request = system + rolling summary of old parts + recent messages that fit the provider budget ---- */
+/* Input-token budgets per request. Deliberately below the real model limits (Groq's free tier allows only ~6–12k tokens/minute). The quota/context limits of the providers still exist. */
+const CTX_BUDGET={free:12000,groq:7000,gemini:60000,openai:48000,claude:60000};
+const estTok=t=>{t=String(t||'');let a=0,n=0;for(let i=0;i<t.length;i++){t.charCodeAt(i)<128?a++:n++}return Math.ceil(a/3.6+n*0.9)+4};
+const SUMP="You maintain the rolling memory of a conversation between a USER and an AI assistant (HEXA). Merge the PREVIOUS SUMMARY with the NEW MESSAGES into ONE updated summary. Keep: the user's name and identity, preferences, facts they shared, decisions, tasks and their status, code / project / file details, numbers, dates, links, open questions, and what the assistant already answered. Drop greetings and filler. Write in the language the user uses. At most about 350 words. Output ONLY the summary.";
+const CTXERR=/context (length|window)|too (long|large)|maximum (context|prompt)|exceed(s|ed)? (the )?(limit|maximum|context)|request[_ ]too[_ ]large|reduce the length|tokens?.{0,40}(limit|exceed)|\b413\b/i;
+async function rollSummary(eff,prev,old,B){
+ const pv=eff=='free'?'free':P().prov,lim=Math.max(1500,B-3500-estTok(prev));
+ const lines=old.map(m=>{let c=String(m.content);const mx=lim*3;if(c.length>mx)c=c.slice(0,mx/2)+' … [long content shortened for this summary] … '+c.slice(-mx/2);return(m.role=='user'?'USER: ':'ASSISTANT: ')+c});
+ let sm=prev||'',i=0;setS('🧠 Condensing older messages…','a','thinking');
+ while(i<lines.length){const ch=[];let t=0;while(i<lines.length&&(!ch.length||t+estTok(lines[i])<=lim)){ch.push(lines[i]);t+=estTok(lines[i]);i++}
+  sm=String(await ask([{role:'user',content:'PREVIOUS SUMMARY:\n'+(sm||'(none)')+'\n\nNEW MESSAGES:\n'+ch.join('\n')}],SUMP,pv)).trim();if(!sm)throw Error('empty summary')}
+ return sm}
+async function ctxPlan(sys,hist,f){
+ const p=P(),key=cleanKey(p.keys[p.prov]),eff=(!key||p.prov=='free')?'free':p.prov,B=Math.floor((CTX_BUDGET[eff]||12000)*f),c=chats[cid];
+ const msgs=hist.map((m,i)=>({i,role:m.role,content:m.content})).filter(m=>m.content&&!/^⚠️/.test(String(m.content))),cost=m=>estTok(m.content);
+ let n=(c&&c.sum&&c.sum.n)||0,sm=(c&&c.sum&&c.sum.t)||'';
+ const room=()=>B-1500-estTok(sys)-(sm?estTok(sm)+40:0);
+ let tail=msgs.filter(m=>m.i>=n);
+ if(tail.reduce((a,m)=>a+cost(m),0)>room()&&tail.length>1){ /* overflow → fold the older part into the summary, down to ~50% of the room so the next turns need no new summary request */
+  const target=Math.max(room()*0.5,400);let keep=[],acc=0;
+  for(let k=tail.length-1;k>=0;k--){const cs=cost(tail[k]);if(acc+cs>target&&keep.length)break;keep.unshift(tail[k]);acc+=cs}
+  if(keep.length&&keep[0].role!='user'){const ix=tail.indexOf(keep[0]);if(ix>0)keep.unshift(tail[ix-1])}
+  const cut=keep[0].i,old=tail.filter(m=>m.i<cut);
+  if(old.length){try{sm=await rollSummary(eff,sm,old,B);n=cut;if(c){c.sum={t:sm,n:cut};saveC()}}catch(e){/* summary failed → plain budget trimming below (saved history is untouched) */}}
+  tail=msgs.filter(m=>m.i>=n)}
+ let sent=tail.slice(),tt=sent.reduce((a,m)=>a+cost(m),0);
+ while(sent.length>1&&tt>room()){tt-=cost(sent[0]);sent.shift()}
+ while(sent.length>1&&sent[0].role!='user')sent.shift();
+ return{sys:sm?sys+'\n\nSUMMARY OF THE EARLIER PART OF THIS CONVERSATION (older messages were condensed to save tokens; treat it as things that were really said):\n'+sm:sys,msgs:sent.map(m=>({role:m.role,content:m.content}))}}
+async function askCtx(im,wq){let le;for(const f of[1,0.5]){try{const pl=await ctxPlan(sysP(),chatHistory,f);return await ask(pl.msgs,pl.sys,null,null,im,wq)}catch(e){le=e;if(f==1&&CTXERR.test(String(e&&e.message)))continue;throw e}}throw le}
  
 /* ---- BOOT ---- */
 {const LO=['hi-IN','en-US','ru-RU','ne-NP'],ks=[...LO,...Object.keys(LANGS).filter(k=>!LO.includes(k))];$('lang').innerHTML=ks.map(k=>`<option value="${k}">${LANGS[k]}</option>`).join('')}
