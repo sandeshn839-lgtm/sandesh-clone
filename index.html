@@ -207,7 +207,7 @@ const LANGS={'en-US':'English','ne-NP':'नेपाली (Nepali)','hi-IN':'�
 const LNAME={'en-US':'English','ne-NP':'Nepali','hi-IN':'Hindi','bn-BD':'Bengali','ur-PK':'Urdu','es-ES':'Spanish','fr-FR':'French','de-DE':'German','it-IT':'Italian','pt-BR':'Portuguese','ru-RU':'Russian','ja-JP':'Japanese','zh-CN':'Chinese (Simplified)','ko-KR':'Korean','ar-SA':'Arabic','tr-TR':'Turkish','id-ID':'Indonesian','th-TH':'Thai','vi-VN':'Vietnamese','nl-NL':'Dutch','pl-PL':'Polish','sw-KE':'Swahili'};
 const APPS={youtube:'youtube.com',gmail:'mail.google.com',google:'google.com',facebook:'facebook.com',instagram:'instagram.com',github:'github.com',netflix:'netflix.com',spotify:'open.spotify.com',whatsapp:'web.whatsapp.com',maps:'maps.google.com',x:'x.com',linkedin:'linkedin.com'};
 /* provider → endpoint map (dropdown values must match these keys) */
-const PROV={groq:{n:'Groq',u:'https://api.groq.com/openai/v1/chat/completions',m:['openai/gpt-oss-120b','meta-llama/llama-4-scout-17b-16e-instruct','llama-3.1-8b-instant']},openai:{n:'OpenAI (ChatGPT)',u:'https://api.openai.com/v1/chat/completions',m:'gpt-4o-mini'},gemini:{n:'Google Gemini',m:['gemini-2.5-flash','gemini-2.5-flash-lite','gemini-2.5-pro']},claude:{n:'Claude',u:'https://api.anthropic.com/v1/messages',m:'claude-sonnet-4-5'}};
+const PROV={groq:{n:'Groq',u:'https://api.groq.com/openai/v1/chat/completions',m:['openai/gpt-oss-120b','llama-3.3-70b-versatile','meta-llama/llama-4-scout-17b-16e-instruct','llama-3.1-8b-instant','qwen/qwen3-32b']},openai:{n:'OpenAI (ChatGPT)',u:'https://api.openai.com/v1/chat/completions',m:'gpt-4o-mini'},gemini:{n:'Google Gemini',m:['gemini-2.5-flash','gemini-2.5-flash-lite','gemini-2.5-pro']},claude:{n:'Claude',u:'https://api.anthropic.com/v1/messages',m:'claude-sonnet-4-5'}};
 /* 15 UI themes: name, accent, secondary, background */
 const TH=[['Cyberpunk Cyan','#00d4ff','#0055ee','#000510'],['Holographic Purple','#c77dff','#7b2ff7','#0a0414'],['Matrix Green','#00ff66','#008f3a','#000a04'],['Midnight Obsidian','#9aa7bd','#3d4a63','#05060a'],['Neon Sunset','#ff6b35','#ff2e93','#12040a'],['Deep Space Blue','#4d8dff','#1b2fd1','#02061a'],['Golden Titanium','#f5c542','#a87a10','#0e0a02'],['Emerald Frost','#3dffc4','#0a9b8a','#01100e'],['Crimson Plasma','#ff2255','#a3002b','#12020a'],['Arctic Ice','#a8e6ff','#4aa3df','#04101a'],['Vaporwave Pink','#ff71ce','#01cdfe','#100420'],['Solar Flare','#ffb000','#ff4500','#120600'],['Electric Violet','#8a5cff','#ff00e5','#07021a'],['Monolith Dark','#e6e6e6','#777777','#000000'],['Royal Amethyst','#b57bff','#5b2a9e','#0d0418']];
 const EL_F='21m00Tcm4TlvDq8ikWAM',EL_M='pNInz6obpgDQGcFmaJgB';
@@ -308,7 +308,7 @@ function addMsg(role,text,store=true,think){
 const cleanKey=k=>String(k||'').trim().replace(/^["']+|["']+$/g,'').replace(/\s+/g,'');
 async function ask(msgs,sys,prov,key,im,web){
  const p=P();prov=prov||p.prov;key=cleanKey(key||p.keys[prov]);const H={'Content-Type':'application/json'};
- const J=async r=>{const j=await r.json().catch(()=>({}));if(!r.ok){const e=j.error;throw Error((e&&(e.message||(typeof e=='string'?e:JSON.stringify(e))))||(j.message)||'HTTP '+r.status)}return j};
+ const J=async r=>{const j=await r.json().catch(()=>({}));if(!r.ok){const e=j.error,msg=(e&&(e.message||(typeof e=='string'?e:JSON.stringify(e))))||(j.message)||'HTTP '+r.status,er=Error(msg);if(r.status==404||modelErrRe.test(msg))er.unsupportedModel=true;else if(r.status==429)er.tryNext=true;throw er}return j};
  /* build a clean alternating history that always starts with a user turn */
  let h=msgs.filter(m=>m.content&&!/^⚠️/.test(String(m.content))).map(m=>({role:m.role=='assistant'?'assistant':'user',content:String(m.content)}));while(h.length&&h[0].role!='user')h.shift();
  const last=h.length-1,mt=im?im.split(';')[0].slice(5):'',b64=im?im.split(',')[1]:'';
@@ -318,7 +318,10 @@ async function ask(msgs,sys,prov,key,im,web){
  const free=async()=>{let le;for(const fm of ['openai','openai-large']){try{const j=await J(await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:H,body:JSON.stringify({model:fm,messages:[{role:'system',content:sys},...h.map(oa)]})}));const t=j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;if(t)return t;le=Error('Empty AI response')}catch(e){le=e}}throw le};
  if(!key||prov=='free')return free();
  if(im&&prov=='groq'){toast('Groq cannot read photos — using the free vision AI for this message');return free()}
- const c0=PROV[prov];if(!c0)throw Error('Unknown provider: '+prov);const c=Object.assign({},c0);{const mo=String((p.models||{})[prov]||'').trim();if(mo&&!RETIRED_MODELS.includes(mo))c.m=Array.isArray(c0.m)?[mo]:mo}
+ const c0=PROV[prov];if(!c0)throw Error('Unknown provider: '+prov);const c=Object.assign({},c0);
+ /* models to try, in order: last one that worked → the one chosen in Settings → built-in defaults. If all fail, runModels() asks the provider which models this key can use. */
+ const mo=String((p.models||{})[prov]||'').trim(),okm=String(((me&&P().okm)||{})[prov]||''),
+  pref=[...new Set([okm,mo,...[].concat(c0.m),...(MODELS[prov]||[])].filter(x=>x&&!RETIRED_MODELS.includes(x)))];
  /* Cloudflare Worker transport (Groq + Gemini only, text only). Always resolves or throws; 60s timeout so loading never hangs. */
  const viaCF=async(pv,k,model,messages)=>{
   const ac=new AbortController(),to=setTimeout(()=>ac.abort(),60000);let r;
@@ -329,28 +332,22 @@ async function ask(msgs,sys,prov,key,im,web){
   if(!j)throw Error('Cloudflare Worker returned a non-JSON response (HTTP '+r.status+').');
   if(!r.ok||j.success===false){
    const e=j.error,raw=String((e&&(e.message||(typeof e=='string'?e:JSON.stringify(e))))||j.message||j.details||('HTTP '+r.status)),er=new Error(raw);
-   if(r.status==401||r.status==403||/api[ _-]?key|unauthori[sz]ed|permission denied|invalid.*(key|token)|API_KEY_INVALID/i.test(raw))er.message='Invalid API key for '+PROV[pv].n+'. Re-check it in Settings. ('+raw+')';
-   else if(r.status==404||/model.*(not found|does not exist|not supported|decommission|deprecated|unavailable)|not found.*model|unsupported model/i.test(raw)){er.unsupportedModel=true;er.message='Unsupported or unavailable model "'+model+'" for '+PROV[pv].n+'. Update the model name in the PROV table. ('+raw+')'}
-   else if(r.status==429)er.message=PROV[pv].n+' rate limit or quota reached. Wait a moment and retry. ('+raw+')';
+   /* model problems are checked FIRST: a 403 "model blocked" is not a bad key */
+   if(modelErrRe.test(raw)||r.status==404){er.unsupportedModel=true;er.message='Model "'+model+'" is not available for '+PROV[pv].n+'. ('+raw+')'}
+   else if(r.status==401||r.status==403||/api[ _-]?key|unauthori[sz]ed|permission denied|invalid.*(key|token)|API_KEY_INVALID/i.test(raw))er.message='Invalid API key for '+PROV[pv].n+'. Re-check it in Settings. ('+raw+')';
+   else if(r.status==429){er.tryNext=true;er.message=PROV[pv].n+' rate limit or quota reached for "'+model+'". ('+raw+')'}
    else er.message=PROV[pv].n+' API error via Cloudflare: '+raw;
    throw er}
   const t=typeof j.text=='string'?j.text.trim():'';if(!t)throw Error('Empty AI response from '+PROV[pv].n+'.');return t};
- /* Groq always, Gemini when no image → Cloudflare. Gemini + image keeps the existing direct implementation below (Worker is text-only). */
- if(prov=='groq'||(prov=='gemini'&&!im)){
-  const models=Array.isArray(c.m)?c.m:[c.m],cm=[{role:'system',content:sys},...h];let le;
-  for(let i=0;i<models.length;i++){
-   try{return await viaCF(prov,key,models[i],cm)}
-   catch(e){le=e;if(e.unsupportedModel&&i<models.length-1)continue;throw e}}
-  throw le||Error('No model configured for '+c.n)}
+ /* Groq always, Gemini when no image → Cloudflare. Gemini + image goes direct (the Worker is text-only). */
+ if(prov=='groq'||(prov=='gemini'&&!im)){const cm=[{role:'system',content:sys},...h];return runModels(prov,key,pref,m=>viaCF(prov,key,m,cm))}
  if(prov=='gemini'){
   const body=JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:h.map((m,i)=>({role:m.role=='assistant'?'model':'user',parts:i==last&&im?[{text:m.content},{inline_data:{mime_type:mt,data:b64}}]:[{text:m.content}]}))});
-  let err;for(const m of c.m){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{...H,'x-goog-api-key':key},body});
-   if(r.status==404){err=Error('Model '+m+' not available');continue}
-   const j=await J(r);const t=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(x=>x.text||'').join('');if(!t)throw Error(j.promptFeedback?'Blocked: '+(j.promptFeedback.blockReason||'safety'):'Empty response');return t}
-  throw err}
- if(prov=='claude'){const j=await J(await fetch(c.u,{method:'POST',headers:{...H,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:c.m,max_tokens:8192,system:sys,messages:h.map((m,i)=>i==last&&im?{role:m.role,content:[{type:'image',source:{type:'base64',media_type:mt,data:b64}},{type:'text',text:m.content}]}:m)})}));return j.content.map(x=>x.text||'').join('')}
- /* openai (Bearer token, OpenAI-compatible) — only openai gets image parts; groq is handled above via Cloudflare */
- const j=await J(await fetch(c.u,{method:'POST',headers:{...H,Authorization:'Bearer '+key},body:JSON.stringify({model:c.m,messages:[{role:'system',content:sys},...h.map((m,i)=>prov=='openai'?oa(m,i):m)]})}));return j.choices[0].message.content}
+  return runModels(prov,key,pref,async m=>{const j=await J(await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${m}:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{...H,'x-goog-api-key':key},body}));
+   const t=(j.candidates&&j.candidates[0]&&j.candidates[0].content&&j.candidates[0].content.parts||[]).map(x=>x.text||'').join('');if(!t)throw Error(j.promptFeedback?'Blocked: '+(j.promptFeedback.blockReason||'safety'):'Empty response');return t})}
+ if(prov=='claude')return runModels(prov,key,pref,async m=>{const j=await J(await fetch(c.u,{method:'POST',headers:{...H,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:m,max_tokens:8192,system:sys,messages:h.map((x,i)=>i==last&&im?{role:x.role,content:[{type:'image',source:{type:'base64',media_type:mt,data:b64}},{type:'text',text:x.content}]}:x)})}));return j.content.map(x=>x.text||'').join('')});
+ /* openai (Bearer token) — only openai gets image parts; groq is handled above */
+ return runModels(prov,key,pref,async m=>{const j=await J(await fetch(c.u,{method:'POST',headers:{...H,Authorization:'Bearer '+key},body:JSON.stringify({model:m,messages:[{role:'system',content:sys},...h.map((x,i)=>prov=='openai'?oa(x,i):x)]})}));return j.choices[0].message.content})}
 const sysP=()=>`You are ${P().name}, a brilliant, warm, friendly AI assistant. You remember everything said earlier in this conversation and use it. IMPORTANT: Reply ONLY in ${LNAME[lang]} (use its native script), even if the user writes in another language, unless they explicitly ask for a different language. Never mix languages. Be concise and clear; use **bold** for key points and fenced code blocks for code.${bossLine()}
 CURRENT DATE & TIME (exact, from the user's device clock): ${nowStr()}. Use it for any question about the time, date, day or "today". For anything that may have changed recently, say if you are unsure and suggest a live web search.`;
 function pick(e){const f=e.target.files[0];e.target.value='';if(!f)return;const r=new FileReader();r.onload=ev=>shrink(ev.target.result,1280,d=>{img=d;$('ipi').src=d;$('ipv').style.display='flex';toast('Image attached')});r.onerror=()=>toast('Could not read the image');r.readAsDataURL(f)}
@@ -439,7 +436,7 @@ function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <b style="font-size:12px">🎨 UI Theme System (15)</b><div class="themes" style="margin:8px 0 4px">${TH.map((t,i)=>`<button class="th${i==p.theme?' on':''}" onclick="theme(${i},1)"><i style="background:linear-gradient(135deg,${t[1]},${t[2]})"></i>${i+1}. ${t[0]}</button>`).join('')}</div>
  <div class="box"><label class="lab">AI provider</label><select id="sp" onchange="spc()"><option value="free">Free (no key needed)</option>${Object.entries(PROV).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('')}</select>
  <label class="lab">Your own API key (saved in this browser only)</label><input class="in" id="sk" type="password" placeholder="Paste key (Gemini: AQ.… or AIza… · Groq: gsk_… · OpenAI: sk-…)"><label class="lab">Model</label><select id="smp" onchange="$('smo').value=this.value"></select><input class="in" id="smo" style="margin-top:6px" placeholder="…or type any model name (empty = default)"><div id="scap" style="font-size:11px;color:var(--t2);line-height:1.8;margin-top:8px"></div>
- <div class="fl"><button class="btn bs" onclick="testKey()">✔ Test key</button><button class="btn" onclick="saveKey()">💾 Save</button><button class="btn bs" onclick="saveKey(1)">Remove key</button></div><div id="sres" style="font-size:12px"></div></div>
+ <div class="fl"><button class="btn bs" onclick="testKey()">✔ Test key</button><button class="btn bs" onclick="loadModels()">🔄 Load my models</button><button class="btn" onclick="saveKey()">💾 Save</button><button class="btn bs" onclick="saveKey(1)">Remove key</button></div><div id="sres" style="font-size:12px"></div></div>
  <div class="box"><h3>🔊 ELEVENLABS VOICE · ADVANCED</h3>
  <label class="lab">ElevenLabs API key (elevenlabs.io → Developers → API Keys)</label><input class="in" id="ek" type="password" placeholder="sk_…" value="${esc(el.key||'')}">
  <div class="fl"><button class="btn bs" onclick="elConnect()">🔌 Connect &amp; load my voices</button></div><div id="elinfo" style="font-size:11px;color:var(--t2);line-height:1.7"></div>
@@ -460,19 +457,65 @@ function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <button class="btn" style="margin-top:10px" onclick="saveGen()">Save preferences</button></div>
  <div style="font-size:11px;color:var(--t3);margin-top:12px;line-height:1.6">Keys stay in this browser's localStorage and are sent only to the provider you choose. Anyone using this browser profile could read them — use restricted keys.</div>`);
  $('sp').value=p.prov;$('em2').value=el.model||'eleven_flash_v2_5';elInit(el);$('sbg').value=p.bg||'zen';spc()}
-const RETIRED_MODELS=['llama-3.3-70b-versatile','gemini-2.0-flash'];
-const MODELS={gemini:['gemini-2.5-flash','gemini-2.5-pro','gemini-2.5-flash-lite'],openai:['gpt-4o-mini','gpt-4o','gpt-4.1','gpt-4.1-mini','o4-mini'],groq:['openai/gpt-oss-120b','meta-llama/llama-4-scout-17b-16e-instruct','llama-3.1-8b-instant'],claude:['claude-sonnet-4-5','claude-haiku-4-5','claude-opus-4-1']};
+const RETIRED_MODELS=['gemini-2.0-flash'];
+const modelErrRe=/model[\s\S]{0,100}(not found|does not exist|not exist|do(?:es)? not have access|no access|not supported|decommission|deprecat|unavailable|no longer available|blocked|not available|not enabled|permission)|not found[\s\S]{0,40}model|unsupported model|model_not_found|model_decommissioned|model_permission|model_blocked/i;
+let lastModel='';
+/* order a provider's model list: stable + fast + newest first */
+function rankModels(prov,ids){
+ const ver=id=>{const m=id.match(/(\d+(?:\.\d+)?)/);return m?+m[1]:0};
+ const pre={groq:[/gpt-oss-120b/,/llama-3\.3-70b/,/llama-4-maverick/,/llama-4-scout/,/qwen/,/kimi/,/gpt-oss-20b/,/llama-3\.1-8b/],openai:[/^gpt-4o-mini$/,/^gpt-4\.1-mini$/,/^gpt-4o$/,/^gpt-4\.1$/],claude:[/sonnet/,/haiku/,/opus/]}[prov]||[];
+ const key=id=>{if(prov=='gemini'){const x=id.toLowerCase();return[/preview|exp|\d{2}-\d{2}|latest/.test(x)?1:0,/lite/.test(x)?1:/flash/.test(x)?0:2,-ver(id),id]}
+  const i=pre.findIndex(r=>r.test(id));return[i<0?99:i,0,0,id]};
+ return ids.sort((a,b)=>{const A=key(a),B=key(b);for(let i=0;i<4;i++){if(A[i]<B[i])return-1;if(A[i]>B[i])return 1}return 0})}
+/* ask the provider which models THIS key can really use (cached 6h) */
+async function listModels(prov,key,force){
+ const q0=me?P():{},c=(q0.avail||{})[prov];
+ if(!force&&c&&c.ids&&c.ids.length&&Date.now()-c.t<6*36e5)return c.ids;
+ if(!key||prov=='free')return[];
+ const ac=new AbortController(),to=setTimeout(()=>ac.abort(),15000);let ids=[];
+ try{
+  if(prov=='groq'){const r=await fetch('https://api.groq.com/openai/v1/models',{headers:{Authorization:'Bearer '+key},signal:ac.signal}),j=await r.json().catch(()=>({}));
+   if(r.ok)ids=(j.data||[]).filter(m=>m.active!==false&&!/whisper|tts|playai|orpheus|guard|embed|compound|transcri/i.test(m.id)).map(m=>m.id)}
+  else if(prov=='gemini'){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models?pageSize=200&key='+encodeURIComponent(key),{signal:ac.signal}),j=await r.json().catch(()=>({}));
+   if(r.ok)ids=(j.models||[]).filter(m=>(m.supportedGenerationMethods||[]).includes('generateContent')&&/^models\/gemini-/.test(m.name)&&!/embedding|imagen|image|tts|live|audio|aqa|robotics|computer-use|learnlm|veo/i.test(m.name)).map(m=>m.name.replace(/^models\//,''))}
+  else if(prov=='openai'){const r=await fetch('https://api.openai.com/v1/models',{headers:{Authorization:'Bearer '+key},signal:ac.signal}),j=await r.json().catch(()=>({}));
+   if(r.ok)ids=(j.data||[]).map(m=>m.id).filter(id=>/^(gpt-|o\d)/.test(id)&&!/audio|realtime|transcribe|tts|image|search|embedding|instruct|moderation|codex|computer|davinci|babbage/i.test(id))}
+  else if(prov=='claude'){const r=await fetch('https://api.anthropic.com/v1/models?limit=100',{headers:{'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},signal:ac.signal}),j=await r.json().catch(()=>({}));
+   if(r.ok)ids=(j.data||[]).map(m=>m.id)}
+ }catch(e){ids=[]}finally{clearTimeout(to)}
+ ids=rankModels(prov,[...new Set(ids)]);
+ if(ids.length&&me){const q=P();q.avail=q.avail||{};q.avail[prov]={t:Date.now(),ids};W('hx_p_'+me,q)}
+ return ids}
+/* try each model until one works; when the list runs out, fetch the live list and keep going */
+async function runModels(prov,key,pref,fn){
+ const tried=new Set(),queue=[...pref];let le,live=false,n=0;
+ while(n<14){
+  const m=queue.shift();
+  if(!m){if(live)break;live=true;for(const x of await listModels(prov,key,true))if(!tried.has(x)&&!queue.includes(x))queue.push(x);if(!queue.length)break;continue}
+  if(tried.has(m)||RETIRED_MODELS.includes(m))continue;tried.add(m);n++;
+  try{const out=await fn(m);lastModel=m;if(me){const q=P();q.okm=q.okm||{};if(q.okm[prov]!==m){q.okm[prov]=m;W('hx_p_'+me,q)}}return out}
+  catch(e){le=e;if(!e.unsupportedModel&&!e.tryNext)throw e}}
+ if(le&&le.tryNext&&!le.unsupportedModel)throw le;
+ throw Error('None of the models I tried work with your '+PROV[prov].n+' key ('+[...tried].join(', ')+'). Last error: '+(le?le.message:'unknown')+(prov=='groq'?' — On console.groq.com open Settings → Limits and allow at least one model for this project, or create a new API key.':prov=='gemini'?' — Check the key at aistudio.google.com/apikey.':''))}
+const MODELS={gemini:['gemini-2.5-flash','gemini-2.5-pro','gemini-2.5-flash-lite'],openai:['gpt-4o-mini','gpt-4o','gpt-4.1','gpt-4.1-mini','o4-mini'],groq:['openai/gpt-oss-120b','llama-3.3-70b-versatile','meta-llama/llama-4-scout-17b-16e-instruct','llama-3.1-8b-instant','qwen/qwen3-32b'],claude:['claude-sonnet-4-5','claude-haiku-4-5','claude-opus-4-1']};
 const CAPS={free:'💬 Chat ✅ · 💻 Website code ✅',gemini:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live Google search ✅',openai:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live web search ✅',groq:'💬 Chat ✅ · 💻 Website code ✅',claude:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live web search ✅'};
 function spc(){const v=$('sp').value,mo=(P().models||{})[v]||'',ml=MODELS[v]||[];$('sk').value=P().keys[v]||'';$('sk').disabled=v=='free';$('smo').value=mo;$('smo').disabled=$('smp').disabled=v=='free';
- $('smp').innerHTML='<option value="">Default model</option>'+ml.map(m=>`<option value="${m}">${m}</option>`).join('');$('smp').value=ml.includes(mo)?mo:'';
+ fillModels(v);
  $('scap').textContent='One key, everything — '+(CAPS[v]||'')}
+function fillModels(v){const mo=$('smo').value.trim(),av=((P().avail||{})[v]||{}).ids,ml=av&&av.length?av:(MODELS[v]||[]);$('smp').innerHTML='<option value="">Default model (auto)</option>'+ml.map(m=>`<option value="${esc(m)}">${esc(m)}</option>`).join('');$('smp').value=ml.includes(mo)?mo:''}
+async function loadModels(quiet){const v=$('sp').value,k=cleanKey($('sk').value),r=$('sres');
+ if(v=='free'||!k){if(!quiet){r.style.color='var(--a)';r.textContent=v=='free'?'The free provider needs no model list.':'⚠️ Paste your key first.'}return}
+ if(!quiet){r.style.color='var(--t2)';r.textContent='Loading your models from '+PROV[v].n+'…'}
+ const ids=await listModels(v,k,true);
+ if(!ids.length){if(!quiet){r.style.color='var(--a)';r.textContent='⚠️ Could not load the model list. The built-in list is used, and other models are tried automatically if one fails.'}return}
+ fillModels(v);if(!quiet){r.style.color='var(--g)';r.textContent='✅ '+ids.length+' models available to your key. Pick one, or leave "Default model (auto)".'}}
 async function testKey(){const v=$('sp').value,k=cleanKey($('sk').value),r=$('sres');r.style.color='var(--t2)';
  if(v=='free'){r.textContent='✅ Free provider needs no key.';return}if(!k){r.textContent='⚠️ Paste a key first.';return}
  if(v=='gemini'&&!/^(AIza|AQ\.)/.test(k)){r.textContent='⚠️ Gemini keys start with "AQ." or "AIza" — get one at aistudio.google.com/apikey';r.style.color='var(--a)';return}
  if(v=='groq'&&!/^gsk_/.test(k)){r.textContent='⚠️ Groq keys start with "gsk_" — get one at console.groq.com/keys';r.style.color='var(--a)';return}
  r.textContent='Testing '+PROV[v].n+'…';
- try{const o=await ask([{role:'user',content:'Reply with the single word OK'}],'Reply with OK',v,k);r.textContent='✅ Key is valid. Reply: '+String(o).slice(0,40);r.style.color='var(--g)'}catch(e){r.textContent='❌ '+e.message;r.style.color='var(--r)'}}
-function saveKey(rm){const p=P(),v=$('sp').value;if(v!='free'){p.models=p.models||{};if(rm){delete p.keys[v];delete p.models[v];$('sk').value='';$('smo').value=''}else{p.keys[v]=cleanKey($('sk').value);p.models[v]=$('smo').value.trim()}}p.prov=rm&&v!='free'?'free':v;W('hx_p_'+me,p);log((rm?'removed':'saved')+' key '+v);toast(rm?'Key removed':'Saved ✔')}
+ try{const o=await ask([{role:'user',content:'Reply with the single word OK'}],'Reply with OK',v,k);r.textContent='✅ Key is valid · working model: '+lastModel+' · reply: '+String(o).slice(0,40);r.style.color='var(--g)';loadModels(true)}catch(e){r.textContent='❌ '+e.message;r.style.color='var(--r)'}}
+function saveKey(rm){const p=P(),v=$('sp').value;if(v!='free'){p.models=p.models||{};if(rm){delete p.keys[v];delete p.models[v];$('sk').value='';$('smo').value=''}else{const nk=cleanKey($('sk').value);if(p.keys[v]!==nk){if(p.okm)delete p.okm[v];if(p.avail)delete p.avail[v]}p.keys[v]=nk;p.models[v]=$('smo').value.trim();if(p.okm)delete p.okm[v]}}p.prov=rm&&v!='free'?'free':v;W('hx_p_'+me,p);log((rm?'removed':'saved')+' key '+v);toast(rm?'Key removed':'Saved ✔')}
 function elFill(el){const vs=(el.voices&&el.voices.length)?el.voices:[{id:EL_F,name:'Rachel (default)'},{id:EL_M,name:'Adam (default)'}],o=v=>`<option value="${esc(v.id)}">${esc(v.name)}</option>`;
  $('efs').innerHTML=vs.map(o).join('');$('ems').innerHTML=vs.map(o).join('');$('efs').value=vs.some(v=>v.id==el.f)?el.f:(vs.some(v=>v.id==EL_F)?EL_F:vs[0].id);$('ems').value=vs.some(v=>v.id==el.m)?el.m:(vs.some(v=>v.id==EL_M)?EL_M:vs[vs.length>1?1:0].id)}
 function elSl(){[['st','el_st'],['sim','el_sim'],['sty','el_sty'],['spd','el_spd']].forEach(([a,b])=>$('o_'+a).textContent=$(b).value)}
@@ -583,7 +626,7 @@ async function webAsk(prov,key,sys,h,q){
  try{
   if(prov=='free'){for(const m of['searchgpt','gemini-search']){try{const r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:hd,body:JSON.stringify({model:m,messages:[{role:'system',content:sys},...h]}),signal:TO(45000)}),j=await r.json().catch(()=>({})),x=j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;if(r.ok&&x){out=x;break}}catch(e){}}}
   else if(prov=='gemini'){const body=JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:h.map(m=>({role:m.role=='assistant'?'model':'user',parts:[{text:m.content}]})),tools:[{google_search:{}}]});
-   for(const m of(mdl&&!RETIRED_MODELS.includes(mdl)?[mdl]:['gemini-2.5-flash','gemini-2.5-flash-lite'])){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+m+':generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{...hd,'x-goog-api-key':key},body,signal:TO(60000)}),j=await r.json().catch(()=>({}));if(!r.ok){if(r.status==404)continue;break}
+   for(const m of[...new Set([String(((me&&P().okm)||{}).gemini||''),mdl,'gemini-2.5-flash','gemini-2.5-flash-lite'].filter(x=>x&&!RETIRED_MODELS.includes(x)))]){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+m+':generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{...hd,'x-goog-api-key':key},body,signal:TO(60000)}),j=await r.json().catch(()=>({}));if(!r.ok){if(r.status==404)continue;break}
     const c=(j.candidates||[])[0]||{},x=((c.content||{}).parts||[]).map(p=>p.text||'').join('').trim();if(x){out=x;src=((c.groundingMetadata||{}).groundingChunks||[]).map(g=>g.web).filter(Boolean);break}}}
   else if(prov=='openai'){const r=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{...hd,Authorization:'Bearer '+key},body:JSON.stringify({model:mdl||'gpt-4o-mini',instructions:sys,input:h.map(m=>({role:m.role,content:m.content})),tools:[{type:'web_search_preview'}]}),signal:TO(60000)}),j=await r.json().catch(()=>({}));
    if(r.ok){const ms=(j.output||[]).filter(o=>o.type=='message');out=ms.map(o=>(o.content||[]).map(c=>c.text||'').join('')).join('\n').trim();src=ms.flatMap(o=>(o.content||[]).flatMap(c=>(c.annotations||[]).filter(a=>a.type=='url_citation').map(a=>({uri:a.url,title:a.title}))))}}
