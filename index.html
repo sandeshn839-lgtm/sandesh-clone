@@ -175,7 +175,7 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
     <textarea id="inp" rows="1" placeholder='Ask anything… "open YouTube", search the news, write Python code…' onkeydown="if(event.key=='Enter'&&!event.shiftKey){event.preventDefault();send()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,150)+'px'"></textarea>
     <div class="vb" id="vb"><i></i><i></i><i></i><i></i><i></i><i></i></div><button class="mic" id="mic" onclick="mic()" title="Voice">🎤</button><button class="snd" onclick="send()">➤</button></div>
    <input type="file" id="f1" accept="image/*" hidden onchange="pick(event)">
-   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v14 smart memory</div></div></div>
+   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v13 Hindi · ElevenLabs</div></div></div>
  
  <div class="vw" id="v-code"><h3>💻 WEBSITE &amp; CODE GENERATOR</h3><textarea class="in" id="cpt" rows="3" placeholder="e.g. A dark portfolio website with hero, project grid, contact form and smooth animations"></textarea>
   <div class="fl"><select class="in" id="cprov" style="width:auto"><option value="">AI: current (Settings)</option><option value="groq">Groq</option><option value="openai">OpenAI (ChatGPT)</option><option value="gemini">Google Gemini</option><option value="claude">Claude</option></select><select class="in" id="cfm" style="width:auto"><option value="html">HTML + CSS + JS</option><option value="react">React (single-file HTML)</option><option value="tailwind">Tailwind site</option><option value="web3d">🧊 3D Website (Three.js) ⭐</option><option value="py">Python</option><option value="node">Node.js</option></select>
@@ -305,12 +305,12 @@ async function changeLang(v){
  busy=false;if($('st').textContent.startsWith('Think'))setS('Ready')}
  
 /* ---- CHATS (chatHistory = persistent memory of the open chat) ---- */
-const saveC=()=>{try{W('hx_c_'+me,chats);saveC.w=0}catch(e){if(!saveC.w){saveC.w=1;toast('⚠️ Browser storage is full — new messages stay on screen but may not be saved. Delete old chats to free space.')}}};
+const saveC=()=>W('hx_c_'+me,chats);
 function newChat(){cid='c'+Date.now();chats[cid]={title:'New Chat',t:Date.now(),msgs:[]};saveC();openChat(cid)}
 function welcome(){$('msgs').innerHTML='<div class="wl"><div class="wh">⬡</div><div class="wt">HEXA AI</div>'+(me&&isBoss(me)?'<div class="ws" style="color:var(--c);font-weight:600;margin-bottom:10px">👑 Welcome back, Boss — creator of HEXA.</div>':'')+'<div class="ws">Your intelligent bestie. Ask anything, talk with 🎤, point the 📷 camera at something, write code, open apps. Try <b style="color:var(--c)">"open YouTube"</b>.</div></div>'}
 function openChat(id){cid=id;const c=chats[id];chatHistory=c.msgs;$('msgs').innerHTML='';chatHistory.length?chatHistory.forEach(m=>addMsg(m.role,m.content,false)):welcome();renderList();tab('chat')}
 function renderList(){const el=$('clist');el.innerHTML='';Object.entries(chats).sort((a,b)=>b[1].t-a[1].t).forEach(([id,c])=>{const d=document.createElement('div');d.className='si'+(id==cid?' act':'');d.innerHTML=`<span>💬 ${esc(c.title)}</span><span>🗑</span>`;d.onclick=()=>openChat(id);d.lastChild.onclick=e=>{e.stopPropagation();delete chats[id];saveC();const k=Object.keys(chats);k.length?openChat(k[0]):newChat()};el.appendChild(d)})}
-function clearChat(){if(!confirm('Clear this chat?'))return;chats[cid].msgs=[];chats[cid].sum=null;chats[cid].title='New Chat';saveC();openChat(cid)}
+function clearChat(){if(!confirm('Clear this chat?'))return;chats[cid].msgs=[];chats[cid].title='New Chat';saveC();openChat(cid)}
 function md(t){return t.split('```').map((s,i)=>i%2?`<pre><code>${esc(s.replace(/^[\w+-]*\n/,''))}</code></pre>`:esc(s).replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer" style="color:var(--c);text-decoration:underline">$1</a>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>')).join('')}
 function addMsg(role,text,store=true,think){
  const w=document.createElement('div'),u=role=='user';w.className='mw'+(u?' u':'');
@@ -376,7 +376,7 @@ async function send(){
  if(!im&&browserCmd(t))return;
   let wq=null;if(!im){const sm=t.match(/^(?:hexa[, ]+)?(?:search|look ?up|google|research|find out|найди|поищи|खोजो|ढूंढो)\s+(?:the\s+)?(?:web|internet|online)?\s*(?:for|about)?\s*(.+)$/i);if(sm)wq=sm[1].trim();else if(P().web||needsWeb(t))wq=t}
  busy=true;setS(wq?'🔎 Searching the web…':'Thinking…','a','thinking');const th=addMsg('assistant','',false,true);
- try{let out=await askCtx(im,wq);th.remove();if(wq)out+='\n\n🔎 [Open live Google results](https://www.google.com/search?q='+encodeURIComponent(wq)+')';addMsg('assistant',out);if(P().speak)speak(out.split('\n\n**Sources:**')[0])}
+ try{let out=await ask(chatHistory,sysP(),null,null,im,wq);th.remove();addMsg('assistant',out);if(P().speak)speak(out.split('\n\n**Sources:**')[0])}
  catch(e){th.remove();addMsg('assistant','⚠️ '+e.message+'\n\nCheck your key in ⋮ → Settings, or switch to the Free provider.');log('ai error: '+e.message);setS('Error','r')}
  busy=false;if($('st').textContent!='Error')rdy();if(hfPend){const q=hfPend;hfPend=null;hfRun(q)}}
 function reply(t){addMsg('assistant',t);if(P().speak)speak(t)}
@@ -393,21 +393,28 @@ function stopSpeak(){elTok++;if(elRes){const f=elRes;elRes=null;f()}if(window.sp
 function pickVoice(){const v=speechSynthesis.getVoices(),b=lang.split('-')[0],ls=v.filter(x=>x.lang.toLowerCase().replace('_','-').startsWith(b));
  const f=/female|woman|samantha|zira|karen|victoria|susan|aria|jenny|heera|kalpana|allison|ava/i,m=/\bmale\b|david|daniel|alex|mark|guy|ravi|fred/i;
  return(gender=='female'?ls.find(x=>f.test(x.name)):ls.find(x=>m.test(x.name)&&!/female/i.test(x.name)))||ls[0]||null}
+let spkTok=0;
 async function speak(t,force){
  if(!force&&!(me&&P().speak))return;stopSpeak();
- const clean=t.replace(/\[([^\]]*)\]\(https?:[^)]*\)/g,'$1').replace(/https?:\/\/\S+/g,' link ').replace(/```[\s\S]*?```/g,' code block ').replace(/[*`#_]/g,'').replace(/\s+/g,' ').trim().slice(0,1000);if(!clean)return;
+ const clean=t.replace(/\[([^\]]*)\]\(https?:[^)]*\)/g,'$1').replace(/https?:\/\/\S+/g,' link ').replace(/```[\s\S]*?```/g,' code block ').replace(/[*`#_]/g,'').replace(/\s+/g,' ').trim();if(!clean)return;
+ const my=++spkTok;spkBusy=true;lastSpoken=clean;try{if(hfRec)hfRec.abort()}catch(e){}
  const el=(me&&P().el)||{};
- if(el.key){try{await elSpeak(clean,el);return}catch(e){toast('ElevenLabs: '+e.message+' — using browser voice');rdy()}}
- if(!window.speechSynthesis)return;
- const u=new SpeechSynthesisUtterance(clean);u.lang=lang;const v=pickVoice();if(v)u.voice=v;u.pitch=gender=='female'?1.15:.8;
- u.onstart=()=>setS('Speaking…','c','speaking');u.onend=u.onerror=()=>{lastSpkEnd=Date.now();rdy()};speechSynthesis.speak(u)}
+ try{
+  if(el.key){try{await elSpeak(clean,el);return}catch(e){toast('ElevenLabs: '+e.message+' — using browser voice');rdy()}}
+  if(!window.speechSynthesis)return;
+  await new Promise(res=>{const u=new SpeechSynthesisUtterance(clean);u.lang=lang;const v=pickVoice();if(v)u.voice=v;u.pitch=gender=='female'?1.15:.8;
+   const safety=setTimeout(res,clean.length*95+4000);u.onstart=()=>setS('Speaking…','c','speaking');u.onend=u.onerror=()=>{clearTimeout(safety);res()};speechSynthesis.speak(u)})
+ }finally{if(my==spkTok){spkBusy=false;lastSpkEnd=Date.now();rdy()}}}
 if(window.speechSynthesis)speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();
  
 /* ---- VOICE IN ---- */
 function vbars(on){clearInterval(vbT);const b=document.querySelectorAll('#vb i');if(!on)return b.forEach(x=>{x.style.height='4px';x.style.opacity=.25});vbT=setInterval(()=>b.forEach(x=>{x.style.height=(3+Math.random()*15)+'px';x.style.opacity=.9}),80)}
 /* ---- HANDS-FREE VOICE: starts automatically, listens continuously, runs commands ---- */
 let hf=false,hfRec=null,hfPend=null,hfFail=0,lastSpkEnd=0;
-const hfSpk=()=>(window.speechSynthesis&&speechSynthesis.speaking)||(au&&!au.paused&&!au.ended)||Date.now()-lastSpkEnd<1200;
+let spkBusy=false,lastSpoken='';
+const hfSpk=()=>spkBusy||(window.speechSynthesis&&speechSynthesis.speaking)||(au&&!au.paused&&!au.ended)||Date.now()-lastSpkEnd<1800;
+const echoWords=s=>new Set(String(s||'').toLowerCase().replace(/[^\p{L}\p{N}\s]/gu,' ').split(/\s+/).filter(Boolean));
+function isEcho(t){const w=[...echoWords(t)],sp=echoWords(lastSpoken);if(w.length<3||!sp.size)return false;return w.filter(x=>sp.has(x)).length/w.length>0.7}
 function rdy(){hfRec?setS('🎤 Listening…','c','listening'):setS('Ready')}
 function hfNeedTap(){toast('🎤 Tap anywhere once to turn on hands-free voice (browser needs microphone permission)');const f=()=>{if(me&&P().hf!==false)hfStart()};addEventListener('click',f,{once:true});addEventListener('touchend',f,{once:true})}
 function hfRun(t){t=String(t||'').trim();if(!t)return;if(busy){hfPend=t;return}$('inp').value=t;send()}
@@ -417,9 +424,9 @@ function hfStart(auto){const SR=window.SpeechRecognition||window.webkitSpeechRec
  const r=new SR();r.lang=lang;r.continuous=true;r.interimResults=true;hfRec=r;rec=r;
  r.onstart=()=>{$('mic').classList.add('on');vbars(1);if(!busy)rdy()};
  r.onresult=e=>{hfFail=0;if(hfSpk())return;let fin='',itm='';for(let i=e.resultIndex;i<e.results.length;i++){const x=e.results[i];if(x.isFinal)fin+=x[0].transcript;else itm+=x[0].transcript}
-  if(fin.trim())hfRun(fin);else if(itm.trim()&&!busy)$('inp').value=itm};
+  if(fin.trim()){if(isEcho(fin)){$('inp').value='';return}hfRun(fin)}else if(itm.trim()&&!busy&&!isEcho(itm))$('inp').value=itm};
  r.onerror=e=>{if(e.error=='not-allowed'||e.error=='service-not-allowed'){hf=false;hfNeedTap()}else if(e.error=='audio-capture'){hf=false;toast('🎤 No microphone found')}else if(e.error!='no-speech'&&e.error!='aborted')hfFail++};
- r.onend=()=>{hfRec=null;if(rec===r)rec=null;$('mic').classList.remove('on');vbars(0);if(!busy&&!hf)setS('Ready');if(hf&&me&&!document.hidden)setTimeout(()=>hfStart(true),Math.min(300+hfFail*700,6000))};
+ r.onend=()=>{hfRec=null;if(rec===r)rec=null;$('mic').classList.remove('on');vbars(0);if(!busy&&!hf)setS('Ready');if(hf&&me&&!document.hidden)setTimeout(function w(){if(hfSpk()){setTimeout(w,400);return}hfStart(true)},Math.min(300+hfFail*700,6000))};
  try{r.start()}catch(err){hfRec=null}}
 function mic(){const p=P();if(hf||hfRec){hf=false;p.hf=false;W('hx_p_'+me,p);try{hfRec&&hfRec.stop()}catch(e){}toast('🎤 Hands-free voice OFF');return}p.hf=true;W('hx_p_'+me,p);hfStart();toast('🎤 Hands-free voice ON')}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&me&&hf&&!hfRec)hfStart(true)});
@@ -499,7 +506,7 @@ function testEL(){saveEL();const l={'en-US':'Hello! This is your HEXA voice.','n
 let elTok=0,elRes=null;
 async function elSpeak(text,el){
  const id=gender=='female'?(el.f||EL_F):(el.m||EL_M),model=el.model||'eleven_flash_v2_5',vs=Object.assign({stability:.5,similarity_boost:.75,style:0,speed:1,use_speaker_boost:true},el.vs||{}),L2=lang.split('-')[0];
- const parts=text.match(/[^.!?।。！？]+[.!?।。！？]*\s*/g)||[text],chunks=[];let cur='';for(const p of parts){if((cur+p).length>240&&cur){chunks.push(cur);cur=p}else cur+=p}if(cur.trim())chunks.push(cur);
+ const parts=text.match(/[^.!?।。！？]+[.!?।。！？]*\s*/g)||[text],chunks=[];let cur='';for(const p of parts){if((cur+p).length>800&&cur){chunks.push(cur);cur=p}else cur+=p}if(cur.trim())chunks.push(cur);
  const get=async tx=>{const body={text:tx.trim(),model_id:model,voice_settings:vs};if(/flash_v2_5|turbo_v2_5/.test(model))body.language_code=L2;
   const r=await fetch('https://api.elevenlabs.io/v1/text-to-speech/'+encodeURIComponent(id)+'?output_format=mp3_44100_128',{method:'POST',headers:{'xi-api-key':el.key,'Content-Type':'application/json',Accept:'audio/mpeg'},body:JSON.stringify(body)});
   if(!r.ok){const j=await r.json().catch(()=>({})),d=j.detail;throw Error((d&&(d.message||d.status||(typeof d=='string'?d:'')))||'HTTP '+r.status)}return URL.createObjectURL(await r.blob())};
@@ -522,7 +529,7 @@ const planTag=()=>isBoss(me)?'👑 Boss · ':isAdmin(me)?'👑 Admin · ':isMemb
 function need(f){if(!perms()[f]||isMember())return true;openMember('🔒 '+FEATS[f]+' is a members-only feature.');return false}
 function shrink(src,mx,cb){const i=new Image();i.onload=()=>{const s=Math.min(1,mx/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(i.width*s));c.height=Math.max(1,Math.round(i.height*s));const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(i,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.85))};i.onerror=()=>toast('Unsupported image file');i.src=src}
 /* conversation memory: the recent transcript is also placed in the system prompt so every provider "remembers" */
-function memSys(sys,h){if(h.length<2)return sys;return sys+'\n\nMEMORY: the earlier messages of this chat are included in the conversation (older parts as a summary in this prompt). You DO remember them — if the user asks what they said or asked earlier, answer from them and never say you forgot or cannot remember.'}
+function memSys(sys,h){if(h.length<2)return sys;const t=h.slice(0,-1).map(m=>(m.role=='user'?'USER: ':'YOU: ')+m.content).join('\n');return sys+'\n\nCONVERSATION MEMORY (earlier turns of this same chat — you DO remember them; if the user asks what they said or asked earlier, answer from this transcript and never say you forgot or cannot remember):\n'+t}
 function openMember(msg){const m=M()[me]||{},on=isMember(),pr=perms();
  modal(`<h3>⭐ HEXA MEMBERSHIP</h3>${msg?`<p style="font-size:12px;color:var(--a);margin-bottom:10px">${esc(msg)}</p>`:''}
  <div style="font-size:30px;font-family:var(--orb);color:var(--c)">${PRICE}<span style="font-size:12px;color:var(--t3)"> / month</span></div>
@@ -606,7 +613,7 @@ function browserCmd(raw){
   if(!u&&/^[a-z0-9]+$/.test(k))u=k+'.com';
   if(u){openUrl('https://'+u,k);return true}}
  return false}
-const needsWeb=t=>t.length<300&&(/(समाचार|खबर|आज|मौसम|कीमत|भाव|ताज़ा|ताजा|नवीनतम|новости|сегодня|погода|цена|курс|сейчас|последние|вчера|завтра)/i.test(t)||/\b(latest|news|today|tonight|yesterday|tomorrow|this (?:week|month|year)|current(?:ly)?|right now|live|scores?|prices?|weather|forecast|stocks?|exchange rate|trending|who won|release date|20(?:2[5-9]|3\d))\b/i.test(t))&&!/\b(code|script|function|html|css|python|javascript|website)\b/i.test(t);
+const needsWeb=t=>(/(समाचार|खबर|आज|मौसम|कीमत|भाव|ताज़ा|ताजा|नवीनतम|новости|сегодня|погода|цена|курс|сейчас|последние|вчера|завтра)/i.test(t)||/\b(latest|news|today|tonight|yesterday|tomorrow|this (?:week|month|year)|current(?:ly)?|right now|live|scores?|prices?|weather|forecast|stocks?|exchange rate|trending|who won|release date|20(?:2[5-9]|3\d))\b/i.test(t))&&!/\b(code|script|function|html|css|python|javascript|website)\b/i.test(t);
 async function wikiCtx(q){try{const c=new AbortController();setTimeout(()=>c.abort(),8000);const r=await fetch('https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(q)+'&format=json&origin=*&srlimit=3',{signal:c.signal}),j=await r.json(),it=(j.query&&j.query.search)||[];return it.length?'\n\nWEB LOOKUP (Wikipedia snippets — may not be real-time):\n'+it.map(x=>'- '+x.title+': '+x.snippet.replace(/<[^>]+>/g,'').replace(/&quot;/g,'"').replace(/&amp;/g,'&')).join('\n'):''}catch(e){return ''}}
 /* live web search through the AI provider's own search tool; returns null if unavailable so ask() can fall back */
 async function webAsk(prov,key,sys,h,q){
@@ -618,7 +625,7 @@ async function webAsk(prov,key,sys,h,q){
     const c=(j.candidates||[])[0]||{},x=((c.content||{}).parts||[]).map(p=>p.text||'').join('').trim();if(x){out=x;src=((c.groundingMetadata||{}).groundingChunks||[]).map(g=>g.web).filter(Boolean);break}}}
   else if(prov=='openai'){const r=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{...hd,Authorization:'Bearer '+key},body:JSON.stringify({model:mdl||'gpt-4o-mini',instructions:sys,input:h.map(m=>({role:m.role,content:m.content})),tools:[{type:'web_search_preview'}]}),signal:TO(60000)}),j=await r.json().catch(()=>({}));
    if(r.ok){const ms=(j.output||[]).filter(o=>o.type=='message');out=ms.map(o=>(o.content||[]).map(c=>c.text||'').join('')).join('\n').trim();src=ms.flatMap(o=>(o.content||[]).flatMap(c=>(c.annotations||[]).filter(a=>a.type=='url_citation').map(a=>({uri:a.url,title:a.title}))))}}
-  else if(prov=='claude'){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{...hd,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:mdl||PROV.claude.m,max_tokens:2048,system:sys,messages:h,tools:[{type:'web_search_20250305',name:'web_search',max_uses:3}]}),signal:TO(70000)}),j=await r.json().catch(()=>({}));
+  else if(prov=='claude'){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{...hd,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:mdl||PROV.claude.m,max_tokens:8192,system:sys,messages:h,tools:[{type:'web_search_20250305',name:'web_search',max_uses:5}]}),signal:TO(70000)}),j=await r.json().catch(()=>({}));
    if(r.ok){out=(j.content||[]).filter(x=>x.type=='text').map(x=>x.text).join('').trim();src=(j.content||[]).flatMap(x=>(x.citations||[]).map(c=>({uri:c.url,title:c.title})))}}
  }catch(e){out=null}
  if(!out)return null;
@@ -629,38 +636,6 @@ let pendLM=null;
 const loginMethod=e=>L('hx_lmm',{})[e||me]||'password';
 function openWho(){const m=loginMethod(),role=isBoss(me)?'👑 Boss — creator of HEXA':isAdmin(me)?'👑 Admin':isMember()?'⭐ Member':'Free';
  modal(`<h3>🔐 YOU ARE LOGGED IN</h3><div style="font-size:13px;line-height:2.1"><b>Email:</b> ${esc(me)}<br><b>Role:</b> ${role}<br><b>Login method:</b> ${m=='boss'?'✅ Boss password':m=='demo'?'Gmail shortcut':'Email &amp; password'}</div>`)}
- 
-/* ---- SMART CONTEXT: full history stays saved; each request = system + rolling summary of old parts + recent messages that fit the provider budget ---- */
-/* Input-token budgets per request. Deliberately below the real model limits (Groq's free tier allows only ~6–12k tokens/minute). The quota/context limits of the providers still exist. */
-const CTX_BUDGET={free:12000,groq:7000,gemini:60000,openai:48000,claude:60000};
-const estTok=t=>{t=String(t||'');let a=0,n=0;for(let i=0;i<t.length;i++){t.charCodeAt(i)<128?a++:n++}return Math.ceil(a/3.6+n*0.9)+4};
-const SUMP="You maintain the rolling memory of a conversation between a USER and an AI assistant (HEXA). Merge the PREVIOUS SUMMARY with the NEW MESSAGES into ONE updated summary. Keep: the user's name and identity, preferences, facts they shared, decisions, tasks and their status, code / project / file details, numbers, dates, links, open questions, and what the assistant already answered. Drop greetings and filler. Write in the language the user uses. At most about 350 words. Output ONLY the summary.";
-const CTXERR=/context (length|window)|too (long|large)|maximum (context|prompt)|exceed(s|ed)? (the )?(limit|maximum|context)|request[_ ]too[_ ]large|reduce the length|tokens?.{0,40}(limit|exceed)|\b413\b/i;
-async function rollSummary(eff,prev,old,B){
- const pv=eff=='free'?'free':P().prov,lim=Math.max(1500,B-3500-estTok(prev));
- const lines=old.map(m=>{let c=String(m.content);const mx=lim*3;if(c.length>mx)c=c.slice(0,mx/2)+' … [long content shortened for this summary] … '+c.slice(-mx/2);return(m.role=='user'?'USER: ':'ASSISTANT: ')+c});
- let sm=prev||'',i=0;setS('🧠 Condensing older messages…','a','thinking');
- while(i<lines.length){const ch=[];let t=0;while(i<lines.length&&(!ch.length||t+estTok(lines[i])<=lim)){ch.push(lines[i]);t+=estTok(lines[i]);i++}
-  sm=String(await ask([{role:'user',content:'PREVIOUS SUMMARY:\n'+(sm||'(none)')+'\n\nNEW MESSAGES:\n'+ch.join('\n')}],SUMP,pv)).trim();if(!sm)throw Error('empty summary')}
- return sm}
-async function ctxPlan(sys,hist,f){
- const p=P(),key=cleanKey(p.keys[p.prov]),eff=(!key||p.prov=='free')?'free':p.prov,B=Math.floor((CTX_BUDGET[eff]||12000)*f),c=chats[cid];
- const msgs=hist.map((m,i)=>({i,role:m.role,content:m.content})).filter(m=>m.content&&!/^⚠️/.test(String(m.content))),cost=m=>estTok(m.content);
- let n=(c&&c.sum&&c.sum.n)||0,sm=(c&&c.sum&&c.sum.t)||'';
- const room=()=>B-1500-estTok(sys)-(sm?estTok(sm)+40:0);
- let tail=msgs.filter(m=>m.i>=n);
- if(tail.reduce((a,m)=>a+cost(m),0)>room()&&tail.length>1){ /* overflow → fold the older part into the summary, down to ~50% of the room so the next turns need no new summary request */
-  const target=Math.max(room()*0.5,400);let keep=[],acc=0;
-  for(let k=tail.length-1;k>=0;k--){const cs=cost(tail[k]);if(acc+cs>target&&keep.length)break;keep.unshift(tail[k]);acc+=cs}
-  if(keep.length&&keep[0].role!='user'){const ix=tail.indexOf(keep[0]);if(ix>0)keep.unshift(tail[ix-1])}
-  const cut=keep[0].i,old=tail.filter(m=>m.i<cut);
-  if(old.length){try{sm=await rollSummary(eff,sm,old,B);n=cut;if(c){c.sum={t:sm,n:cut};saveC()}}catch(e){/* summary failed → plain budget trimming below (saved history is untouched) */}}
-  tail=msgs.filter(m=>m.i>=n)}
- let sent=tail.slice(),tt=sent.reduce((a,m)=>a+cost(m),0);
- while(sent.length>1&&tt>room()){tt-=cost(sent[0]);sent.shift()}
- while(sent.length>1&&sent[0].role!='user')sent.shift();
- return{sys:sm?sys+'\n\nSUMMARY OF THE EARLIER PART OF THIS CONVERSATION (older messages were condensed to save tokens; treat it as things that were really said):\n'+sm:sys,msgs:sent.map(m=>({role:m.role,content:m.content}))}}
-async function askCtx(im,wq){let le;for(const f of[1,0.5]){try{const pl=await ctxPlan(sysP(),chatHistory,f);return await ask(pl.msgs,pl.sys,null,null,im,wq)}catch(e){le=e;if(f==1&&CTXERR.test(String(e&&e.message)))continue;throw e}}throw le}
  
 /* ---- BOOT ---- */
 {const LO=['hi-IN','en-US','ru-RU','ne-NP'],ks=[...LO,...Object.keys(LANGS).filter(k=>!LO.includes(k))];$('lang').innerHTML=ks.map(k=>`<option value="${k}">${LANGS[k]}</option>`).join('')}
