@@ -508,6 +508,9 @@ function saveGen(){const p=P();p.name=$('sn').value.trim()||'NEXO AI';p.speak=$(
 const isMember=()=>false;
 const planTag=()=>isBoss(me)?'👑 Boss · ':isAdmin(me)?'👑 Admin · ':'';
 const need=()=>true;
+function shrink(src,mx,cb){const i=new Image();i.onload=()=>{const s=Math.min(1,mx/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=Math.max(1,Math.round(i.width*s));c.height=Math.max(1,Math.round(i.height*s));const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(i,0,0,c.width,c.height);cb(c.toDataURL('image/jpeg',.85))};i.onerror=()=>toast('Unsupported image file');i.src=src}
+/* conversation memory: the recent transcript is also placed in the system prompt so every provider "remembers" */
+function memSys(sys,h){if(h.length<2)return sys;const t=h.slice(0,-1).map(m=>(m.role=='user'?'USER: ':'YOU: ')+m.content).join('\n');return sys+'\n\nCONVERSATION MEMORY (earlier turns of this same chat — you DO remember them; if the user asks what they said or asked earlier, answer from this transcript and never say you forgot or cannot remember):\n'+t}
 function admBlock(e){if(!isAdmin(me))return;const U=L('hx_users',{});if(!U[e])return;U[e].blocked=!U[e].blocked;W('hx_users',U);log((U[e].blocked?'blocked ':'unblocked ')+e);openAdmin()}
 
 /* ---- ADMIN (UI gate only — localStorage is not real security) ---- */
