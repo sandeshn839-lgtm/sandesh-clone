@@ -161,7 +161,7 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
 <aside class="sb" id="sb">
  <div class="sbh"><div class="hx"></div><b class="brand" id="brand">HEXA</b><button class="sbt" onclick="tsb()">☰</button></div>
  <div class="ncb" onclick="newChat()"><i>+</i>New Chat</div>
- <div class="nav"><a onclick="tab('image')">🎨 Image Generation</a><a onclick="tab('video')">🎬 Text to Video</a><div class="uw"><div class="udrop" id="udrop"></div><div class="user" id="urow" onclick="tud(event)"><div class="av" id="av"></div><div><div id="un"></div><div id="up"></div></div><span class="more">⋮</span></div></div><a onclick="tab('code')">💻 Website / Code Generator</a><a onclick="tab('social')">📲 Social &amp; App Launcher</a><a onclick="openPay()">💳 Membership &amp; Pay</a></div>
+ <div class="nav"><div class="uw"><div class="udrop" id="udrop"></div><div class="user" id="urow" onclick="tud(event)"><div class="av" id="av"></div><div><div id="un"></div><div id="up"></div></div><span class="more">⋮</span></div></div><a onclick="tab('code')">💻 Website / Code Generator</a><a onclick="tab('social')">📲 Social &amp; App Launcher</a><a onclick="openPay()">💳 Membership &amp; Pay</a></div>
  <div class="sec">Recents</div><div class="chats" id="clist"></div>
  <div class="row"><span>🌐</span><select id="lang" onchange="changeLang(this.value)"></select></div>
  <div class="row"><span>🎙</span><select id="voice" onchange="gender=this.value;toast('Voice: '+this.selectedOptions[0].text)"><option value="female">Female Voice</option><option value="male">Male Voice</option></select></div>
@@ -172,19 +172,10 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
  <div class="vw on" id="v-chat"><div id="cw"><div id="msgs"></div></div>
   <div class="inp"><div id="ipv" style="display:none;align-items:center;gap:8px;padding:0 4px 6px;max-width:840px;margin:0 auto"><img id="ipi" style="max-height:60px;border-radius:6px"><span style="font-size:10px;color:var(--t3)">Photo attached</span><span style="cursor:pointer;color:var(--r);font-size:17px" onclick="rmImg()">×</span></div>
    <div class="ib"><button class="ia" title="Attach image" onclick="$('f1').click()">📎</button><button class="ia" title="Camera" onclick="openCam()">📷</button>
-    <textarea id="inp" rows="1" placeholder='Ask anything… "open YouTube", generate image of sunset, write Python code…' onkeydown="if(event.key=='Enter'&&!event.shiftKey){event.preventDefault();send()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,150)+'px'"></textarea>
+    <textarea id="inp" rows="1" placeholder='Ask anything… "open YouTube", search the news, write Python code…' onkeydown="if(event.key=='Enter'&&!event.shiftKey){event.preventDefault();send()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,150)+'px'"></textarea>
     <div class="vb" id="vb"><i></i><i></i><i></i><i></i><i></i><i></i></div><button class="mic" id="mic" onclick="mic()" title="Voice">🎤</button><button class="snd" onclick="send()">➤</button></div>
    <input type="file" id="f1" accept="image/*" hidden onchange="pick(event)">
-   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v9 Gemini AQ keys</div></div></div>
- 
- <div class="vw" id="v-image"><h3>🎨 FREE IMAGE GENERATION (24/7)</h3><textarea class="in" id="ip" rows="2" placeholder="Describe the image…"></textarea>
-  <div class="fl"><select class="in" id="isz" style="width:auto"><option value="1024x1024">Square</option><option value="768x1344">Portrait</option><option value="1344x768">Landscape</option></select><select class="in" id="iprov" style="width:auto"><option value="auto">Auto · use my API key</option><option value="free">Free (Pollinations)</option><option value="openai">OpenAI · gpt-image-1</option><option value="openai3">OpenAI · DALL·E 3</option><option value="gemini">Google Gemini image</option></select><select class="in" id="imd" style="width:auto"><option>flux</option><option>turbo</option></select><button class="btn" onclick="genImg()">⬡ Generate</button></div><div class="g2" id="igrid"></div></div>
- 
- <div class="vw" id="v-video"><h3>🎬 TEXT TO VIDEO</h3><textarea class="in" id="vpt" rows="2" placeholder="Describe the scene…"></textarea>
-  <div class="fl"><select class="in" id="vfr" style="width:auto"><option value="4">4 frames</option><option value="6">6 frames</option><option value="8">8 frames</option></select><button class="btn" onclick="genVid()">⬡ Generate</button><button class="btn bs" onclick="togVid()">⏯ Play / Pause</button></div>
-  <div id="vbox" style="position:relative;max-width:640px;aspect-ratio:16/9;background:var(--pn2);border:1px solid var(--bd);border-radius:12px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--t3);font-size:12px">Your video preview appears here</div>
-  <div class="pbar" style="max-width:640px"><i id="vpg"></i></div>
-  <div style="font-size:11px;color:var(--t3);margin-top:8px">No keyless free text-to-video API is reliably online 24/7, so this renders cinematic frames with the free image model and plays them as a looping clip.</div></div>
+   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v13 Hindi · ElevenLabs</div></div></div>
  
  <div class="vw" id="v-code"><h3>💻 WEBSITE &amp; CODE GENERATOR</h3><textarea class="in" id="cpt" rows="3" placeholder="e.g. A dark portfolio website with hero, project grid, contact form and smooth animations"></textarea>
   <div class="fl"><select class="in" id="cprov" style="width:auto"><option value="">AI: current (Settings)</option><option value="groq">Groq</option><option value="openai">OpenAI (ChatGPT)</option><option value="gemini">Google Gemini</option><option value="claude">Claude</option></select><select class="in" id="cfm" style="width:auto"><option value="html">HTML + CSS + JS</option><option value="react">React (single-file HTML)</option><option value="tailwind">Tailwind site</option><option value="web3d">🧊 3D Website (Three.js) ⭐</option><option value="py">Python</option><option value="node">Node.js</option></select>
@@ -222,7 +213,9 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
 <script>
 const $=i=>document.getElementById(i),L=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},W=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
 const ADMINS=['sandeshn839@gmail.com','sandesh99998@gmail.com'];
-const GOOGLE_CLIENT_ID=''; // optional: paste your Google OAuth Web Client ID for REAL Google sign-in; empty = simulated Gmail sign-in
+const BOSS_EMAIL='sandeshn839@gmail.com'; // the creator of HEXA — recognised as "Boss" when logged in with this account
+const isBoss=e=>String(e||'').toLowerCase()===BOSS_EMAIL;
+const BOSS_SALT='hexa-boss-v1',BOSS_H='36288ef7b8131e3e6ba05b44d698f65bf9322c215e6d929841085cf8799dbe7c'; // salted SHA-256 of the Boss password (the plain password is not stored in this file)
 /* Cloudflare Worker backend — used ONLY for the Groq and Google Gemini providers (text messages only). No API keys are stored here: keys come from the user's own Settings. */
 const CLOUDFLARE_API='https://curly-flower-2791.sandeshn839.workers.dev/api/chat';
 const LANGS={'en-US':'English','ne-NP':'नेपाली (Nepali)','hi-IN':'हिंदी (Hindi)','bn-BD':'বাংলা (Bengali)','ur-PK':'اردو (Urdu)','es-ES':'Español','fr-FR':'Français','de-DE':'Deutsch','it-IT':'Italiano','pt-BR':'Português','ru-RU':'Русский','ja-JP':'日本語','zh-CN':'中文','ko-KR':'한국어','ar-SA':'العربية','tr-TR':'Türkçe','id-ID':'Indonesia','th-TH':'ไทย','vi-VN':'Tiếng Việt','nl-NL':'Nederlands','pl-PL':'Polski','sw-KE':'Kiswahili'};
@@ -264,43 +257,48 @@ async function auth(){
  const email=$('em').value.trim().toLowerCase(),pw=$('pw').value,U=L('hx_users',{}),m=$('lerr');
  if(!/^[^\s'"<>&]+@[^\s'"<>&]+\.[^\s'"<>&]+$/.test(email))return m.textContent='Enter a valid email.';
  if(pw.length<6)return m.textContent='Password must be 6+ characters.';
+ if(email===BOSS_EMAIL){ /* Boss account: only the Boss password works */
+  if(!(window.crypto&&crypto.subtle))return m.textContent='Open the site over https to log in as Boss.';
+  if(await hash(pw,BOSS_SALT)!==BOSS_H)return m.textContent=isReg?'This email is reserved for the Boss — use the Boss password.':'Incorrect email or password.';
+  if(!U[email]){U[email]={name:'Boss',salt:'b',h:'boss',t:Date.now()};W('hx_users',U)}
+  if($('rem').checked)localStorage.setItem('hx_rem',email);else localStorage.removeItem('hx_rem');
+  $('pw').value='';pendLM='boss';return enter(email)}
  if(isReg){if(U[email])return m.textContent='Account already exists.';const salt=Math.random().toString(36).slice(2);U[email]={name:$('nm').value.trim()||email.split('@')[0],salt,h:await hash(pw,salt),t:Date.now()};W('hx_users',U)}
  else{const u=U[email];if(!u||u.h!==await hash(pw,u.salt))return m.textContent='Incorrect email or password.'}
  if(G().maint&&!isAdmin(email))return m.textContent='⚠️ Under maintenance. Please check back soon.';
  if($('rem').checked)localStorage.setItem('hx_rem',email);else localStorage.removeItem('hx_rem');
- $('pw').value='';enter(email)}
-/* Google sign-in: real (Google Identity Services) when GOOGLE_CLIENT_ID is set, otherwise a simulated Gmail picker */
+ $('pw').value='';pendLM='password';enter(email)}
+/* Gmail shortcut for normal users (Boss/Admin must use the password form) */
 function google(){
- if(GOOGLE_CLIENT_ID){const go=()=>{google_.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:r=>{try{const p=JSON.parse(atob(r.credential.split('.')[1].replace(/-/g,'+').replace(/_/g,'/')));if(p.email_verified===false)return toast('Email not verified');gdone(p.email)}catch(e){toast('Google sign-in failed')}}});google_.accounts.id.prompt()};
-  if(window.google&&google.accounts){window.google_=google;return go()}const s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.onload=()=>{window.google_=window.google;go()};s.onerror=()=>toast('Could not load Google sign-in');document.head.appendChild(s);return}
- modal(`<h3>G · SIGN IN WITH GOOGLE</h3><p style="font-size:12px;color:var(--t2);margin-bottom:8px">Simulated Google sign-in (no Client ID set). Enter your Gmail address:</p><input class="in" id="ge" type="email" placeholder="yourname@gmail.com" onkeydown="if(event.key=='Enter')gdone($('ge').value)"><div class="fl"><button class="btn" onclick="gdone($('ge').value)">Continue</button></div>`)}
-function gdone(e){e=String(e||'').trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))return toast('Enter a valid Gmail address');
+ modal(`<h3>G · SIGN IN WITH GMAIL</h3><p style="font-size:12px;color:var(--t2);line-height:1.7;margin-bottom:8px">Enter your Gmail address to continue.<br><span style="color:var(--t3)">Boss: please use the email + password form instead.</span></p><input class="in" id="ge" type="email" placeholder="yourname@gmail.com" onkeydown="if(event.key=='Enter')gdone($('ge').value)"><div class="fl"><button class="btn" onclick="gdone($('ge').value)">Continue</button></div>`)}
+function gdone(e,ver){e=String(e||'').trim().toLowerCase();if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e))return toast('Enter a valid Gmail address');
+ if(!ver&&(isBoss(e)||isAdmin(e)))return toast('🔒 The Boss/Admin email can’t use the Gmail shortcut. Type your email and password in the login form.');
  $('modal').classList.remove('on');if(G().maint&&!isAdmin(e))return toast('⚠️ Under maintenance');
  const U=L('hx_users',{});if(!U[e]){U[e]={name:e.split('@')[0],salt:'g',h:'google',t:Date.now(),g:1};W('hx_users',U)}
- enter(e);toast('✅ Google account: '+e+(isAdmin(e)?' · 👑 Admin access granted':' · Standard user'))}
+ pendLM='demo';enter(e);toast('✅ Gmail: '+e+(isBoss(e)?' · 👑 Welcome back, Boss':isAdmin(e)?' · 👑 Admin access granted':' · Standard user'))}
 function forgot(){toast('Passwords are stored only in this browser. Register again or ask the admin to delete the old account.')}
 function switchTo(e){if(G().maint&&!isAdmin(e))return toast('Maintenance mode');enter(e)}
-function enter(email){const bu=L('hx_users',{})[email];if(bu&&bu.blocked&&!isAdmin(email))return toast('⛔ This account is blocked by the admin');me=email;const a=L('hx_accts',[]);if(!a.includes(email))a.push(email);W('hx_accts',a);W('hx_cur',email);
+function enter(email){const bu=L('hx_users',{})[email];if(bu&&bu.blocked&&!isAdmin(email))return toast('⛔ This account is blocked by the admin');me=email;{const mm=L('hx_lmm',{});if(pendLM){mm[email]=pendLM;pendLM=null;W('hx_lmm',mm)}}const a=L('hx_accts',[]);if(!a.includes(email))a.push(email);W('hx_accts',a);W('hx_cur',email);
  const s=L('hx_sess',[]);s.unshift({u:email,t:Date.now(),ua:navigator.userAgent.slice(0,60)});W('hx_sess',s.slice(0,100));log('login');
  $('login').style.display='none';$('app').classList.add('vis');initApp()}
-function logout(){log('logout');const a=L('hx_accts',[]).filter(e=>e!==me);W('hx_accts',a);localStorage.removeItem('hx_cur');stopSpeak();closeUD();closePay();
+function logout(){log('logout');const a=L('hx_accts',[]).filter(e=>e!==me);W('hx_accts',a);localStorage.removeItem('hx_cur');stopSpeak();closeUD();closePay();hf=false;try{hfRec&&hfRec.stop()}catch(e){}
  if(a.length)return enter(a[0]);me=null;appBg();$('app').classList.remove('vis');showAuth()}
  
 /* ---- APP SHELL ---- */
-function initApp(){const p=P();theme(p.theme);chats=L('hx_c_'+me,{});$('av').textContent=me.slice(0,2).toUpperCase();$('un').textContent=me.split('@')[0];$('up').textContent=planTag()+me;$('brand').textContent=p.name.replace(' AI','').toUpperCase();
- const k=Object.keys(chats).sort((a,b)=>chats[b].t-chats[a].t);k.length?openChat(k[0]):newChat();appBg();if(G().note)toast('📢 '+G().note)}
-function tab(n){if(n!='pay'&&$('pvid'))$('pvid').pause();if((n=='image'||n=='video')&&!need(n))return;document.querySelectorAll('.vw').forEach(v=>v.classList.toggle('on',v.id=='v-'+n));if(document.body.classList.contains('mob'))$('sb').classList.remove('open')}
+function initApp(){const p=P();lang=p.lang||'hi-IN';$('lang').value=lang;theme(p.theme);chats=L('hx_c_'+me,{});$('av').textContent=me.slice(0,2).toUpperCase();$('un').textContent=isBoss(me)?'👑 Boss':me.split('@')[0];$('up').textContent=planTag()+me+(loginMethod()=='boss'?' ✓':'');$('brand').textContent=p.name.replace(' AI','').toUpperCase();
+ const k=Object.keys(chats).sort((a,b)=>chats[b].t-chats[a].t);k.length?openChat(k[0]):newChat();appBg();if(P().hf!==false)setTimeout(()=>hfStart(true),700);if(isBoss(me)){toast('👑 Welcome back, Boss!');setTimeout(()=>speak(BOSSG[lang]||BOSSG['en-US']),1300)}if(G().note)toast('📢 '+G().note)}
+function tab(n){if(n!='pay'&&$('pvid'))$('pvid').pause();document.querySelectorAll('.vw').forEach(v=>v.classList.toggle('on',v.id=='v-'+n));if(document.body.classList.contains('mob'))$('sb').classList.remove('open')}
 function tsb(){document.body.classList.contains('mob')?$('sb').classList.toggle('open'):$('sb').classList.toggle('col')}
 function vp(){const m=document.body.classList.toggle('mob');$('sb').classList.remove('open','col');closeUD();toast(m?'Mobile viewport':'Laptop viewport')}
 function tud(e){e.stopPropagation();const d=$('udrop');if(d.classList.contains('open'))return closeUD();
  const o=L('hx_accts',[]).filter(x=>x!==me);
- d.innerHTML=`<div class="ud" onclick="closeUD();openSettings()">⚙ Settings, Themes &amp; API Keys</div>${isAdmin(me)?'<div class="ud" onclick="closeUD();openAdmin()">👑 Admin Panel</div>':'<div class="ud" onclick="closeUD();openMember()">⭐ '+(isMember()?'My Membership':'Upgrade · $1/month')+'</div>'}${o.map(x=>`<div class="ud" onclick="closeUD();switchTo('${esc(x)}')">↔ ${esc(x)}</div>`).join('')}<div class="ud" onclick="closeUD();showAuth()">＋ Add / switch account</div><div class="ud" onclick="vp()">${document.body.classList.contains('mob')?'💻 Laptop viewport':'📱 Mobile viewport'}</div><div class="ud" onclick="closeUD();clearChat()">🗑️ Clear This Chat</div><div class="ud dg" onclick="logout()">⬡ Sign Out</div>`;d.classList.add('open')}
+ d.innerHTML=`<div class="ud" onclick="closeUD();openSettings()">⚙ Settings, Themes &amp; API Keys</div><div class="ud" onclick="closeUD();openWho()">🔐 Who am I logged in as?</div>${isAdmin(me)?'<div class="ud" onclick="closeUD();openAdmin()">👑 Admin Panel</div>':'<div class="ud" onclick="closeUD();openMember()">⭐ '+(isMember()?'My Membership':'Upgrade · $1/month')+'</div>'}${o.map(x=>`<div class="ud" onclick="closeUD();switchTo('${esc(x)}')">↔ ${esc(x)}</div>`).join('')}<div class="ud" onclick="closeUD();showAuth()">＋ Add / switch account</div><div class="ud" onclick="vp()">${document.body.classList.contains('mob')?'💻 Laptop viewport':'📱 Mobile viewport'}</div><div class="ud" onclick="closeUD();clearChat()">🗑️ Clear This Chat</div><div class="ud dg" onclick="logout()">⬡ Sign Out</div>`;d.classList.add('open')}
 const closeUD=()=>$('udrop').classList.remove('open');document.addEventListener('click',e=>{if(!e.target.closest('#udrop'))closeUD()});
-setInterval(()=>$('clk').textContent=new Date().toLocaleTimeString(),1000);
+setInterval(()=>{const d=new Date();$('clk').textContent=(innerWidth>700?d.toLocaleDateString(undefined,{weekday:'short',day:'numeric',month:'short',year:'numeric'})+' · ':'')+d.toLocaleTimeString()},1000);
  
 /* ---- LANGUAGE ---- */
 async function changeLang(v){
- lang=v;if(rec){try{rec.stop()}catch(e){}}toast('🌐 '+LNAME[v]);if(busy||!me)return;
+ lang=v;if(me){const q=P();q.lang=v;W('hx_p_'+me,q)}if(rec){try{rec.stop()}catch(e){}}toast('🌐 '+LNAME[v]);if(busy||!me)return;
  busy=true;setS('Thinking…','a','thinking');
  try{const out=await ask([{role:'user',content:`Greet me warmly in one short sentence and tell me you will now speak ${LNAME[lang]}.`}],sysP());tab('chat');addMsg('assistant',out,false);speak(out)}
  catch(e){setS('Ready')}
@@ -309,11 +307,11 @@ async function changeLang(v){
 /* ---- CHATS (chatHistory = persistent memory of the open chat) ---- */
 const saveC=()=>W('hx_c_'+me,chats);
 function newChat(){cid='c'+Date.now();chats[cid]={title:'New Chat',t:Date.now(),msgs:[]};saveC();openChat(cid)}
-function welcome(){$('msgs').innerHTML='<div class="wl"><div class="wh">⬡</div><div class="wt">HEXA AI</div><div class="ws">Your intelligent bestie. Ask anything, talk with 🎤, point the 📷 camera at something, generate images, write code, open apps. Try <b style="color:var(--c)">"open YouTube"</b>.</div></div>'}
+function welcome(){$('msgs').innerHTML='<div class="wl"><div class="wh">⬡</div><div class="wt">HEXA AI</div>'+(me&&isBoss(me)?'<div class="ws" style="color:var(--c);font-weight:600;margin-bottom:10px">👑 Welcome back, Boss — creator of HEXA.</div>':'')+'<div class="ws">Your intelligent bestie. Ask anything, talk with 🎤, point the 📷 camera at something, write code, open apps. Try <b style="color:var(--c)">"open YouTube"</b>.</div></div>'}
 function openChat(id){cid=id;const c=chats[id];chatHistory=c.msgs;$('msgs').innerHTML='';chatHistory.length?chatHistory.forEach(m=>addMsg(m.role,m.content,false)):welcome();renderList();tab('chat')}
 function renderList(){const el=$('clist');el.innerHTML='';Object.entries(chats).sort((a,b)=>b[1].t-a[1].t).forEach(([id,c])=>{const d=document.createElement('div');d.className='si'+(id==cid?' act':'');d.innerHTML=`<span>💬 ${esc(c.title)}</span><span>🗑</span>`;d.onclick=()=>openChat(id);d.lastChild.onclick=e=>{e.stopPropagation();delete chats[id];saveC();const k=Object.keys(chats);k.length?openChat(k[0]):newChat()};el.appendChild(d)})}
 function clearChat(){if(!confirm('Clear this chat?'))return;chats[cid].msgs=[];chats[cid].title='New Chat';saveC();openChat(cid)}
-function md(t){return t.split('```').map((s,i)=>i%2?`<pre><code>${esc(s.replace(/^[\w+-]*\n/,''))}</code></pre>`:esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>')).join('')}
+function md(t){return t.split('```').map((s,i)=>i%2?`<pre><code>${esc(s.replace(/^[\w+-]*\n/,''))}</code></pre>`:esc(s).replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'<a href="$2" target="_blank" rel="noopener noreferrer" style="color:var(--c);text-decoration:underline">$1</a>').replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`([^`\n]+)`/g,'<code>$1</code>').replace(/\n/g,'<br>')).join('')}
 function addMsg(role,text,store=true,think){
  const w=document.createElement('div'),u=role=='user';w.className='mw'+(u?' u':'');
  w.innerHTML=`<div class="ma ${u?'au':'aa'}">${u?esc(me.slice(0,2).toUpperCase()):'⬡'}</div><div class="mi"><div class="mb">${think?'<div class="thk"><span></span><span></span><span></span></div>':md(text)}</div><div class="mt">${new Date().toLocaleTimeString()}${u||think?'':'<span class="spk" title="Speak">🔊</span>'}</div></div>`;
@@ -323,13 +321,14 @@ function addMsg(role,text,store=true,think){
  
 /* ---- AI ---- */
 const cleanKey=k=>String(k||'').trim().replace(/^["']+|["']+$/g,'').replace(/\s+/g,'');
-async function ask(msgs,sys,prov,key,im){
+async function ask(msgs,sys,prov,key,im,web){
  const p=P();prov=prov||p.prov;key=cleanKey(key||p.keys[prov]);const H={'Content-Type':'application/json'};
  const J=async r=>{const j=await r.json().catch(()=>({}));if(!r.ok){const e=j.error;throw Error((e&&(e.message||(typeof e=='string'?e:JSON.stringify(e))))||(j.message)||'HTTP '+r.status)}return j};
  /* build a clean alternating history that always starts with a user turn */
  let h=msgs.filter(m=>m.content&&!/^⚠️/.test(String(m.content))).map(m=>({role:m.role=='assistant'?'assistant':'user',content:String(m.content)}));while(h.length&&h[0].role!='user')h.shift();
  const last=h.length-1,mt=im?im.split(';')[0].slice(5):'',b64=im?im.split(',')[1]:'';
  sys=memSys(sys,h);
+ if(web&&!im){const wr=await webAsk((!key||prov=='free')?'free':prov,key,sys,h,web);if(wr)return wr;sys+=await wikiCtx(web)}
  const oa=(m,i)=>i==last&&im?{role:m.role,content:[{type:'text',text:m.content},{type:'image_url',image_url:{url:im}}]}:m;
  const free=async()=>{let le;for(const fm of ['openai','openai-large']){try{const j=await J(await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:H,body:JSON.stringify({model:fm,messages:[{role:'system',content:sys},...h.map(oa)]})}));const t=j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;if(t)return t;le=Error('Empty AI response')}catch(e){le=e}}throw le};
  if(!key||prov=='free')return free();
@@ -367,19 +366,19 @@ async function ask(msgs,sys,prov,key,im){
  if(prov=='claude'){const j=await J(await fetch(c.u,{method:'POST',headers:{...H,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:c.m,max_tokens:8192,system:sys,messages:h.map((m,i)=>i==last&&im?{role:m.role,content:[{type:'image',source:{type:'base64',media_type:mt,data:b64}},{type:'text',text:m.content}]}:m)})}));return j.content.map(x=>x.text||'').join('')}
  /* openai (Bearer token, OpenAI-compatible) — only openai gets image parts; groq is handled above via Cloudflare */
  const j=await J(await fetch(c.u,{method:'POST',headers:{...H,Authorization:'Bearer '+key},body:JSON.stringify({model:c.m,messages:[{role:'system',content:sys},...h.map((m,i)=>prov=='openai'?oa(m,i):m)]})}));return j.choices[0].message.content}
-const sysP=()=>`You are ${P().name}, a brilliant, warm, friendly AI assistant. You remember everything said earlier in this conversation and use it. IMPORTANT: Reply ONLY in ${LNAME[lang]} (use its native script), even if the user writes in another language, unless they explicitly ask for a different language. Never mix languages. Be concise and clear; use **bold** for key points and fenced code blocks for code.`;
+const sysP=()=>`You are ${P().name}, a brilliant, warm, friendly AI assistant. You remember everything said earlier in this conversation and use it. IMPORTANT: Reply ONLY in ${LNAME[lang]} (use its native script), even if the user writes in another language, unless they explicitly ask for a different language. Never mix languages. Be concise and clear; use **bold** for key points and fenced code blocks for code.${bossLine()}
+CURRENT DATE & TIME (exact, from the user's device clock): ${nowStr()}. Use it for any question about the time, date, day or "today". For anything that may have changed recently, say if you are unsure and suggest a live web search.`;
 function pick(e){const f=e.target.files[0];e.target.value='';if(!f)return;if(!upOK())return;const r=new FileReader();r.onload=ev=>shrink(ev.target.result,1280,d=>{img=d;$('ipi').src=d;$('ipv').style.display='flex';toast('Image attached'+upNote())});r.onerror=()=>toast('Could not read the image');r.readAsDataURL(f)}
 function rmImg(){img=null;$('ipv').style.display='none'}
 async function send(){
  const t=$('inp').value.trim();if((!t&&!img)||busy)return;const im=img;if(im&&!useUp()){rmImg();return}$('inp').value='';$('inp').style.height='';rmImg();tab('chat');
  addMsg('user',(im?'📷 ':'')+(t||'What do you see in this photo? Describe it in detail.'));
- const o=t.toLowerCase().match(/^(?:open|launch|go to)\s+([\w ]+)$/);
- if(o){const k=o[1].trim(),u=APPS[k]||(/^\w+$/.test(k)?k+'.com':null);if(u){window.open('https://'+u,'_blank');return reply('⬡ Opening **'+k+'** 🚀')}}
- const gi=t.match(/^(?:generate|create|draw|make)\s+(?:an?\s+)?(?:image|picture|photo)\s+(?:of\s+)?(.+)/i);if(gi){$('ip').value=gi[1];tab('image');return genImg()}
- busy=true;setS('Thinking…','a','thinking');const th=addMsg('assistant','',false,true);
- try{const out=await ask(chatHistory.slice(-30),sysP(),null,null,im);th.remove();addMsg('assistant',out);if(P().speak)speak(out)}
+ if(!im&&browserCmd(t))return;
+  let wq=null;if(!im){const sm=t.match(/^(?:hexa[, ]+)?(?:search|look ?up|google|research|find out|найди|поищи|खोजो|ढूंढो)\s+(?:the\s+)?(?:web|internet|online)?\s*(?:for|about)?\s*(.+)$/i);if(sm)wq=sm[1].trim();else if(P().web||needsWeb(t))wq=t}
+ busy=true;setS(wq?'🔎 Searching the web…':'Thinking…','a','thinking');const th=addMsg('assistant','',false,true);
+ try{let out=await ask(chatHistory.slice(-30),sysP(),null,null,im,wq);th.remove();if(wq)out+='\n\n🔎 [Open live Google results](https://www.google.com/search?q='+encodeURIComponent(wq)+')';addMsg('assistant',out);if(P().speak)speak(out.split('\n\n**Sources:**')[0])}
  catch(e){th.remove();addMsg('assistant','⚠️ '+e.message+'\n\nCheck your key in ⋮ → Settings, or switch to the Free provider.');log('ai error: '+e.message);setS('Error','r')}
- busy=false;if($('st').textContent!='Error')setS('Ready')}
+ busy=false;if($('st').textContent!='Error')rdy();if(hfPend){const q=hfPend;hfPend=null;hfRun(q)}}
 function reply(t){addMsg('assistant',t);if(P().speak)speak(t)}
  
 /* ---- CAMERA ---- */
@@ -390,66 +389,40 @@ function snap(){const v=$('cv'),c=$('cc');if(!v.videoWidth)return toast('Camera 
  img=c.toDataURL('image/jpeg',.82);$('ipi').src=img;$('ipv').style.display='flex';closeCam();send()}
  
 /* ---- VOICE OUT: ElevenLabs (if key saved) → browser voice fallback ---- */
-function stopSpeak(){if(window.speechSynthesis)speechSynthesis.cancel();if(au){au.onended=au.onerror=null;au.pause();au=null}}
+function stopSpeak(){elTok++;if(elRes){const f=elRes;elRes=null;f()}if(window.speechSynthesis)speechSynthesis.cancel();if(au){au.onended=au.onerror=null;au.pause();au=null}}
 function pickVoice(){const v=speechSynthesis.getVoices(),b=lang.split('-')[0],ls=v.filter(x=>x.lang.toLowerCase().replace('_','-').startsWith(b));
  const f=/female|woman|samantha|zira|karen|victoria|susan|aria|jenny|heera|kalpana|allison|ava/i,m=/\bmale\b|david|daniel|alex|mark|guy|ravi|fred/i;
  return(gender=='female'?ls.find(x=>f.test(x.name)):ls.find(x=>m.test(x.name)&&!/female/i.test(x.name)))||ls[0]||null}
 async function speak(t,force){
  if(!force&&!(me&&P().speak))return;stopSpeak();
- const clean=t.replace(/```[\s\S]*?```/g,' code block ').replace(/[*`#_]/g,'').replace(/\s+/g,' ').trim().slice(0,700);if(!clean)return;
+ const clean=t.replace(/\[([^\]]*)\]\(https?:[^)]*\)/g,'$1').replace(/https?:\/\/\S+/g,' link ').replace(/```[\s\S]*?```/g,' code block ').replace(/[*`#_]/g,'').replace(/\s+/g,' ').trim().slice(0,1000);if(!clean)return;
  const el=(me&&P().el)||{};
- if(el.key){
-  try{setS('Speaking…','c','speaking');
-   const id=gender=='female'?(el.f||EL_F):(el.m||EL_M);
-   const r=await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${encodeURIComponent(id)}?output_format=mp3_44100_128`,{method:'POST',headers:{'xi-api-key':el.key,'Content-Type':'application/json',Accept:'audio/mpeg'},body:JSON.stringify({text:clean,model_id:el.model||'eleven_multilingual_v2',voice_settings:{stability:.5,similarity_boost:.75}})});
-   if(!r.ok){const j=await r.json().catch(()=>({}));throw Error((j.detail&&(j.detail.message||j.detail))||'HTTP '+r.status)}
-   const url=URL.createObjectURL(await r.blob());stopSpeak();au=new Audio(url);au.onended=au.onerror=()=>{setS('Ready');URL.revokeObjectURL(url)};await au.play();return}
-  catch(e){toast('ElevenLabs: '+e.message+' — using browser voice');setS('Ready')}}
+ if(el.key){try{await elSpeak(clean,el);return}catch(e){toast('ElevenLabs: '+e.message+' — using browser voice');rdy()}}
  if(!window.speechSynthesis)return;
  const u=new SpeechSynthesisUtterance(clean);u.lang=lang;const v=pickVoice();if(v)u.voice=v;u.pitch=gender=='female'?1.15:.8;
- u.onstart=()=>setS('Speaking…','c','speaking');u.onend=u.onerror=()=>setS('Ready');speechSynthesis.speak(u)}
+ u.onstart=()=>setS('Speaking…','c','speaking');u.onend=u.onerror=()=>{lastSpkEnd=Date.now();rdy()};speechSynthesis.speak(u)}
 if(window.speechSynthesis)speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices();
  
 /* ---- VOICE IN ---- */
 function vbars(on){clearInterval(vbT);const b=document.querySelectorAll('#vb i');if(!on)return b.forEach(x=>{x.style.height='4px';x.style.opacity=.25});vbT=setInterval(()=>b.forEach(x=>{x.style.height=(3+Math.random()*15)+'px';x.style.opacity=.9}),80)}
-function mic(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return toast('Voice input needs Chrome, Edge or Safari');
- if(rec){rec.stop();return}stopSpeak();rec=new SR();rec.lang=lang;rec.interimResults=true;
- rec.onresult=e=>{$('inp').value=[...e.results].map(r=>r[0].transcript).join('')};rec.onerror=e=>toast('Mic: '+e.error);
- rec.onend=()=>{rec=null;$('mic').classList.remove('on');vbars(0);setS('Ready');if($('inp').value.trim())send()};
- rec.start();$('mic').classList.add('on');vbars(1);setS('🎤 Listening…','c','listening')}
- 
-/* ---- IMAGE (Pollinations, auto-retry with fallback model) ---- */
-const iu=(p,w,h,m,s)=>`https://image.pollinations.ai/prompt/${encodeURIComponent(p)}?width=${w}&height=${h}&model=${m}&seed=${s}&nologo=true`;
-function loadImg(p,w,h,models,seed,ok,fail,n=0){const i=new Image(),u=iu(p,w,h,models[n],seed+n);i.referrerPolicy='no-referrer';i.onload=()=>ok(i,u);i.onerror=()=>n<models.length-1?loadImg(p,w,h,models,seed,ok,fail,n+1):fail();i.src=u}
-function genImg(){if(!need('image'))return;const p=$('ip').value.trim();if(!p)return toast('Describe an image first');{let pv=$('iprov').value;if(pv=='auto'){const cp=P().prov;pv=(cp=='openai'||cp=='gemini')&&cleanKey(P().keys[cp])?cp:'free'}if(pv!='free')return genImgAPI(p,pv)}const[w,h]=$('isz').value.split('x'),m=$('imd').value,ms=[m,m=='flux'?'turbo':'flux','turbo'];
- const d=document.createElement('div');d.innerHTML='<div class="ld">⬡ Generating image…<div class="pbar"><i style="width:60%"></i></div></div>';$('igrid').prepend(d);setS('🎨 Generating…','a','thinking');tab('image');
- loadImg(p,w,h,ms,Math.floor(Math.random()*1e6),(i,u)=>{d.innerHTML='';d.appendChild(i);d.insertAdjacentHTML('beforeend',`<a class="btn bs" style="display:block;text-align:center;margin-top:6px;text-decoration:none" href="${u}" target="_blank" rel="noopener">Open / Save</a>`);setS('Ready')},()=>{d.innerHTML='<div class="ld">⚠️ Generation failed. Check your connection and try again.</div>';setS('Ready')})}
- 
-/* ---- IMAGE via your own AI API key (OpenAI gpt-image-1 / DALL·E 3, Google Gemini image) ---- */
-async function genImgAPI(p,pv){const gem=pv=='gemini',key=cleanKey(P().keys[gem?'gemini':'openai']);
- if(!key)return toast('Add your '+(gem?'Gemini':'OpenAI')+' API key in ⋮ → Settings first');
- const sz=$('isz').value,d=document.createElement('div');d.innerHTML='<div class="ld">⬡ Generating with '+(gem?'Gemini':'OpenAI')+'…<div class="pbar"><i style="width:60%"></i></div></div>';$('igrid').prepend(d);setS('🎨 Generating…','a','thinking');
- try{let src;
-  if(gem){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{'Content-Type':'application/json','x-goog-api-key':key},body:JSON.stringify({contents:[{parts:[{text:p+(sz=='768x1344'?'. Portrait orientation.':sz=='1344x768'?'. Landscape orientation.':'')}]}],generationConfig:{responseModalities:['TEXT','IMAGE']}})});
-   const j=await r.json().catch(()=>({}));if(!r.ok)throw Error((j.error&&j.error.message)||'HTTP '+r.status);
-   const pt=(((j.candidates||[])[0]||{}).content||{}).parts||[],it=pt.find(x=>x.inlineData||x.inline_data);if(!it)throw Error('Gemini returned no image (blocked by safety rules, or image generation is not enabled for your key).');
-   const id=it.inlineData||it.inline_data;src='data:'+(id.mimeType||id.mime_type||'image/png')+';base64,'+id.data}
-  else{let err,it;for(const g of(pv=='openai3'?[false]:[true,false])){const size=sz=='1024x1024'?'1024x1024':sz=='768x1344'?(g?'1024x1536':'1024x1792'):(g?'1536x1024':'1792x1024'),body={model:g?'gpt-image-1':'dall-e-3',prompt:p,size:size,n:1};if(!g)body.response_format='b64_json';
-   const r=await fetch('https://api.openai.com/v1/images/generations',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+key},body:JSON.stringify(body)});
-   const j=await r.json().catch(()=>({}));if(!r.ok){err=err||Error((j.error&&j.error.message)||'HTTP '+r.status);continue}
-   it=j.data&&j.data[0];if(it)break}
-   if(!it)throw err||Error('OpenAI returned no image');src=it.b64_json?'data:image/png;base64,'+it.b64_json:it.url}
-  const i=new Image();i.onload=()=>{d.innerHTML='';d.appendChild(i);d.insertAdjacentHTML('beforeend','<a class="btn bs" style="display:block;text-align:center;margin-top:6px;text-decoration:none" href="'+src+'" download="hexa-image.png" target="_blank" rel="noopener">Download</a>')};i.onerror=()=>{d.innerHTML='<div class="ld">⚠️ The image could not be displayed.</div>'};i.src=src}
- catch(e){d.innerHTML='<div class="ld">⚠️ '+esc(e.message)+'</div>'}
- setS('Ready')}
- 
-/* ---- TEXT TO VIDEO (frame sequence preview with progress) ---- */
-function genVid(){if(!need('video'))return;const p=$('vpt').value.trim();if(!p)return toast('Describe a scene first');const n=+$('vfr').value,box=$('vbox'),pg=$('vpg');clearInterval(vT);box.dataset.p=0;box.style.display='flex';box.innerHTML='Rendering frame 0/'+n+'…';pg.style.width='0';setS('🎬 Rendering…','a','thinking');
- const seed=Math.floor(Math.random()*1e6),ang=['wide establishing shot','medium shot','close-up','dynamic angle','aerial view','low angle','detail shot','final wide shot'],fr=[];let done=0,fin=0;
- const fin_=()=>{done++;pg.style.width=(done/n*100)+'%';box.textContent='Rendering frame '+done+'/'+n+'…';if(done==n)play()};
- for(let k=0;k<n;k++)loadImg(p+', cinematic, '+ang[k],1280,720,['flux','turbo'],seed+k*7,(i)=>{i.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .8s';fr[k]=i;fin++;fin_()},fin_);
- function play(){const ok=fr.filter(Boolean);if(!ok.length){box.textContent='⚠️ Video rendering failed. Try again.';setS('Ready');return}box.style.display='block';box.innerHTML='';ok.forEach(f=>box.appendChild(f));togVid();setS('Ready');toast('🎬 Video ready')}}
-function togVid(){const b=$('vbox'),f=[...b.querySelectorAll('img')];if(!f.length)return;if(b.dataset.p=='1'){clearInterval(vT);b.dataset.p=0;return}let k=0;b.dataset.p=1;const st=()=>{f.forEach((x,j)=>x.style.opacity=j==k?1:0);k=(k+1)%f.length};st();vT=setInterval(st,1800)}
+/* ---- HANDS-FREE VOICE: starts automatically, listens continuously, runs commands ---- */
+let hf=false,hfRec=null,hfPend=null,hfFail=0,lastSpkEnd=0;
+const hfSpk=()=>(window.speechSynthesis&&speechSynthesis.speaking)||(au&&!au.paused&&!au.ended)||Date.now()-lastSpkEnd<1200;
+function rdy(){hfRec?setS('🎤 Listening…','c','listening'):setS('Ready')}
+function hfNeedTap(){toast('🎤 Tap anywhere once to turn on hands-free voice (browser needs microphone permission)');const f=()=>{if(me&&P().hf!==false)hfStart()};addEventListener('click',f,{once:true});addEventListener('touchend',f,{once:true})}
+function hfRun(t){t=String(t||'').trim();if(!t)return;if(busy){hfPend=t;return}$('inp').value=t;send()}
+function hfStart(auto){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){if(!auto)toast('Voice input needs Chrome, Edge or Safari');return}
+ if(!me)return;hf=true;if(hfRec)return;
+ const r=new SR();r.lang=lang;r.continuous=true;r.interimResults=true;hfRec=r;rec=r;
+ r.onstart=()=>{$('mic').classList.add('on');vbars(1);if(!busy)rdy()};
+ r.onresult=e=>{hfFail=0;if(hfSpk())return;let fin='',itm='';for(let i=e.resultIndex;i<e.results.length;i++){const x=e.results[i];if(x.isFinal)fin+=x[0].transcript;else itm+=x[0].transcript}
+  if(fin.trim())hfRun(fin);else if(itm.trim()&&!busy)$('inp').value=itm};
+ r.onerror=e=>{if(e.error=='not-allowed'||e.error=='service-not-allowed'){hf=false;hfNeedTap()}else if(e.error=='audio-capture'){hf=false;toast('🎤 No microphone found')}else if(e.error!='no-speech'&&e.error!='aborted')hfFail++};
+ r.onend=()=>{hfRec=null;if(rec===r)rec=null;$('mic').classList.remove('on');vbars(0);if(!busy&&!hf)setS('Ready');if(hf&&me&&!document.hidden)setTimeout(()=>hfStart(true),Math.min(300+hfFail*700,6000))};
+ try{r.start()}catch(err){hfRec=null}}
+function mic(){const p=P();if(hf||hfRec){hf=false;p.hf=false;W('hx_p_'+me,p);try{hfRec&&hfRec.stop()}catch(e){}toast('🎤 Hands-free voice OFF');return}p.hf=true;W('hx_p_'+me,p);hfStart();toast('🎤 Hands-free voice ON')}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&me&&hf&&!hfRec)hfStart(true)});
  
 /* ---- CODE GENERATOR ---- */
 const FM={html:['HTML, CSS and JavaScript — ONE self-contained index.html with inline <style> and <script>','html'],react:['React — ONE self-contained HTML file loading React 18 and Babel standalone through UMD script tags','html'],tailwind:['HTML with Tailwind CSS via the CDN script — ONE self-contained file','html'],py:['Python 3 — one runnable script','py'],node:['Node.js — one runnable script (plus package.json in a second block if needed)','js'],web3d:['HTML — ONE self-contained, award-level 3D UI website. Load Three.js r128 with <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script> (core only: no OrbitControls, no external images or models). Include a full-screen animated WebGL hero scene (floating geometry, particles, glowing lights), mouse and scroll parallax camera movement, 3D tilt cards, glassmorphism sections, smooth animations, a responsive layout, and a resize handler','html']};
@@ -475,20 +448,28 @@ function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <div class="box"><label class="lab">AI provider</label><select id="sp" onchange="spc()"><option value="free">Free (no key needed)</option>${Object.entries(PROV).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('')}</select>
  <label class="lab">Your own API key (saved in this browser only)</label><input class="in" id="sk" type="password" placeholder="Paste key (Gemini: AQ.… or AIza… · Groq: gsk_… · OpenAI: sk-…)"><label class="lab">Model</label><select id="smp" onchange="$('smo').value=this.value"></select><input class="in" id="smo" style="margin-top:6px" placeholder="…or type any model name (empty = default)"><div id="scap" style="font-size:11px;color:var(--t2);line-height:1.8;margin-top:8px"></div>
  <div class="fl"><button class="btn bs" onclick="testKey()">✔ Test key</button><button class="btn" onclick="saveKey()">💾 Save</button><button class="btn bs" onclick="saveKey(1)">Remove key</button></div><div id="sres" style="font-size:12px"></div></div>
- <div class="box"><h3>🔊 ELEVENLABS VOICE</h3>
- <label class="lab">ElevenLabs API key</label><input class="in" id="ek" type="password" placeholder="sk_…" value="${esc(el.key||'')}">
- <label class="lab">Model</label><select id="em2"><option value="eleven_multilingual_v2">Multilingual v2 (29 languages, stable)</option><option value="eleven_v3">v3 (70+ languages incl. Nepali, Bengali, Urdu, Swahili)</option></select>
- <label class="lab">Female voice ID (optional)</label><input class="in" id="ef" value="${esc(el.f||'')}" placeholder="default: Rachel">
- <label class="lab">Male voice ID (optional)</label><input class="in" id="emv" value="${esc(el.m||'')}" placeholder="default: Adam">
+ <div class="box"><h3>🔊 ELEVENLABS VOICE · ADVANCED</h3>
+ <label class="lab">ElevenLabs API key (elevenlabs.io → Developers → API Keys)</label><input class="in" id="ek" type="password" placeholder="sk_…" value="${esc(el.key||'')}">
+ <div class="fl"><button class="btn bs" onclick="elConnect()">🔌 Connect &amp; load my voices</button></div><div id="elinfo" style="font-size:11px;color:var(--t2);line-height:1.7"></div>
+ <label class="lab">Model</label><select id="em2"><option value="eleven_flash_v2_5">Flash v2.5 — fastest · 32 languages (Hindi ✓ Russian ✓)</option><option value="eleven_multilingual_v2">Multilingual v2 — best quality · 29 languages</option><option value="eleven_turbo_v2_5">Turbo v2.5 — fast + quality</option><option value="eleven_v3">v3 — most expressive · 70+ languages</option></select>
+ <label class="lab">Female voice</label><select id="efs" onchange="$('ef').value=''"></select><input class="in" id="ef" style="margin-top:6px" value="${esc(el.f&&!(el.voices||[]).some(v=>v.id==el.f)&&el.f!=EL_F?el.f:'')}" placeholder="…or paste any Voice ID">
+ <label class="lab">Male voice</label><select id="ems" onchange="$('emv').value=''"></select><input class="in" id="emv" style="margin-top:6px" value="${esc(el.m&&!(el.voices||[]).some(v=>v.id==el.m)&&el.m!=EL_M?el.m:'')}" placeholder="…or paste any Voice ID">
+ <label class="lab">Stability <b id="o_st"></b></label><input type="range" id="el_st" min="0" max="1" step="0.05" oninput="elSl()" style="width:100%">
+ <label class="lab">Similarity <b id="o_sim"></b></label><input type="range" id="el_sim" min="0" max="1" step="0.05" oninput="elSl()" style="width:100%">
+ <label class="lab">Style exaggeration <b id="o_sty"></b></label><input type="range" id="el_sty" min="0" max="1" step="0.05" oninput="elSl()" style="width:100%">
+ <label class="lab">Speed <b id="o_spd"></b></label><input type="range" id="el_spd" min="0.7" max="1.2" step="0.05" oninput="elSl()" style="width:100%">
+ <label class="lab"><input type="checkbox" id="el_sb"> Speaker boost</label>
  <div class="fl"><button class="btn" onclick="saveEL()">💾 Save voice</button><button class="btn bs" onclick="testEL()">▶ Test voice</button><button class="btn bs" onclick="saveEL(1)">Remove key</button></div></div>
  <div class="box"><label class="lab">Assistant name</label><input class="in" id="sn" value="${esc(p.name)}">
  <label class="lab"><input type="checkbox" id="ss" ${p.speak?'checked':''}> Speak replies aloud automatically</label>
+ <label class="lab"><input type="checkbox" id="shf" ${p.hf!==false?'checked':''}> 🎤 Hands-free voice (always listening)</label>
+ <label class="lab"><input type="checkbox" id="sweb" ${p.web?'checked':''}> 🔎 Search the web for every question</label>
  <label class="lab">Live background</label><select id="sbg"><option value="zen">⚡ Zenitsu lightning</option><option value="kan">🔥 Kaneki</option><option value="off">Off (saves battery)</option></select>
  <button class="btn" style="margin-top:10px" onclick="saveGen()">Save preferences</button></div>
  <div style="font-size:11px;color:var(--t3);margin-top:12px;line-height:1.6">Keys stay in this browser's localStorage and are sent only to the provider you choose. Anyone using this browser profile could read them — use restricted keys.</div>`);
- $('sp').value=p.prov;$('em2').value=el.model||'eleven_multilingual_v2';$('sbg').value=p.bg||'zen';spc()}
+ $('sp').value=p.prov;$('em2').value=el.model||'eleven_flash_v2_5';elInit(el);$('sbg').value=p.bg||'zen';spc()}
 const MODELS={gemini:['gemini-2.5-flash','gemini-2.5-pro','gemini-2.5-flash-lite','gemini-2.0-flash'],openai:['gpt-4o-mini','gpt-4o','gpt-4.1','gpt-4.1-mini','o4-mini'],groq:['llama-3.3-70b-versatile','llama-3.1-8b-instant','meta-llama/llama-4-scout-17b-16e-instruct'],claude:['claude-sonnet-4-5','claude-haiku-4-5','claude-opus-4-1']};
-const CAPS={free:'💬 Chat ✅ · 🎨 Photos ✅ (free generator) · 💻 Website code ✅',gemini:'💬 Chat ✅ · 🎨 Photos ✅ (Gemini image) · 💻 Website code ✅',openai:'💬 Chat ✅ · 🎨 Photos ✅ (gpt-image-1 / DALL·E 3) · 💻 Website code ✅',groq:'💬 Chat ✅ · 💻 Website code ✅ · 🎨 Photos use the free generator (Groq has no image model)',claude:'💬 Chat ✅ · 💻 Website code ✅ · 🎨 Photos use the free generator (Claude has no image model)'};
+const CAPS={free:'💬 Chat ✅ · 💻 Website code ✅',gemini:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live Google search ✅',openai:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live web search ✅',groq:'💬 Chat ✅ · 💻 Website code ✅',claude:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live web search ✅'};
 function spc(){const v=$('sp').value,mo=(P().models||{})[v]||'',ml=MODELS[v]||[];$('sk').value=P().keys[v]||'';$('sk').disabled=v=='free';$('smo').value=mo;$('smo').disabled=$('smp').disabled=v=='free';
  $('smp').innerHTML='<option value="">Default model</option>'+ml.map(m=>`<option value="${m}">${m}</option>`).join('');$('smp').value=ml.includes(mo)?mo:'';
  $('scap').textContent='One key, everything — '+(CAPS[v]||'')}
@@ -499,18 +480,45 @@ async function testKey(){const v=$('sp').value,k=cleanKey($('sk').value),r=$('sr
  r.textContent='Testing '+PROV[v].n+'…';
  try{const o=await ask([{role:'user',content:'Reply with the single word OK'}],'Reply with OK',v,k);r.textContent='✅ Key is valid. Reply: '+String(o).slice(0,40);r.style.color='var(--g)'}catch(e){r.textContent='❌ '+e.message;r.style.color='var(--r)'}}
 function saveKey(rm){const p=P(),v=$('sp').value;if(v!='free'){p.models=p.models||{};if(rm){delete p.keys[v];delete p.models[v];$('sk').value='';$('smo').value=''}else{p.keys[v]=cleanKey($('sk').value);p.models[v]=$('smo').value.trim()}}p.prov=rm&&v!='free'?'free':v;W('hx_p_'+me,p);log((rm?'removed':'saved')+' key '+v);toast(rm?'Key removed':'Saved ✔')}
-function saveEL(rm){const p=P();p.el=rm?{}:{key:$('ek').value.trim(),model:$('em2').value,f:$('ef').value.trim(),m:$('emv').value.trim()};if(rm)$('ek').value='';W('hx_p_'+me,p);log(rm?'removed elevenlabs key':'saved elevenlabs');toast(rm?'ElevenLabs removed':'ElevenLabs voice saved ✔')}
-function testEL(){saveEL();const l={'en-US':'Hello! This is your Hexa voice.','ne-NP':'नमस्ते! म तपाईंको हेक्सा आवाज हुँ।','hi-IN':'नमस्ते! मैं आपकी हेक्सा आवाज़ हूँ।','es-ES':'¡Hola! Soy tu voz de Hexa.','fr-FR':'Bonjour ! Voici ta voix Hexa.','ja-JP':'こんにちは！ヘキサの声です。','ar-SA':'مرحبا! هذا صوتك من هيكسا.'};speak(l[lang]||l['en-US'],true)}
-function saveGen(){const p=P();p.name=$('sn').value.trim()||'Hexa AI';p.speak=$('ss').checked;p.bg=$('sbg').value;W('hx_p_'+me,p);appBg();$('brand').textContent=p.name.replace(' AI','').toUpperCase();toast('Preferences saved')}
+function elFill(el){const vs=(el.voices&&el.voices.length)?el.voices:[{id:EL_F,name:'Rachel (default)'},{id:EL_M,name:'Adam (default)'}],o=v=>`<option value="${esc(v.id)}">${esc(v.name)}</option>`;
+ $('efs').innerHTML=vs.map(o).join('');$('ems').innerHTML=vs.map(o).join('');$('efs').value=vs.some(v=>v.id==el.f)?el.f:(vs.some(v=>v.id==EL_F)?EL_F:vs[0].id);$('ems').value=vs.some(v=>v.id==el.m)?el.m:(vs.some(v=>v.id==EL_M)?EL_M:vs[vs.length>1?1:0].id)}
+function elSl(){[['st','el_st'],['sim','el_sim'],['sty','el_sty'],['spd','el_spd']].forEach(([a,b])=>$('o_'+a).textContent=$(b).value)}
+function elInit(el){elFill(el);const v=Object.assign({stability:.5,similarity_boost:.75,style:0,speed:1,use_speaker_boost:true},el.vs||{});$('el_st').value=v.stability;$('el_sim').value=v.similarity_boost;$('el_sty').value=v.style;$('el_spd').value=v.speed;$('el_sb').checked=!!v.use_speaker_boost;elSl()}
+async function elConnect(){const k=$('ek').value.trim(),o=$('elinfo');o.style.color='var(--t2)';if(!k){o.textContent='⚠️ Paste your ElevenLabs API key first.';return}o.textContent='Connecting to ElevenLabs…';
+ try{const H={'xi-api-key':k},[vr,sr]=await Promise.all([fetch('https://api.elevenlabs.io/v1/voices',{headers:H}),fetch('https://api.elevenlabs.io/v1/user/subscription',{headers:H}).catch(()=>null)]),vj=await vr.json().catch(()=>({}));
+  if(!vr.ok){const d=vj.detail;throw Error((d&&(d.message||d.status||(typeof d=='string'?d:'')))||'HTTP '+vr.status)}
+  const vs=(vj.voices||[]).map(v=>({id:v.voice_id,name:v.name+(v.labels&&v.labels.accent?' · '+v.labels.accent:'')})),sj=sr&&sr.ok?await sr.json().catch(()=>null):null,p=P();
+  p.el=Object.assign({},p.el,{key:k,voices:vs});W('hx_p_'+me,p);elFill(p.el);
+  o.innerHTML='✅ Connected — '+vs.length+' voices loaded'+(sj?' · plan <b>'+esc(sj.tier||'?')+'</b> · characters used <b>'+sj.character_count+' / '+sj.character_limit+'</b>':'');o.style.color='var(--g)'}
+ catch(e){o.textContent='❌ '+e.message+' (check the key, and that it has Text-to-Speech + Voices permission)';o.style.color='var(--r)'}}
+function saveEL(rm){const p=P(),old=p.el||{};
+ if(rm){p.el={};$('ek').value=''}
+ else p.el={key:$('ek').value.trim(),model:$('em2').value,f:$('ef').value.trim()||$('efs').value,m:$('emv').value.trim()||$('ems').value,voices:old.voices||[],vs:{stability:+$('el_st').value,similarity_boost:+$('el_sim').value,style:+$('el_sty').value,speed:+$('el_spd').value,use_speaker_boost:$('el_sb').checked}};
+ W('hx_p_'+me,p);log(rm?'removed elevenlabs key':'saved elevenlabs');toast(rm?'ElevenLabs removed':'ElevenLabs voice saved ✔')}
+function testEL(){saveEL();const l={'en-US':'Hello! This is your HEXA voice.','ne-NP':'नमस्ते! म तपाईंको हेक्सा आवाज हुँ।','hi-IN':'नमस्ते! मैं आपकी हेक्सा आवाज़ हूँ। मैं अब ElevenLabs से बोल रही हूँ।','ru-RU':'Привет! Это твой голос HEXA.','es-ES':'¡Hola! Soy tu voz de HEXA.','fr-FR':'Bonjour ! Voici ta voix HEXA.','ja-JP':'こんにちは！HEXAの声です。','ar-SA':'مرحبا! هذا صوتك من هيكسا.'};speak(l[lang]||l['en-US'],true)}
+let elTok=0,elRes=null;
+async function elSpeak(text,el){
+ const id=gender=='female'?(el.f||EL_F):(el.m||EL_M),model=el.model||'eleven_flash_v2_5',vs=Object.assign({stability:.5,similarity_boost:.75,style:0,speed:1,use_speaker_boost:true},el.vs||{}),L2=lang.split('-')[0];
+ const parts=text.match(/[^.!?।。！？]+[.!?।。！？]*\s*/g)||[text],chunks=[];let cur='';for(const p of parts){if((cur+p).length>240&&cur){chunks.push(cur);cur=p}else cur+=p}if(cur.trim())chunks.push(cur);
+ const get=async tx=>{const body={text:tx.trim(),model_id:model,voice_settings:vs};if(/flash_v2_5|turbo_v2_5/.test(model))body.language_code=L2;
+  const r=await fetch('https://api.elevenlabs.io/v1/text-to-speech/'+encodeURIComponent(id)+'?output_format=mp3_44100_128',{method:'POST',headers:{'xi-api-key':el.key,'Content-Type':'application/json',Accept:'audio/mpeg'},body:JSON.stringify(body)});
+  if(!r.ok){const j=await r.json().catch(()=>({})),d=j.detail;throw Error((d&&(d.message||d.status||(typeof d=='string'?d:'')))||'HTTP '+r.status)}return URL.createObjectURL(await r.blob())};
+ const tok=++elTok;setS('Speaking…','c','speaking');
+ const reqs=chunks.map(c=>get(c).catch(e=>e)); /* all chunks requested at once: the first one starts playing as soon as it is ready */
+ for(let i=0;i<reqs.length;i++){const u=await reqs[i];if(u instanceof Error)throw u;if(tok!=elTok){URL.revokeObjectURL(u);return}
+  await new Promise((res,rej)=>{elRes=res;au=new Audio(u);au.onended=()=>{lastSpkEnd=Date.now();URL.revokeObjectURL(u);res()};au.onerror=()=>{URL.revokeObjectURL(u);rej(Error('Audio playback failed'))};au.play().catch(rej)});
+  if(tok!=elTok)return}
+ lastSpkEnd=Date.now();rdy()}
+function saveGen(){const p=P();p.name=$('sn').value.trim()||'Hexa AI';p.speak=$('ss').checked;p.bg=$('sbg').value;p.hf=$('shf').checked;p.web=$('sweb').checked;W('hx_p_'+me,p);appBg();if(p.hf){if(!hf)hfStart()}else if(hf){hf=false;try{hfRec&&hfRec.stop()}catch(e){}}$('brand').textContent=p.name.replace(' AI','').toUpperCase();toast('Preferences saved')}
  
 /* ---- MEMBERSHIP ($1/month) + free limits ---- */
 const PAYMENT_LINK=''; // paste your Stripe / PayPal $1-per-month Payment Link here (public link only, never a secret key)
 const PRICE='$1',FREE_PHOTOS=2;
-const FEATS={image:'🎨 Image generation',video:'🎬 Text-to-video generator',code3d:'🧊 3D website code generator',uploads:'📎 Unlimited photo uploads in chat'};
-const DEF_PERMS={image:1,video:1,code3d:1,uploads:1};
+const FEATS={code3d:'🧊 3D website code generator',uploads:'📎 Unlimited photo uploads in chat'};
+const DEF_PERMS={code3d:1,uploads:1};
 const M=()=>L('hx_mem',{}),perms=()=>Object.assign({},DEF_PERMS,G().perms||{});
 function isMember(e){e=e||me;if(!e)return false;if(isAdmin(e))return true;const m=M()[e];return !!(m&&m.exp>Date.now())}
-const planTag=()=>isAdmin(me)?'👑 Admin · ':isMember()?'⭐ Member · ':'Free · ';
+const planTag=()=>isBoss(me)?'👑 Boss · ':isAdmin(me)?'👑 Admin · ':isMember()?'⭐ Member · ':'Free · ';
 function need(f){if(!perms()[f]||isMember())return true;openMember('🔒 '+FEATS[f]+' is a members-only feature.');return false}
 const dayKey=()=>new Date().toISOString().slice(0,10);
 const upU=()=>{const u=L('hx_up_'+me,{});return u.d==dayKey()?(u.n||0):0};
@@ -537,7 +545,7 @@ function paySend(){const ref=$('pref').value.trim(),m=M();m[me]=Object.assign({}
  window.open(ADMIN_WHATSAPP?'https://wa.me/'+ADMIN_WHATSAPP+'?text='+encodeURIComponent(txt):'mailto:'+ADMIN_EMAIL+'?subject='+encodeURIComponent('Hexa AI membership request')+'&body='+encodeURIComponent(txt),'_blank');
  $('psent').classList.add('on')}
 function payNow(){openPay()}function payDone(){openPay()}
-function admGrant(e){if(!isAdmin(me))return;const m=M(),b=Math.max(Date.now(),(m[e]&&m[e].exp)||0);m[e]={exp:b+30*864e5};W('hx_mem',m);log('admin granted 30d membership '+e);if(e==me)$('up').textContent=planTag()+me;openAdmin()}
+function admGrant(e){if(!isAdmin(me))return;const m=M(),b=Math.max(Date.now(),(m[e]&&m[e].exp)||0);m[e]={exp:b+30*864e5};W('hx_mem',m);log('admin granted 30d membership '+e);if(e==me)$('up').textContent=planTag()+me+(loginMethod()=='boss'?' ✓':'');openAdmin()}
 function admRev(e){if(!isAdmin(me))return;const m=M();delete m[e];W('hx_mem',m);log('admin revoked membership '+e);openAdmin()}
 function admBlock(e){if(!isAdmin(me))return;const U=L('hx_users',{});if(!U[e])return;U[e].blocked=!U[e].blocked;W('hx_users',U);log((U[e].blocked?'blocked ':'unblocked ')+e);openAdmin()}
 function admPerm(k,v){if(!isAdmin(me))return;const g=G();g.perms=Object.assign({},g.perms||{});g.perms[k]=v?1:0;W('hx_g',g);log('admin permission '+k+'='+(v?'members only':'free for all'));toast('Permission saved')}
@@ -546,7 +554,7 @@ function admPerm(k,v){if(!isAdmin(me))return;const g=G();g.perms=Object.assign({
 function openAdmin(){
  if(!me||!isAdmin(me))return modal('<h3>⛔ ACCESS DENIED</h3><p style="font-size:13px;color:var(--t2)">This panel is restricted to authorised administrator accounts.</p>');
  const U=L('hx_users',{}),g=G(),acc=L('hx_accts',[]),mm=M(),pr=perms();
- const plan=e=>isAdmin(e)?'👑 Admin':(mm[e]&&mm[e].exp>Date.now())?'⭐ Member<br><span style="color:var(--t3)">until '+new Date(mm[e].exp).toLocaleDateString()+'</span>':(mm[e]&&mm[e].pend)?'<span style="color:var(--a)">⏳ Pending approval'+(mm[e].ref?'<br>Ref: '+esc(mm[e].ref):'')+'<br>'+new Date(mm[e].pend).toLocaleString()+'</span>':'Free';
+ const plan=e=>isBoss(e)?'👑 Boss (creator)':isAdmin(e)?'👑 Admin':(mm[e]&&mm[e].exp>Date.now())?'⭐ Member<br><span style="color:var(--t3)">until '+new Date(mm[e].exp).toLocaleDateString()+'</span>':(mm[e]&&mm[e].pend)?'<span style="color:var(--a)">⏳ Pending approval'+(mm[e].ref?'<br>Ref: '+esc(mm[e].ref):'')+'<br>'+new Date(mm[e].pend).toLocaleString()+'</span>':'Free';
  const rows=Object.keys(U).map(e=>{const k=L('hx_p_'+e,{keys:{}}).keys||{},nc=Object.keys(L('hx_c_'+e,{})).length,q=esc(e);return`<tr><td>${q}${U[e].g?' (G)':''}${U[e].blocked?' <span style="color:var(--r)">⛔ blocked</span>':''}<br><span style="color:var(--t4)">${nc} chats · joined ${U[e].t?new Date(U[e].t).toLocaleDateString():'—'}</span></td><td>${plan(e)}</td><td>${Object.entries(k).filter(x=>x[1]).map(([n,v])=>n+':'+esc(v.slice(0,4))+'•••').join(' ')||'—'}</td><td>${isAdmin(e)?'—':`<button class="btn bs" style="padding:2px 8px" onclick="admGrant('${q}')">+30d ⭐</button> <button class="btn bs" style="padding:2px 8px" onclick="admRev('${q}')">Set Free</button> <button class="btn bs" style="padding:2px 8px" onclick="admBlock('${q}')">${U[e].blocked?'Unblock':'Block'}</button> <button class="btn bs" style="padding:2px 8px" onclick="admKeys('${q}')">Clear keys</button> <button class="btn bs" style="padding:2px 8px;color:var(--r)" onclick="admDel('${q}')">Delete</button>`}</td></tr>`}).join('')||'<tr><td>No users</td></tr>';
  modal(`<h3>👑 ADMIN PANEL</h3><div class="box"><b>👥 User management (${Object.keys(U).length})</b><div style="overflow-x:auto;margin-top:6px"><table><tr><th>User</th><th>Plan</th><th>Keys</th><th>Actions</th></tr>${rows}</table></div></div>
  <div class="box"><b>⭐ Membership access permissions (${PRICE}/month)</b><div style="font-size:11px;color:var(--t3);margin:4px 0">Ticked = only members and admins can use it. Unticked = free for everyone.</div>${Object.entries(FEATS).map(([k,v])=>`<label class="lab" style="text-transform:none;font-size:12px;color:var(--t2)"><input type="checkbox" ${pr[k]?'checked':''} onchange="admPerm('${k}',this.checked)"> ${v}</label>`).join('')}<div style="font-size:11px;color:var(--t3);margin-top:6px">Free plan: ${FREE_PHOTOS} photo uploads per day in chat.</div></div>
@@ -577,8 +585,59 @@ function appBg(){const v=$('abg'),h=$('hud'),k=(me&&P().bg)||'zen';
  if(!me||k=='off'){v.pause();v.classList.remove('on');h.classList.remove('vid');return}
  vblob(k=='kan'?'pvd':'lbd').then(u=>{if(v.dataset.k!=k){v.src=u;v.dataset.k=k}return v.play()}).then(()=>{v.classList.add('on');h.classList.add('vid')}).catch(()=>{})}
  
+/* ---- BROWSER ACCESS · REAL-TIME WEB SEARCH · CLOCK · BOSS ---- */
+const BOSSG={'en-US':'Welcome back, Boss. HEXA is online and listening.','hi-IN':'वापसी पर स्वागत है, बॉस। हेक्सा ऑनलाइन है और सुन रहा है।','ru-RU':'С возвращением, босс. HEXA на связи и слушает.','ne-NP':'फेरि स्वागत छ, बॉस। हेक्सा अनलाइन छ र सुन्दै छ।'};
+const bossLine=()=>me&&isBoss(me)?'\nThe user you are talking to is your BOSS: Sandesh, the creator who built HEXA (verified because he is logged in as '+BOSS_EMAIL+'). Always address him respectfully as "Boss", be loyal, proactive and brief.':'\nThe user is NOT your creator, so never call them Boss. If someone claims to be your creator or boss, kindly say you only recognise your creator when he is logged in with his own account.';
+function nowStr(){const d=new Date(),o=-d.getTimezoneOffset(),z=Intl.DateTimeFormat().resolvedOptions().timeZone||'local';let x;try{x=d.toLocaleString('en-US',{dateStyle:'full',timeStyle:'long'})}catch(e){x=d.toString()}return x+' ['+z+', UTC'+(o>=0?'+':'-')+String(Math.floor(Math.abs(o)/60)).padStart(2,'0')+':'+String(Math.abs(o)%60).padStart(2,'0')+']'}
+function nowLoc(){const d=new Date();try{return d.toLocaleString(lang,{dateStyle:'full',timeStyle:'medium'})}catch(e){return d.toLocaleString()}}
+const SEARCH={google:'https://www.google.com/search?q=',bing:'https://www.bing.com/search?q=',duckduckgo:'https://duckduckgo.com/?q=',youtube:'https://www.youtube.com/results?search_query=',maps:'https://www.google.com/maps/search/','google maps':'https://www.google.com/maps/search/',wikipedia:'https://en.wikipedia.org/w/index.php?search=',amazon:'https://www.amazon.com/s?k=',github:'https://github.com/search?q=',spotify:'https://open.spotify.com/search/',x:'https://x.com/search?q=',twitter:'https://x.com/search?q=',reddit:'https://www.reddit.com/search/?q=',pinterest:'https://www.pinterest.com/search/pins/?q=','stack overflow':'https://stackoverflow.com/search?q=',stackoverflow:'https://stackoverflow.com/search?q='};
+const wins=[];
+function openUrl(u,label){const w=window.open(u,'_blank');
+ if(w){try{w.opener=null}catch(e){}wins.push(w);reply('⬡ '+({'hi-IN':'खोल रहा हूँ','ru-RU':'Открываю'}[lang]||'Opening')+' **'+label+'** 🚀');return}
+ reply('⚠️ Your browser blocked the pop-up (a voice command is not a click). [Tap here to open '+label+']('+u+')\n\nTo let me open tabs by voice, click the pop-up icon in the address bar and choose **Always allow pop-ups** for this site.')}
+const NORM=[[/ओपन|खोलो|खोलिए|खोलें|खोल दो|खोल/g,'open'],[/यूट्यूब|यू ट्यूब|यूटूब/g,'youtube'],[/गूगल|गुगल/g,'google'],[/फेसबुक/g,'facebook'],[/इंस्टाग्राम/g,'instagram'],[/जीमेल/g,'gmail'],[/व्हाट्सएप|व्हाट्सऐप|वाट्सएप/g,'whatsapp'],[/नेटफ्लिक्स/g,'netflix'],[/स्पॉटिफाई/g,'spotify'],[/गिटहब/g,'github'],[/सर्च|खोजो|खोजें|ढूंढो|ढूँढो/g,'search'],[/क्या समय हुआ है|समय क्या हुआ है|अभी क्या समय है|टाइम क्या हुआ है|समय बताओ/g,'what time is it'],[/आज की तारीख|तारीख क्या है|आज क्या तारीख है|तारीख बताओ/g,'what is the date'],[/करो|कीजिए|करें|कर दो/g,''],[/открой(?:те)?|открыть|запусти/gi,'open'],[/ютуб|ютьюб/gi,'youtube'],[/гугл/gi,'google'],[/фейсбук/gi,'facebook'],[/инстаграм/gi,'instagram'],[/джимейл|гмейл/gi,'gmail'],[/ватсап|вотсап/gi,'whatsapp'],[/найди|поищи|искать|поиск/gi,'search'],[/сколько времени|который час|скажи время/gi,'what time is it'],[/какая сегодня дата|какое сегодня число|какая дата/gi,'what is the date'],[/закрой все вкладки|закрой вкладки/gi,'close all tabs'],[/кто я/gi,'who am i']];
+function normCmd(t){if(!/[ऀ-ॿЀ-ӿ]/.test(t))return t;let x=t;for(const[r,w]of NORM)x=x.replace(r,w);x=x.replace(/\s+/g,' ').trim();let m;if((m=x.match(/^(.+?) open$/)))x='open '+m[1];if((m=x.match(/^(.+?) search$/)))x='search '+m[1];return x}
+function browserCmd(raw){
+ let t=String(raw||'').trim().replace(/^(?:hey |hi |ok |okay )?hexa[, ]*/i,'').replace(/\s+dot\s+/gi,'.').replace(/[.!?।]+$/,'').replace(/\s+please$/i,'').trim();t=normCmd(t);let m;
+ if(/^(?:what(?:'s| is)? )?(?:the )?(?:current )?(?:time|date|day)(?: and date| and time)?(?: is it| now| today| right now)?$/i.test(t)){reply('🕒 **'+nowLoc()+'**\n('+(Intl.DateTimeFormat().resolvedOptions().timeZone||'local time')+')');return true}
+ if(/^(?:who am i|do you know me|who is your (?:boss|creator)|who (?:made|created|built) you)$/i.test(t)){reply(isBoss(me)?'👑 You are my **Boss — Sandesh**, the creator who made me. Logged in as '+me+'.':'I was created by my Boss, **Sandesh**. You are signed in as **'+me+'**.');return true}
+ if(/^close (?:all )?(?:the )?(?:tabs?|windows?)$/i.test(t)){let n=0;wins.splice(0).forEach(w=>{try{if(!w.closed){w.close();n++}}catch(e){}});reply(n?'✅ Closed '+n+' tab'+(n>1?'s':'')+' I opened.':'I have no open tabs to close — browsers only let me close tabs that I opened myself.');return true}
+ if((m=t.match(/^scroll (down|up)$/i))){$('cw').scrollBy({top:(m[1].toLowerCase()=='down'?1:-1)*420,behavior:'smooth'});return true}
+ if(/^(?:start a |open a )?new chat$/i.test(t)){newChat();return true}
+ if((m=t.match(/^(?:open|go to|launch)\s+(.+?)\s+and\s+search(?:\s+for)?\s+(.+)$/i))){const site=m[1].trim().toLowerCase(),q=m[2].trim();if(SEARCH[site])openUrl(SEARCH[site]+encodeURIComponent(q),site+' → '+q);else openUrl(SEARCH.google+encodeURIComponent(site+' '+q),'Google → '+site+' '+q);return true}
+ if((m=t.match(/^(?:search|look up|find|google)\s+(?:for\s+)?(.+?)\s+(?:on|in|using|at)\s+(google maps|stack ?overflow|[a-z]+)$/i))){const site=m[2].toLowerCase();if(SEARCH[site]){openUrl(SEARCH[site]+encodeURIComponent(m[1].trim()),site+' → '+m[1].trim());return true}}
+ if((m=t.match(/^(?:play|watch)\s+(.+?)(?:\s+on\s+youtube)?$/i))){openUrl(SEARCH.youtube+encodeURIComponent(m[1].trim()),'YouTube → '+m[1].trim());return true}
+ if((m=t.match(/^(?:open|launch|go to|visit|navigate to|take me to)\s+(?:the\s+)?(?:website\s+)?(.+?)(?:\s+(?:website|site|app|in (?:a )?new tab))?$/i))){const k=m[1].trim().toLowerCase();let u=APPS[k],d;
+  if(!u&&(d=k.match(/^(?:https?:\/\/)?([a-z0-9-]+(?:\.[a-z0-9-]+)+)((?:\/\S*)?)$/)))u=d[1]+d[2];
+  if(!u&&/^[a-z0-9]+$/.test(k))u=k+'.com';
+  if(u){openUrl('https://'+u,k);return true}}
+ return false}
+const needsWeb=t=>t.length<300&&(/(समाचार|खबर|आज|मौसम|कीमत|भाव|ताज़ा|ताजा|नवीनतम|новости|сегодня|погода|цена|курс|сейчас|последние|вчера|завтра)/i.test(t)||/\b(latest|news|today|tonight|yesterday|tomorrow|this (?:week|month|year)|current(?:ly)?|right now|live|scores?|prices?|weather|forecast|stocks?|exchange rate|trending|who won|release date|20(?:2[5-9]|3\d))\b/i.test(t))&&!/\b(code|script|function|html|css|python|javascript|website)\b/i.test(t);
+async function wikiCtx(q){try{const c=new AbortController();setTimeout(()=>c.abort(),8000);const r=await fetch('https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch='+encodeURIComponent(q)+'&format=json&origin=*&srlimit=3',{signal:c.signal}),j=await r.json(),it=(j.query&&j.query.search)||[];return it.length?'\n\nWEB LOOKUP (Wikipedia snippets — may not be real-time):\n'+it.map(x=>'- '+x.title+': '+x.snippet.replace(/<[^>]+>/g,'').replace(/&quot;/g,'"').replace(/&amp;/g,'&')).join('\n'):''}catch(e){return ''}}
+/* live web search through the AI provider's own search tool; returns null if unavailable so ask() can fall back */
+async function webAsk(prov,key,sys,h,q){
+ const mdl=String((P().models||{})[prov]||'').trim(),hd={'Content-Type':'application/json'},TO=ms=>{const c=new AbortController();setTimeout(()=>c.abort(),ms);return c.signal};let out=null,src=[];
+ try{
+  if(prov=='free'){for(const m of['searchgpt','gemini-search']){try{const r=await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:hd,body:JSON.stringify({model:m,messages:[{role:'system',content:sys},...h]}),signal:TO(45000)}),j=await r.json().catch(()=>({})),x=j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;if(r.ok&&x){out=x;break}}catch(e){}}}
+  else if(prov=='gemini'){const body=JSON.stringify({system_instruction:{parts:[{text:sys}]},contents:h.map(m=>({role:m.role=='assistant'?'model':'user',parts:[{text:m.content}]})),tools:[{google_search:{}}]});
+   for(const m of(mdl?[mdl]:['gemini-2.5-flash','gemini-2.0-flash'])){const r=await fetch('https://generativelanguage.googleapis.com/v1beta/models/'+m+':generateContent?key='+encodeURIComponent(key),{method:'POST',headers:{...hd,'x-goog-api-key':key},body,signal:TO(60000)}),j=await r.json().catch(()=>({}));if(!r.ok){if(r.status==404)continue;break}
+    const c=(j.candidates||[])[0]||{},x=((c.content||{}).parts||[]).map(p=>p.text||'').join('').trim();if(x){out=x;src=((c.groundingMetadata||{}).groundingChunks||[]).map(g=>g.web).filter(Boolean);break}}}
+  else if(prov=='openai'){const r=await fetch('https://api.openai.com/v1/responses',{method:'POST',headers:{...hd,Authorization:'Bearer '+key},body:JSON.stringify({model:mdl||'gpt-4o-mini',instructions:sys,input:h.map(m=>({role:m.role,content:m.content})),tools:[{type:'web_search_preview'}]}),signal:TO(60000)}),j=await r.json().catch(()=>({}));
+   if(r.ok){const ms=(j.output||[]).filter(o=>o.type=='message');out=ms.map(o=>(o.content||[]).map(c=>c.text||'').join('')).join('\n').trim();src=ms.flatMap(o=>(o.content||[]).flatMap(c=>(c.annotations||[]).filter(a=>a.type=='url_citation').map(a=>({uri:a.url,title:a.title}))))}}
+  else if(prov=='claude'){const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{...hd,'x-api-key':key,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},body:JSON.stringify({model:mdl||PROV.claude.m,max_tokens:2048,system:sys,messages:h,tools:[{type:'web_search_20250305',name:'web_search',max_uses:3}]}),signal:TO(70000)}),j=await r.json().catch(()=>({}));
+   if(r.ok){out=(j.content||[]).filter(x=>x.type=='text').map(x=>x.text).join('').trim();src=(j.content||[]).flatMap(x=>(x.citations||[]).map(c=>({uri:c.url,title:c.title})))}}
+ }catch(e){out=null}
+ if(!out)return null;
+ const u=[...new Map(src.filter(x=>x&&x.uri).map(x=>[x.uri,x])).values()].slice(0,4);
+ return out+(u.length?'\n\n**Sources:**\n'+u.map(x=>'- ['+String(x.title||x.uri).replace(/[\[\]]/g,'')+']('+x.uri+')').join('\n'):'')}
+ 
+let pendLM=null;
+const loginMethod=e=>L('hx_lmm',{})[e||me]||'password';
+function openWho(){const m=loginMethod(),role=isBoss(me)?'👑 Boss — creator of HEXA':isAdmin(me)?'👑 Admin':isMember()?'⭐ Member':'Free';
+ modal(`<h3>🔐 YOU ARE LOGGED IN</h3><div style="font-size:13px;line-height:2.1"><b>Email:</b> ${esc(me)}<br><b>Role:</b> ${role}<br><b>Login method:</b> ${m=='boss'?'✅ Boss password':m=='demo'?'Gmail shortcut':'Email &amp; password'}</div>`)}
+ 
 /* ---- BOOT ---- */
-$('lang').innerHTML=Object.entries(LANGS).map(([k,v])=>`<option value="${k}">${v}</option>`).join('');
+{const LO=['hi-IN','en-US','ru-RU','ne-NP'],ks=[...LO,...Object.keys(LANGS).filter(k=>!LO.includes(k))];$('lang').innerHTML=ks.map(k=>`<option value="${k}">${LANGS[k]}</option>`).join('')}
 theme(L('hx_theme',0));
 if(innerWidth<768)document.body.classList.add('mob');
 const cur=L('hx_cur',null);if(cur&&L('hx_users',{})[cur]&&!L('hx_users',{})[cur].blocked){me=cur;$('login').style.display='none';$('app').classList.add('vis');initApp()}else showAuth();
