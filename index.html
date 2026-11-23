@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="en" translate="no" class="notranslate"><head><meta charset="UTF-8"><meta name="google" content="notranslate"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Hexa AI</title>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
 <style>
@@ -175,7 +175,7 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
     <textarea id="inp" rows="1" placeholder='Ask anything… "open YouTube", search the news, write Python code…' onkeydown="if(event.key=='Enter'&&!event.shiftKey){event.preventDefault();send()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,150)+'px'"></textarea>
     <div class="vb" id="vb"><i></i><i></i><i></i><i></i><i></i><i></i></div><button class="mic" id="mic" onclick="mic()" title="Voice">🎤</button><button class="snd" onclick="send()">➤</button></div>
    <input type="file" id="f1" accept="image/*" hidden onchange="pick(event)">
-   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v19 Cloudflare AI · Live Web · Nepali Voice</div></div></div>
+   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v20 Cloudflare AI · Live Web · Nepali Voice</div></div></div>
  
  <div class="vw" id="v-code"><h3>💻 WEBSITE &amp; CODE GENERATOR</h3><textarea class="in" id="cpt" rows="3" placeholder="e.g. A dark portfolio website with hero, project grid, contact form and smooth animations"></textarea>
   <div class="fl"><select class="in" id="cprov" style="width:auto"><option value="">AI: current (Settings)</option><option value="groq">Groq</option><option value="openai">OpenAI (ChatGPT)</option><option value="gemini">Google Gemini</option><option value="claude">Claude</option><option value="cloudflare">Cloudflare Workers AI</option></select><select class="in" id="cfm" style="width:auto"><option value="html">HTML + CSS + JS</option><option value="react">React (single-file HTML)</option><option value="tailwind">Tailwind site</option><option value="web3d">🧊 3D Website (Three.js) ⭐</option><option value="py">Python</option><option value="node">Node.js</option></select>
@@ -396,8 +396,8 @@ function snap(){const v=$('cv'),c=$('cc');if(!v.videoWidth)return toast('Camera 
 /* online voice for languages the browser has no voice for (Nepali etc.) */
 async function onlineSpeak(text,lg){const tl=lg.startsWith('zh')?'zh-CN':lg.split('-')[0],cs=splitSpeech(text,170),tok=++elTok;
  for(let i=0;i<cs.length;i++){if(tok!==elTok)return true;
-  const ok=await new Promise(res=>{const a=new Audio('https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl='+tl+'&q='+encodeURIComponent(cs[i]));au=a;elRes=()=>res('stop');a.onended=()=>res(true);a.onerror=()=>res(false);a.play().then(()=>{if(i==0)setS('Speaking…','c','speaking')}).catch(()=>res(false))});
-  if(ok==='stop'||tok!==elTok)return true;if(!ok)return i>0}
+  const ok=await new Promise(res=>{const a=new Audio('https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl='+tl+'&q='+encodeURIComponent(cs[i]));au=a;elRes=()=>res('stop');a.onended=()=>res(true);a.onerror=()=>res(false);a.play().then(()=>{if(i==0)setS('Speaking…','c','speaking')}).catch(()=>res(false));setTimeout(()=>{try{a.pause()}catch(e){}res(false)},25000)});
+  if(ok==='stop'||tok!==elTok)return true;if(!ok){if(i>0){spkOn=false;lastSpkEnd=Date.now();rdy();return true}return false}}
  spkOn=false;lastSpkEnd=Date.now();rdy();return true}
 function stopSpeak(){spkOn=false;elTok++;if(elRes){const f=elRes;elRes=null;f()}if(window.speechSynthesis)speechSynthesis.cancel();if(au){au.onended=au.onerror=null;au.pause();au=null}}
 function pickVoice(){const v=speechSynthesis.getVoices(),b=lang.split('-')[0],ls=((a)=>a.length||b!='ne'?a:v.filter(x=>/^hi/i.test(x.lang)))(v.filter(x=>x.lang.toLowerCase().replace('_','-').startsWith(b)));
@@ -417,8 +417,8 @@ if(window.speechSynthesis)speechSynthesis.onvoiceschanged=()=>speechSynthesis.ge
 /* ---- VOICE IN ---- */
 function vbars(on){clearInterval(vbT);const b=document.querySelectorAll('#vb i');if(!on)return b.forEach(x=>{x.style.height='4px';x.style.opacity=.25});vbT=setInterval(()=>b.forEach(x=>{x.style.height=(3+Math.random()*15)+'px';x.style.opacity=.9}),80)}
 /* ---- HANDS-FREE VOICE: starts automatically, listens continuously, runs commands ---- */
-let hf=false,hfRec=null,hfPend=null,hfFail=0,lastSpkEnd=0,spkOn=false,spkOnAt=0,lastSaid='',hfWait=0;
-const hfSpk=()=>(spkOn&&Date.now()-spkOnAt<90000)||(window.speechSynthesis&&speechSynthesis.speaking)||(au&&!au.paused&&!au.ended)||Date.now()-lastSpkEnd<900;
+const badLang=new Set();let hf=false,hfRec=null,hfPend=null,hfFail=0,lastSpkEnd=0,spkOn=false,spkOnAt=0,lastSaid='',hfWait=0;
+const hfSpk=()=>(spkOn&&Date.now()-spkOnAt<60000)||(au&&!au.paused&&!au.ended&&!au.error&&Date.now()-spkOnAt<60000)||Date.now()-lastSpkEnd<900;
 function rdy(){hfRec?setS('🎤 Listening…','c','listening'):setS('Ready')}
 /* echo protection: (1) the recognizer is stopped while HEXA speaks and only restarts after the voice ended, (2) anything heard that matches what HEXA just said is dropped */
 function spkBegin(txt){spkOn=true;spkOnAt=Date.now();lastSaid=txt;if(hfRec){try{hfRec.abort()}catch(e){}}}
@@ -431,14 +431,22 @@ function hfStart(auto){const SR=window.SpeechRecognition||window.webkitSpeechRec
  if(!SR){if(!auto)toast('Voice input needs Chrome, Edge or Safari');return}
  if(!me)return;hf=true;if(hfRec)return;
  if(hfSpk()){if(!hfWait){hfWait=1;setTimeout(()=>{hfWait=0;hfStart(true)},400)}return}
- const r=new SR();r.lang=lang;r.continuous=true;r.interimResults=true;hfRec=r;rec=r;
- r.onstart=()=>{$('mic').classList.add('on');vbars(1);if(!busy)rdy()};
+ const r=new SR();r.lang=(badLang.has(lang)&&lang=='ne-NP')?'hi-IN':lang;r.continuous=true;r.interimResults=true;hfRec=r;rec=r;
+ r.onstart=()=>{r.live=true;$('mic').classList.add('on');vbars(1);if(!busy)rdy()};
  r.onresult=e=>{hfFail=0;if(hfSpk())return;let fin='',itm='';for(let i=e.resultIndex;i<e.results.length;i++){const x=e.results[i];if(x.isFinal)fin+=x[0].transcript;else itm+=x[0].transcript}
   if(fin.trim())hfRun(fin);else if(itm.trim()&&!busy)$('inp').value=itm};
- r.onerror=e=>{if(e.error=='not-allowed'||e.error=='service-not-allowed'){hf=false;hfNeedTap()}else if(e.error=='audio-capture'){hf=false;toast('🎤 No microphone found')}else if(e.error!='no-speech'&&e.error!='aborted')hfFail++};
+ r.onerror=e=>{if(e.error=='not-allowed'||e.error=='service-not-allowed'){hf=false;if(r.manual)toast('🎤 Microphone blocked — click the 🔒 icon in the address bar, allow Microphone, then press the mic again');else hfNeedTap()}else if(e.error=='audio-capture'){hf=false;toast('🎤 No microphone found')}else if(e.error=='network'){hfFail++;if(!r.nt){r.nt=1;toast('🎤 Speech service unreachable — check your internet connection')}}else if(e.error=='language-not-supported'){badLang.add(lang);toast('🎤 Your browser cannot listen in this language — listening in Hindi instead')}else if(e.error!='no-speech'&&e.error!='aborted')hfFail++};
  r.onend=()=>{hfRec=null;if(rec===r)rec=null;$('mic').classList.remove('on');vbars(0);if(!busy&&!hf)setS('Ready');if(hf&&me&&!document.hidden)setTimeout(()=>hfStart(true),Math.min(300+hfFail*700,6000))};
- try{r.start()}catch(err){hfRec=null}}
-function mic(){const p=P();if(hf||hfRec){hf=false;p.hf=false;W('hx_p_'+me,p);try{hfRec&&hfRec.stop()}catch(e){}toast('🎤 Hands-free voice OFF');return}p.hf=true;W('hx_p_'+me,p);hfStart();toast('🎤 Hands-free voice ON')}
+ r.manual=!auto;try{r.start()}catch(err){hfRec=null;if(!auto)toast('🎤 Could not start microphone — reload the page and try again')}
+ if(!auto)setTimeout(()=>{if(hfRec===r&&!r.live){try{r.abort()}catch(e){}hfRec=null;rec=null;toast('🎤 Mic did not start — allow Microphone for this site and press the mic again')}},6000)}
+function micOn(){const p=P();p.hf=true;W('hx_p_'+me,p);stopSpeak();spkOn=false;lastSpkEnd=0;hfWait=0;hfFail=0;hf=true;hfStart();toast('🎤 Hands-free voice ON')}
+function mic(){const p=P();
+ /* only treat as ON when the recognizer is really listening; otherwise a click always (re)starts it */
+ if(hfRec&&hfRec.live){hf=false;p.hf=false;W('hx_p_'+me,p);try{hfRec.stop()}catch(e){}toast('🎤 Hands-free voice OFF');return}
+ try{hfRec&&hfRec.abort()}catch(e){}hfRec=null;rec=null;hf=false;
+ const md=navigator.mediaDevices;
+ if(md&&md.getUserMedia){md.getUserMedia({audio:true}).then(st=>{st.getTracks().forEach(t=>t.stop());micOn()}).catch(err=>{hf=false;toast(err&&err.name=='NotFoundError'?'🎤 No microphone found':'🎤 Microphone blocked — click the 🔒 icon in the address bar, allow Microphone, then press the mic again')})}
+ else micOn()}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&me&&hf&&!hfRec)hfStart(true)});
  
 /* ---- CODE GENERATOR ---- */
@@ -689,7 +697,7 @@ async function ctxPlan(sys,hist,f){
  while(sent.length>1&&tt>room()){tt-=cost(sent[0]);sent.shift()}
  while(sent.length>1&&sent[0].role!='user')sent.shift();
  return{sys:sm?sys+'\n\nSUMMARY OF THE EARLIER PART OF THIS CONVERSATION (older messages were condensed to save tokens; treat it as things that were really said):\n'+sm:sys,msgs:sent.map(m=>({role:m.role,content:m.content}))}}
-async function askCtx(im,wq){let le;for(const f of[1,0.5]){try{const pl=await ctxPlan(sysP(),chatHistory,f);return await ask(pl.msgs,pl.sys,null,null,im,wq)}catch(e){le=e;if(f==1&&CTXERR.test(String(e&&e.message)))continue;throw e}}throw le}
+async function askCtx(im,wq){let le;for(const f of[1,0.5]){try{const pl=await ctxPlan(sysP(),chatHistory,f);const ms=pl.msgs.map(x=>({...x})),lu=ms[ms.length-1];if(lu&&lu.role=='user'&&typeof lu.content=='string')lu.content+=' (Unless I explicitly ask for another language, answer ONLY in '+LNAME[lang]+'.)';return await ask(ms,pl.sys,null,null,im,wq)}catch(e){le=e;if(f==1&&CTXERR.test(String(e&&e.message)))continue;throw e}}throw le}
  
 function saveRoute(){const p=P(),v=$('sp').value;if(v!='gemini'&&v!='groq'&&v!='cloudflare')return;p.route=Object.assign({},p.route);p.route[v]=$('srt').value;const u=$('scf').value.trim();p.cf=Object.assign({},p.cf,{url:/^https:\/\/\S+$/.test(u)?u:''});W('hx_p_'+me,p)}
 async function testCF(){saveRoute();const v=$('sp').value,k=cleanKey($('sk').value),o=$('cfres'),url=cfUrl(),ac=new AbortController(),to=setTimeout(()=>ac.abort(),15000);o.style.color='var(--t2)';o.textContent='Contacting '+url+' …';
