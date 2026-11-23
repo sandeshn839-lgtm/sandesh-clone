@@ -613,12 +613,14 @@ function browserCmd(raw){
  if(/^close (?:all )?(?:the )?(?:tabs?|windows?)$/i.test(t)){let n=0;wins.splice(0).forEach(w=>{try{if(!w.closed){w.close();n++}}catch(e){}});reply(n?'✅ Closed '+n+' tab'+(n>1?'s':'')+' I opened.':'I have no open tabs to close — browsers only let me close tabs that I opened myself.');return true}
  if((m=t.match(/^scroll (down|up)$/i))){$('cw').scrollBy({top:(m[1].toLowerCase()=='down'?1:-1)*420,behavior:'smooth'});return true}
  if(/^(?:start a |open a )?new chat$/i.test(t)){newChat();return true}
- if((m=t.match(/^(?:open|go to|launch)\s+(.+?)\s+and\s+search(?:\s+for)?\s+(.+)$/i))){const site=m[1].trim().toLowerCase(),q=m[2].trim();if(SEARCH[site])openUrl(SEARCH[site]+encodeURIComponent(q),site+' → '+q);else openUrl(SEARCH.google+encodeURIComponent(site+' '+q),'Google → '+site+' '+q);return true}
+ if((m=t.match(/^(?:open|go to|launch)\s+(.+?)\s+and\s+search(?:\s+for)?\s+(.+)$/i))){const site=m[1].trim().toLowerCase(),q=m[2].trim();if(SEARCH[site])openUrl(SEARCH[site]+encodeURIComponent(q),site+' → '+q);else openUrl(SEARCH.google+encodeURIComponent(site+' '+q),'Search → '+site+' '+q);return true}
  if((m=t.match(/^(?:search|look up|find|google)\s+(?:for\s+)?(.+?)\s+(?:on|in|using|at)\s+(google maps|stack ?overflow|[a-z]+)$/i))){const site=m[2].toLowerCase();if(SEARCH[site]){openUrl(SEARCH[site]+encodeURIComponent(m[1].trim()),site+' → '+m[1].trim());return true}}
+ if((m=t.match(/^(?:search|google|look up)(?:\s+google)?(?:\s+for)?\s+(.+)$/i))){const q=m[1].trim();if(q){openUrl(SEARCH.google+encodeURIComponent(q),'Search → '+q);return true}}
  if((m=t.match(/^(?:play|watch)\s+(.+?)(?:\s+on\s+youtube)?$/i))){openUrl(SEARCH.youtube+encodeURIComponent(m[1].trim()),'YouTube → '+m[1].trim());return true}
  if((m=t.match(/^(?:open|launch|go to|visit|navigate to|take me to)\s+(?:the\s+)?(?:website\s+)?(.+?)(?:\s+(?:website|site|app|in (?:a )?new tab))?$/i))){const k=m[1].trim().toLowerCase();let u=APPS[k],d;
   if(!u&&(d=k.match(/^(?:https?:\/\/)?([a-z0-9-]+(?:\.[a-z0-9-]+)+)((?:\/\S*)?)$/)))u=d[1]+d[2];
   if(!u&&/^[a-z0-9]+$/.test(k))u=k+'.com';
+  if(!u&&!/^[a-z0-9]+$/.test(k)&&k.split(/\s+/).length<=5&&!/[\/:?#]/.test(k)){openUrl('https://www.google.com/search?btnI=1&q='+encodeURIComponent(k),k);return true}
   if(u){openUrl('https://'+u,k);return true}}
  return false}
 const stripGL=t=>String(t==null?'':t).replace(/\s*🔎?\s*\[?Open live Google results\]?(?:\([^)]*\))?/g,'').replace(/\n{3,}/g,'\n\n').trimEnd(); /* old saved replies may still contain that line: never show it, never speak it, never send it back to the AI */
