@@ -175,10 +175,10 @@ table{width:100%;border-collapse:collapse;font-size:11px}td,th{padding:6px;borde
     <textarea id="inp" rows="1" placeholder='Ask anything… "open YouTube", search the news, write Python code…' onkeydown="if(event.key=='Enter'&&!event.shiftKey){event.preventDefault();send()}" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,150)+'px'"></textarea>
     <div class="vb" id="vb"><i></i><i></i><i></i><i></i><i></i><i></i></div><button class="mic" id="mic" onclick="mic()" title="Voice">🎤</button><button class="snd" onclick="send()">➤</button></div>
    <input type="file" id="f1" accept="image/*" hidden onchange="pick(event)">
-   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v16 Cloudflare options</div></div></div>
+   <div class="hint">⬡ HEXA AI · Voice input &amp; spoken replies · 22 languages · v17 Cloudflare AI</div></div></div>
  
  <div class="vw" id="v-code"><h3>💻 WEBSITE &amp; CODE GENERATOR</h3><textarea class="in" id="cpt" rows="3" placeholder="e.g. A dark portfolio website with hero, project grid, contact form and smooth animations"></textarea>
-  <div class="fl"><select class="in" id="cprov" style="width:auto"><option value="">AI: current (Settings)</option><option value="groq">Groq</option><option value="openai">OpenAI (ChatGPT)</option><option value="gemini">Google Gemini</option><option value="claude">Claude</option></select><select class="in" id="cfm" style="width:auto"><option value="html">HTML + CSS + JS</option><option value="react">React (single-file HTML)</option><option value="tailwind">Tailwind site</option><option value="web3d">🧊 3D Website (Three.js) ⭐</option><option value="py">Python</option><option value="node">Node.js</option></select>
+  <div class="fl"><select class="in" id="cprov" style="width:auto"><option value="">AI: current (Settings)</option><option value="groq">Groq</option><option value="openai">OpenAI (ChatGPT)</option><option value="gemini">Google Gemini</option><option value="claude">Claude</option><option value="cloudflare">Cloudflare Workers AI</option></select><select class="in" id="cfm" style="width:auto"><option value="html">HTML + CSS + JS</option><option value="react">React (single-file HTML)</option><option value="tailwind">Tailwind site</option><option value="web3d">🧊 3D Website (Three.js) ⭐</option><option value="py">Python</option><option value="node">Node.js</option></select>
   <button class="btn" onclick="genCode()">⬡ Generate</button><button class="btn bs" onclick="cpy()">Copy</button><button class="btn bs" onclick="dl()">Download</button><button class="btn bs" onclick="prev()">▶ Preview</button></div>
   <pre class="out" id="cout">Your code appears here…</pre><div id="cprev"></div></div>
  
@@ -222,7 +222,7 @@ const LANGS={'en-US':'English','ne-NP':'नेपाली (Nepali)','hi-IN':'�
 const LNAME={'en-US':'English','ne-NP':'Nepali','hi-IN':'Hindi','bn-BD':'Bengali','ur-PK':'Urdu','es-ES':'Spanish','fr-FR':'French','de-DE':'German','it-IT':'Italian','pt-BR':'Portuguese','ru-RU':'Russian','ja-JP':'Japanese','zh-CN':'Chinese (Simplified)','ko-KR':'Korean','ar-SA':'Arabic','tr-TR':'Turkish','id-ID':'Indonesian','th-TH':'Thai','vi-VN':'Vietnamese','nl-NL':'Dutch','pl-PL':'Polish','sw-KE':'Swahili'};
 const APPS={youtube:'youtube.com',gmail:'mail.google.com',google:'google.com',facebook:'facebook.com',instagram:'instagram.com',github:'github.com',netflix:'netflix.com',spotify:'open.spotify.com',whatsapp:'web.whatsapp.com',maps:'maps.google.com',x:'x.com',linkedin:'linkedin.com'};
 /* provider → endpoint map (dropdown values must match these keys) */
-const PROV={groq:{n:'Groq',u:'https://api.groq.com/openai/v1/chat/completions',m:'llama-3.3-70b-versatile'},openai:{n:'OpenAI (ChatGPT)',u:'https://api.openai.com/v1/chat/completions',m:'gpt-4o-mini'},gemini:{n:'Google Gemini',m:['gemini-2.5-flash','gemini-2.0-flash']},claude:{n:'Claude',u:'https://api.anthropic.com/v1/messages',m:'claude-sonnet-4-5'}};
+const PROV={groq:{n:'Groq',u:'https://api.groq.com/openai/v1/chat/completions',m:'llama-3.3-70b-versatile'},openai:{n:'OpenAI (ChatGPT)',u:'https://api.openai.com/v1/chat/completions',m:'gpt-4o-mini'},gemini:{n:'Google Gemini',m:['gemini-2.5-flash','gemini-2.0-flash']},claude:{n:'Claude',u:'https://api.anthropic.com/v1/messages',m:'claude-sonnet-4-5'},cloudflare:{n:'Cloudflare Workers AI (Worker v2)',m:'@cf/meta/llama-3.3-70b-instruct-fp8-fast'}};
 /* 15 UI themes: name, accent, secondary, background */
 const TH=[['Cyberpunk Cyan','#00d4ff','#0055ee','#000510'],['Holographic Purple','#c77dff','#7b2ff7','#0a0414'],['Matrix Green','#00ff66','#008f3a','#000a04'],['Midnight Obsidian','#9aa7bd','#3d4a63','#05060a'],['Neon Sunset','#ff6b35','#ff2e93','#12040a'],['Deep Space Blue','#4d8dff','#1b2fd1','#02061a'],['Golden Titanium','#f5c542','#a87a10','#0e0a02'],['Emerald Frost','#3dffc4','#0a9b8a','#01100e'],['Crimson Plasma','#ff2255','#a3002b','#12020a'],['Arctic Ice','#a8e6ff','#4aa3df','#04101a'],['Vaporwave Pink','#ff71ce','#01cdfe','#100420'],['Solar Flare','#ffb000','#ff4500','#120600'],['Electric Violet','#8a5cff','#ff00e5','#07021a'],['Monolith Dark','#e6e6e6','#777777','#000000'],['Royal Amethyst','#b57bff','#5b2a9e','#0d0418']];
 const EL_F='21m00Tcm4TlvDq8ikWAM',EL_M='pNInz6obpgDQGcFmaJgB';
@@ -331,8 +331,8 @@ async function ask(msgs,sys,prov,key,im,web){
  if(web&&!im){const wr=await webAsk((!key||prov=='free')?'free':prov,key,sys,h,web);if(wr)return wr;sys+=await wikiCtx(web)}
  const oa=(m,i)=>i==last&&im?{role:m.role,content:[{type:'text',text:m.content},{type:'image_url',image_url:{url:im}}]}:m;
  const free=async()=>{let le;for(const fm of ['openai','openai-large']){try{const j=await J(await fetch('https://text.pollinations.ai/openai',{method:'POST',headers:H,body:JSON.stringify({model:fm,messages:[{role:'system',content:sys},...h.map(oa)]})}));const t=j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content;if(t)return t;le=Error('Empty AI response')}catch(e){le=e}}throw le};
- if(!key||prov=='free')return free();
- if(im&&prov=='groq'){toast('Groq cannot read photos — using the free vision AI for this message');return free()}
+ if(prov=='free'||(!key&&prov!='cloudflare'))return free();
+ if(im&&(prov=='groq'||prov=='cloudflare')){toast(PROV[prov].n+' cannot read photos — using the free vision AI for this message');return free()}
  const c0=PROV[prov];if(!c0)throw Error('Unknown provider: '+prov);const c=Object.assign({},c0);{const mo=String((p.models||{})[prov]||'').trim();if(mo)c.m=Array.isArray(c0.m)?[mo]:mo}
  /* Cloudflare Worker transport (Groq + Gemini only, text only). Always resolves or throws; 60s timeout so loading never hangs. */
  const viaCF=async(pv,k,model,messages)=>{
@@ -352,7 +352,7 @@ async function ask(msgs,sys,prov,key,im,web){
   const tx=j.text??j.response??j.reply??j.output??(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content)??(j.result&&j.result.response),t=typeof tx=='string'?tx.trim():'';if(!t)throw Error('Empty AI response from '+PROV[pv].n+'.');return t};
  /* Groq always, Gemini when no image → Cloudflare. Gemini + image keeps the existing direct implementation below (Worker is text-only). */
  const rm=routeOf(prov);
- if((prov=='groq'||(prov=='gemini'&&!im))&&rm!='direct'){
+ if((prov=='groq'||prov=='cloudflare'||(prov=='gemini'&&!im))&&rm!='direct'&&!(prov=='cloudflare'&&im)){
   const models=Array.isArray(c.m)?c.m:[c.m],cm=[{role:'system',content:sys},...h];let le;
   for(let i=0;i<models.length;i++){
    try{return await viaCF(prov,key,models[i],cm)}
@@ -433,7 +433,7 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden&&me&&hf&&!
  
 /* ---- CODE GENERATOR ---- */
 const FM={html:['HTML, CSS and JavaScript — ONE self-contained index.html with inline <style> and <script>','html'],react:['React — ONE self-contained HTML file loading React 18 and Babel standalone through UMD script tags','html'],tailwind:['HTML with Tailwind CSS via the CDN script — ONE self-contained file','html'],py:['Python 3 — one runnable script','py'],node:['Node.js — one runnable script (plus package.json in a second block if needed)','js'],web3d:['HTML — ONE self-contained, award-level 3D UI website. Load Three.js r128 with <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script> (core only: no OrbitControls, no external images or models). Include a full-screen animated WebGL hero scene (floating geometry, particles, glowing lights), mouse and scroll parallax camera movement, 3D tilt cards, glassmorphism sections, smooth animations, a responsive layout, and a resize handler','html']};
-async function genCode(){const p=$('cpt').value.trim();if(!p)return toast('Describe what to build');const f=FM[$('cfm').value];if($('cfm').value=='web3d'&&!need('code3d'))return;const cp=$('cprov').value||null;if(cp&&!cleanKey(P().keys[cp]))return toast('Add your '+PROV[cp].n+' API key in ⋮ → Settings first');setS('💻 Coding…','a','thinking');$('cout').textContent='Generating…';$('cprev').innerHTML='';
+async function genCode(){const p=$('cpt').value.trim();if(!p)return toast('Describe what to build');const f=FM[$('cfm').value];if($('cfm').value=='web3d'&&!need('code3d'))return;const cp=$('cprov').value||null;if(cp&&cp!='cloudflare'&&!cleanKey(P().keys[cp]))return toast('Add your '+PROV[cp].n+' API key in ⋮ → Settings first');setS('💻 Coding…','a','thinking');$('cout').textContent='Generating…';$('cprev').innerHTML='';
  try{const o=await ask([{role:'user',content:p}],`You are a world-class senior engineer and designer. Build a COMPLETE, polished, responsive, bug-free, production-ready solution in ${f[0]}. No placeholders, no TODOs, no omitted sections. Put the full code in a fenced code block, then give at most 3 lines of run instructions in ${LNAME[lang]}.`,cp);
  const bl=[...o.matchAll(/```[\w+-]*\n([\s\S]*?)```/g)].map(m=>m[1]);lastCode=bl.sort((a,b)=>b.length-a.length)[0]||o;$('cout').textContent=o;if(f[1]=='html')prev()}catch(e){$('cout').textContent='⚠️ '+e.message}setS('Ready')}
 const cpy=()=>lastCode?navigator.clipboard.writeText(lastCode).then(()=>toast('Copied')):toast('Nothing to copy');
@@ -454,7 +454,7 @@ function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <b style="font-size:12px">🎨 UI Theme System (15)</b><div class="themes" style="margin:8px 0 4px">${TH.map((t,i)=>`<button class="th${i==p.theme?' on':''}" onclick="theme(${i},1)"><i style="background:linear-gradient(135deg,${t[1]},${t[2]})"></i>${i+1}. ${t[0]}</button>`).join('')}</div>
  <div class="box"><label class="lab">AI provider</label><select id="sp" onchange="spc()"><option value="free">Free (no key needed)</option>${Object.entries(PROV).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('')}</select>
  <label class="lab">Your own API key (saved in this browser only)</label><input class="in" id="sk" type="password" placeholder="Paste key (Gemini: AQ.… or AIza… · Groq: gsk_… · OpenAI: sk-…)"><label class="lab">Model</label><select id="smp" onchange="$('smo').value=this.value"></select><input class="in" id="smo" style="margin-top:6px" placeholder="…or type any model name (empty = default)"><div id="scap" style="font-size:11px;color:var(--t2);line-height:1.8;margin-top:8px"></div>
- <div id="cfbox" style="margin-top:8px"><label class="lab">☁️ Connection (Gemini &amp; Groq)</label><select id="srt"><option value="cf">Cloudflare Worker — recommended</option><option value="auto">Auto — Worker first, direct if the Worker is down</option><option value="direct">Direct from the browser (no Worker)</option></select>
+ <div id="cfbox" style="margin-top:8px"><label class="lab">☁️ Connection (Gemini, Groq &amp; Cloudflare)</label><select id="srt"><option value="cf">Cloudflare Worker — recommended</option><option value="auto">Auto — Worker first, direct if the Worker is down</option><option value="direct">Direct from the browser (no Worker)</option></select>
  <label class="lab">Cloudflare Worker URL (paste a new Worker version here)</label><input class="in" id="scf" placeholder="https://your-worker.workers.dev/api/chat">
  <div class="fl"><button class="btn bs" onclick="testCF()">☁️ Test Worker</button></div><div id="cfres" style="font-size:11px;line-height:1.7"></div></div>
  <div class="fl"><button class="btn bs" onclick="testKey()">✔ Test key</button><button class="btn" onclick="saveKey()">💾 Save</button><button class="btn bs" onclick="saveKey(1)">Remove key</button></div><div id="sres" style="font-size:12px"></div></div>
@@ -478,13 +478,13 @@ function openSettings(){const p=P(),el=p.el||{};modal(`<h3>⚙ SETTINGS</h3>
  <button class="btn" style="margin-top:10px" onclick="saveGen()">Save preferences</button></div>
  <div style="font-size:11px;color:var(--t3);margin-top:12px;line-height:1.6">Keys stay in this browser's localStorage and are sent only to the provider you choose. Anyone using this browser profile could read them — use restricted keys.</div>`);
  $('sp').value=p.prov;$('em2').value=el.model||'eleven_flash_v2_5';elInit(el);$('sbg').value=p.bg||'zen';spc()}
-const MODELS={gemini:['gemini-2.5-flash','gemini-2.5-pro','gemini-2.5-flash-lite','gemini-2.0-flash'],openai:['gpt-4o-mini','gpt-4o','gpt-4.1','gpt-4.1-mini','o4-mini'],groq:['llama-3.3-70b-versatile','llama-3.1-8b-instant','meta-llama/llama-4-scout-17b-16e-instruct'],claude:['claude-sonnet-4-5','claude-haiku-4-5','claude-opus-4-1']};
-const CAPS={free:'💬 Chat ✅ · 💻 Website code ✅',gemini:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live Google search ✅',openai:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live web search ✅',groq:'💬 Chat ✅ · 💻 Website code ✅',claude:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live web search ✅'};
+const MODELS={gemini:['gemini-2.5-flash','gemini-2.5-pro','gemini-2.5-flash-lite','gemini-2.0-flash'],openai:['gpt-4o-mini','gpt-4o','gpt-4.1','gpt-4.1-mini','o4-mini'],groq:['llama-3.3-70b-versatile','llama-3.1-8b-instant','meta-llama/llama-4-scout-17b-16e-instruct'],claude:['claude-sonnet-4-5','claude-haiku-4-5','claude-opus-4-1'],cloudflare:['@cf/meta/llama-3.3-70b-instruct-fp8-fast','@cf/meta/llama-3.1-8b-instruct','@cf/meta/llama-4-scout-17b-16e-instruct','@cf/mistral/mistral-small-3.1-24b-instruct','@cf/google/gemma-3-12b-it','@cf/qwen/qwq-32b','@cf/openai/gpt-oss-120b']};
+const CAPS={free:'💬 Chat ✅ · 💻 Website code ✅',gemini:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live Google search ✅',openai:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live web search ✅',groq:'💬 Chat ✅ · 💻 Website code ✅',claude:'💬 Chat ✅ · 💻 Website code ✅ · 🔎 live web search ✅',cloudflare:'💬 Chat ✅ · 💻 Website code ✅ · ☁️ runs on your own Cloudflare Worker (Workers AI) — no AI key needed; the key box is only an optional Worker access key'};
 function spc(){const v=$('sp').value,mo=(P().models||{})[v]||'',ml=MODELS[v]||[];$('sk').value=P().keys[v]||'';$('sk').disabled=v=='free';$('smo').value=mo;$('smo').disabled=$('smp').disabled=v=='free';
  $('smp').innerHTML='<option value="">Default model</option>'+ml.map(m=>`<option value="${m}">${m}</option>`).join('');$('smp').value=ml.includes(mo)?mo:'';
- $('scap').textContent='One key, everything — '+(CAPS[v]||'');$('cfbox').style.display=(v=='gemini'||v=='groq')?'':'none';$('srt').value=routeOf(v);$('scf').value=((P().cf||{}).url)||'';$('scf').placeholder=CLOUDFLARE_API}
+ $('scap').textContent='One key, everything — '+(CAPS[v]||'');$('cfbox').style.display=(v=='gemini'||v=='groq'||v=='cloudflare')?'':'none';$('srt').value=v=='cloudflare'?'cf':routeOf(v);$('srt').disabled=v=='cloudflare';$('scf').value=((P().cf||{}).url)||'';$('scf').placeholder=CLOUDFLARE_API}
 async function testKey(){const v=$('sp').value,k=cleanKey($('sk').value),r=$('sres');r.style.color='var(--t2)';
- if(v=='free'){r.textContent='✅ Free provider needs no key.';return}if(!k){r.textContent='⚠️ Paste a key first.';return}
+ if(v=='free'){r.textContent='✅ Free provider needs no key.';return}if(!k&&v!='cloudflare'){r.textContent='⚠️ Paste a key first.';return}
  if(v=='gemini'&&!/^(AIza|AQ\.)/.test(k)){r.textContent='⚠️ Gemini keys start with "AQ." or "AIza" — get one at aistudio.google.com/apikey';r.style.color='var(--a)';return}
  if(v=='groq'&&!/^gsk_/.test(k)){r.textContent='⚠️ Groq keys start with "gsk_" — get one at console.groq.com/keys';r.style.color='var(--a)';return}
  saveRoute();r.textContent='Testing '+PROV[v].n+'…';
@@ -645,7 +645,7 @@ function openWho(){const m=loginMethod(),role=isBoss(me)?'👑 Boss — creator 
  
 /* ---- SMART CONTEXT: full history stays saved; each request = system + rolling summary of old parts + recent messages that fit the provider budget ---- */
 /* Input-token budgets per request. Deliberately below the real model limits (Groq's free tier allows only ~6–12k tokens/minute). The quota/context limits of the providers still exist. */
-const CTX_BUDGET={free:12000,groq:7000,gemini:60000,openai:48000,claude:60000};
+const CTX_BUDGET={free:12000,groq:7000,gemini:60000,openai:48000,claude:60000,cloudflare:10000};
 const estTok=t=>{t=String(t||'');let a=0,n=0;for(let i=0;i<t.length;i++){t.charCodeAt(i)<128?a++:n++}return Math.ceil(a/3.6+n*0.9)+4};
 const cfUrl=()=>{const u=String(((P().cf||{}).url)||'').trim();return /^https:\/\/\S+$/.test(u)?u:CLOUDFLARE_API}; /* Worker address: your own (Settings) or the built-in default */
 const routeOf=pv=>((P().route||{})[pv])||'cf'; /* cf = Cloudflare Worker · auto = Worker, then direct · direct = straight to the provider */
@@ -659,7 +659,7 @@ async function rollSummary(eff,prev,old,B){
   sm=String(await ask([{role:'user',content:'PREVIOUS SUMMARY:\n'+(sm||'(none)')+'\n\nNEW MESSAGES:\n'+ch.join('\n')}],SUMP,pv)).trim();if(!sm)throw Error('empty summary')}
  return sm}
 async function ctxPlan(sys,hist,f){
- const p=P(),key=cleanKey(p.keys[p.prov]),eff=(!key||p.prov=='free')?'free':p.prov,B=Math.floor((CTX_BUDGET[eff]||12000)*f),c=chats[cid];
+ const p=P(),key=cleanKey(p.keys[p.prov]),eff=(p.prov=='free'||(!key&&p.prov!='cloudflare'))?'free':p.prov,B=Math.floor((CTX_BUDGET[eff]||12000)*f),c=chats[cid];
  const msgs=hist.map((m,i)=>({i,role:m.role,content:stripGL(m.content)})).filter(m=>m.content&&!/^⚠️/.test(String(m.content))),cost=m=>estTok(m.content);
  let n=(c&&c.sum&&c.sum.n)||0,sm=(c&&c.sum&&c.sum.t)||'';
  const room=()=>B-1500-estTok(sys)-(sm?estTok(sm)+40:0);
@@ -677,12 +677,12 @@ async function ctxPlan(sys,hist,f){
  return{sys:sm?sys+'\n\nSUMMARY OF THE EARLIER PART OF THIS CONVERSATION (older messages were condensed to save tokens; treat it as things that were really said):\n'+sm:sys,msgs:sent.map(m=>({role:m.role,content:m.content}))}}
 async function askCtx(im,wq){let le;for(const f of[1,0.5]){try{const pl=await ctxPlan(sysP(),chatHistory,f);return await ask(pl.msgs,pl.sys,null,null,im,wq)}catch(e){le=e;if(f==1&&CTXERR.test(String(e&&e.message)))continue;throw e}}throw le}
  
-function saveRoute(){const p=P(),v=$('sp').value;if(v!='gemini'&&v!='groq')return;p.route=Object.assign({},p.route);p.route[v]=$('srt').value;const u=$('scf').value.trim();p.cf=Object.assign({},p.cf,{url:/^https:\/\/\S+$/.test(u)?u:''});W('hx_p_'+me,p)}
+function saveRoute(){const p=P(),v=$('sp').value;if(v!='gemini'&&v!='groq'&&v!='cloudflare')return;p.route=Object.assign({},p.route);p.route[v]=$('srt').value;const u=$('scf').value.trim();p.cf=Object.assign({},p.cf,{url:/^https:\/\/\S+$/.test(u)?u:''});W('hx_p_'+me,p)}
 async function testCF(){saveRoute();const v=$('sp').value,k=cleanKey($('sk').value),o=$('cfres'),url=cfUrl(),ac=new AbortController(),to=setTimeout(()=>ac.abort(),15000);o.style.color='var(--t2)';o.textContent='Contacting '+url+' …';
- try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({provider:v=='groq'?'groq':'gemini',apiKey:k||'test',model:v=='groq'?PROV.groq.m:'gemini-2.5-flash',messages:[{role:'user',content:'Reply with the single word OK'}]}),signal:ac.signal}),j=await r.json().catch(()=>null);
+ try{const r=await fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({provider:(v=='groq'||v=='cloudflare')?v:'gemini',apiKey:k||(v=='cloudflare'?'':'test'),model:v=='groq'?PROV.groq.m:v=='cloudflare'?PROV.cloudflare.m:'gemini-2.5-flash',messages:[{role:'user',content:'Reply with the single word OK'}]}),signal:ac.signal}),j=await r.json().catch(()=>null);
   if(!j){o.textContent='⚠️ The address answered (HTTP '+r.status+') but not with JSON — is this the /api/chat address of your Worker?';o.style.color='var(--a)';return}
   const tx=j.text??j.response??j.reply??j.output??(j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content);
-  if(r.ok&&j.success!==false&&tx){o.textContent='✅ Worker and '+(v=='groq'?'Groq':'Gemini')+' key work. Reply: '+String(tx).slice(0,40);o.style.color='var(--g)'}
+  if(r.ok&&j.success!==false&&tx){o.textContent=(v=='cloudflare'?'✅ Worker and Workers AI work. Reply: ':'✅ Worker and '+(v=='groq'?'Groq':'Gemini')+' key work. Reply: ')+String(tx).slice(0,40);o.style.color='var(--g)'}
   else{const e=j.error,raw=String((e&&(e.message||(typeof e=='string'?e:JSON.stringify(e))))||j.message||'HTTP '+r.status);o.textContent='✅ Worker is reachable. '+(k?'The provider says: ':'(no key typed) The provider says: ')+raw.slice(0,160);o.style.color=k?'var(--r)':'var(--g)'}}
  catch(e){o.textContent='❌ Cannot reach the Worker ('+(e&&e.name=='AbortError'?'timeout':'connection / CORS')+'). Check the URL and that the Worker allows this website in CORS.';o.style.color='var(--r)'}
  finally{clearTimeout(to)}}
